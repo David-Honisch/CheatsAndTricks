@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="18">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>215</ID>
+      <Description>"[Enable]"</Description>
+      <Options moHideChildren="1"/>
+      <LastState Activated="0"/>
+      <Color>000080</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+
+aobscanmodule( qwMenu_AOB, ACS.exe, 48895C240848896C241048897424185741544155415641574883EC604C8B05D5D82406 )
+label( qwMenu )
+registersymbol( qwMenu )
+qwMenu_AOB:
+qwMenu:
+
+aobscanmodule( GodMode_AOB, ACS.exe, 48895C241848896C2420574883EC20488B5A20498BE88BF94885DB0F8485000000 )
+label( GodMode )
+registersymbol( GodMode )
+GodMode_AOB:
+GodMode:
+
+alloc( pMenu, 4)
+registersymbol( pMenu )
+
+[DISABLE]
+
+unregistersymbol( pMenu )
+dealloc( pMenu )
+unregistersymbol( GodMode )
+unregistersymbol( qwMenu )
+</AssemblerScript>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>221</ID>
+          <Description>"HookWithHWBreakpoint"</Description>
+          <Options moHideChildren="1"/>
+          <LastState Activated="0"/>
+          <Color>80000008</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+
+{$lua}
+
+pHook = getAddress( "qwMenu" )
+pStorage = getAddress( "pMenu" )
+
+debugProcess()
+
+function debugger_onBreakpoint()
+  writeQword( pStorage, RCX )
+  debug_continueFromBreakpoint( co_run )
+  return 1
+end
+
+debug_setBreakpoint( pHook )
+
+{$asm}
+
+[DISABLE]
+
+{$lua}
+
+debug_removeBreakpoint( pHook )
+
+{$asm}
+</AssemblerScript>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>222</ID>
+              <Description>"pMenu"</Description>
+              <LastState Value="??" Activated="0" RealAddress="27AD0000"/>
+              <ShowAsHex>1</ShowAsHex>
+              <Color>80000008</Color>
+              <VariableType>4 Bytes</VariableType>
+              <Address>pMenu</Address>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>216</ID>
+          <Description>"CheatHandler"</Description>
+          <LastState Activated="0"/>
+          <Color>80000008</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+
+alloc( KeyHandlerThread, 2048 )
+registersymbol( KeyHandlerThread )
+CreateThread( KeyHandlerThread )
+alloc( KeyHandlerOff, 4 )
+registersymbol( KeyHandlerOff )
+label( ExitKeyHandler )
+label( KeyHandlerThread_loop )
+
+// functions list start
+
+label( GodMode_do )
+
+// end of Functions list
+
+KeyHandlerOff:
+dd 0
+
+KeyHandlerThread:
+sub rsp,28
+
+KeyHandlerThread_loop:
+mov rcx,0a
+call Sleep
+
+cmp [KeyHandlerOff],1
+je ExitKeyHandler
+
+cmp [pMenu],0
+je KeyHandlerThread_loop
+
+mov rcx,60 // VK_NUMPAD0
+call GetAsyncKeyState
+test ax,ax
+jne GodMode_do
+
+jmp KeyHandlerThread_loop
+
+//******************************************
+//*                                        *
+//*          Debug Menu Functions          *
+//*                                        *
+//******************************************
+
+GodMode_do:
+mov rdx,[pMenu]
+mov rcx,1
+call GodMode
+mov rcx,C8
+call Sleep
+jmp KeyHandlerThread_loop
+
+ExitKeyHandler:
+add rsp,28
+mov [KeyHandlerOff],2
+ret
+
+[DISABLE]
+
+{$lua}
+
+if( syntaxcheck == false ) then --actual execution
+  local starttime = getTickCount()
+
+if readInteger( "KeyHandlerOff" ) == 0 then --could be 2 already
+  writeInteger( "KeyHandlerOff", 1 ) --tell the thread to kill itself
+end
+
+while( getTickCount() &lt; starttime + 1000 ) and ( readInteger( "KeyHandlerOff" ) ~=2 ) do --wait till it has finished
+  sleep( 20 )
+end
+
+if( getTickCount() &gt; starttime + 1000 ) then --could happen when the window is shown
+  showMessage( 'Disabling the thread failed!' )
+  error( 'Thread disabling failed!' )
+end
+  sleep( 1 )
+end
+
+{$asm}
+
+unregistersymbol( KeyHandlerOff )
+dealloc( KeyHandlerOff )
+unregistersymbol( KeyHandlerThread )
+dealloc( KeyHandlerThread )
+</AssemblerScript>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols>
+    <SymbolEntry>
+      <Name>Toggler</Name>
+      <Address>08D80500</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>pRefill</Name>
+      <Address>02713B80</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>pRefil1</Name>
+      <Address>019E8A1C</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>dwRefillPlayerHealth</Name>
+      <Address>019DA330</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>SetForTeleport</Name>
+      <Address>17AD00AA</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>MarkerAddress</Name>
+      <Address>015F99B0</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>XYZAddress</Name>
+      <Address>0047A109</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>GetPlayerCoordinatesHook</Name>
+      <Address>0AC50059</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>PlayerCoordsPtr</Name>
+      <Address>0AC500FE</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>SetForObjectTeleport</Name>
+      <Address>0AC50116</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>SetForTargetTeleport</Name>
+      <Address>0AC5011A</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>TargetCoordinateX</Name>
+      <Address>0AC50102</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>TargetCoordinateY</Name>
+      <Address>0AC50106</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>TargetCoordinateZ</Name>
+      <Address>0AC5010A</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>MapCoordinateX</Name>
+      <Address>0AC5010E</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>MapCoordinateY</Name>
+      <Address>0AC50112</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>luainit</Name>
+      <Address>08730000</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>LuaFunctionCall</Name>
+      <Address>08730080</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>luaserverinitialized</Name>
+      <Address>08730100</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>luaservername</Name>
+      <Address>08730110</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>FreeRunningJump</Name>
+      <Address>140EF6A00</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>ResetConflict</Name>
+      <Address>140EF6DB0</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>DecreaseNotoriety</Name>
+      <Address>140EF6170</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>IncreaseNotoriety</Name>
+      <Address>140EF69E0</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>UnfogMap</Name>
+      <Address>140EF7720</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>UnlockAllWorldUpgrades</Name>
+      <Address>140EF77E0</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>Invisible</Name>
+      <Address>140EF6DD0</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>SetMaxAssassinRank</Name>
+      <Address>140EF6EA0</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>UnlockAllCompanionRewards</Name>
+      <Address>140EF7760</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>ShowGearStatModifier</Name>
+      <Address>140EF6F30</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>CycleForwardSkillsTreePreset</Name>
+      <Address>140EF6080</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>CycleBackwardSkillsTreePreset</Name>
+      <Address>140EF5FD0</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>ShowSkillsTreePreset</Name>
+      <Address>140EF7020</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>TeleportLanternNearPlayer</Name>
+      <Address>140EF7410</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>EnableAssassinCollisionWithTriggerZones</Name>
+      <Address>140EF7420</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>UnlockAndGainAllWorldUpgrades</Name>
+      <Address>140EF78A0</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>ToggleFullProgressTrackerUnlock</Name>
+      <Address>140EF7680</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>LockAllWorldUpgrades</Name>
+      <Address>140EF6A20</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>pBase</Name>
+      <Address>140EA52A0</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>TogglePlayerVanish</Name>
+      <Address>140EF75D0</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>RefillAllEquipment</Name>
+      <Address>140EF6D60</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>RefillPlayerHealth</Name>
+      <Address>140EF6D80</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>TriggerMissionFailure</Name>
+      <Address>140EF6380</Address>
+    </SymbolEntry>
+  </UserdefinedSymbols>
+</CheatTable>

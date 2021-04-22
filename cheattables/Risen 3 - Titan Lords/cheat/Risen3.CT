@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="18">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>12</ID>
+      <Description>"GodMode"</Description>
+      <LastState Value="??" Activated="1" RealAddress="00000000"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"Risen3.exe"+00DAD394</Address>
+      <Offsets>
+        <Offset>70</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>0</ID>
+      <Description>"Health"</Description>
+      <LastState Value="??" Activated="0" RealAddress="10855C6C"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>10855C6C</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>18</ID>
+      <Description>"Munition"</Description>
+      <LastState Value="??" Activated="1" RealAddress="00000000"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"Risen3.exe"+00E217C4</Address>
+      <Offsets>
+        <Offset>18C</Offset>
+        <Offset>578</Offset>
+        <Offset>8</Offset>
+        <Offset>640</Offset>
+        <Offset>30</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>17</ID>
+      <Description>"No description"</Description>
+      <LastState Value="??" Activated="0" RealAddress="175FAA9C"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>175FAA9C</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>1</ID>
+      <Description>"No description"</Description>
+      <LastState Value="??" Activated="0" RealAddress="10855C38"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>10855C38</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>2</ID>
+      <Description>"No description"</Description>
+      <LastState Value="??" Activated="0" RealAddress="036615F4"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>036615F4</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>5</ID>
+      <Description>"No description"</Description>
+      <LastState Value="??" Activated="0" RealAddress="036615F8"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>036615F8</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>6</ID>
+      <Description>"No description"</Description>
+      <LastState Value="??" Activated="0" RealAddress="03BA15F4"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>03BA15F4</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>7</ID>
+      <Description>"No description"</Description>
+      <LastState Value="??" Activated="0" RealAddress="167BF5FC"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>167BF5FC</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>8</ID>
+      <Description>"No description"</Description>
+      <LastState Value="??" Activated="0" RealAddress="159DBC08"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>159DBC08</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>9</ID>
+      <Description>"No description"</Description>
+      <LastState Value="??" Activated="0" RealAddress="0E09B2EC"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>0E09B2EC</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>10</ID>
+      <Description>"No description"</Description>
+      <LastState Value="??" Activated="0" RealAddress="3CEA17CC"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>3CEA17CC</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>11</ID>
+      <Description>"No description"</Description>
+      <LastState Value="??" Activated="0" RealAddress="037F15F4"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>037F15F4</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>19</ID>
+      <Description>"Ruhm"</Description>
+      <LastState Value="??" Activated="0" RealAddress="044815F8"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>044815F8</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>4</ID>
+      <Description>"pointerscan result"</Description>
+      <LastState Value="??" Activated="0" RealAddress="00000000"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"Risen3.exe"+000B5990</Address>
+      <Offsets>
+        <Offset>6E4</Offset>
+        <Offset>63C</Offset>
+        <Offset>120</Offset>
+        <Offset>16C</Offset>
+        <Offset>718</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>13</ID>
+      <Description>"pointerscan result"</Description>
+      <LastState Value="??" Activated="0" RealAddress="00000000"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"Risen3.exe"+00DAE01C</Address>
+      <Offsets>
+        <Offset>188</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>14</ID>
+      <Description>"pointerscan result"</Description>
+      <LastState Value="??" Activated="0" RealAddress="00000000"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"Risen3.exe"+00DAE054</Address>
+      <Offsets>
+        <Offset>38C</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>15</ID>
+      <Description>"pointerscan result"</Description>
+      <LastState Value="??" Activated="0" RealAddress="00000000"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"Risen3.exe"+00DDABDC</Address>
+      <Offsets>
+        <Offset>38C</Offset>
+        <Offset>4</Offset>
+        <Offset>B0</Offset>
+        <Offset>60</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>16</ID>
+      <Description>"pointerscan result"</Description>
+      <LastState Value="??" Activated="0" RealAddress="00000000"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"Risen3.exe"+00DDABDC</Address>
+      <Offsets>
+        <Offset>38C</Offset>
+        <Offset>4</Offset>
+        <Offset>B0</Offset>
+        <Offset>60</Offset>
+        <Offset>88</Offset>
+      </Offsets>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+</CheatTable>

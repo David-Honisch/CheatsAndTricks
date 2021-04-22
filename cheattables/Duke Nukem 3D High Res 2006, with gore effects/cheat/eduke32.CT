@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="31">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>2</ID>
+      <Description>"godmode"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"eduke32.exe"+00D13F20</Address>
+      <Offsets>
+        <Offset>198</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>5</ID>
+      <Description>"pointerscan result"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"eduke32.exe"+00D13F20</Address>
+      <Offsets>
+        <Offset>1B8</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>0</ID>
+      <Description>"No description"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>21D5E2CB198</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>1</ID>
+      <Description>"No description"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>21D5E2CB178</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>3</ID>
+      <Description>"pointerscan result"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"THREADSTACK0"-000004B8</Address>
+      <Offsets>
+        <Offset>198</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>4</ID>
+      <Description>"pointerscan result"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"THREADSTACK0"-00000468</Address>
+      <Offsets>
+        <Offset>198</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>6</ID>
+      <Description>"No description"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>21D5E2CB178</Address>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+</CheatTable>

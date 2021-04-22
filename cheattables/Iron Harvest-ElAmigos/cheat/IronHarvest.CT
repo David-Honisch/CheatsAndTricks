@@ -1,0 +1,666 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="29">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>4</ID>
+      <Description>"Mono Scripts"</Description>
+      <Options moHideChildren="1"/>
+      <LastState Activated="1"/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+usemono()
+[DISABLE]
+
+</AssemblerScript>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>3</ID>
+          <Description>"Unlimited Health (turn off and on twice)"</Description>
+          <LastState Activated="1"/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+aobscanregion(health,Basis.Simulation.Combat:DamageModelCore:get_Health,Basis.Simulation.Combat:DamageModelCore:get_Health+100,48 8B C1 48 63)
+alloc(newmem,$1000,health)
+
+getmonostruct(h,Basis.Simulation.Combat:DamageModelCore)
+registersymbol(&lt;Health&gt;k__BackingField)
+registersymbol(&lt;MaxHealth&gt;k__BackingField)
+getmonostruct(u,Basis.Simulation.Entities.Units:Unit)
+registersymbol(&lt;Faction&gt;k__BackingField)
+
+label(current)
+label(maximum)
+label(faction)
+label(healthBkp)
+label(return)
+
+&lt;Health&gt;k__BackingField:
+current:
+&lt;MaxHealth&gt;k__BackingField:
+maximum:
+&lt;Faction&gt;k__BackingField:
+faction:
+
+newmem:
+  mov rax,[rcx+_owner]
+  cmp byte ptr [rax+faction],1
+  jne @f
+  movsxd rax,dword ptr [rcx+maximum]
+  mov dword ptr [rcx+current],eax
+  jmp return
+healthBkp:
+  readmem(health,7)
+  jmp return
+
+health:
+  jmp newmem
+  nop 2
+return:
+registersymbol(health)
+registersymbol(healthBkp)
+
+[DISABLE]
+health:
+  readmem(healthBkp,7)
+unregistersymbol(health)
+unregistersymbol(healthBkp)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: 1CE7DD04098
+
+1CE7DD04080: 00 00                          -  add [rax],al
+1CE7DD04082: 00 00                          -  add [rax],al
+1CE7DD04084: 00 00                          -  add [rax],al
+1CE7DD04086: 00 00                          -  add [rax],al
+1CE7DD04088: 00 00                          -  add [rax],al
+1CE7DD0408A: 00 00                          -  add [rax],al
+1CE7DD0408C: 00 00                          -  add [rax],al
+1CE7DD0408E: 00 00                          -  add [rax],al
+1CE7DD04090: 48 83 EC 08                    -  sub rsp,08
+1CE7DD04094: 48 89 0C 24                    -  mov [rsp],rcx
+// ---------- INJECTING HERE ----------
+1CE7DD04098: 48 8B C1                       -  mov rax,rcx
+1CE7DD0409B: 48 63 40 30                    -  movsxd  rax,dword ptr [rax+30]
+// ---------- DONE INJECTING  ----------
+1CE7DD0409F: 48 83 C4 08                    -  add rsp,08
+1CE7DD040A3: C3                             -  ret 
+1CE7DD040A4: 00 00                          -  add [rax],al
+1CE7DD040A6: 00 00                          -  add [rax],al
+1CE7DD040A8: 01 04 01                       -  add [rcx+rax],eax
+1CE7DD040AB: 00 04 02                       -  add [rdx+rax],al
+1CE7DD040AE: 00 00                          -  add [rax],al
+1CE7DD040B0: 00 00                          -  add [rax],al
+1CE7DD040B2: 00 00                          -  add [rax],al
+1CE7DD040B4: 00 00                          -  add [rax],al
+}
+</AssemblerScript>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>18</ID>
+      <Description>"Unlimited Population (train a unit before activating)"</Description>
+      <LastState/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript Async="1">//Basis.Simulation.Production:ResourceSystem:PopulationLimitReached+1a
+//Basis.Simulation.Production:ResourceSystem:UpdatePopulation+2d6
+[ENABLE]
+aobscan(population,48 8B 06 FF 50 ?? 85 C0 0F 8E)
+alloc(newmem,$1000,population)
+
+label(populationBkp)
+label(return)
+
+newmem:
+  cmp byte ptr[rdx+28],1
+  jne @f
+  xor rax,rax
+  test eax,eax
+  jmp return
+populationBkp:
+  readmem(population+03,5)
+  jmp return
+
+population+03:
+  jmp newmem
+return:
+registersymbol(population)
+registersymbol(populationBkp)
+
+// -----
+
+aobscan(population2,41 FF ?? 48 8B ?? 48 63 8D ?? FF FF FF 33 C0)
+alloc(newmem2,$1000,population2)
+
+label(population2Bkp)
+label(return2)
+
+newmem2:
+  cmp dl,1
+  jne @f
+  xor rax,rax
+population2Bkp:
+  readmem(population2+03,10)
+  jmp return2
+
+population2+03:
+  jmp newmem2
+  nop 5
+return2:
+registersymbol(population2)
+registersymbol(population2Bkp)
+
+[DISABLE]
+population+03:
+  readmem(populationBkp,5)
+unregistersymbol(population)
+unregistersymbol(populationBkp)
+dealloc(newmem)
+
+population2+03:
+  readmem(population2Bkp,10)
+unregistersymbol(population2)
+unregistersymbol(population2Bkp)
+dealloc(newmem2)
+
+{
+// ORIGINAL CODE - INJECTION POINT: 292A2D56B20
+
+292A2D56B00: 55                             -  push rbp
+292A2D56B01: 48 8B EC                       -  mov rbp,rsp
+292A2D56B04: 48 83 EC 50                    -  sub rsp,50
+292A2D56B08: 48 89 75 E8                    -  mov [rbp-18],rsi
+292A2D56B0C: 48 89 7D F0                    -  mov [rbp-10],rdi
+292A2D56B10: 4C 89 7D F8                    -  mov [rbp-08],r15
+292A2D56B14: 48 8B FA                       -  mov rdi,rdx
+292A2D56B17: 49 8B F0                       -  mov rsi,r8
+292A2D56B1A: 48 8B CE                       -  mov rcx,rsi
+292A2D56B1D: 48 8B 06                       -  mov rax,[rsi]
+// ---------- INJECTING HERE ----------
+292A2D56B20: FF 50 68                       -  call qword ptr [rax+68]
+292A2D56B23: 85 C0                          -  test eax,eax
+// ---------- DONE INJECTING  ----------
+292A2D56B25: 0F 8E 62 00 00 00              -  jng 292A2D56B8D
+292A2D56B2B: 48 8B CF                       -  mov rcx,rdi
+292A2D56B2E: BA 04 00 00 00                 -  mov edx,00000004
+292A2D56B33: 83 3F 00                       -  cmp dword ptr [rdi],00
+292A2D56B36: 49 BB B0 21 B3 7C 91 02 00 00  -  mov r11,000002917CB321B0
+292A2D56B40: 41 FF D3                       -  call r11
+292A2D56B43: 4C 8B F8                       -  mov r15,rax
+292A2D56B46: 85 C0                          -  test eax,eax
+292A2D56B48: 0F 8C 3F 00 00 00              -  jl 292A2D56B8D
+292A2D56B4E: 48 8B CF                       -  mov rcx,rdi
+}
+
+{
+// ORIGINAL CODE - INJECTION POINT: 292A5D8FCF3
+
+292A5D8FCC5: 48 B8 D0 DA 43 A1 90 02 00 00     -  mov rax,00000290A143DAD0
+292A5D8FCCF: 48 8B 00                          -  mov rax,[rax]
+292A5D8FCD2: 4C 8B C5                          -  mov r8,rbp
+292A5D8FCD5: 49 81 C0 30 FF FF FF              -  add r8,FFFFFFFFFFFFFF30
+292A5D8FCDC: 48 8B C8                          -  mov rcx,rax
+292A5D8FCDF: 49 8B D4                          -  mov rdx,r12
+292A5D8FCE2: 83 38 00                          -  cmp dword ptr [rax],00
+292A5D8FCE5: 90                                -  nop
+292A5D8FCE6: 49 BB 70 84 9C 7F 91 02 00 00     -  mov r11,000002917F9C8470
+292A5D8FCF0: 41 FF D3                          -  call r11
+// ---------- INJECTING HERE ----------
+292A5D8FCF3: 48 8B D0                          -  mov rdx,rax
+292A5D8FCF6: 48 63 8D 30 FF FF FF              -  movsxd  rcx,dword ptr [rbp-000000D0]
+// ---------- DONE INJECTING  ----------
+292A5D8FCFD: 33 C0                             -  xor eax,eax
+292A5D8FCFF: 85 D2                             -  test edx,edx
+292A5D8FD01: 48 0F 45 C1                       -  cmovne rax,rcx
+292A5D8FD05: 89 85 38 FF FF FF                 -  mov [rbp-000000C8],eax
+292A5D8FD0B: 48 89 44 24 20                    -  mov [rsp+20],rax
+292A5D8FD10: 48 C7 44 24 28 FF FF FF FF        -  mov qword ptr [rsp+28],FFFFFFFFFFFFFFFF
+292A5D8FD19: 48 8B 8D 10 FF FF FF              -  mov rcx,[rbp-000000F0]
+292A5D8FD20: 48 8B D3                          -  mov rdx,rbx
+292A5D8FD23: 41 B8 04 00 00 00                 -  mov r8d,00000004
+292A5D8FD29: 41 B9 06 00 00 00                 -  mov r9d,00000006
+}
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>34</ID>
+      <Description>"Units Not Visible"</Description>
+      <LastState/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript Async="1">//Basis.Simulation.Entities.Units:Unit:IsVisibleFor+2a
+[ENABLE]
+aobscan(visible,C1 85 C0 40 0F 97 C0 48 0F B6 C0 48 83)
+alloc(newmem,$1000,visible)
+
+label(code)
+label(return)
+
+newmem:
+  cmp byte ptr [rsp+08],1
+  je code
+  xor eax,eax
+  jmp return
+code:
+  test eax,eax
+  seta al
+  jmp return
+
+visible+01:
+  jmp newmem
+  nop
+return:
+registersymbol(visible)
+
+[DISABLE]
+visible+01:
+  db 85 C0 40 0F 97 C0
+unregistersymbol(visible)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: 20AEF0E759A
+
+20AEF0E7574: 48 89 0C 24                    -  mov [rsp],rcx
+20AEF0E7578: 48 89 54 24 08                 -  mov [rsp+08],rdx
+20AEF0E757D: 48 8B C1                       -  mov rax,rcx
+20AEF0E7580: 8B 80 BC 00 00 00              -  mov eax,[rax+000000BC]
+20AEF0E7586: BA 01 00 00 00                 -  mov edx,00000001
+20AEF0E758B: 0F B6 4C 24 08                 -  movzx ecx,byte ptr [rsp+08]
+20AEF0E7590: 83 E1 1F                       -  and ecx,1F
+20AEF0E7593: D3 E2                          -  shl edx,cl
+20AEF0E7595: 48 8B CA                       -  mov rcx,rdx
+20AEF0E7598: 23 C1                          -  and eax,ecx
+// ---------- INJECTING HERE ----------
+20AEF0E759A: 85 C0                          -  test eax,eax
+20AEF0E759C: 40 0F 97 C0                    -  seta al
+// ---------- DONE INJECTING  ----------
+20AEF0E75A0: 48 0F B6 C0                    -  movzx rax,al
+20AEF0E75A4: 48 83 C4 18                    -  add rsp,18
+20AEF0E75A8: C3                             -  ret 
+20AEF0E75A9: 00 00                          -  add [rax],al
+20AEF0E75AB: 00 00                          -  add [rax],al
+20AEF0E75AD: 00 00                          -  add [rax],al
+20AEF0E75AF: 00 01                          -  add [rcx],al
+20AEF0E75B1: 04 01                          -  add al,01
+20AEF0E75B3: 00 04 22                       -  add [rdx],al
+20AEF0E75B6: 00 00                          -  add [rax],al
+}
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>38</ID>
+      <Description>"Units Always Stealthed"</Description>
+      <LastState/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript Async="1">//Basis.Simulation.Entities.Units:Unit:get_IsStealthed+18
+[ENABLE]
+aobscan(stealth,05 00 00 25 00 40 00 00)
+alloc(newmem,$1000,stealth)
+
+label(code)
+label(return)
+
+newmem:
+  cmp byte ptr [rsi+DC],1
+  jne code
+  or eax,00004000
+  jmp return
+code:
+  and eax,00004000
+  jmp return
+
+stealth+03:
+  jmp newmem
+return:
+registersymbol(stealth)
+
+[DISABLE]
+
+stealth+03:
+  db 25 00 40 00 00
+
+unregistersymbol(stealth)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: 20D14CEEFA8
+
+20D14CEEF8A: 00 00                          -  add [rax],al
+20D14CEEF8C: 00 00                          -  add [rax],al
+20D14CEEF8E: 00 00                          -  add [rax],al
+20D14CEEF90: 55                             -  push rbp
+20D14CEEF91: 48 8B EC                       -  mov rbp,rsp
+20D14CEEF94: 48 83 EC 30                    -  sub rsp,30
+20D14CEEF98: 48 89 75 F8                    -  mov [rbp-08],rsi
+20D14CEEF9C: 48 8B F1                       -  mov rsi,rcx
+20D14CEEF9F: 48 8B 06                       -  mov rax,[rsi]
+20D14CEEFA2: FF 90 E8 05 00 00              -  call qword ptr [rax+000005E8]
+// ---------- INJECTING HERE ----------
+20D14CEEFA8: 25 00 40 00 00                 -  and eax,00004000
+// ---------- DONE INJECTING  ----------
+20D14CEEFAD: 3D 00 40 00 00                 -  cmp eax,00004000
+20D14CEEFB2: 40 0F 94 C0                    -  sete al
+20D14CEEFB6: 48 0F B6 C0                    -  movzx rax,al
+20D14CEEFBA: 48 8B 75 F8                    -  mov rsi,[rbp-08]
+20D14CEEFBE: 48 8D 65 00                    -  lea rsp,[rbp+00]
+20D14CEEFC2: 5D                             -  pop rbp
+20D14CEEFC3: C3                             -  ret 
+20D14CEEFC4: 00 00                          -  add [rax],al
+20D14CEEFC6: 00 00                          -  add [rax],al
+20D14CEEFC8: 01 04 02                       -  add [rdx+rax],eax
+}
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>27</ID>
+      <Description>"Build Fast"</Description>
+      <LastState/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript Async="1">//Basis.Simulation.Entities.Modules:ConstructableModule:UpdateConstructionProgress+13
+[ENABLE]
+aobscan(fastBuild,55 E8 F3 0F 10 47 30)
+fastBuild+06:
+  db 2C
+registersymbol(fastBuild)
+
+[DISABLE]
+fastBuild+06:
+  db 30
+unregistersymbol(fastBuild)
+
+{
+// ORIGINAL CODE - INJECTION POINT: 21B53DF85D3
+
+21B53DF85B8: 00 00                          -  add [rax],al
+21B53DF85BA: 00 00                          -  add [rax],al
+21B53DF85BC: 00 00                          -  add [rax],al
+21B53DF85BE: 00 00                          -  add [rax],al
+21B53DF85C0: 55                             -  push rbp
+21B53DF85C1: 48 8B EC                       -  mov rbp,rsp
+21B53DF85C4: 48 83 EC 40                    -  sub rsp,40
+21B53DF85C8: 48 89 7D F8                    -  mov [rbp-08],rdi
+21B53DF85CC: 48 8B F9                       -  mov rdi,rcx
+21B53DF85CF: 48 89 55 E8                    -  mov [rbp-18],rdx
+// ---------- INJECTING HERE ----------
+21B53DF85D3: F3 0F 10 47 30                 -  movss xmm0,[rdi+30]
+// ---------- DONE INJECTING  ----------
+21B53DF85D8: F3 0F 5A C0                    -  cvtss2sd xmm0,xmm0
+21B53DF85DC: F2 0F 5A E8                    -  cvtsd2ss xmm5,xmm0
+21B53DF85E0: F3 0F 11 6D F4                 -  movss [rbp-0C],xmm5
+21B53DF85E5: F3 0F 10 45 F4                 -  movss xmm0,[rbp-0C]
+21B53DF85EA: F3 0F 5A C0                    -  cvtss2sd xmm0,xmm0
+21B53DF85EE: F2 0F 11 45 E0                 -  movsd [rbp-20],xmm0
+21B53DF85F3: 48 8B 47 20                    -  mov rax,[rdi+20]
+21B53DF85F7: 48 8B C8                       -  mov rcx,rax
+21B53DF85FA: 48 63 55 E8                    -  movsxd  rdx,dword ptr [rbp-18]
+21B53DF85FE: 48 8B 00                       -  mov rax,[rax]
+}
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>30</ID>
+      <Description>"Train Fast"</Description>
+      <LastState/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript Async="1">//Basis.Simulation.Entities:ProductionStructure:ProgressProduction+63
+[ENABLE]
+aobscan(trainFast,48 63 47 20 85 C0 40 0F 9F)
+alloc(newmem,$1000,trainFast)
+
+label(code)
+label(return)
+
+newmem:
+  cmp byte ptr [rsi+78],1
+  jne code
+  xor rax,rax
+  test eax,eax
+  jmp return
+code:
+  movsxd  rax,dword ptr [rdi+20]
+  test eax,eax
+  jmp return
+
+trainFast:
+  jmp newmem
+  nop
+return:
+registersymbol(trainFast)
+
+[DISABLE]
+
+trainFast:
+  db 48 63 47 20 85 C0
+
+unregistersymbol(trainFast)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: 21C7D70D966
+
+21C7D70D939: 48 8D 64 24 00                 -  lea rsp,[rsp+00]
+21C7D70D93E: 49 BB 20 1A 66 7D 1C 02 00 00  -  mov r11,0000021C7D661A20
+21C7D70D948: 41 FF D3                       -  call r11
+21C7D70D94B: 48 8B F8                       -  mov rdi,rax
+21C7D70D94E: 48 8B C8                       -  mov rcx,rax
+21C7D70D951: 83 38 00                       -  cmp dword ptr [rax],00
+21C7D70D954: 66 90                          -  nop 2
+21C7D70D956: 49 BB 40 ED DD 53 1B 02 00 00  -  mov r11,0000021B53DDED40
+21C7D70D960: 41 FF D3                       -  call r11
+21C7D70D963: 83 3F 00                       -  cmp dword ptr [rdi],00
+// ---------- INJECTING HERE ----------
+21C7D70D966: 48 63 47 20                    -  movsxd  rax,dword ptr [rdi+20]
+21C7D70D96A: 85 C0                          -  test eax,eax
+// ---------- DONE INJECTING  ----------
+21C7D70D96C: 40 0F 9F C0                    -  setg al
+21C7D70D970: 48 0F B6 C0                    -  movzx rax,al
+21C7D70D974: 85 C0                          -  test eax,eax
+21C7D70D976: 40 0F 94 C0                    -  sete al
+21C7D70D97A: 48 0F B6 C0                    -  movzx rax,al
+21C7D70D97E: 85 C0                          -  test eax,eax
+21C7D70D980: 0F 84 35 00 00 00              -  je 21C7D70D9BB
+21C7D70D986: 48 8B 86 98 00 00 00           -  mov rax,[rsi+00000098]
+21C7D70D98D: 48 8B C8                       -  mov rcx,rax
+21C7D70D990: 83 38 00                       -  cmp dword ptr [rax],00
+}
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>16</ID>
+      <Description>"Resources Pointer"</Description>
+      <Options moHideChildren="1"/>
+      <LastState/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript Async="1">//Basis.Simulation:Battle:ComputeChecksum+265
+[ENABLE]
+aobscan(resources,00 48 8B C8 49 8B D7 41 B8 01)
+alloc(newmem,$1000,resources)
+
+label(code)
+label(return)
+label(resourcesPtr)
+
+newmem:
+  mov rcx,resourcesPtr
+  mov [rcx],rax
+  mov [rcx+08],rsi
+code:
+  mov rcx,rax
+  mov rdx,r15
+  jmp return
+
+resourcesPtr:
+  dq 0
+  dq 0
+
+resources+01:
+  jmp newmem
+  nop
+return:
+registersymbol(resources)
+registersymbol(resourcesPtr)
+
+[DISABLE]
+resources+01:
+  db 48 8B C8 49 8B D7
+unregistersymbol(resources)
+unregistersymbol(resourcesPtr)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: 1EA616B8ED5
+
+1EA616B8EA0: 48 8D 64 24 00                 -  lea rsp,[rsp+00]
+1EA616B8EA5: 90                             -  nop 
+1EA616B8EA6: 49 BB C0 ED 6A 61 EA 01 00 00  -  mov r11,000001EA616AEDC0
+1EA616B8EB0: 41 FF D3                       -  call r11
+1EA616B8EB3: E9 63 01 00 00                 -  jmp 1EA616B901B
+1EA616B8EB8: 0F B6 45 A8                    -  movzx eax,byte ptr [rbp-58]
+1EA616B8EBC: 4C 0F B6 F8                    -  movzx r15,al
+1EA616B8EC0: 48 8B 86 F8 00 00 00           -  mov rax,[rsi+000000F8]
+1EA616B8EC7: 48 89 85 48 FF FF FF           -  mov [rbp-000000B8],rax
+1EA616B8ECE: 48 8B 86 98 00 00 00           -  mov rax,[rsi+00000098]
+// ---------- INJECTING HERE ----------
+1EA616B8ED5: 48 8B C8                       -  mov rcx,rax
+1EA616B8ED8: 49 8B D7                       -  mov rdx,r15
+// ---------- DONE INJECTING  ----------
+1EA616B8EDB: 41 B8 01 00 00 00              -  mov r8d,00000001
+1EA616B8EE1: 83 38 00                       -  cmp dword ptr [rax],00
+1EA616B8EE4: 66 90                          -  nop 2
+1EA616B8EE6: 49 BB D0 48 E3 72 E9 01 00 00  -  mov r11,000001E972E348D0
+1EA616B8EF0: 41 FF D3                       -  call r11
+1EA616B8EF3: 48 8B D0                       -  mov rdx,rax
+1EA616B8EF6: 48 8B 85 48 FF FF FF           -  mov rax,[rbp-000000B8]
+1EA616B8EFD: 48 8B C8                       -  mov rcx,rax
+1EA616B8F00: 83 38 00                       -  cmp dword ptr [rax],00
+1EA616B8F03: 66 66 90                       -  nop 3
+}
+</AssemblerScript>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>8</ID>
+          <Description>"Resources"</Description>
+          <Options moHideChildren="1"/>
+          <LastState Value="" RealAddress="00000000"/>
+          <GroupHeader>1</GroupHeader>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>9</ID>
+              <Description>"Resource 1"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>+0*18+20+10</Address>
+              <Offsets>
+                <Offset>10</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>10</ID>
+              <Description>"Resource 2"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>+1*18+20+10</Address>
+              <Offsets>
+                <Offset>10</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>11</ID>
+              <Description>"Resource 3"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>+2*18+20+10</Address>
+              <Offsets>
+                <Offset>10</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>12</ID>
+              <Description>"Resource 4"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>+3*18+20+10</Address>
+              <Offsets>
+                <Offset>10</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>13</ID>
+              <Description>"Resource 5"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>+4*18+20+10</Address>
+              <Offsets>
+                <Offset>10</Offset>
+              </Offsets>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>5</ID>
+      <Description>"Unlimited Health"</Description>
+      <LastState Activated="1"/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript Async="1">[ENABLE]
+aobscan(health2,48 89 45 C0 48 8B CE 48 8B 06 FF 90 ?? ?? ?? ?? F3 0F 5A C0)
+alloc(newmem,$1000,health2)
+
+label(code)
+label(return)
+
+newmem:
+  cmp byte ptr [rsi+DC],1
+  jne code
+  mov [rbp-38],rax
+  cmp [rsi+130],0
+  je code
+  mov rcx,[rsi+130]
+  mov dword ptr [rcx+30],eax
+code:
+  mov [rbp-40],rax
+  mov rcx,rsi
+  jmp return
+
+health2:
+  jmp newmem
+  nop 2
+return:
+registersymbol(health2)
+
+[DISABLE]
+health2:
+  db 48 89 45 C0 48 8B CE
+unregistersymbol(health2)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: 1CE7DD03F28
+
+1CE7DD03F01: 48 8B EC                       -  mov rbp,rsp
+1CE7DD03F04: 48 83 EC 60                    -  sub rsp,60
+1CE7DD03F08: 48 89 75 F8                    -  mov [rbp-08],rsi
+1CE7DD03F0C: 48 8B F1                       -  mov rsi,rcx
+1CE7DD03F0F: 48 8B 06                       -  mov rax,[rsi]
+1CE7DD03F12: FF 90 58 05 00 00              -  call qword ptr [rax+00000558]
+1CE7DD03F18: 48 89 45 C8                    -  mov [rbp-38],rax
+1CE7DD03F1C: 48 8B CE                       -  mov rcx,rsi
+1CE7DD03F1F: 48 8B 06                       -  mov rax,[rsi]
+1CE7DD03F22: FF 90 60 05 00 00              -  call qword ptr [rax+00000560]
+// ---------- INJECTING HERE ----------
+1CE7DD03F28: 48 89 45 C0                    -  mov [rbp-40],rax
+1CE7DD03F2C: 48 8B CE                       -  mov rcx,rsi
+// ---------- DONE INJECTING  ----------
+1CE7DD03F2F: 48 8B 06                       -  mov rax,[rsi]
+1CE7DD03F32: FF 90 50 05 00 00              -  call qword ptr [rax+00000550]
+1CE7DD03F38: F3 0F 5A C0                    -  cvtss2sd xmm0,xmm0
+1CE7DD03F3C: 48 8B 55 C8                    -  mov rdx,[rbp-38]
+1CE7DD03F40: 4C 8B 45 C0                    -  mov r8,[rbp-40]
+1CE7DD03F44: C7 45 D8 00 00 00 00           -  mov [rbp-28],00000000
+1CE7DD03F4B: C7 45 DC 00 00 00 00           -  mov [rbp-24],00000000
+1CE7DD03F52: C7 45 E0 00 00 00 00           -  mov [rbp-20],00000000
+1CE7DD03F59: 48 8B CD                       -  mov rcx,rbp
+1CE7DD03F5C: 48 83 C1 D8                    -  add rcx,-28
+}
+</AssemblerScript>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+</CheatTable>

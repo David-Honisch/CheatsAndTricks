@@ -1,0 +1,278 @@
+<?xml version="1.0"?>
+<CheatTable CheatEngineTableVersion="12">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>14</ID>
+      <Description>"Enable Cheats"</Description>
+      <Options moHideChildren="1" moBindActivation="1"/>
+      <Color>80000008</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+alloc(newmem,2048)
+label(ammoCode)
+label(skipA1)
+label(skipA2)
+label(skipA3)
+label(exitAmmo)
+label(returnAmmo)
+
+label(itemsCode)
+label(skipI1)
+label(skipI2)
+label(exitItems)
+label(returnItems)
+
+label(readReload)
+label(rtnReadReload)
+label(playerReload)
+label(iReload)
+registersymbol(iReload)
+
+label(readAmmo)
+label(rtnReadAmmo)
+label(playerAmmo)
+label(iAmmo)
+registersymbol(iAmmo)
+
+label(readItem)
+label(rtnReadItem)
+label(playerItem)
+label(iItem)
+registersymbol(iItem)
+
+label(iMoney)
+registersymbol(iMoney)
+
+newmem:
+
+//////////////////////////
+// Data reading Section //
+//////////////////////////
+
+readReload:
+mov edx,[eax+08]
+mov [playerReload],eax
+add eax,08
+jmp rtnReadReload
+
+readAmmo:  // and money
+add eax,[ecx+08]
+mov [playerAmmo],ecx
+jmp 007E7728
+jmp rtnReadAmmo
+
+readItem:
+mov ecx,[eax+08]
+mov [playerItem],eax
+lea edx,[ebp-3C]
+jmp rtnReadItem
+
+//////////////////
+// Ammo Section //
+//////////////////
+
+ammoCode:
+cmp esi, [playerReload]
+jne skipA1
+cmp dword ptr [iReload],0
+jne exitAmmo
+
+skipA1:
+cmp esi, [playerAmmo]
+jne skipA2
+cmp dword ptr [iAmmo],0
+jne exitAmmo
+
+skipA2:     // increases wingsticks on return
+cmp esi, [playerItem]
+jne skipA3
+cmp dword ptr [iItem],0
+jne exitAmmo
+
+skipA3:
+
+add [esi+08],eax
+
+exitAmmo:
+mov ecx,[0122F3F4]
+jmp returnAmmo
+
+///////////////////////////
+// Items &amp; Money Section //
+///////////////////////////
+
+itemsCode:
+cmp esi, [playerItem]
+jne skipI1
+cmp dword ptr [iItem],0
+jne exitItems
+
+skipI1:
+cmp esi, [playerAmmo]
+jne skipI2
+cmp dword ptr [iMoney],0
+jne exitItems
+
+skipI2:
+
+mov [esi+08],eax
+
+exitItems:
+mov ecx,[0122F3F4]
+jmp returnItems
+
+//////////////////////////
+// Variable Declaration //
+//////////////////////////
+
+playerReload:
+dd 0
+iReload:
+dd 1
+playerAmmo:
+dd 0
+iAmmo:
+dd 1
+playerItem:
+dd 0
+iItem:
+dd 1
+iMoney:
+dd 1
+
+/////////////////
+// Code Breaks //
+/////////////////
+
+"Rage.exe"+35560D:
+jmp readReload
+nop
+rtnReadReload:
+
+"Rage.exe"+3E771C:
+jmp readAmmo
+rtnReadAmmo:
+
+"Rage.exe"+3ABD39:
+jmp ammoCode
+nop
+nop
+nop
+nop
+returnAmmo:
+
+"Rage.exe"+4A7E10:
+jmp readItem
+nop
+rtnReadItem:
+
+"Rage.exe"+3ABDC1:
+jmp itemsCode
+nop
+nop
+nop
+nop
+returnItems:
+
+
+[DISABLE]
+"Rage.exe"+35560D:     // readReload
+mov edx,[eax+08]
+add eax,08
+
+"Rage.exe"+3E771C:     // readAmmo &amp; Money
+add eax,[ecx+08]
+jmp 007E7728
+
+"Rage.exe"+3ABD39:     // Alter Ammo values
+add [esi+08],eax
+mov ecx,[0122F3F4]
+
+"Rage.exe"+4A7E10:     // readItem
+mov ecx,[eax+08]
+lea edx,[ebp-3C]
+
+"Rage.exe"+3ABDC1:     // Alter item/money values
+// 89 46 08
+// 8B 0D F4F32201
+mov [esi+08],eax
+mov ecx,[0122F3F4]
+
+
+dealloc(newmem)
+unregistersymbol(iReload)
+unregistersymbol(iAmmo)
+unregistersymbol(iItem)
+unregistersymbol(iMoney)
+
+</AssemblerScript>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>17</ID>
+          <Description>"No Reloading"</Description>
+          <Color>80000008</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+
+iReload:
+dd 1
+
+[DISABLE]
+
+iReload:
+dd 0
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>18</ID>
+          <Description>"Infinite Ammo"</Description>
+          <Color>80000008</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+
+iAmmo:
+dd 1
+
+[DISABLE]
+
+iAmmo:
+dd 0
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>2</ID>
+          <Description>"Infinite Items"</Description>
+          <Color>80000008</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+iItem:
+dd 1
+
+[DISABLE]
+iItem:
+dd 0
+
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>21</ID>
+          <Description>"Infinite Money"</Description>
+          <Color>80000008</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+iMoney:
+dd 1
+
+[DISABLE]
+iMoney:
+dd 0
+
+</AssemblerScript>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+  <Comments>Info about this table:
+</Comments>
+</CheatTable>

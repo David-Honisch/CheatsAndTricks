@@ -1,0 +1,2016 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="14">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>0</ID>
+      <Description>"&lt;Scripts&gt;"</Description>
+      <Color>FF0000</Color>
+      <GroupHeader>1</GroupHeader>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>1</ID>
+          <Description>"Infinite Durability (Equipped Item)"</Description>
+          <Color>80000008</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[Enable]
+alloc(newmem,256)
+label(returnhere)
+label(durajmp)
+registersymbol(durajmp)
+aobscan(_durability,D9 47 24 8B 90 C4 02 00 00 D9 5C xx xx 8B CE )
+newmem:
+mov [edi+24],(float)999
+fld dword ptr [edi+24]
+mov edx,[eax+000002C4]
+jmp returnhere
+
+_durability:
+durajmp:
+jmp newmem
+nop
+nop
+nop
+nop
+returnhere:
+
+[Disable]
+durajmp:
+fld dword ptr [edi+24]
+mov edx,[eax+000002C4]
+dealloc(newmem)
+unregistersymbol(durajmp)
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>2</ID>
+          <Description>"Instant Fury after 1 kill"</Description>
+          <Color>80000008</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[Enable]
+alloc(newmem,256)
+label(returnhere)
+label(furyjmp)
+registersymbol(furyjmp)
+
+aobscan(_fury,D9 9E D0 12 00 00 5F 5B)
+
+newmem:
+mov [esi+000012D0],(float)1.0
+
+jmp returnhere
+
+_fury:
+furyjmp:
+jmp newmem
+nop
+returnhere:
+
+[Disable]
+
+furyjmp:
+fstp dword ptr [esi+000012D0]
+
+unregistersymbol(furyjmp)
+dealloc(newmem)
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>3</ID>
+          <Description>"Get xx item on drop"</Description>
+          <Color>80000008</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[Enable]
+alloc(newmem,256)
+globalalloc(itemamt,4)
+label(returnhere)
+label(itemdec)
+label(itemdec2)
+label(itemdec3)
+
+registersymbol(itemdec)
+registersymbol(itemdec2)
+registersymbol(itemdec3)
+
+aobscan(_itemdec,FF 4E 20 56 56 55)
+
+newmem:
+push eax
+mov eax,[itemamt]
+mov [esi+20],eax
+pop eax
+push esi
+push esi
+jmp returnhere
+
+_itemdec:
+itemdec:
+jmp newmem
+returnhere:
+
+_itemdec-2:
+itemdec2:
+nop
+nop
+
+_itemdec-14:
+itemdec3:
+nop
+nop
+
+itemamt:
+db 63
+
+[disable]
+itemdec:
+dec [esi+20]
+push esi
+push esi
+
+itemdec2:
+db 7E 1B
+
+itemdec3:
+db 7E 2D
+
+itemamt:
+db 00
+
+dealloc(newmem)
+unregistersymbol(itemdec)
+unregistersymbol(itemdec2)
+unregistersymbol(itemdec3)
+
+</AssemblerScript>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>4</ID>
+              <Description>"Set item amount on drop"</Description>
+              <Color>80000008</Color>
+              <VariableType>4 Bytes</VariableType>
+              <Address>itemamt</Address>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>5</ID>
+      <Description>"&lt;Player Stats&gt;"</Description>
+      <Color>0000FF</Color>
+      <GroupHeader>1</GroupHeader>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>6</ID>
+          <Description>"Life"</Description>
+          <Color>80000008</Color>
+          <VariableType>Float</VariableType>
+          <Address>"game_x86_rwdi.dll"+00B2E964</Address>
+          <Offsets>
+            <Offset>8B8</Offset>
+            <Offset>374</Offset>
+          </Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>7</ID>
+          <Description>"Stamina"</Description>
+          <Color>80000008</Color>
+          <VariableType>Float</VariableType>
+          <Address>"game_x86_rwdi.dll"+00B2E964</Address>
+          <Offsets>
+            <Offset>91C</Offset>
+            <Offset>374</Offset>
+          </Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>8</ID>
+          <Description>"Money"</Description>
+          <Color>80000008</Color>
+          <VariableType>4 Bytes</VariableType>
+          <Address>"game_x86_rwdi.dll"+00B2E948</Address>
+          <Offsets>
+            <Offset>778</Offset>
+            <Offset>0</Offset>
+            <Offset>790</Offset>
+          </Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>9</ID>
+          <Description>"Experience"</Description>
+          <Color>80000008</Color>
+          <VariableType>4 Bytes</VariableType>
+          <Address>"game_x86_rwdi.dll"+00B2DF30</Address>
+          <Offsets>
+            <Offset>3C</Offset>
+            <Offset>170</Offset>
+          </Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>10</ID>
+          <Description>"Skillpoints"</Description>
+          <Color>80000008</Color>
+          <VariableType>Float</VariableType>
+          <Address>"game_x86_rwdi.dll"+00B2E708</Address>
+          <Offsets>
+            <Offset>4</Offset>
+            <Offset>4</Offset>
+            <Offset>0</Offset>
+            <Offset>64</Offset>
+          </Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>11</ID>
+          <Description>"Fury"</Description>
+          <Color>80000008</Color>
+          <VariableType>Float</VariableType>
+          <Address>"game_x86_rwdi.dll"+00B2E948</Address>
+          <Offsets>
+            <Offset>12D0</Offset>
+            <Offset>0</Offset>
+            <Offset>790</Offset>
+          </Offsets>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>12</ID>
+      <Description>"Infinite Durability (Equipped Item)"</Description>
+      <Color>80000008</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[Enable]
+alloc(newmem,256)
+label(returnhere)
+label(durajmp)
+registersymbol(durajmp)
+aobscan(_durability,D9 47 24 8B 90 C4 02 00 00 D9 5C xx xx 8B CE )
+newmem:
+mov [edi+24],(float)999
+fld dword ptr [edi+24]
+mov edx,[eax+000002C4]
+jmp returnhere
+
+_durability:
+durajmp:
+jmp newmem
+nop
+nop
+nop
+nop
+returnhere:
+
+[Disable]
+durajmp:
+fld dword ptr [edi+24]
+mov edx,[eax+000002C4]
+dealloc(newmem)
+unregistersymbol(durajmp)
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>13</ID>
+      <Description>"Instant Fury after 1 kill"</Description>
+      <Color>80000008</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[Enable]
+alloc(newmem,256)
+label(returnhere)
+label(furyjmp)
+registersymbol(furyjmp)
+
+aobscan(_fury,D9 9E D0 12 00 00 5F 5B)
+
+newmem:
+mov [esi+000012D0],(float)1.0
+
+jmp returnhere
+
+_fury:
+furyjmp:
+jmp newmem
+nop
+returnhere:
+
+[Disable]
+
+furyjmp:
+fstp dword ptr [esi+000012D0]
+
+unregistersymbol(furyjmp)
+dealloc(newmem)
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>14</ID>
+      <Description>"Get xx item on drop"</Description>
+      <Color>80000008</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[Enable]
+alloc(newmem,256)
+globalalloc(itemamt,4)
+label(returnhere)
+label(itemdec)
+label(itemdec2)
+label(itemdec3)
+
+registersymbol(itemdec)
+registersymbol(itemdec2)
+registersymbol(itemdec3)
+
+aobscan(_itemdec,FF 4E 20 56 56 55)
+
+newmem:
+push eax
+mov eax,[itemamt]
+mov [esi+20],eax
+pop eax
+push esi
+push esi
+jmp returnhere
+
+_itemdec:
+itemdec:
+jmp newmem
+returnhere:
+
+_itemdec-2:
+itemdec2:
+nop
+nop
+
+_itemdec-14:
+itemdec3:
+nop
+nop
+
+itemamt:
+db 63
+
+[disable]
+itemdec:
+dec [esi+20]
+push esi
+push esi
+
+itemdec2:
+db 7E 1B
+
+itemdec3:
+db 7E 2D
+
+itemamt:
+db 00
+
+dealloc(newmem)
+unregistersymbol(itemdec)
+unregistersymbol(itemdec2)
+unregistersymbol(itemdec3)
+
+</AssemblerScript>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>15</ID>
+          <Description>"Set item amount on drop"</Description>
+          <Color>80000008</Color>
+          <VariableType>4 Bytes</VariableType>
+          <Address>itemamt</Address>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>16</ID>
+      <Description>"&lt;Find Values&gt;"</Description>
+      <Color>0000FF</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[Enable]
+alloc(_memstam,256)
+alloc(_memlife,256)
+alloc(_memmoney,256)
+alloc(_memxp,256)
+alloc(_memfurymeter,256)
+alloc(_memskillpoints,256)
+
+globalalloc(stamina,4)
+globalalloc(life,4)
+globalalloc(money,4)
+globalalloc(xp,4)
+globalalloc(furymeter,4)
+globalalloc(skillpoints,4)
+
+//Returns
+label(_retstam)
+label(_retlife)
+label(_retmoney)
+label(_retxp)
+label(_retfurymeter)
+label(_retskillpoints)
+
+label(stamjmp)
+label(lifejmp)
+label(moneyjmp)
+label(xpjmp)
+label(furymeterjmp)
+label(skillpointsjmp)
+
+//Symbols
+registersymbol(stamjmp)
+registersymbol(lifejmp)
+registersymbol(moneyjmp)
+registersymbol(xpjmp)
+registersymbol(furymeterjmp)
+registersymbol(skillpointsjmp)
+
+//AOB Scans
+aobscan(_stamina,D9 93 xx xx xx xx D8 1D xx xx xx xx DF E0 F6 C4 41 7A 7A 56 57)
+aobscan(_life,D8 9E xx xx xx xx DF E0 F6 C4 01 74 2C)
+aobscan(_money,8B 82 xx xx xx xx 8D 4C 24 xx 51 xx xx xx xx xx 83 C4 08)
+aobscan(_xp,8B 78 xx 2B 78 xx 8B CB FF D6 84 C0 74 07)
+aobscan(_furymeter,D9 9F D0 12 00 00 E8 91 59 00 00 83 F8 02)
+aobscan(_skillpoints,D9 40 04 0F B7 44 24 02 0D 00 0C 00 00 89 44 24 04 53)
+
+//Skill points
+_memskillpoints:
+push eax
+lea eax,[eax+04]
+mov [skillpoints],eax
+pop eax
+fld dword ptr [eax+04]
+movzx eax,word ptr [esp+02]
+jmp _retskillpoints
+
+_skillpoints:
+skillpointsjmp:
+jmp _memskillpoints
+nop
+nop
+nop
+_retskillpoints:
+
+//Fury Meter
+_memfurymeter:
+push eax
+lea eax,[edi+000012D0]
+mov [furymeter],eax
+pop eax
+fstp dword ptr [edi+000012D0]
+jmp _retfurymeter
+
+_furymeter:
+furymeterjmp:
+jmp _memfurymeter
+nop
+_retfurymeter:
+
+//XP
+_memxp:
+push esi
+lea esi,[eax+3C]
+mov [xp],esi
+pop esi
+mov edi,[eax+3C]
+sub edi,[eax+40]
+jmp _retxp
+
+_xp:
+xpjmp:
+jmp _memxp
+nop
+_retxp:
+
+//Money
+_memmoney:
+push eax
+lea eax,[edx+00000778]
+mov [money],eax
+pop eax
+mov eax,[edx+00000778]
+jmp _retmoney
+
+_money:
+moneyjmp:
+jmp _memmoney
+nop
+_retmoney:
+
+//Stamina
+_memstam:
+push eax
+lea eax,[ebx+0000091C]
+mov [stamina],eax
+pop eax
+fst dword ptr [ebx+0000091C]
+jmp _retstam
+
+_stamina:
+stamjmp:
+jmp _memstam
+nop
+_retstam:
+
+//Life
+_memlife:
+push eax
+lea eax,[esi+000008B8]
+mov [life],eax
+pop eax
+fcomp dword ptr [esi+000008B8]
+jmp _retlife
+
+_life:
+lifejmp:
+jmp _memlife
+nop
+_retlife:
+
+[Disable]
+skillpointsjmp:
+fld dword ptr [eax+04]
+movzx eax,word ptr [esp+02]
+
+furymeterjmp:
+fstp dword ptr [edi+000012D0]
+
+xpjmp:
+mov edi,[eax+3C]
+sub edi,[eax+40]
+
+stamjmp:
+fst dword ptr [ebx+0000091C]
+
+lifejmp:
+fcomp dword ptr [esi+000008B8]
+
+moneyjmp:
+mov eax,[edx+00000778]
+
+dealloc(_memstam)
+dealloc(_memlife)
+dealloc(_memmoney)
+dealloc(_memxp)
+dealloc(_memfurymeter)
+dealloc(_memskillpoints)
+unregistersymbol(stamjmp)
+unregistersymbol(lifejmp)
+unregistersymbol(moneyjmp)
+unregistersymbol(xpjmp)
+unregistersymbol(furymeterjmp)
+unregistersymbol(skillpointsjmp)
+</AssemblerScript>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>17</ID>
+          <Description>"Life"</Description>
+          <Color>80000008</Color>
+          <VariableType>Float</VariableType>
+          <Address>life</Address>
+          <Offsets>
+            <Offset>0</Offset>
+          </Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>18</ID>
+          <Description>"Stamina"</Description>
+          <Color>80000008</Color>
+          <VariableType>Float</VariableType>
+          <Address>stamina</Address>
+          <Offsets>
+            <Offset>0</Offset>
+          </Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>19</ID>
+          <Description>"Experience"</Description>
+          <Color>80000008</Color>
+          <VariableType>4 Bytes</VariableType>
+          <Address>xp</Address>
+          <Offsets>
+            <Offset>0</Offset>
+          </Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>20</ID>
+          <Description>"Skillpoints"</Description>
+          <Color>80000008</Color>
+          <VariableType>Float</VariableType>
+          <Address>skillpoints</Address>
+          <Offsets>
+            <Offset>0</Offset>
+          </Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>21</ID>
+          <Description>"Money"</Description>
+          <Color>80000008</Color>
+          <VariableType>4 Bytes</VariableType>
+          <Address>money</Address>
+          <Offsets>
+            <Offset>0</Offset>
+          </Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>22</ID>
+          <Description>"Fury"</Description>
+          <Color>80000008</Color>
+          <VariableType>Float</VariableType>
+          <Address>furymeter</Address>
+          <Offsets>
+            <Offset>0</Offset>
+          </Offsets>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>23</ID>
+      <Description>"----------MAIN CODE----------"</Description>
+      <Color>80000008</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+///--------iNFiNiTE HEALTH--------///
+Registersymbol(enable_infiniteHealth)
+alloc(newmem_infiniteHealth,2048)
+alloc(enable_infiniteHealth,4)
+label(returnhere_infiniteHealth)
+label(originalcode_infiniteHealth)
+label(exit_infiniteHealth)
+label(infiniteHealth)
+///--------iNFiNiTE HEALTH--------///
+
+
+///--------iNFiNiTE STAMiNA--------///
+Registersymbol(enable_infiniteStamina)
+alloc(newmem_infiniteStamina,2048)
+alloc(enable_infiniteStamina,4)
+label(returnhere_infiniteStamina)
+label(originalcode_infiniteStamina)
+label(exit_infiniteStamina)
+label(infiniteStamina)
+///--------iNFiNiTE STAMiNA--------///
+
+
+///--------iNFiNiTE WEAPON DURABiLiTY--------///
+Registersymbol(enable_infiniteWeaponDurability)
+Registersymbol(enable_superRangeWeapons)
+alloc(newmem_infiniteWeaponDurability,2048)
+alloc(enable_infiniteWeaponDurability,4)
+alloc(enable_superRangeWeapons,4)
+label(returnhere_infiniteWeaponDurability)
+label(originalcode_infiniteWeaponDurability)
+label(exit_infiniteWeaponDurability)
+label(infiniteWeaponDurability)
+label(superRangeWeapons)
+///--------iNFiNiTE WEAPON DURABiLiTY--------///
+
+
+///--------iNFiNiTE FLASHLiGHT--------///
+Registersymbol(enable_infiniteFlashlight)
+alloc(newmem_infiniteFlashlight,2048)
+alloc(enable_infiniteFlashlight,4)
+label(returnhere_infiniteFlashlight)
+label(originalcode_infiniteFlashlight)
+label(exit_infiniteFlashlight)
+label(infiniteFlashlight)
+///--------iNFiNiTE FLASHLiGHT--------///
+
+
+///--------iNFiNiTE MONEY--------///
+Registersymbol(enable_infiniteMoney)
+alloc(newmem_infiniteMoney,2048)
+alloc(enable_infiniteMoney,4)
+label(returnhere_infiniteMoney)
+label(originalcode_infiniteMoney)
+label(exit_infiniteMoney)
+label(infiniteMoney)
+///--------iNFiNiTE MONEY--------///
+
+
+///--------iNFiNiTE AMMO iN CLiP--------///
+Registersymbol(enable_infiniteAmmoInClip)
+alloc(newmem_infiniteAmmoInClip,2048)
+alloc(enable_infiniteAmmoInClip,4)
+label(returnhere_infiniteAmmoInClip)
+label(originalcode_infiniteAmmoInClip)
+label(exit_infiniteAmmoInClip)
+label(infiniteAmmoInClip)
+///--------iNFiNiTE AMMO iN CLiP--------///
+
+
+///--------GET MAXiMUM SKiLL POiNTS--------///
+Registersymbol(enable_addSkillPoints)
+alloc(newmem_addSkillPoints,2048)
+alloc(enable_addSkillPoints,4)
+label(returnhere_addSkillPoints)
+label(originalcode_addSkillPoints)
+label(exit_addSkillPoints)
+label(addSkillPoints)
+///--------GET MAXiMUM SKiLL POiNTS--------///
+
+
+///--------ADD *** EXP --------///
+Registersymbol(enable_addEXP)
+alloc(newmem_addEXP,2048)
+alloc(enable_addEXP,4)
+label(returnhere_addEXP)
+label(originalcode_addEXP)
+label(exit_addEXP)
+label(addEXP)
+///--------ADD *** EXP --------///
+
+
+///--------iNFiNiTE AMMO--------///
+Registersymbol(enable_infiniteAmmo)
+alloc(newmem_infiniteAmmo,2048)
+alloc(enable_infiniteAmmo,4)
+label(returnhere_infiniteAmmo)
+label(originalcode_infiniteAmmo)
+label(exit_infiniteAmmo)
+label(infiniteAmmo)
+///--------iNFiNiTE AMMO--------///
+
+
+///--------TELEPORT SCRiPT--------///
+alloc(newmem_Teleport,2048)
+label(returnhere_Teleport)
+label(originalcode_Teleport)
+label(exit_Teleport)
+label(z_coord)
+label(x_coord)
+label(y_coord)
+label(save_coord)
+label(load_coord)
+label(s_enable)
+label(l_enable)
+registersymbol(s_enable)
+registersymbol(l_enable)
+///--------TELEPORT SCRiPT--------///
+
+
+///--------iNFiNiTE FURY--------///
+Registersymbol(enable_infiniteFury)
+alloc(newmem_infiniteFury,2048)
+alloc(enable_infiniteFury,4)
+label(returnhere_infiniteFury)
+label(originalcode_infiniteFury)
+label(exit_infiniteFury)
+label(infiniteFury)
+///--------iNFiNiTE FURY--------///
+
+
+///--------iNFiNiTE iTEMS--------///
+Registersymbol(enable_infiniteItems)
+alloc(newmem_infiniteItems,2048)
+alloc(enable_infiniteItems,4)
+label(returnhere_infiniteItems)
+label(originalcode_infiniteItems)
+label(exit_infiniteItems)
+label(infiniteItems)
+///--------iNFiNiTE iTEMS--------///
+
+
+///--------FAST UNLOCKS--------///
+Registersymbol(enable_fastUnlocks)
+alloc(newmem_fastUnlocks,2048)
+alloc(enable_fastUnlocks,4)
+label(returnhere_fastUnlocks)
+label(originalcode_fastUnlocks)
+label(exit_fastUnlocks)
+label(fastUnlocks)
+///--------FAST UNLOCKS--------///
+
+
+///--------MAXiMUM PRECiSiON--------///
+Registersymbol(enable_maxPrecision)
+alloc(newmem_maxPrecision,2048)
+alloc(enable_maxPrecision,4)
+label(returnhere_maxPrecision)
+label(originalcode_maxPrecision)
+label(exit_maxPrecision)
+label(maxPrecision)
+///--------MAXiMUM PRECiSiON--------///
+
+
+///--------ONE HT KiLLS--------///
+Registersymbol(enable_oneHitKills)
+alloc(newmem_oneHitKills,2048)
+alloc(enable_oneHitKills,4)
+label(returnhere_oneHitKills)
+label(originalcode_oneHitKills)
+label(exit_oneHitKills)
+label(oneHitKills)
+///--------ONE HT KiLLS--------///
+
+
+///--------KiLL ENEMYS WHEN YOU AiM ON THEM--------///
+Registersymbol(enable_killEnemysWhenYouAimOnThem)
+alloc(newmem_killEnemysWhenYouAimOnThem,2048)
+alloc(enable_killEnemysWhenYouAimOnThem,4)
+label(returnhere_killEnemysWhenYouAimOnThem)
+label(originalcode_killEnemysWhenYouAimOnThem)
+label(exit_killEnemysWhenYouAimOnThem)
+label(killEnemysWhenYouAimOnThem)
+///--------KiLL ENEMYS WHEN YOU AiM ON THEM--------///
+
+
+///--------AUTO SPEED HACK--------///
+Registersymbol(enable_autoSpeedHack)
+alloc(newmem_autoSpeedHack,2048)
+alloc(enable_autoSpeedHack,4)
+label(returnhere_autoSpeedHack)
+label(originalcode_autoSpeedHack)
+label(exit_autoSpeedHack)
+label(autoSpeedHack)
+///--------AUTO SPEED HACK--------///
+
+
+///--------SUPER SPEED--------///
+Registersymbol(enable_superSpeed)
+Registersymbol(enable_killSuperSpeed)
+alloc(newmem_superSpeed,2048)
+alloc(enable_superSpeed,4)
+alloc(enable_killSuperSpeed,4)
+label(returnhere_superSpeed)
+label(originalcode_superSpeed)
+label(exit_superSpeed)
+label(superSpeed)
+label(killSuperSpeed)
+///--------SUPER SPEED--------///
+
+
+///--------SLOW ZOMBiES--------///
+Registersymbol(enable_slowZombies)
+Registersymbol(enable_fastZombies)
+Registersymbol(enable_restoreZombies)
+alloc(newmem_slowZombies,2048)
+alloc(enable_slowZombies,4) 
+alloc(enable_fastZombies,4)
+alloc(enable_restoreZombies,4)
+label(returnhere_slowZombies)
+label(originalcode_slowZombies)
+label(exit_slowZombies)
+label(slowZombies)
+label(fastZombies)
+label(restoreZombies)
+///--------SLOW ZOMBiES--------///
+
+
+
+///--------SLOW ZOMBiES--------///
+engine_x86_rwdi.dll+2A17FA:
+jmp newmem_slowZombies
+nop
+returnhere_slowZombies:
+
+newmem_slowZombies:
+cmp byte ptr [enable_slowZombies],1
+je slowZombies
+cmp byte ptr [enable_fastZombies],1
+je fastZombies
+cmp byte ptr [enable_restoreZombies],1
+je restoreZombies
+jmp originalcode_slowZombies
+
+slowZombies:
+cmp dword ptr [esi+05C0],(int)5
+//cmp dword ptr [esi+05C4],(int)5
+//cmp dword ptr [esi+06f4],(int)1
+//cmp dword ptr [esi+072c],(int)1
+je originalcode_slowZombies
+mov dword ptr [esi+00000594],(float)0.125
+jmp originalcode_slowZombies
+
+fastZombies:
+cmp dword ptr [esi+05C0],(int)5
+//cmp dword ptr [esi+05C4],(int)5
+//cmp dword ptr [esi+06f4],(int)1
+//cmp dword ptr [esi+072c],(int)1
+je originalcode_slowZombies
+mov dword ptr [esi+00000594],(float)3
+jmp originalcode_slowZombies
+
+
+restoreZombies:
+cmp dword ptr [esi+05C0],(int)5
+//cmp dword ptr [esi+05C4],(int)5
+//cmp dword ptr [esi+06f4],(int)1
+//cmp dword ptr [esi+072c],(int)1
+je originalcode_slowZombies 
+mov dword ptr [esi+00000594],(float)1
+jmp originalcode_slowZombies
+
+originalcode_slowZombies:
+fld dword ptr [esi+00000594]
+
+exit_slowZombies:
+jmp returnhere_slowZombies
+///--------SLOW ZOMBiES--------///
+
+
+
+///--------SUPER SPEED--------///
+engine_x86_rwdi.dll+2A17E8:
+jmp newmem_superSpeed
+nop
+returnhere_superSpeed:
+
+newmem_superSpeed: 
+cmp byte ptr [enable_superSpeed],1
+je superSpeed
+cmp byte ptr [enable_killSuperSpeed],1
+je killSuperSpeed
+jmp originalcode_superSpeed
+
+superSpeed:
+cmp dword ptr [esi+05C0],(int)5
+//cmp dword ptr [esi+05C4],(int)5
+jne originalcode_superSpeed
+mov byte ptr [enable_superSpeed],0
+add dword ptr [esi+00000594],00250000
+jmp originalcode_superSpeed
+
+killSuperSpeed:
+cmp dword ptr [esi+05C0],(int)5
+//cmp dword ptr [esi+05C4],(int)5
+jne originalcode_superSpeed
+mov byte ptr [enable_killSuperSpeed],0
+sub dword ptr [esi+00000594],00250000
+jmp originalcode_superSpeed
+
+originalcode_superSpeed:
+fld dword ptr [esi+00000594]
+
+exit_superSpeed:
+jmp returnhere_superSpeed
+///--------SUPER SPEED--------///
+
+///--------AUTO SPEED HACK--------///
+engine_x86_rwdi.dll+2528E0:
+jmp newmem_autoSpeedHack
+nop
+returnhere_autoSpeedHack:
+
+newmem_autoSpeedHack:
+cmp byte ptr [enable_autoSpeedHack],1
+je autoSpeedHack
+jmp originalcode_autoSpeedHack
+
+autoSpeedHack:
+//cmp dword ptr [ecx+01AC],(int)9
+//cmp dword ptr [ecx+01AC],(float)03BC
+//cmp dword ptr [ecx+0574],(float)1
+//cmp dword ptr [ecx+0578],(float)1
+//cmp dword ptr [ecx+0594],(float)1
+//cmp dword ptr [ecx+0598],(float)1
+//cmp dword ptr [ecx+05C4],(int)5
+cmp dword ptr [ecx+05C0],(int)5
+jne originalcode_autoSpeedHack
+mov dword ptr [ecx+00000a7c],(float)1250
+
+originalcode_autoSpeedHack:
+fld dword ptr [ecx+00000a7c]
+
+exit_autoSpeedHack:
+jmp returnhere_autoSpeedHack
+///--------AUTO SPEED HACK--------///
+
+
+
+///--------KiLL ENEMYS WHEN YOU AiM ON THEM--------///
+game_x86_rwdi.dll+13EC30:
+jmp newmem_killEnemysWhenYouAimOnThem
+nop
+returnhere_killEnemysWhenYouAimOnThem:
+
+newmem_killEnemysWhenYouAimOnThem: 
+cmp byte ptr [enable_killEnemysWhenYouAimOnThem],1
+je killEnemysWhenYouAimOnThem
+jmp originalcode_killEnemysWhenYouAimOnThem
+
+killEnemysWhenYouAimOnThem:
+mov dword ptr [esi+00000598],(float)0
+
+originalcode_killEnemysWhenYouAimOnThem:
+fld dword ptr [esi+00000598]
+
+exit_killEnemysWhenYouAimOnThem:
+jmp returnhere_killEnemysWhenYouAimOnThem
+///--------KiLL ENEMYS WHEN YOU AiM ON THEM--------///
+
+
+///--------ONE HT KiLLS--------///
+game_x86_rwdi.dll+18C894:
+jmp newmem_oneHitKills
+nop
+returnhere_oneHitKills:
+
+newmem_oneHitKills: 
+cmp byte ptr [enable_oneHitKills],1
+je oneHitKills
+jmp originalcode_oneHitKills
+
+oneHitKills:
+//cmp dword ptr [edx+0CF8],(int)4
+//cmp dword ptr [edx+0EB8],(int)4
+cmp dword ptr [edx+1FE0],(int)4
+je originalcode_oneHitKills
+mov dword ptr [edx+00000598],(float)0
+
+
+originalcode_oneHitKills:
+fld dword ptr [edx+00000598]
+
+exit_oneHitKills:
+jmp returnhere_oneHitKills
+///--------ONE HT KiLLS--------///
+
+
+///--------MAXiMUM PRECiSiON--------/// 
+game_x86_rwdi.dll+42FCDC:
+jmp newmem_maxPrecision
+nop
+returnhere_maxPrecision:
+
+newmem_maxPrecision:
+cmp byte ptr [enable_maxPrecision],1
+je maxPrecision
+jmp originalcode_maxPrecision
+
+maxPrecision: 
+mov dword ptr [eax+000000c0],(float)0
+mov dword ptr [eax+000000c4],(float)0
+
+originalcode_maxPrecision:
+fadd dword ptr [eax+000000c0]
+
+exit_maxPrecision:
+jmp returnhere_maxPrecision
+///--------MAXiMUM PRECiSiON--------///
+
+
+///--------FAST UNLOCKS--------///
+game_x86_rwdi.dll+25CB70:
+jmp newmem_fastUnlocks
+nop
+returnhere_fastUnlocks:
+
+newmem_fastUnlocks:
+cmp byte ptr [enable_fastUnlocks],1
+je fastUnlocks
+jmp originalcode_fastUnlocks
+
+fastUnlocks: 
+mov dword ptr [ecx+00000178],(float)100
+
+originalcode_fastUnlocks:
+fld dword ptr [ecx+00000178]
+
+exit_fastUnlocks:
+jmp returnhere_fastUnlocks
+///--------FAST UNLOCKS--------///
+
+
+
+///--------iNFiNiTE iTEMS--------///
+game_x86_rwdi.dll+41468E:
+jmp newmem_infiniteItems
+nop
+returnhere_infiniteItems:
+
+newmem_infiniteItems: 
+cmp byte ptr [enable_infiniteItems],1
+je infiniteItems
+jmp originalcode_infiniteItems
+
+infiniteItems:
+mov [edi+20],#10
+
+originalcode_infiniteItems:
+mov eax,[edi+20]
+fld dword ptr [edi+24]
+
+exit_infiniteItems:
+jmp returnhere_infiniteItems
+///--------iNFiNiTE iTEMS--------///
+
+
+///--------iNFiNiTE FURY--------///
+game_x86_rwdi.dll+163E5C:
+jmp newmem_infiniteFury
+nop
+returnhere_infiniteFury:
+
+newmem_infiniteFury:
+cmp byte ptr [enable_infiniteFury],1
+je infiniteFury
+jmp originalcode_infiniteFury
+
+infiniteFury:
+mov dword ptr [enable_infiniteFury],0 
+mov dword ptr [edi+000012d0],(float)2
+
+originalcode_infiniteFury:
+fld dword ptr [edi+000012d0]
+
+exit_infiniteFury:
+jmp returnhere_infiniteFury
+///--------iNFiNiTE FURY--------///
+
+
+///--------TELEPORT SCRiPT--------///
+engine_x86_rwdi.dll+2D1ED8:
+jmp newmem_Teleport
+nop
+returnhere_Teleport:
+newmem_Teleport:
+cmp [s_enable],1
+je save_coord
+cmp [l_enable],1
+je load_coord
+jmp originalcode_Teleport
+
+save_coord:
+mov [s_enable],0
+push eax
+mov eax,[ecx+00000098]
+mov [x_coord],eax
+mov eax,[ecx+0000009c]
+mov [z_coord],eax
+mov eax,[ecx+000000a0]
+mov [y_coord],eax
+pop eax
+jmp originalcode_Teleport
+
+
+load_coord:
+mov [l_enable],0
+cmp [z_coord],0
+je originalcode_Teleport
+push eax
+mov eax,[x_coord]
+mov [ecx+00000098],eax
+mov eax,[z_coord]
+mov [ecx+0000009c],eax
+mov eax,[y_coord]
+mov [ecx+000000a0],eax
+pop eax
+
+
+originalcode_Teleport:
+fld dword ptr [ecx+0000009c]
+
+
+exit_Teleport:
+jmp returnhere_Teleport
+
+x_coord:
+dd 0
+z_coord:
+dd 0
+y_coord:
+dd 0
+s_enable:
+dd 0
+l_enable:
+dd 0
+///--------TELEPORT SCRiPT--------///
+
+
+///--------iNFiNiTE AMMO--------///
+game_x86_rwdi.dll+146B94:
+jmp newmem_infiniteAmmo
+nop
+nop
+returnhere_infiniteAmmo:
+
+newmem_infiniteAmmo:
+cmp byte ptr [enable_infiniteAmmo],1
+je infiniteAmmo
+jmp originalcode_infiniteAmmo
+
+infiniteAmmo: 
+mov dword ptr [ecx+eax*4+00000b2c],#999
+
+originalcode_infiniteAmmo:
+db 8B 84 81 2C 0B 00 00
+
+exit_infiniteAmmo:
+jmp returnhere_infiniteAmmo
+///--------iNFiNiTE AMMO--------///
+
+///--------ADD *** EXP --------///
+game_x86_rwdi.dll+163ECA:
+jmp newmem_addEXP
+nop
+returnhere_addEXP:
+
+newmem_addEXP: 
+cmp byte ptr [enable_addEXP],1
+je addEXP
+jmp originalcode_addEXP
+
+addEXP:
+mov byte ptr [enable_addEXP],0
+add dword [eax+3c],#10000
+
+originalcode_addEXP:
+db 8B 78 3C 2B 78 40
+
+exit_addEXP:
+jmp returnhere_addEXP
+///--------ADD *** EXP --------///
+
+
+///--------GET MAXiMUM SKiLL POiNTS--------///
+game_x86_rwdi.dll+AE95D:
+jmp newmem_addSkillPoints
+nop
+nop
+nop
+returnhere_addSkillPoints:
+
+newmem_addSkillPoints: 
+cmp byte ptr [enable_addSkillPoints],1
+je addSkillPoints
+jmp originalcode_addSkillPoints
+
+addSkillPoints:
+mov dword ptr [edx+04],(float)1000
+
+
+originalcode_addSkillPoints:
+fld dword ptr [edx+04]
+or eax,00000c00
+
+exit_addSkillPoints:
+jmp returnhere_addSkillPoints
+///--------GET MAXiMUM SKiLL POiNTS--------///
+
+
+///--------iNFiNiTE AMMO iN CLiP--------///
+game_x86_rwdi.dll+4CBFCC:
+jmp newmem_infiniteAmmoInClip
+nop
+nop
+nop
+nop
+returnhere_infiniteAmmoInClip:
+
+newmem_infiniteAmmoInClip:
+cmp byte ptr [enable_infiniteAmmoInClip],1
+je infiniteAmmoInClip
+jmp originalcode_infiniteAmmoInClip
+
+infiniteAmmoInClip:
+mov dword ptr [eax+20],#999
+
+
+originalcode_infiniteAmmoInClip:
+db 8B 40 20 89 86 08 01 00 00
+
+exit_infiniteAmmoInClip:
+jmp returnhere_infiniteAmmoInClip
+///--------iNFiNiTE AMMO iN CLiP--------///
+
+
+///--------iNFiNiTE MONEY--------///
+game_x86_rwdi.dll+2B9AAA:
+jmp newmem_infiniteMoney
+nop
+returnhere_infiniteMoney:
+
+newmem_infiniteMoney: 
+cmp byte ptr [enable_infiniteMoney],1
+je infiniteMoney
+jmp originalcode_infiniteMoney
+
+infiniteMoney:
+mov dword ptr [edi+00000778],#999999999
+
+originalcode_infiniteMoney:
+db 39 87 78 07 00 00
+
+exit_infiniteMoney:
+jmp returnhere_infiniteMoney
+///--------iNFiNiTE MONEY--------///
+
+
+
+///--------iNFiNiTE FLASHLiGHT--------///
+game_x86_rwdi.dll+495F00:
+jmp newmem_infiniteFlashlight
+returnhere_infiniteFlashlight:
+
+newmem_infiniteFlashlight:
+cmp byte ptr [enable_infiniteFlashlight],1
+je infiniteFlashlight
+jmp originalcode_infiniteFlashlight
+
+infiniteFlashlight:
+mov dword ptr [esi+34],(float)100
+
+originalcode_infiniteFlashlight:
+db D8 5E 34 DF E0
+
+exit_infiniteFlashlight:
+jmp returnhere_infiniteFlashlight
+///--------iNFiNiTE FLASHLiGHT--------///
+
+///--------iNFiNiTE WEAPON DURABiLiTY--------///
+game_x86_rwdi.dll+1469F1:
+jmp newmem_infiniteWeaponDurability
+nop
+returnhere_infiniteWeaponDurability:
+
+newmem_infiniteWeaponDurability:
+cmp byte ptr [enable_infiniteWeaponDurability],1
+je infiniteWeaponDurability
+cmp byte ptr [enable_superRangeWeapons],1
+je superRangeWeapons
+jmp originalcode_infiniteWeaponDurability
+
+infiniteWeaponDurability:
+pushfd
+pushad
+mov eax,[edi+30]
+mov eax,[eax+11C]
+lea ecx,[edi+24]
+mov [ecx],eax
+popad
+popfd 
+jmp originalcode_infiniteWeaponDurability
+
+superRangeWeapons:
+pushfd
+pushad
+mov eax,[edi+30]
+mov [eax+F4],(float)5000000
+lea ecx,[edi+24]
+popad
+popfd 
+jmp originalcode_infiniteWeaponDurability
+
+
+originalcode_infiniteWeaponDurability:
+mov edx,[eax+000002c4]
+
+exit_infiniteWeaponDurability:
+jmp returnhere_infiniteWeaponDurability
+///--------iNFiNiTE WEAPON DURABiLiTY--------///
+
+
+///--------iNFiNiTE STAMiNA--------///
+game_x86_rwdi.dll+7FE8F:
+jmp newmem_infiniteStamina
+nop
+returnhere_infiniteStamina:
+
+newmem_infiniteStamina:
+cmp byte ptr [enable_infiniteStamina],1
+je infiniteStamina
+jmp originalcode_infiniteStamina
+
+infiniteStamina:
+mov dword ptr [edi+0000091c],(float)999
+
+originalcode_infiniteStamina:
+db D9 87 1C 09 00 00
+
+exit_infiniteStamina:
+jmp returnhere_infiniteStamina
+///--------iNFiNiTE STAMiNA--------///
+
+
+///--------iNFiNiTE HEALTH--------///
+game_x86_rwdi.dll+43B662:
+jmp newmem_infiniteHealth
+nop
+returnhere_infiniteHealth:
+
+newmem_infiniteHealth:
+cmp byte ptr [enable_infiniteHealth],1
+je infiniteHealth
+jmp originalcode_infiniteHealth
+
+infiniteHealth:
+mov dword ptr [esi+000008b8],(float)1000
+
+originalcode_infiniteHealth:
+fcomp dword ptr [esi+000008b8]
+
+exit_infiniteHealth:
+jmp returnhere_infiniteHealth
+///--------iNFiNiTE HEALTH--------///
+
+enable_addEXP:
+dd 0 
+enable_addSkillPoints:
+dd 0 
+enable_infiniteHealth:
+dd 0 
+enable_infiniteStamina:
+dd 0 
+enable_infiniteWeaponDurability:
+dd 0 
+enable_infiniteFlashlight:
+dd 0 
+enable_infiniteMoney:
+dd 0 
+enable_infiniteAmmoInClip:
+dd 0 
+enable_addSkillPoints:
+dd 0 
+enable_addEXP:
+dd 0 
+enable_infiniteAmmo:
+dd 0
+enable_infiniteFury:
+dd 0
+enable_infiniteItems:
+dd 0
+enable_fastUnlocks:
+dd 0
+enable_maxPrecision:
+dd 0
+enable_oneHitKills:
+dd 0
+enable_killEnemysWhenYouAimOnThem:
+dd 0
+enable_autoSpeedHack:
+dd 0
+enable_superSpeed:
+dd 0
+enable_killSuperSpeed:
+dd 0
+enable_slowZombies:
+dd 0
+enable_fastZombies:
+dd 0
+enable_restoreZombies:
+dd 0
+
+
+ 
+[DISABLE]
+///--------iNFiNiTE HEALTH--------///
+Unregistersymbol(enable_infiniteHealth)
+dealloc(newmem_infiniteHealth)
+dealloc(enable_infiniteHealth)
+game_x86_rwdi.dll+43B662:
+db D8 9E B8 08 00 00
+///--------iNFiNiTE HEALTH--------///
+
+
+///--------iNFiNiTE STAMiNA--------///
+Unregistersymbol(enable_infiniteStamina)
+dealloc(newmem_infiniteStamina)
+dealloc(enable_infiniteStamina)
+game_x86_rwdi.dll+7FE8F:
+db D9 87 1C 09 00 00
+///--------iNFiNiTE STAMiNA--------///
+
+
+///--------iNFiNiTE WEAPON DURABiLiTY--------///
+Unregistersymbol(enable_superRangeWeapons)
+Unregistersymbol(enable_infiniteWeaponDurability)
+dealloc(newmem_infiniteWeaponDurability)
+dealloc(enable_infiniteWeaponDurability)
+dealloc(enable_superRangeWeapons)
+game_x86_rwdi.dll+1469F1:
+mov edx,[eax+000002c4]
+///--------iNFiNiTE WEAPON DURABiLiTY--------///
+
+
+///--------iNFiNiTE FLASHLiGHT--------///
+Unregistersymbol(enable_infiniteFlashlight)
+dealloc(newmem_infiniteFlashlight)
+dealloc(enable_infiniteFlashlight)
+game_x86_rwdi.dll+495F00:
+db D8 5E 34 DF E0
+///--------iNFiNiTE FLASHLiGHT--------///
+
+
+///--------iNFiNiTE MONEY--------///
+Unregistersymbol(enable_infiniteMoney)
+dealloc(newmem_infiniteMoney)
+dealloc(enable_infiniteMoney)
+game_x86_rwdi.dll+2B9AAA:
+db 39 87 78 07 00 00
+///--------iNFiNiTE MONEY--------///
+
+
+///--------iNFiNiTE AMMO iN CLiP--------///
+Unregistersymbol(enable_infiniteAmmoInClip)
+dealloc(newmem_infiniteAmmoInClip)
+dealloc(enable_infiniteAmmoInClip)
+game_x86_rwdi.dll+4CBFCC:
+db 8B 40 20 89 86 08 01 00 00
+///--------iNFiNiTE AMMO iN CLiP--------///
+
+
+///--------GET MAXiMUM SKiLL POiNTS--------///
+Unregistersymbol(enable_addSkillPoints)
+dealloc(enable_addSkillPoints)
+dealloc(newmem)
+game_x86_rwdi.dll+AE95D:
+db D9 42 04 0D 00 0C 00 00
+///--------GET MAXiMUM SKiLL POiNTS--------///
+
+
+///--------ADD *** EXP --------///
+Unregistersymbol(enable_addEXP)
+dealloc(newmem_addEXP)
+dealloc(enable_addEXP)
+game_x86_rwdi.dll+163ECA:
+db 8B 78 3C 2B 78 40
+///--------ADD *** EXP --------///
+
+
+///--------iNFiNiTE AMMO--------///
+Unregistersymbol(enable_infiniteAmmo)
+dealloc(newmem_infiniteAmmo)
+dealloc(enable_infiniteAmmo)
+game_x86_rwdi.dll+146B94:
+db 8B 84 81 2C 0B 00 00
+///--------iNFiNiTE AMMO--------///
+
+
+///--------TELEPORT SCRiPT--------///
+dealloc(newmem_Teleport)
+engine_x86_rwdi.dll+2D1ED8:
+fld dword ptr [ecx+0000009c]
+unregistersymbol(s_enable)
+unregistersymbol(l_enable)
+///--------TELEPORT SCRiPT--------///
+
+
+///--------iNFiNiTE FURY--------///
+Unregistersymbol(enable_infiniteFury)
+dealloc(newmem_infiniteFury)
+dealloc(enable_infiniteFury)
+game_x86_rwdi.dll+163E5C:
+db D9 87 D0 12 00 00
+///--------iNFiNiTE FURY--------///
+
+
+///--------iNFiNiTE iTEMS--------///
+Unregistersymbol(enable_infiniteItems)
+dealloc(newmem_infiniteItems)
+dealloc(enable_infiniteItems)
+game_x86_rwdi.dll+41468E:
+db 8B 47 20 D9 47 24
+///--------iNFiNiTE iTEMS--------///
+
+
+///--------FAST UNLOCKS--------///
+Unregistersymbol(enable_fastUnlocks)
+dealloc(newmem_fastUnlocks)
+dealloc(enable_fastUnlocks)
+game_x86_rwdi.dll+25CB70:
+db D9 81 78 01 00 00
+///--------FAST UNLOCKS--------///
+
+
+///--------MAXiMUM PRECiSiON--------///
+Unregistersymbol(enable_maxPrecision)
+dealloc(newmem_maxPrecision)
+dealloc(enable_maxPrecision)
+game_x86_rwdi.dll+42FCDC:
+db D8 80 C0 00 00 00
+///--------MAXiMUM PRECiSiON--------///
+
+
+///--------ONE HT KiLLS--------///
+Unregistersymbol(enable_oneHitKills)
+dealloc(newmem_oneHitKills)
+dealloc(enable_oneHitKills)
+game_x86_rwdi.dll+18C894:
+fld dword ptr [edx+00000598]
+///--------ONE HT KiLLS--------///
+
+
+///--------KiLL ENEMYS WHEN YOU AiM ON THEM--------///
+Unregistersymbol(enable_killEnemysWhenYouAimOnThem)
+dealloc(newmem_killEnemysWhenYouAimOnThem)
+dealloc(enable_killEnemysWhenYouAimOnThem)
+game_x86_rwdi.dll+13EC30:
+db D9 86 98 05 00 00
+///--------KiLL ENEMYS WHEN YOU AiM ON THEM--------///
+
+
+///--------AUTO SPEED HACK--------///
+Unregistersymbol(enable_autoSpeedHack)
+dealloc(newmem_autoSpeedHack)
+dealloc(enable_autoSpeedHack)
+engine_x86_rwdi.dll+2528E0:
+db D9 81 7C 0A 00 00
+///--------AUTO SPEED HACK--------///
+
+
+///--------SUPER SPEED--------///
+Unregistersymbol(enable_superSpeed)
+unregistersymbol(enable_killSuperSpeed)
+dealloc(newmem_superSpeed)
+dealloc(enable_superSpeed)
+dealloc(enable_killSuperSpeed)
+engine_x86_rwdi.dll+2A17E8:
+db D9 86 94 05 00 00
+///--------SUPER SPEED--------///
+
+
+///--------SLOW ZOMBiES--------///
+Unregistersymbol(enable_slowZombies)
+Unregistersymbol(enable_fastZombies)
+Unregistersymbol(enable_restoreZombies)
+dealloc(newmem_slowZombies)
+dealloc(enable_slowZombies)
+dealloc(enable_fastZombies)
+dealloc(enable_restoreZombies)
+engine_x86_rwdi.dll+2A17FA:
+db D9 86 94 05 00 00
+///--------SLOW ZOMBiES--------///
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>24</ID>
+      <Description>"iNFiNiTE HEALTH"</Description>
+      <Color>80000008</Color>
+      <VariableType>Byte</VariableType>
+      <Address>enable_infiniteHealth</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>25</ID>
+      <Description>"iNFiNiTE STAMiNA"</Description>
+      <Color>80000008</Color>
+      <VariableType>Byte</VariableType>
+      <Address>enable_infiniteStamina</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>26</ID>
+      <Description>"iNFiNiTE WEAPON DURABiLiTY"</Description>
+      <Color>80000008</Color>
+      <VariableType>Byte</VariableType>
+      <Address>enable_infiniteWeaponDurability</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>27</ID>
+      <Description>"iNFiNiTE FLASHLiGHT"</Description>
+      <Color>80000008</Color>
+      <VariableType>Byte</VariableType>
+      <Address>enable_infiniteFlashlight</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>28</ID>
+      <Description>"iNFiNiTE MONEY"</Description>
+      <Color>80000008</Color>
+      <VariableType>Byte</VariableType>
+      <Address>enable_infiniteMoney</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>29</ID>
+      <Description>"iNFiNiTE AMMO iN CLiP"</Description>
+      <Color>80000008</Color>
+      <VariableType>Byte</VariableType>
+      <Address>enable_infiniteAmmoInClip</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>30</ID>
+      <Description>"GET MAX SKiLL POiNTS"</Description>
+      <Color>80000008</Color>
+      <VariableType>Byte</VariableType>
+      <Address>enable_addSkillPoints</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>31</ID>
+      <Description>"ADD 10.000 EXP"</Description>
+      <Color>80000008</Color>
+      <VariableType>Byte</VariableType>
+      <Address>enable_addEXP</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>32</ID>
+      <Description>"iNFiNiTE AMMO"</Description>
+      <Color>80000008</Color>
+      <VariableType>Byte</VariableType>
+      <Address>enable_infiniteAmmo</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>33</ID>
+      <Description>"SAVE POSiTiON"</Description>
+      <Color>80000008</Color>
+      <VariableType>Byte</VariableType>
+      <Address>s_enable</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>34</ID>
+      <Description>"LOAD POSiTiON"</Description>
+      <Color>80000008</Color>
+      <VariableType>Byte</VariableType>
+      <Address>l_enable</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>35</ID>
+      <Description>"FILL FURY"</Description>
+      <Color>80000008</Color>
+      <VariableType>Byte</VariableType>
+      <Address>enable_infiniteFury</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>36</ID>
+      <Description>"iNFiNiTE iTEMS"</Description>
+      <Color>80000008</Color>
+      <VariableType>Byte</VariableType>
+      <Address>enable_infiniteItems</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>37</ID>
+      <Description>"FAST UNLOCKS"</Description>
+      <Color>80000008</Color>
+      <VariableType>Byte</VariableType>
+      <Address>enable_fastUnlocks</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>38</ID>
+      <Description>"MAXiMUM PRECiSiON"</Description>
+      <Color>80000008</Color>
+      <VariableType>Byte</VariableType>
+      <Address>enable_maxPrecision</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>39</ID>
+      <Description>"ONE HiT KiLLS"</Description>
+      <Color>80000008</Color>
+      <VariableType>Byte</VariableType>
+      <Address>enable_oneHitKills</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>40</ID>
+      <Description>"KiLL ENEMYS WHEN YOU AiM ON THEM"</Description>
+      <Color>80000008</Color>
+      <VariableType>Byte</VariableType>
+      <Address>enable_killEnemysWhenYouAimOnThem</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>41</ID>
+      <Description>"RESTORE AUTO SPEED"</Description>
+      <Color>80000008</Color>
+      <VariableType>Byte</VariableType>
+      <Address>enable_autoSpeedHack</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>42</ID>
+      <Description>"AUTO SUPER SPEED"</Description>
+      <Color>80000008</Color>
+      <VariableType>Byte</VariableType>
+      <Address>enable_autoSpeedHack</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>43</ID>
+      <Description>"iNCREASE PLAYER SPEED"</Description>
+      <Color>80000008</Color>
+      <VariableType>Byte</VariableType>
+      <Address>enable_superSpeed</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>44</ID>
+      <Description>"DECREASE PLAYER SPEED"</Description>
+      <Color>80000008</Color>
+      <VariableType>Byte</VariableType>
+      <Address>enable_killSuperSpeed</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>45</ID>
+      <Description>"SLOW ZOMBiES"</Description>
+      <Color>80000008</Color>
+      <VariableType>Byte</VariableType>
+      <Address>enable_slowZombies</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>46</ID>
+      <Description>"FAST ZOMBiES"</Description>
+      <Color>80000008</Color>
+      <VariableType>Byte</VariableType>
+      <Address>enable_fastZombies</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>47</ID>
+      <Description>"RESTORE ZOMBiE SPEED"</Description>
+      <Color>80000008</Color>
+      <VariableType>Byte</VariableType>
+      <Address>enable_restoreZombies</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>48</ID>
+      <Description>"SUPER WEAPON RANGE"</Description>
+      <Color>80000008</Color>
+      <VariableType>Byte</VariableType>
+      <Address>enable_superRangeWeapons</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>49</ID>
+      <Description>"Money"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>469854FC</Address>
+    </CheatEntry>
+  </CheatEntries>
+  <CheatCodes>
+    <CodeEntry>
+      <Description>KILL ALL ENEMYS</Description>
+      <Address>030DEC30</Address>
+      <ModuleName>game_x86_rwdi.dll</ModuleName>
+      <ModuleNameOffset>13EC30</ModuleNameOffset>
+      <Before>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+        <Byte>8B</Byte>
+        <Byte>47</Byte>
+        <Byte>24</Byte>
+      </Before>
+      <Actual>
+        <Byte>D9</Byte>
+        <Byte>86</Byte>
+        <Byte>98</Byte>
+        <Byte>05</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Actual>
+      <After>
+        <Byte>D9</Byte>
+        <Byte>5C</Byte>
+        <Byte>24</Byte>
+        <Byte>18</Byte>
+        <Byte>85</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Code :fld dword ptr [esi+00000598]</Description>
+      <Address>0360EC30</Address>
+      <ModuleName>game_x86_rwdi.dll</ModuleName>
+      <ModuleNameOffset>13EC30</ModuleNameOffset>
+      <Before>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+        <Byte>8B</Byte>
+        <Byte>47</Byte>
+        <Byte>24</Byte>
+      </Before>
+      <Actual>
+        <Byte>D9</Byte>
+        <Byte>86</Byte>
+        <Byte>98</Byte>
+        <Byte>05</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Actual>
+      <After>
+        <Byte>D9</Byte>
+        <Byte>5C</Byte>
+        <Byte>24</Byte>
+        <Byte>18</Byte>
+        <Byte>85</Byte>
+      </After>
+    </CodeEntry>
+  </CheatCodes>
+  <UserdefinedSymbols>
+    <SymbolEntry>
+      <Name>weaponlife2</Name>
+      <Address>0D130000</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>minutes</Name>
+      <Address>03E50000</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>hours</Name>
+      <Address>04680000</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>PP</Name>
+      <Address>051B0000</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>hp_jump</Name>
+      <Address>0082D38F</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>health</Name>
+      <Address>0D160000</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>weaponlife</Name>
+      <Address>0CD70000</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>item_jump</Name>
+      <Address>00645B55</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>_XLive</Name>
+      <Address>646A3454</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>survivor</Name>
+      <Address>0D180000</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>weaponlife3</Name>
+      <Address>0D140000</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>min_jump</Name>
+      <Address>004191F9</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>hour_jump</Name>
+      <Address>004191EB</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>pp_jump</Name>
+      <Address>008426E1</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>cash_jump</Name>
+      <Address>00814D20</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>wep_1</Name>
+      <Address>00645B55</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>wep_2</Name>
+      <Address>004B3685</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>wep_3</Name>
+      <Address>00626586</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>health_jump</Name>
+      <Address>006BD89F</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>surv_jump</Name>
+      <Address>006F4A4E</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>money</Name>
+      <Address>07060000</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>stamina</Name>
+      <Address>044D0000</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>life</Name>
+      <Address>07050000</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>xp</Name>
+      <Address>07070000</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>furymeter</Name>
+      <Address>07080000</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>skillpoints</Name>
+      <Address>07090000</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>itemamt</Name>
+      <Address>0BE20000</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>stamjmp</Name>
+      <Address>04F91EA4</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>lifejmp</Name>
+      <Address>04FBB282</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>moneyjmp</Name>
+      <Address>04E04701</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>xpjmp</Name>
+      <Address>04CE3E4A</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>furymeterjmp</Name>
+      <Address>04FAFE04</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>skillpointsjmp</Name>
+      <Address>04CE4F74</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>durajmp</Name>
+      <Address>07B1233E</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>s_enable</Name>
+      <Address>070B48CD</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>l_enable</Name>
+      <Address>070B48D1</Address>
+    </SymbolEntry>
+  </UserdefinedSymbols>
+</CheatTable>

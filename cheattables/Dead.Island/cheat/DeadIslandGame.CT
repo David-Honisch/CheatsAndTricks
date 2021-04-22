@@ -1,0 +1,518 @@
+<?xml version="1.0"?>
+<CheatTable CheatEngineTableVersion="10">
+  <CheatEntries>
+    <CheatEntry>
+      <Description>"Infinite Durability (Equipped Item)"</Description>
+      <Color>80000008</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[Enable]
+alloc(newmem,256)
+label(returnhere)
+label(durajmp)
+registersymbol(durajmp)
+aobscan(_durability,D9 47 24 8B 90 C4 02 00 00 D9 5C xx xx 8B CE )
+newmem:
+mov [edi+24],(float)999
+fld dword ptr [edi+24]
+mov edx,[eax+000002C4]
+jmp returnhere
+
+_durability:
+durajmp:
+jmp newmem
+nop
+nop
+nop
+nop
+returnhere:
+
+[Disable]
+durajmp:
+fld dword ptr [edi+24]
+mov edx,[eax+000002C4]
+dealloc(newmem)
+unregistersymbol(durajmp)
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <Description>"Instant Fury after 1 kill"</Description>
+      <Color>80000008</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[Enable]
+alloc(newmem,256)
+label(returnhere)
+label(furyjmp)
+registersymbol(furyjmp)
+
+aobscan(_fury,D9 9E D0 12 00 00 5F 5B)
+
+newmem:
+mov [esi+000012D0],(float)1.0
+
+jmp returnhere
+
+_fury:
+furyjmp:
+jmp newmem
+nop
+returnhere:
+
+[Disable]
+
+furyjmp:
+fstp dword ptr [esi+000012D0]
+
+unregistersymbol(furyjmp)
+dealloc(newmem)
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <Description>"Get xx item on drop"</Description>
+      <Color>80000008</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[Enable]
+alloc(newmem,256)
+globalalloc(itemamt,4)
+label(returnhere)
+label(itemdec)
+label(itemdec2)
+label(itemdec3)
+
+registersymbol(itemdec)
+registersymbol(itemdec2)
+registersymbol(itemdec3)
+
+aobscan(_itemdec,FF 4E 20 56 56 55)
+
+newmem:
+push eax
+mov eax,[itemamt]
+mov [esi+20],eax
+pop eax
+push esi
+push esi
+jmp returnhere
+
+_itemdec:
+itemdec:
+jmp newmem
+returnhere:
+
+_itemdec-2:
+itemdec2:
+nop
+nop
+
+_itemdec-14:
+itemdec3:
+nop
+nop
+
+itemamt:
+db 63
+
+[disable]
+itemdec:
+dec [esi+20]
+push esi
+push esi
+
+itemdec2:
+db 7E 1B
+
+itemdec3:
+db 7E 2D
+
+itemamt:
+db 00
+
+dealloc(newmem)
+unregistersymbol(itemdec)
+unregistersymbol(itemdec2)
+unregistersymbol(itemdec3)
+
+</AssemblerScript>
+      <CheatEntries>
+        <CheatEntry>
+          <Description>"Set item amount on drop"</Description>
+          <Color>80000008</Color>
+          <VariableType>4 Bytes</VariableType>
+          <Address>itemamt</Address>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <Description>"&lt;Find Values&gt;"</Description>
+      <Color>0000FF</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[Enable]
+alloc(_memstam,256)
+alloc(_memlife,256)
+alloc(_memmoney,256)
+alloc(_memxp,256)
+alloc(_memfurymeter,256)
+alloc(_memskillpoints,256)
+
+globalalloc(stamina,4)
+globalalloc(life,4)
+globalalloc(money,4)
+globalalloc(xp,4)
+globalalloc(furymeter,4)
+globalalloc(skillpoints,4)
+
+//Returns
+label(_retstam)
+label(_retlife)
+label(_retmoney)
+label(_retxp)
+label(_retfurymeter)
+label(_retskillpoints)
+
+label(stamjmp)
+label(lifejmp)
+label(moneyjmp)
+label(xpjmp)
+label(furymeterjmp)
+label(skillpointsjmp)
+
+//Symbols
+registersymbol(stamjmp)
+registersymbol(lifejmp)
+registersymbol(moneyjmp)
+registersymbol(xpjmp)
+registersymbol(furymeterjmp)
+registersymbol(skillpointsjmp)
+
+//AOB Scans
+aobscan(_stamina,D9 93 xx xx xx xx D8 1D xx xx xx xx DF E0 F6 C4 41 7A 7A 56 57)
+aobscan(_life,D8 9E xx xx xx xx DF E0 F6 C4 01 74 2C)
+aobscan(_money,8B 82 xx xx xx xx 8D 4C 24 xx 51 xx xx xx xx xx 83 C4 08)
+aobscan(_xp,8B 78 xx 2B 78 xx 8B CB FF D6 84 C0 74 07)
+aobscan(_furymeter,D9 9F D0 12 00 00 E8 91 59 00 00 83 F8 02)
+aobscan(_skillpoints,D9 40 04 0F B7 44 24 02 0D 00 0C 00 00 89 44 24 04 53)
+
+//Skill points
+_memskillpoints:
+push eax
+lea eax,[eax+04]
+mov [skillpoints],eax
+pop eax
+fld dword ptr [eax+04]
+movzx eax,word ptr [esp+02]
+jmp _retskillpoints
+
+_skillpoints:
+skillpointsjmp:
+jmp _memskillpoints
+nop
+nop
+nop
+_retskillpoints:
+
+//Fury Meter
+_memfurymeter:
+push eax
+lea eax,[edi+000012D0]
+mov [furymeter],eax
+pop eax
+fstp dword ptr [edi+000012D0]
+jmp _retfurymeter
+
+_furymeter:
+furymeterjmp:
+jmp _memfurymeter
+nop
+_retfurymeter:
+
+//XP
+_memxp:
+push esi
+lea esi,[eax+3C]
+mov [xp],esi
+pop esi
+mov edi,[eax+3C]
+sub edi,[eax+40]
+jmp _retxp
+
+_xp:
+xpjmp:
+jmp _memxp
+nop
+_retxp:
+
+//Money
+_memmoney:
+push eax
+lea eax,[edx+00000778]
+mov [money],eax
+pop eax
+mov eax,[edx+00000778]
+jmp _retmoney
+
+_money:
+moneyjmp:
+jmp _memmoney
+nop
+_retmoney:
+
+//Stamina
+_memstam:
+push eax
+lea eax,[ebx+0000091C]
+mov [stamina],eax
+pop eax
+fst dword ptr [ebx+0000091C]
+jmp _retstam
+
+_stamina:
+stamjmp:
+jmp _memstam
+nop
+_retstam:
+
+//Life
+_memlife:
+push eax
+lea eax,[esi+000008B8]
+mov [life],eax
+pop eax
+fcomp dword ptr [esi+000008B8]
+jmp _retlife
+
+_life:
+lifejmp:
+jmp _memlife
+nop
+_retlife:
+
+[Disable]
+skillpointsjmp:
+fld dword ptr [eax+04]
+movzx eax,word ptr [esp+02]
+
+furymeterjmp:
+fstp dword ptr [edi+000012D0]
+
+xpjmp:
+mov edi,[eax+3C]
+sub edi,[eax+40]
+
+stamjmp:
+fst dword ptr [ebx+0000091C]
+
+lifejmp:
+fcomp dword ptr [esi+000008B8]
+
+moneyjmp:
+mov eax,[edx+00000778]
+
+dealloc(_memstam)
+dealloc(_memlife)
+dealloc(_memmoney)
+dealloc(_memxp)
+dealloc(_memfurymeter)
+dealloc(_memskillpoints)
+unregistersymbol(stamjmp)
+unregistersymbol(lifejmp)
+unregistersymbol(moneyjmp)
+unregistersymbol(xpjmp)
+unregistersymbol(furymeterjmp)
+unregistersymbol(skillpointsjmp)
+</AssemblerScript>
+      <CheatEntries>
+        <CheatEntry>
+          <Description>"Life"</Description>
+          <Color>80000008</Color>
+          <VariableType>Float</VariableType>
+          <Address>life</Address>
+          <Offsets>
+            <Offset>0</Offset>
+          </Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <Description>"Stamina"</Description>
+          <Color>80000008</Color>
+          <VariableType>Float</VariableType>
+          <Address>stamina</Address>
+          <Offsets>
+            <Offset>0</Offset>
+          </Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <Description>"Experience"</Description>
+          <Color>80000008</Color>
+          <VariableType>4 Bytes</VariableType>
+          <Address>xp</Address>
+          <Offsets>
+            <Offset>0</Offset>
+          </Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <Description>"Skillpoints"</Description>
+          <Color>80000008</Color>
+          <VariableType>Float</VariableType>
+          <Address>skillpoints</Address>
+          <Offsets>
+            <Offset>0</Offset>
+          </Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <Description>"Money"</Description>
+          <Color>80000008</Color>
+          <VariableType>4 Bytes</VariableType>
+          <Address>money</Address>
+          <Offsets>
+            <Offset>0</Offset>
+          </Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <Description>"Fury"</Description>
+          <Color>80000008</Color>
+          <VariableType>Float</VariableType>
+          <Address>furymeter</Address>
+          <Offsets>
+            <Offset>0</Offset>
+          </Offsets>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols>
+    <SymbolEntry>
+      <Name>weaponlife2</Name>
+      <Address>0D130000</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>minutes</Name>
+      <Address>03E50000</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>hours</Name>
+      <Address>04680000</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>PP</Name>
+      <Address>051B0000</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>hp_jump</Name>
+      <Address>0082D38F</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>health</Name>
+      <Address>0D160000</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>weaponlife</Name>
+      <Address>0CD70000</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>item_jump</Name>
+      <Address>00645B55</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>_XLive</Name>
+      <Address>646A3454</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>survivor</Name>
+      <Address>0D180000</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>weaponlife3</Name>
+      <Address>0D140000</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>min_jump</Name>
+      <Address>004191F9</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>hour_jump</Name>
+      <Address>004191EB</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>pp_jump</Name>
+      <Address>008426E1</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>cash_jump</Name>
+      <Address>00814D20</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>wep_1</Name>
+      <Address>00645B55</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>wep_2</Name>
+      <Address>004B3685</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>wep_3</Name>
+      <Address>00626586</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>health_jump</Name>
+      <Address>006BD89F</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>surv_jump</Name>
+      <Address>006F4A4E</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>money</Name>
+      <Address>0B6D0000</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>stamina</Name>
+      <Address>0B2B0000</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>life</Name>
+      <Address>0B2C0000</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>xp</Name>
+      <Address>0B6E0000</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>furymeter</Name>
+      <Address>0B6F0000</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>skillpoints</Name>
+      <Address>0BE30000</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>itemamt</Name>
+      <Address>0BE20000</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>durajmp</Name>
+      <Address>04CC6CDE</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>stamjmp</Name>
+      <Address>04F91EA4</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>lifejmp</Name>
+      <Address>04FBB282</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>moneyjmp</Name>
+      <Address>04E04701</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>xpjmp</Name>
+      <Address>04CE3E4A</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>furymeterjmp</Name>
+      <Address>04FAFE04</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>skillpointsjmp</Name>
+      <Address>04CE4F74</Address>
+    </SymbolEntry>
+  </UserdefinedSymbols>
+</CheatTable>

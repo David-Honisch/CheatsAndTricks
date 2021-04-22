@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="14">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>0</ID>
+      <Description>"No description"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>002ABF84</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>1</ID>
+      <Description>"No description"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>0169F554</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>2</ID>
+      <Description>"No description"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>0169F144</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>3</ID>
+      <Description>"No description"</Description>
+      <Color>80000008</Color>
+      <VariableType>Float</VariableType>
+      <Address>0282C490</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>4</ID>
+      <Description>"No description"</Description>
+      <Color>80000008</Color>
+      <VariableType>Double</VariableType>
+      <Address>0282C498</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>5</ID>
+      <Description>"No description"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>00246898</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>6</ID>
+      <Description>"No description"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"Tutorial-i386.exe"+18AC88</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>7</ID>
+      <Description>"No description"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>00246998</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>8</ID>
+      <Description>"No description"</Description>
+      <ShowAsHex>1</ShowAsHex>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"Tutorial-i386.exe"+290380</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>9</ID>
+      <Description>"Pointer"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address/>
+      <Offsets>
+        <Offset>246998</Offset>
+      </Offsets>
+    </CheatEntry>
+  </CheatEntries>
+  <CheatCodes>
+    <CodeEntry>
+      <Description>No description</Description>
+      <Address>00423739</Address>
+      <ModuleName>Tutorial-i386.exe</ModuleName>
+      <ModuleNameOffset>23739</ModuleNameOffset>
+      <Before>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+        <Byte>8B</Byte>
+        <Byte>55</Byte>
+        <Byte>F0</Byte>
+      </Before>
+      <Actual>
+        <Byte>89</Byte>
+        <Byte>10</Byte>
+      </Actual>
+      <After>
+        <Byte>8B</Byte>
+        <Byte>45</Byte>
+        <Byte>F8</Byte>
+        <Byte>8B</Byte>
+        <Byte>80</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Change of nop </Description>
+      <Address>00423739</Address>
+      <ModuleName>Tutorial-i386.exe</ModuleName>
+      <ModuleNameOffset>23739</ModuleNameOffset>
+      <Before>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+        <Byte>8B</Byte>
+        <Byte>55</Byte>
+        <Byte>F0</Byte>
+      </Before>
+      <Actual>
+        <Byte>90</Byte>
+        <Byte>90</Byte>
+      </Actual>
+      <After>
+        <Byte>8B</Byte>
+        <Byte>45</Byte>
+        <Byte>F8</Byte>
+        <Byte>8B</Byte>
+        <Byte>80</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Change of nop </Description>
+      <Address>00423739</Address>
+      <ModuleName>Tutorial-i386.exe</ModuleName>
+      <ModuleNameOffset>23739</ModuleNameOffset>
+      <Before>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+        <Byte>8B</Byte>
+        <Byte>55</Byte>
+        <Byte>F0</Byte>
+      </Before>
+      <Actual>
+        <Byte>90</Byte>
+        <Byte>90</Byte>
+      </Actual>
+      <After>
+        <Byte>8B</Byte>
+        <Byte>45</Byte>
+        <Byte>F8</Byte>
+        <Byte>8B</Byte>
+        <Byte>80</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Code :nop </Description>
+      <Address>00423739</Address>
+      <ModuleName>Tutorial-i386.exe</ModuleName>
+      <ModuleNameOffset>23739</ModuleNameOffset>
+      <Before>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+        <Byte>8B</Byte>
+        <Byte>55</Byte>
+        <Byte>F0</Byte>
+      </Before>
+      <Actual>
+        <Byte>90</Byte>
+        <Byte>90</Byte>
+      </Actual>
+      <After>
+        <Byte>8B</Byte>
+        <Byte>45</Byte>
+        <Byte>F8</Byte>
+        <Byte>8B</Byte>
+        <Byte>80</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Change of nop </Description>
+      <Address>00423739</Address>
+      <ModuleName>Tutorial-i386.exe</ModuleName>
+      <ModuleNameOffset>23739</ModuleNameOffset>
+      <Before>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+        <Byte>8B</Byte>
+        <Byte>55</Byte>
+        <Byte>F0</Byte>
+      </Before>
+      <Actual>
+        <Byte>90</Byte>
+        <Byte>90</Byte>
+      </Actual>
+      <After>
+        <Byte>8B</Byte>
+        <Byte>45</Byte>
+        <Byte>F8</Byte>
+        <Byte>8B</Byte>
+        <Byte>80</Byte>
+      </After>
+    </CodeEntry>
+  </CheatCodes>
+  <UserdefinedSymbols/>
+</CheatTable>

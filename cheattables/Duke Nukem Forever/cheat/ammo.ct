@@ -1,0 +1,63 @@
+[ENABLE]
+//code from here to '[DISABLE]' will be used to enable the cheat
+alloc(newmem,2048) //2kb should be enough
+label(returnhere)
+label(originalcode)
+label(exit)
+label(afterwrite)
+label(badaddress)
+
+newmem: //this is allocated memory, you have read,write,execute access
+//place your code here
+
+push eax
+mov eax,[ebp+18]
+cmp eax,0
+je badaddress
+
+cmp [eax],AAmmo::`vftable'
+jne badaddress
+
+//valid address and it's ammo
+pop eax //restore eax
+
+push ebx
+mov ebx,[eax+4]
+mov [eax],ebx //set ammo to max ammo
+pop ebx
+jmp afterwrite
+
+badaddress:
+pop eax
+jmp originalcode
+
+//jne originalcode
+
+
+
+//jmp afterwrite
+
+originalcode:
+movss [eax],xmm0
+
+afterwrite:
+mov esp,ebp
+
+exit:
+jmp returnhere
+
+UObject::execIntToFloat+22:
+jmp newmem
+nop
+returnhere:
+
+
+ 
+ 
+[DISABLE]
+//code from here till the end of the code will be used to disable the cheat
+dealloc(newmem)
+UObject::execIntToFloat+22:
+movss [eax],xmm0
+mov esp,ebp
+//Alt: db F3 0F 11 00 8B E5 

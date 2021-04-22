@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="29">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>0</ID>
+      <Description>"No description"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>73266BE4</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>9</ID>
+      <Description>"pointerscan result"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"A-Volute.SonicRadar3DevProps2.dll"+0006E674</Address>
+      <Offsets>
+        <Offset>1C4</Offset>
+        <Offset>B4</Offset>
+        <Offset>32C</Offset>
+        <Offset>CC</Offset>
+        <Offset>670</Offset>
+        <Offset>1E4</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>10</ID>
+      <Description>"pointerscan result"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"A-Volute.SonicStudio3DevProps2.dll"+0006E674</Address>
+      <Offsets>
+        <Offset>1C4</Offset>
+        <Offset>B4</Offset>
+        <Offset>32C</Offset>
+        <Offset>CC</Offset>
+        <Offset>670</Offset>
+        <Offset>1E4</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>11</ID>
+      <Description>"pointerscan result"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"payday2_win32_release.exe"+001F1B38</Address>
+      <Offsets>
+        <Offset>1C4</Offset>
+        <Offset>B4</Offset>
+        <Offset>32C</Offset>
+        <Offset>144</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>12</ID>
+      <Description>"pointerscan result"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"PhysX3_x86.dll"+0015B324</Address>
+      <Offsets>
+        <Offset>1C4</Offset>
+        <Offset>B4</Offset>
+        <Offset>32C</Offset>
+        <Offset>120</Offset>
+        <Offset>8</Offset>
+        <Offset>1CC</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>13</ID>
+      <Description>"pointerscan result"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"payday2_win32_release.exe"+000855B8</Address>
+      <Offsets>
+        <Offset>1C4</Offset>
+        <Offset>2C</Offset>
+        <Offset>204</Offset>
+        <Offset>18</Offset>
+        <Offset>3C</Offset>
+        <Offset>2C</Offset>
+        <Offset>158</Offset>
+      </Offsets>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+</CheatTable>

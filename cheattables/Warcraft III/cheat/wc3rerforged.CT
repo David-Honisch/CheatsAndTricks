@@ -1,0 +1,496 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="29">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>6</ID>
+      <Description>"AOB SCRIPTS"</Description>
+      <Options moManualExpandCollapse="1" moActivateChildrenAsWell="1" moDeactivateChildrenAsWell="1" moAllowManualCollapseAndExpand="1"/>
+      <LastState Value="" Activated="1" RealAddress="00000000"/>
+      <Color>008000</Color>
+      <GroupHeader>1</GroupHeader>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>721</ID>
+          <Description>"Non-Player Specific"</Description>
+          <Options moManualExpandCollapse="1" moActivateChildrenAsWell="1" moDeactivateChildrenAsWell="1" moAllowManualCollapseAndExpand="1"/>
+          <LastState Value="" Activated="1" RealAddress="00000000"/>
+          <GroupHeader>1</GroupHeader>
+          <Hotkeys>
+            <Hotkey>
+              <Action>Toggle Activation</Action>
+              <Keys>
+                <Key>17</Key>
+                <Key>18</Key>
+                <Key>107</Key>
+              </Keys>
+              <ID>0</ID>
+              <ActivateSound TTS="EN">Camera Scan Activated</ActivateSound>
+              <DeactivateSound TTS="EN">Camera Scan Deactivated</DeactivateSound>
+            </Hotkey>
+          </Hotkeys>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>27</ID>
+              <Description>"Zoom Camera Pointer"</Description>
+              <LastState/>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript Async="1">[ENABLE]
+//scan for aob
+aobscan(zoomamt, ?? ?? ?? ?? 00 00 ?? ?? 00 00 80 3F 00 00 00 3F 00 40 1C 46 00 00 00 00 ?? ?? ?? ?? ?? ?? 00 00 ?? ?? ?? ?? ?? 7F 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 6F 72 70 5E 6C 65 72 60 ?? 04 00 80 ?? 04 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 ?? ?? ?? ?? ?? ?? 00 00)
+label(zoomamtlabel)
+registersymbol(zoomamt)
+
+zoomamt:
+zoomamtlabel:
+
+//undo the above
+[DISABLE]
+unregistersymbol(zoomamt)
+</AssemblerScript>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>7</ID>
+          <Description>"Player 01 Red"</Description>
+          <Options moManualExpandCollapse="1" moActivateChildrenAsWell="1" moDeactivateChildrenAsWell="1" moAllowManualCollapseAndExpand="1"/>
+          <LastState Value="" Activated="1" RealAddress="00000000"/>
+          <Color>0000FF</Color>
+          <GroupHeader>1</GroupHeader>
+          <Hotkeys>
+            <Hotkey>
+              <Action>Toggle Activation</Action>
+              <Keys>
+                <Key>18</Key>
+                <Key>97</Key>
+              </Keys>
+              <ID>0</ID>
+              <ActivateSound TTS="EN">Red Scan Activated</ActivateSound>
+              <DeactivateSound TTS="EN">Red Scan Deactivated</DeactivateSound>
+            </Hotkey>
+          </Hotkeys>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>10</ID>
+              <Description>"AOB FOOD CURRENTLY"</Description>
+              <LastState/>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript Async="1">[ENABLE]
+//scan for aob
+aobscan(RedPlayer01foodcur, ?? ?? ?? ?? 00 00 00 00 ?? ?? ?? ?? ?? ?? 00 00 ?? ?? ?? ?? F? 7F 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 6F 72 70 5E 67 6C 66 60 07 00 00 00 07 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 ?? ?? ?? ?? ?? ?? 00 00 ?? ?? ?? ?? ?? ?? 00 00 ?? ?? ?? ?? ?? ?? 00 00)
+label(Redplayerfood)
+registersymbol(Redplayer01foodcur)
+
+Redplayer01foodcur:
+Redplayerfood:
+
+//undo the above
+[DISABLE]
+unregistersymbol(Redplayer01foodcur)
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>13</ID>
+              <Description>"AOB FOOD MAX"</Description>
+              <LastState/>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript Async="1">[ENABLE]
+//scan for aob
+aobscan(RedPlayer01foodmax, ?? ?? ?? ?? 00 00 00 00 ?? ?? ?? ?? ?? ?? 00 00 ?? ?? ?? ?? F? 7F 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 6F 72 70 5E 67 6C 66 60 06 00 00 00 06 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 ?? ?? ?? ?? ?? ?? 00 00 ?? ?? ?? ?? ?? ?? 00 00 ?? ?? ?? ?? ?? ?? 00 00)
+label(Redplayerfoodm)
+registersymbol(Redplayer01foodmax)
+
+Redplayer01foodmax:
+Redplayerfoodm:
+
+//undo the above
+[DISABLE]
+unregistersymbol(Redplayer01foodmax)
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>2</ID>
+              <Description>"AOB GOLD"</Description>
+              <LastState/>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript Async="1">[ENABLE]
+//scan for aob
+aobscan(RedPlayer01gold, ?? ?? ?? ?? 00 00 00 00 ?? ?? ?? ?? ?? ?? 00 00 ?? ?? ?? ?? F? 7F 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 6F 72 70 5E 67 6C 66 60 03 00 00 00 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 ?? ?? ?? ?? ?? ?? 00 00 ?? ?? ?? ?? ?? ?? 00 00 ?? ?? ?? ?? ?? ?? 00 00)
+label(Redplayergold)
+registersymbol(Redplayer01gold)
+
+Redplayer01gold:
+Redplayergold:
+
+//undo the above
+[DISABLE]
+unregistersymbol(Redplayer01gold)
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>5</ID>
+              <Description>"AOB WOOD"</Description>
+              <LastState/>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript Async="1">[ENABLE]
+//scan for aob
+aobscan(RedPlayer01wood, ?? ?? ?? ?? 00 00 00 00 ?? ?? ?? ?? ?? ?? 00 00 ?? ?? ?? ?? F? 7F 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 6F 72 70 5E 67 6C 66 60 04 00 00 00 04 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 ?? ?? ?? ?? ?? ?? 00 00 ?? ?? ?? ?? ?? ?? 00 00 ?? ?? ?? ?? ?? ?? 00 00)
+label(Redplayerwood)
+registersymbol(Redplayer01wood)
+
+Redplayer01wood:
+Redplayerwood:
+
+//undo the above
+[DISABLE]
+unregistersymbol(Redplayer01wood)
+</AssemblerScript>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>16</ID>
+          <Description>"Player 02 Blue"</Description>
+          <Options moManualExpandCollapse="1" moActivateChildrenAsWell="1" moDeactivateChildrenAsWell="1" moAllowManualCollapseAndExpand="1"/>
+          <LastState Value="" Activated="1" RealAddress="00000000"/>
+          <Color>FF0000</Color>
+          <GroupHeader>1</GroupHeader>
+          <Hotkeys>
+            <Hotkey>
+              <Action>Toggle Activation</Action>
+              <Keys>
+                <Key>18</Key>
+                <Key>98</Key>
+              </Keys>
+              <ID>0</ID>
+              <ActivateSound TTS="EN">Blue Scan Activated</ActivateSound>
+              <DeactivateSound TTS="EN">Blue Scan Deactivated</DeactivateSound>
+            </Hotkey>
+          </Hotkeys>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>20</ID>
+              <Description>"AOB FOOD CURRENTLY"</Description>
+              <LastState/>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript Async="1">[ENABLE]
+//scan for aob
+aobscan(bluePlayer02foodcur, ?? ?? ?? ?? 00 00 00 00 ?? ?? ?? ?? ?? ?? 00 00 ?? ?? ?? ?? F? 7F 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 6F 72 70 5E 67 6C 66 60 2F 00 00 00 2F 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 ?? ?? ?? ?? ?? ?? 00 00 ?? ?? ?? ?? ?? ?? 00 00 ?? ?? ?? ?? ?? ?? 00 00)
+label(blueplayerfood)
+registersymbol(blueplayer02foodcur)
+
+blueplayer02foodcur:
+blueplayerfood:
+
+//undo the above
+[DISABLE]
+unregistersymbol(blueplayer02foodcur)
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>21</ID>
+              <Description>"AOB FOOD MAX"</Description>
+              <LastState/>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript Async="1">[ENABLE]
+//scan for aob
+aobscan(bluePlayer02foodmax, ?? ?? ?? ?? 00 00 00 00 ?? ?? ?? ?? ?? ?? 00 00 ?? ?? ?? ?? F? 7F 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 6F 72 70 5E 67 6C 66 60 2E 00 00 00 2E 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 ?? ?? ?? ?? ?? ?? 00 00 ?? ?? ?? ?? ?? ?? 00 00 ?? ?? ?? ?? ?? ?? 00 00)
+label(blueplayerfoodm)
+registersymbol(blueplayer02foodmax)
+
+blueplayer02foodmax:
+blueplayerfoodm:
+
+//undo the above
+[DISABLE]
+unregistersymbol(blueplayer02foodmax)
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>15</ID>
+              <Description>"AOB GOLD"</Description>
+              <LastState/>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript Async="1">[ENABLE]
+//scan for aob
+aobscan(Blueplayer02gold, ?? ?? ?? ?? 00 00 00 00 ?? ?? ?? ?? ?? ?? 00 00 ?? ?? ?? ?? F? 7F 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 6F 72 70 5E 67 6C 66 60 2B 00 00 00 2B 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 ?? ?? ?? ?? ?? ?? 00 00 ?? ?? ?? ?? ?? ?? 00 00 ?? ?? ?? ?? ?? ?? 00 00)
+label(Blueplayergold)
+registersymbol(Blueplayer02gold)
+
+Blueplayer02gold:
+Blueplayergold:
+
+//undo the above
+[DISABLE]
+unregistersymbol(Blueplayer02gold)
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>19</ID>
+              <Description>"AOB WOOD"</Description>
+              <LastState/>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript Async="1">[ENABLE]
+//scan for aob
+aobscan(Blueplayer02wood, ?? ?? ?? ?? 00 00 00 00 ?? ?? ?? ?? ?? ?? 00 00 ?? ?? ?? ?? F? 7F 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 6F 72 70 5E 67 6C 66 60 2C 00 00 00 2C 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 ?? ?? ?? ?? ?? ?? 00 00 ?? ?? ?? ?? ?? ?? 00 00 ?? ?? ?? ?? ?? ?? 00 00)
+label(Blueplayerwood)
+registersymbol(Blueplayer02wood)
+
+Blueplayer02wood:
+Blueplayerwood:
+
+//undo the above
+[DISABLE]
+unregistersymbol(Blueplayer02wood)
+</AssemblerScript>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>709</ID>
+          <Description>"Player 04 Purple"</Description>
+          <Options moManualExpandCollapse="1" moActivateChildrenAsWell="1" moDeactivateChildrenAsWell="1" moAllowManualCollapseAndExpand="1"/>
+          <LastState Value="" Activated="1" RealAddress="00000000"/>
+          <Color>9F009F</Color>
+          <GroupHeader>1</GroupHeader>
+          <Hotkeys>
+            <Hotkey>
+              <Action>Toggle Activation</Action>
+              <Keys>
+                <Key>18</Key>
+                <Key>99</Key>
+              </Keys>
+              <ID>0</ID>
+              <ActivateSound TTS="EN">Purple Scan Activated</ActivateSound>
+              <DeactivateSound TTS="EN">Purple Scan Deactivated</DeactivateSound>
+            </Hotkey>
+          </Hotkeys>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>719</ID>
+              <Description>"AOB FOOD CURRENTLY"</Description>
+              <LastState/>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript Async="1">[ENABLE]
+//scan for aob
+aobscan(PurpPlayer04foodcur, ?? ?? ?? ?? 00 00 00 00 ?? ?? ?? ?? ?? ?? 00 00 ?? ?? ?? ?? F? 7F 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 6F 72 70 5E 67 6C 66 60 7F 00 00 00 7F 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 ?? ?? ?? ?? ?? ?? 00 00 ?? ?? ?? ?? ?? ?? 00 00 ?? ?? ?? ?? ?? ?? 00 00)
+label(Purpplayerfood)
+registersymbol(Purpplayer04foodcur)
+
+Purpplayer04foodcur:
+Purpplayerfood:
+
+//undo the above
+[DISABLE]
+unregistersymbol(Purpplayer04foodcur)
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>715</ID>
+              <Description>"AOB FOOD MAX"</Description>
+              <LastState/>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript Async="1">[ENABLE]
+//scan for aob
+aobscan(PurpPlayer04foodmax, ?? ?? ?? ?? 00 00 00 00 ?? ?? ?? ?? ?? ?? 00 00 ?? ?? ?? ?? F? 7F 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 6F 72 70 5E 67 6C 66 60 7E 00 00 00 7E 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 ?? ?? ?? ?? ?? ?? 00 00 ?? ?? ?? ?? ?? ?? 00 00 ?? ?? ?? ?? ?? ?? 00 00)
+label(Purpplayerfoodm)
+registersymbol(Purpplayer04foodmax)
+
+Purpplayer04foodmax:
+Purpplayerfoodm:
+
+//undo the above
+[DISABLE]
+unregistersymbol(Purpplayer04foodmax)
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>708</ID>
+              <Description>"AOB GOLD"</Description>
+              <LastState/>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript Async="1">[ENABLE]
+//scan for aob
+aobscan(Purpplayer04gold, ?? ?? ?? ?? 00 00 00 00 ?? ?? ?? ?? ?? ?? 00 00 ?? ?? ?? ?? F? 7F 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 6F 72 70 5E 67 6C 66 60 7B 00 00 00 7B 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 ?? ?? ?? ?? ?? ?? 00 00 ?? ?? ?? ?? ?? ?? 00 00 ?? ?? ?? ?? ?? ?? 00 00)
+label(Purpplayergold)
+registersymbol(Purpplayer04gold)
+
+Purpplayer04gold:
+Purpplayergold:
+
+//undo the above
+[DISABLE]
+unregistersymbol(Purpplayer04gold)
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>713</ID>
+              <Description>"AOB WOOD"</Description>
+              <LastState/>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript Async="1">[ENABLE]
+//scan for aob
+aobscan(Purpplayer04wood, ?? ?? ?? ?? 00 00 00 00 ?? ?? ?? ?? ?? ?? 00 00 ?? ?? ?? ?? F? 7F 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 6F 72 70 5E 67 6C 66 60 7C 00 00 00 7C 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 ?? ?? ?? ?? ?? ?? 00 00 ?? ?? ?? ?? ?? ?? 00 00 ?? ?? ?? ?? ?? ?? 00 00)
+label(Purpplayerwood)
+registersymbol(Purpplayer04wood)
+
+Purpplayer04wood:
+Purpplayerwood:
+
+//undo the above
+[DISABLE]
+unregistersymbol(Purpplayer04wood)
+</AssemblerScript>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>11</ID>
+      <Description>"Player 01 RED"</Description>
+      <Options moHideChildren="1" moManualExpandCollapse="1" moAllowManualCollapseAndExpand="1"/>
+      <LastState Value="" RealAddress="00000000"/>
+      <Color>0000FF</Color>
+      <GroupHeader>1</GroupHeader>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>9</ID>
+          <Description>"FOOD - Current"</Description>
+          <Color>000000</Color>
+          <VariableType>8 Bytes</VariableType>
+          <Address>Redplayer01foodcur</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>12</ID>
+          <Description>"FOOD - Max"</Description>
+          <Color>000000</Color>
+          <VariableType>8 Bytes</VariableType>
+          <Address>Redplayer01foodmax</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>3</ID>
+          <Description>"GOLD"</Description>
+          <Color>17A6D5</Color>
+          <VariableType>8 Bytes</VariableType>
+          <Address>Redplayer01gold</Address>
+          <Hotkeys>
+            <Hotkey>
+              <Action>Toggle Activation</Action>
+              <Keys/>
+              <ID>0</ID>
+            </Hotkey>
+          </Hotkeys>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>4</ID>
+          <Description>"WOOD"</Description>
+          <Color>073949</Color>
+          <VariableType>8 Bytes</VariableType>
+          <Address>Redplayer01wood</Address>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>18</ID>
+      <Description>"Player 02 BLUE"</Description>
+      <Options moHideChildren="1" moManualExpandCollapse="1" moAllowManualCollapseAndExpand="1"/>
+      <LastState Value="" RealAddress="00000000"/>
+      <Color>FF0000</Color>
+      <GroupHeader>1</GroupHeader>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>23</ID>
+          <Description>"FOOD - Current"</Description>
+          <Color>800000</Color>
+          <VariableType>8 Bytes</VariableType>
+          <Address>Blueplayer02foodcur</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>24</ID>
+          <Description>"FOOD - Max"</Description>
+          <Color>800000</Color>
+          <VariableType>8 Bytes</VariableType>
+          <Address>Blueplayer02foodmax</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>17</ID>
+          <Description>"GOLD"</Description>
+          <Color>17A6D5</Color>
+          <VariableType>8 Bytes</VariableType>
+          <Address>Blueplayer02gold</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>22</ID>
+          <Description>"WOOD"</Description>
+          <Color>073949</Color>
+          <VariableType>8 Bytes</VariableType>
+          <Address>Blueplayer02wood</Address>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>710</ID>
+      <Description>"Player 04 PURPLE"</Description>
+      <Options moHideChildren="1" moManualExpandCollapse="1" moAllowManualCollapseAndExpand="1"/>
+      <LastState Value="" RealAddress="00000000"/>
+      <Color>9F009F</Color>
+      <GroupHeader>1</GroupHeader>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>720</ID>
+          <Description>"FOOD - Current"</Description>
+          <VariableType>8 Bytes</VariableType>
+          <Address>Purpplayer04foodcur</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>716</ID>
+          <Description>"FOOD - Max"</Description>
+          <VariableType>8 Bytes</VariableType>
+          <Address>Purpplayer04foodmax</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>711</ID>
+          <Description>"GOLD"</Description>
+          <Color>17A6D5</Color>
+          <VariableType>8 Bytes</VariableType>
+          <Address>Purpplayer04gold</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>714</ID>
+          <Description>"WOOD"</Description>
+          <Color>073949</Color>
+          <VariableType>8 Bytes</VariableType>
+          <Address>Purpplayer04wood</Address>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>26</ID>
+      <Description>"ZOOM Camera - default value is 1650"</Description>
+      <VariableType>Float</VariableType>
+      <Address>zoomamt</Address>
+      <Hotkeys>
+        <Hotkey>
+          <Action>Increase Value</Action>
+          <Keys>
+            <Key>18</Key>
+            <Key>107</Key>
+          </Keys>
+          <Value>100</Value>
+          <ID>0</ID>
+        </Hotkey>
+        <Hotkey>
+          <Action>Decrease Value</Action>
+          <Keys>
+            <Key>18</Key>
+            <Key>109</Key>
+          </Keys>
+          <Value>100</Value>
+          <ID>1</ID>
+        </Hotkey>
+      </Hotkeys>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+</CheatTable>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="19">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>0</ID>
+      <Description>"No description"</Description>
+      <LastState Value="99991568" RealAddress="148BEEB4"/>
+      <VariableType>4 Bytes</VariableType>
+      <Address>148BEEB4</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>1</ID>
+      <Description>"pointerscan result"</Description>
+      <LastState Value="99991568" RealAddress="148BEEB4"/>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"FreeImage.dll"+00099E98</Address>
+      <Offsets>
+        <Offset>778</Offset>
+        <Offset>24</Offset>
+        <Offset>C</Offset>
+        <Offset>18</Offset>
+        <Offset>320</Offset>
+      </Offsets>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+</CheatTable>

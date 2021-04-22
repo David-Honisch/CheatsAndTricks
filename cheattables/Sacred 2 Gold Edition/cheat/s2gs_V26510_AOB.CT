@@ -1,0 +1,682 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="14">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>0</ID>
+      <Description>"Auto Assemble script"</Description>
+      <Color>80000008</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>// Sacred 2 - Fallen Angen (sacred2.exe)
+// Game Version  : 2.12.0
+// Script Version: 1.0
+// CE Version    : 5.4
+// GodMode
+// 06-Dec-2008
+
+[ENABLE]
+alloc(MyCode,1024)
+
+// Declaration session
+label(_GodMode)
+label(_BackGM)
+label(_ExitGM)
+label(pHero)
+label(iEnableGM)
+
+registersymbol(MyCode)
+registersymbol(pHero)
+registersymbol(iEnableGM)
+
+//=========================================
+// Hacking Points
+s2logic.dll+77be2:
+ jmp _GodMode
+ nop
+_BackGM:
+
+MyCode:
+//=========================================
+// God Mode
+_GodMode:
+ cmp dword ptr [iEnableGM],0
+ je _ExitGM                 // Jump if GodMode is disabled
+
+ or eax,eax                 // Current HP?
+ jnz _ExitGM                // jump if false
+
+ cmp byte ptr [ecx+03],07   // PlayerÂ´s Hero?
+ jne _ExitGM                // Jump if false
+
+ mov [pHero],ecx            // Save ptr for debugging
+
+ movss xmm0,[ecx+54]        // Get Maximum HP
+
+_ExitGM:
+ movss [ecx+eax*4+50],xmm0  // Original code
+ jmp _BackGM                // Back to main code
+
+//=========================================
+// Variables
+pHero:
+ dd 0
+iEnableGM:
+ dd 1
+
+//=========================================
+// Original Codes
+[DISABLE]
+s2logic.dll+77be2:
+ movss [ecx+eax*4+50],xmm0
+
+dealloc(MyCode)
+unregistersymbol(MyCode)
+unregistersymbol(pHero)
+unregistersymbol(iEnableGM)
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>1</ID>
+      <Description>"Auto Assemble script"</Description>
+      <Color>80000008</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>// Sacred 2 - Fallen Angen (s2g2.exe)
+// Game Version  : 2.12.0
+// Script Version: 1.0
+// CE Version    : 5.4
+// GodMode
+// 07-Dec-2008
+
+[ENABLE]
+alloc(MyCode1,1024)
+
+// Declaration session
+label(_GodMode)
+label(_BackGM)
+label(_ExitGM)
+label(pHero1)
+label(iEnableGM1)
+
+registersymbol(MyCode1)
+registersymbol(pHero1)
+registersymbol(iEnableGM1)
+
+//=========================================
+// Hacking Points
+s2logic.dll+77bdd:
+ jmp _GodMode
+_BackGM:
+
+MyCode1:
+//=========================================
+// God Mode
+_GodMode:
+ cmp dword ptr [iEnableGM1],0
+ je _ExitGM                 // Jump if GodMode is disabled
+
+ cmp byte ptr [ecx+03],07   // PlayerÂ´s Hero?
+ jne _ExitGM                // Jump if false
+
+ mov [pHero1],ecx
+
+ or eax,eax                 // Current HP?
+ jnz _ExitGM                // jump if false
+
+ movss xmm0,[ecx+54]        // Get Maximum HP
+ movss [ebp+0c],xmm0
+
+_ExitGM:
+ movss xmm0,[ebp+0c]        // Original code
+ jmp _BackGM                // Back to main code
+
+//=========================================
+// Variables
+pHero1:
+ dd 0
+iEnableGM1:
+ dd 1
+
+//=========================================
+// Original Codes
+[DISABLE]
+s2logic.dll+77bdd:
+ movss xmm0,[ebp+0c]
+
+dealloc(MyCode1)
+unregistersymbol(MyCode1)
+unregistersymbol(pHero1)
+unregistersymbol(iEnableGM1)
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>7</ID>
+      <Description>"Sacred 2 IB V2.65.1 Script AOB (s2gs.exe)"</Description>
+      <Options moHideChildren="1"/>
+      <Color>FF0000</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>{
+===========================================
+ Sacred 2 - Fallen Angel - Ice &amp; Blood
+ Game Version  : 2.65.1.0
+ Game Process  : s2gs.exe
+ Script Version: 1.0
+ CE Version    : 6.2
+ GodMode and pointers
+ 19-Nov-2009 Release for 2.60.0.0
+ 03-Mar-2011 Adpated to version 2.65.1.0
+ 17-Apr-2013 AOB Release for 2.60.1.0
+ By Recifense
+===========================================
+}
+
+[ENABLE]
+//=========================================
+alloc(MyCode,4096,s2gs.exe)
+//=========================================
+
+AOBScan(aob_GodMode,f3 0f 10 45 0c f3 0f 11 44 81 60 0f b6 45 08)
+AOBScan(aob_MonHero,8b 45 f0 d9 40 04 8b 45 f0 d9 00 d9 c9 df f1 dd d8)
+
+//=========================================
+// Declaration section
+label(p_GodMode)
+label(p_MonHero)
+label(_GodMode)
+label(_BackGM)
+label(_ExitGM)
+label(_MonHero)
+label(_BackMH)
+label(_ExitMH)
+label(_GodM0)
+label(pHero)
+label(pMHero)
+label(fOne)
+label(iEnableGM)
+label(iEnableQK)
+label(fXMM1)
+label(fXMM2)
+
+registersymbol(MyCode)
+registersymbol(pHero)
+registersymbol(pMHero)
+registersymbol(iEnableGM)
+registersymbol(iEnableQK)
+registersymbol(p_GodMode)
+registersymbol(p_MonHero)
+
+//=========================================
+MyCode:
+//=========================================
+// God Mode
+_GodMode:
+ movss [fXMM1],xmm1         // Save register
+ movss [fXMM2],xmm2         // Save register
+
+ or eax,eax                 // Current HP?
+ jnz _ExitGM                // jump if false
+
+ push eax
+ mov al,[ecx+03]            // Get unit owner id
+ and al,0f                  // Mask low nibble
+ cmp al,07                  // Player´s Hero? ...
+ pop eax
+ jne _GodM0                 // ... Jump if false
+
+ cmp dword ptr [iEnableGM],0
+ je _ExitGM                 // Jump if GodMode is disabled
+
+ mov [pHero],ecx            // Save poiter for debugging
+
+ movss xmm0,[ecx+64]        // Get Maximum HP
+ movss [ebp+0c],xmm0        // Make next HP = maximum
+ jmp _ExitGM
+
+_GodM0:
+ cmp dword ptr [iEnableQK],0
+ je _ExitGM                 // Jump if Quick Kill is disabled
+
+ movss xmm1,[fOne]          // Get 1.00
+ movss xmm2,[ebp+0c]        // Get current HP
+
+ comiss xmm1,xmm2
+ jnc _ExitGM                // Jump if current HP &lt; 1.00
+
+ movss [ebp+0c],xmm1        // Make Foe´s HP =  1.00
+
+_ExitGM:
+ movss xmm1,[fXMM1]         // Restore register
+ movss xmm2,[fXMM2]         // Restore register
+
+ movss xmm0,[ebp+0c]        // Original code
+ jmp _BackGM                // Back to main code
+
+//=========================================
+_MonHero:
+ mov eax,[ebp-10]           // Get ptr to Current HP
+ lea eax,[eax-60]           // Adjust pointer
+
+ push eax
+ mov al,[eax+03]            // Get unit owner id
+ and al,0f                  // Mask low nibble
+ cmp al,07                  // Player´s Hero? ...
+ pop eax
+ jne _ExitMH                // ... Jump if false
+
+ mov [pMHero],eax           // Save ptr for debugging
+
+_ExitMH:
+ mov eax,[ebp-10]           // Original code
+ fld dword ptr [eax+04]     // Original code
+ jmp _BackMH                // Back to main code
+
+//=========================================
+// Variables
+iEnableGM:
+ dd 1
+iEnableQK:
+ dd 0
+pHero:
+ dd 0
+pMHero:
+ dd 0
+fOne:
+ dd 3f800000                // 1.00 (float)
+fXMM1:
+ dd 0
+fXMM2:
+ dd 0
+
+//=========================================
+// Hacking Points
+aob_GodMode:
+p_GodMode:
+ jmp _GodMode
+_BackGM:
+
+aob_MonHero:
+p_MonHero:
+ jmp _MonHero
+ nop
+_BackMH:
+
+//=========================================
+// Original Codes
+[DISABLE]
+p_GodMode:
+ movss xmm0,[ebp+0c]
+
+p_MonHero:
+ mov eax,[ebp-10]
+ fld dword ptr [eax+04]
+
+unregistersymbol(MyCode)
+unregistersymbol(pHero)
+unregistersymbol(pMHero)
+unregistersymbol(iEnableGM)
+unregistersymbol(iEnableQK)
+unregistersymbol(p_GodMode)
+unregistersymbol(p_MonHero)
+
+dealloc(MyCode)
+{
+GM
+sl = AOBScan("f3 0f 10 45 0c f3 0f 11 44 81 60 0f b6 45 08");
+MP
+sl = AOBScan("8b 45 f0 d9 40 04 8b 45 f0 d9 00 d9 c9 df f1 dd d8");
+}
+
+</AssemblerScript>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>8</ID>
+          <Description>"Enable/Disable God Mode"</Description>
+          <Color>008000</Color>
+          <VariableType>4 Bytes</VariableType>
+          <Address>iEnableGM</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>2</ID>
+          <Description>"Enable/Disable Quick Kill"</Description>
+          <Color>008000</Color>
+          <VariableType>4 Bytes</VariableType>
+          <Address>iEnableQK</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>3</ID>
+          <Description>"Hero's Attribute Points"</Description>
+          <Color>0080FF</Color>
+          <VariableType>2 Bytes</VariableType>
+          <Address>pMHero</Address>
+          <Offsets>
+            <Offset>A</Offset>
+          </Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>4</ID>
+          <Description>"Hero's Skill Points"</Description>
+          <Color>0080FF</Color>
+          <VariableType>2 Bytes</VariableType>
+          <Address>pMHero</Address>
+          <Offsets>
+            <Offset>8</Offset>
+          </Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>5</ID>
+          <Description>"Hero's XP"</Description>
+          <Color>0080FF</Color>
+          <VariableType>4 Bytes</VariableType>
+          <Address>pMHero</Address>
+          <Offsets>
+            <Offset>C</Offset>
+          </Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>6</ID>
+          <Description>"Hero's Gold"</Description>
+          <Color>0080FF</Color>
+          <VariableType>4 Bytes</VariableType>
+          <Address>pMHero</Address>
+          <Offsets>
+            <Offset>3</Offset>
+            <Offset>8C</Offset>
+            <Offset>178</Offset>
+          </Offsets>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>9</ID>
+      <Description>"Sacred 2 Ice and Cold Script (s2gs.exe)"</Description>
+      <Color>80000008</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>//=========================================
+// Sacred 2 - Fallen Angel - Ice &amp; Blood (s2g2.exe) 
+// Game Version  : 2.60.0.0
+// Script Version: 1.0
+// CE Version    : 5.5
+// GodMode and pointers
+// 19-Nov-2009
+//=========================================
+
+[ENABLE]
+alloc(MyCode,1024)
+
+//=========================================
+// Declaration section
+label(_GodMode)
+label(_BackGM)
+label(_ExitGM)
+label(_MonHero)
+label(_BackMH)
+label(_ExitMH)
+label(_GodM0)
+label(pHero)
+label(pMHero)
+label(fOne)
+label(iEnableGM)
+label(iEnableQK)
+label(fXMM1)
+label(fXMM2)
+
+registersymbol(MyCode)
+registersymbol(pHero)
+registersymbol(pMHero)
+registersymbol(iEnableGM)
+registersymbol(iEnableQK)
+
+//=========================================
+// Hacking Points
+s2logic.dll+07f94b:
+ jmp _GodMode
+_BackGM:
+
+s2logic.dll+082a7d:
+ jmp _MonHero
+ nop
+_BackMH:
+
+MyCode:
+//=========================================
+// God Mode
+_GodMode:
+ movss [fXMM1],xmm1         // Save register
+ movss [fXMM2],xmm2         // Save register
+ 
+ or eax,eax                 // Current HP?
+ jnz _ExitGM                // jump if false
+
+ push eax
+ mov al,[ecx+03]            // Get unit owner id
+ and al,0f                  // Mask low nibble
+ cmp al,07                  // Player´s Hero? ...
+ pop eax
+ jne _GodM0                 // ... Jump if false
+
+ cmp dword ptr [iEnableGM],0
+ je _ExitGM                 // Jump if GodMode is disabled
+
+ mov [pHero],ecx            // Save poiter for debugging
+
+ movss xmm0,[ecx+64]        // Get Maximum HP
+ movss [ebp+0c],xmm0        // Make next HP = maximum
+ jmp _ExitGM
+
+_GodM0:
+ cmp dword ptr [iEnableQK],0
+ je _ExitGM                 // Jump if Quick Kill is disabled
+
+ movss xmm1,[fOne]          // Get 1.00
+ movss xmm2,[ebp+0c]        // Get current HP
+
+ comiss xmm1,xmm2
+ jnc _ExitGM                // Jump if current HP &lt; 1.00
+ 
+ movss [ebp+0c],xmm1        // Make Foe´s HP =  1.00
+ 
+_ExitGM:
+ movss xmm1,[fXMM1]         // Restore register
+ movss xmm2,[fXMM2]         // Restore register
+ 
+ movss xmm0,[ebp+0c]        // Original code
+ jmp _BackGM                // Back to main code
+
+//=========================================
+_MonHero:
+ mov eax,[ebp-10]           // Get ptr to Current HP
+ lea eax,[eax-60]           // Adjust pointer
+
+ push eax
+ mov al,[eax+03]            // Get unit owner id
+ and al,0f                  // Mask low nibble
+ cmp al,07                  // Player´s Hero? ...
+ pop eax
+ jne _ExitMH                // ... Jump if false
+  
+ mov [pMHero],eax           // Save ptr for debugging
+
+_ExitMH:
+ mov eax,[ebp-10]           // Original code
+ fld dword ptr [eax+04]     // Original code
+ jmp _BackMH                // Back to main code
+
+//=========================================
+// Variables
+pHero:
+ dd 0
+pMHero:
+ dd 0
+fOne:
+ dd 3f800000                // 1.00 (float)
+iEnableGM:
+ dd 1
+iEnableQK:
+ dd 0
+fXMM1:
+ dd 0
+fXMM2:
+ dd 0 
+ 
+//=========================================
+// Original Codes
+[DISABLE]
+s2logic.dll+07f94b:
+ movss xmm0,[ebp+0c]
+
+s2logic.dll+082a7d:
+ mov eax,[ebp-10]
+ fld dword ptr [eax+04]
+
+dealloc(MyCode)
+unregistersymbol(MyCode)
+unregistersymbol(pHero)
+unregistersymbol(pMHero)
+unregistersymbol(iEnableGM)
+unregistersymbol(iEnableQK)
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>10</ID>
+      <Description>"Enable/Disable God Mode"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>iEnableGM</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>11</ID>
+      <Description>"Enable/Disable Quick Kill"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>iEnableQK</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>12</ID>
+      <Description>"HeroÂ´s Attribute Points"</Description>
+      <Color>80000008</Color>
+      <VariableType>2 Bytes</VariableType>
+      <Address>pMHero</Address>
+      <Offsets>
+        <Offset>A</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>13</ID>
+      <Description>"HeroÂ´s Skill Points"</Description>
+      <Color>80000008</Color>
+      <VariableType>2 Bytes</VariableType>
+      <Address>pMHero</Address>
+      <Offsets>
+        <Offset>8</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>14</ID>
+      <Description>"HeroÂ´s XP"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>pMHero</Address>
+      <Offsets>
+        <Offset>C</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>15</ID>
+      <Description>"HeroÂ´s Gold"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>pMHero</Address>
+      <Offsets>
+        <Offset>3</Offset>
+        <Offset>8C</Offset>
+        <Offset>178</Offset>
+      </Offsets>
+    </CheatEntry>
+  </CheatEntries>
+  <CheatCodes>
+    <CodeEntry>
+      <Description>01402a80 - d9 40 04 - fld dword ptr [eax+04] - rds max hp</Description>
+      <Address>01402A80</Address>
+      <ModuleName>s2logic.dll</ModuleName>
+      <ModuleNameOffset>82A80</ModuleNameOffset>
+      <Before>
+        <Byte>4D</Byte>
+        <Byte>F0</Byte>
+        <Byte>8B</Byte>
+        <Byte>45</Byte>
+        <Byte>F0</Byte>
+      </Before>
+      <Actual>
+        <Byte>D9</Byte>
+        <Byte>40</Byte>
+        <Byte>04</Byte>
+      </Actual>
+      <After>
+        <Byte>8B</Byte>
+        <Byte>45</Byte>
+        <Byte>F0</Byte>
+        <Byte>D9</Byte>
+        <Byte>00</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>013ff94b - f3 0f 10 45 0c - movss xmm0,[ebp+0c] - GM HP</Description>
+      <Address>013FF94B</Address>
+      <ModuleName>s2logic.dll</ModuleName>
+      <ModuleNameOffset>7F94B</ModuleNameOffset>
+      <Before>
+        <Byte>45</Byte>
+        <Byte>08</Byte>
+        <Byte>8B</Byte>
+        <Byte>4D</Byte>
+        <Byte>D8</Byte>
+      </Before>
+      <Actual>
+        <Byte>F3</Byte>
+        <Byte>0F</Byte>
+        <Byte>10</Byte>
+        <Byte>45</Byte>
+        <Byte>0C</Byte>
+      </Actual>
+      <After>
+        <Byte>F3</Byte>
+        <Byte>0F</Byte>
+        <Byte>11</Byte>
+        <Byte>44</Byte>
+        <Byte>81</Byte>
+      </After>
+    </CodeEntry>
+  </CheatCodes>
+  <UserdefinedSymbols>
+    <SymbolEntry>
+      <Name>pHero1</Name>
+      <Address>032C0039</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>iEnableGM1</Name>
+      <Address>032C003D</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>p_GodMode</Name>
+      <Address>0157FC95</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>p_MonHero</Name>
+      <Address>015829EA</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>pHero</Name>
+      <Address>02F200B1</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>pMHero</Name>
+      <Address>02F200B5</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>iEnableGM</Name>
+      <Address>02F200BD</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>iEnableQK</Name>
+      <Address>02F200C1</Address>
+    </SymbolEntry>
+  </UserdefinedSymbols>
+</CheatTable>

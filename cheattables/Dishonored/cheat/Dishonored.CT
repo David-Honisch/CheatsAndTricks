@@ -1,0 +1,617 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="16">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>0</ID>
+      <Description>"No description"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>083FF848</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>15</ID>
+      <Description>"1 Hit Kill"</Description>
+      <Color>80000008</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+//code from here to '[DISABLE]' will be used to enable the cheat
+alloc(newmem,2048) //2kb should be enough
+alloc(1hitkill,2048) //2kb should be enough
+label(returnhere)
+label(originalcode)
+label(exit)
+label(1hit)
+registersymbol(1hit)
+aobscan(1hitaob,29 93 44 03 00 00 0f 57 c0 f3 0f 10 4d 10)
+
+1hitkill: //this is allocated memory, you have read,write,execute access
+//place your code here
+popfd
+mov [ebx+00000344],(int)0
+
+jmp exit
+
+newmem: //this is allocated memory, you have read,write,execute access
+//place your code here
+pushfd
+cmp [ebx+0000002C],0
+jne 1hitkill
+popfd
+
+originalcode:
+sub [ebx+00000344],edx
+
+exit:
+jmp returnhere
+
+1hitaob:
+1hit:
+jmp newmem
+nop
+returnhere:
+
+
+ 
+ 
+[DISABLE]
+//code from here till the end of the code will be used to disable the cheat
+dealloc(newmem)
+dealloc(1hitkill)
+1hit:
+sub [ebx+00000344],edx
+//Alt: db 29 93 44 03 00 00
+unregistersymbol(1hit)
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>9</ID>
+      <Description>"Godmode"</Description>
+      <Color>80000008</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+//code from here to '[DISABLE]' will be used to enable the cheat
+alloc(newmem,2048) //2kb should be enough
+label(returnhere)
+label(originalcode)
+label(exit)
+label(godmode)
+registersymbol(godmode)
+aobscan(godmodeaob,8b 8e 44 03 00 00 57 3b c1)
+
+newmem: //this is allocated memory, you have read,write,execute access
+//place your code here
+mov [esi+00000344],(int)1000000
+
+originalcode:
+mov ecx,[esi+00000344]
+
+exit:
+jmp returnhere
+
+godmodeaob:
+godmode:
+jmp newmem
+nop
+returnhere:
+
+
+ 
+ 
+[DISABLE]
+//code from here till the end of the code will be used to disable the cheat
+dealloc(newmem)
+godmode:
+mov ecx,[esi+00000344]
+//Alt: db 8B 8E 44 03 00 00
+unregistersymbol(godmode)
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>11</ID>
+      <Description>"Godly Spirit"</Description>
+      <Color>80000008</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+//code from here to '[DISABLE]' will be used to enable the cheat
+alloc(newmem,2048) //2kb should be enough
+label(returnhere)
+label(originalcode)
+label(exit)
+label(mana)
+registersymbol(mana)
+aobscan(manaaob,8b 8e 58 0a 00 00 3b c1 89 86 5c 0a 00 00)
+
+newmem: //this is allocated memory, you have read,write,execute access
+//place your code here
+mov [esi+00000A58],(int)100
+
+originalcode:
+mov ecx,[esi+00000A58]
+
+exit:
+jmp returnhere
+
+manaaob:
+mana:
+jmp newmem
+nop
+returnhere:
+
+
+ 
+ 
+[DISABLE]
+//code from here till the end of the code will be used to disable the cheat
+dealloc(newmem)
+mana:
+mov ecx,[esi+00000A58]
+//Alt: db 8B 8E 58 0A 00 00
+unregistersymbol(mana)
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>21</ID>
+      <Description>"Infinite Breath"</Description>
+      <Color>80000008</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+//code from here to '[DISABLE]' will be used to enable the cheat
+alloc(newmem,2048) //2kb should be enough
+label(returnhere)
+label(originalcode)
+label(exit)
+label(breath)
+registersymbol(breath)
+aobscan(breathaob,0f 2f ca f3 0f 11 86 b0 0a 00 00)
+
+newmem: //this is allocated memory, you have read,write,execute access
+//place your code here
+
+originalcode:
+comiss xmm1,xmm2
+movss [esi+00000AB0],xmm0
+mov [esi+00000AB0],(float)30
+
+exit:
+jmp returnhere
+
+breathaob:
+breath:
+jmp newmem
+nop
+nop
+nop
+nop
+nop
+nop
+returnhere:
+
+
+ 
+ 
+[DISABLE]
+//code from here till the end of the code will be used to disable the cheat
+dealloc(newmem)
+breath:
+comiss xmm1,xmm2
+movss [esi+00000AB0],xmm0
+//Alt: db 0F 2F CA F3 0F 11 86 B0 0A 00 00
+unregistersymbol(breath)
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>4</ID>
+      <Description>"Add 1K Gold/Runes"</Description>
+      <Color>80000008</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+//code from here to '[DISABLE]' will be used to enable the cheat
+alloc(newmem,2048) //2kb should be enough
+label(returnhere)
+label(originalcode)
+label(exit)
+label(addgold)
+registersymbol(addgold)
+aobscan(addgoldaob,8b 43 04 8a 4d 08 89 75 d8 8b 33)
+
+newmem: //this is allocated memory, you have read,write,execute access
+//place your code here
+add [ebx+04],(int)1000
+
+originalcode:
+mov eax,[ebx+04]
+mov cl,[ebp+08]
+
+exit:
+jmp returnhere
+
+addgoldaob:
+addgold:
+jmp newmem
+nop
+returnhere:
+
+
+ 
+ 
+[DISABLE]
+//code from here till the end of the code will be used to disable the cheat
+dealloc(newmem)
+addgold:
+mov eax,[ebx+04]
+mov cl,[ebp+08]
+//Alt: db 8B 43 04 8A 4D 08
+unregistersymbol(addgold)
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>8</ID>
+      <Description>"Ammo 255"</Description>
+      <Color>80000008</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+//code from here to '[DISABLE]' will be used to enable the cheat
+alloc(newmem,2048) //2kb should be enough
+label(returnhere)
+label(originalcode)
+label(exit)
+label(ammo)
+registersymbol(ammo)
+aobscan(ammoaob,8b 00 2b 86 24 01 00 00 5e c3 cc cc cc)
+
+newmem: //this is allocated memory, you have read,write,execute access
+//place your code here
+mov [eax],(int)255
+
+originalcode:
+mov eax,[eax]
+sub eax,[esi+00000124]
+
+exit:
+jmp returnhere
+
+ammoaob:
+ammo:
+jmp newmem
+nop
+nop
+nop
+returnhere:
+
+
+ 
+ 
+[DISABLE]
+//code from here till the end of the code will be used to disable the cheat
+dealloc(newmem)
+ammo:
+mov eax,[eax]
+sub eax,[esi+00000124]
+//Alt: db 8B 00 2B 86 24 01 00 00
+unregistersymbol(ammo)
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>24</ID>
+      <Description>"No Reload"</Description>
+      <Color>80000008</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+//code from here to '[DISABLE]' will be used to enable the cheat
+alloc(newmem,2048) //2kb should be enough
+label(returnhere)
+label(originalcode)
+label(exit)
+label(noreload)
+registersymbol(noreload)
+aobscan(noreloadaob,83 be 24 01 00 00 00 7e ** 57)
+
+newmem: //this is allocated memory, you have read,write,execute access
+//place your code here
+mov [esi+00000124],(int)1
+
+originalcode:
+cmp dword ptr [esi+00000124],00
+
+exit:
+jmp returnhere
+
+noreloadaob:
+noreload:
+jmp newmem
+nop
+nop
+returnhere:
+
+
+ 
+ 
+[DISABLE]
+//code from here till the end of the code will be used to disable the cheat
+dealloc(newmem)
+noreload:
+cmp dword ptr [esi+00000124],00
+//Alt: db 83 BE 24 01 00 00 00
+unregistersymbol(noreload)
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>64</ID>
+      <Description>"Instant Blink"</Description>
+      <Color>80000008</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+//code from here to '[DISABLE]' will be used to enable the cheat
+alloc(newmem,2048) //2kb should be enough
+label(returnhere)
+label(originalcode)
+label(exit)
+label(notimer)
+registersymbol(notimer)
+aobscan(notimeraob,f3 0f 11 86 38 01 00 00 89 86 a0 00 00 00)
+
+newmem: //this is allocated memory, you have read,write,execute access
+//place your code here
+
+originalcode:
+movss [esi+00000138],xmm0
+mov [esi+00000138],(float)1
+
+exit:
+jmp returnhere
+
+notimeraob:
+notimer:
+jmp newmem
+nop
+nop
+nop
+returnhere:
+
+
+ 
+ 
+[DISABLE]
+//code from here till the end of the code will be used to disable the cheat
+dealloc(newmem)
+notimer:
+movss [esi+00000138],xmm0
+//Alt: db F3 0F 11 86 38 01 00 00
+unregistersymbol(notimer)
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>56</ID>
+      <Description>"Store Position = R"</Description>
+      <Color>80000008</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+//code from here to '[DISABLE]' will be used to enable the cheat
+alloc(newmem,2048) //2kb should be enough
+alloc(storeposition,2048) //2kb should be enough
+alloc(playerxyz,2048) //2kb should be enough
+label(returnhere)
+label(originalcode)
+label(exit)
+label(storecoords)
+registersymbol(playerxyz)
+registersymbol(storecoords)
+aobscan(storecoordsaob,f3 0f 10 98 c4 00 00 00 83 ec 08)
+
+storeposition: //this is allocated memory, you have read,write,execute access
+//place your code here
+popfd
+push esi
+mov esi,[eax+000000C4]
+mov [playerxyz],esi
+mov esi,[eax+000000C8]
+mov [playerxyz+4],esi
+mov esi,[eax+000000CC]
+mov [playerxyz+8],esi
+pop esi
+movss xmm3,[eax+000000C4]
+
+jmp exit
+
+newmem: //this is allocated memory, you have read,write,execute access
+//place your code here
+pushfd
+pushad
+push 'R'
+call GetAsyncKeyState
+shr ax,#15
+cmp ax,1
+popad
+je storeposition
+popfd
+
+originalcode:
+movss xmm3,[eax+000000C4]
+
+exit:
+jmp returnhere
+
+storecoordsaob:
+storecoords:
+jmp newmem
+nop
+nop
+nop
+returnhere:
+
+
+ 
+ 
+[DISABLE]
+//code from here till the end of the code will be used to disable the cheat
+dealloc(newmem)
+dealloc(storeposition)
+dealloc(playerxyz)
+storecoords:
+movss xmm3,[eax+000000C4]
+//Alt: db F3 0F 10 98 C4 00 00 00
+unregistersymbol(storecoords)
+unregistersymbol(playerxyz)
+</AssemblerScript>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>57</ID>
+          <Description>"X"</Description>
+          <Color>80000008</Color>
+          <VariableType>Float</VariableType>
+          <Address>playerxyz</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>58</ID>
+          <Description>"Y"</Description>
+          <Color>80000008</Color>
+          <VariableType>Float</VariableType>
+          <Address>playerxyz+4</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>59</ID>
+          <Description>"Z"</Description>
+          <Color>80000008</Color>
+          <VariableType>Float</VariableType>
+          <Address>playerxyz+8</Address>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>61</ID>
+      <Description>"Teleport = T"</Description>
+      <Color>80000008</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+//code from here to '[DISABLE]' will be used to enable the cheat
+alloc(newmem,2048) //2kb should be enough
+alloc(telethere,2048) //2kb should be enough
+label(returnhere)
+label(originalcode)
+label(exit)
+label(teleport)
+registersymbol(teleport)
+aobscan(teleportaob,f3 0f 10 80 c4 00 00 00 05 c4 00 00 00 f3 0f 11 45 f4 f3 0f 10 40 04 8d 45 f4)
+
+telethere: //this is allocated memory, you have read,write,execute access
+//place your code here
+popfd
+push esi
+mov esi,[playerxyz]
+mov [eax+000000C4],esi
+mov esi,[playerxyz+4]
+mov [eax+000000C8],esi
+mov esi,[playerxyz+8]
+mov [eax+000000CC],esi
+pop esi
+movss xmm0,[eax+000000C4]
+
+jmp exit
+
+newmem: //this is allocated memory, you have read,write,execute access
+//place your code here
+pushfd
+pushad
+push 'T'
+call GetAsyncKeyState
+shr ax,#15
+cmp ax,1
+popad
+je telethere
+popfd
+
+originalcode:
+movss xmm0,[eax+000000C4]
+
+exit:
+jmp returnhere
+
+teleportaob:
+teleport:
+jmp newmem
+nop
+nop
+nop
+returnhere:
+
+
+ 
+ 
+[DISABLE]
+//code from here till the end of the code will be used to disable the cheat
+dealloc(newmem)
+dealloc(telethere)
+teleport:
+movss xmm0,[eax+000000C4]
+//Alt: db F3 0F 10 80 C4 00 00 00
+unregistersymbol(teleport)
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>65</ID>
+      <Description>"No description"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>3260A3D0</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>66</ID>
+      <Description>"No description"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>1A8E9D90</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>67</ID>
+      <Description>"No description"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>Dishonored.exe+F91EB8</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>68</ID>
+      <Description>"No description"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>1C9CA9F0</Address>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols>
+    <SymbolEntry>
+      <Name>teleport</Name>
+      <Address>00A9ADB6</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>1hit</Name>
+      <Address>00581529</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>mana</Name>
+      <Address>00AA2DE0</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>godmode</Name>
+      <Address>00AAD86E</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>breath</Name>
+      <Address>00AB29A0</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>addgold</Name>
+      <Address>00BBED13</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>ammo</Name>
+      <Address>00C06C73</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>noreload</Name>
+      <Address>00C06CE2</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>notimer</Name>
+      <Address>00BE5E0E</Address>
+    </SymbolEntry>
+  </UserdefinedSymbols>
+</CheatTable>

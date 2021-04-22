@@ -1,0 +1,723 @@
+<?xml version="1.0"?>
+<CheatTable CheatEngineTableVersion="12">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>0</ID>
+      <Description>"Bonus Markers start here"</Description>
+      <Color>80000008</Color>
+      <VariableType>Array of byte</VariableType>
+      <ByteLength>12</ByteLength>
+      <Address>0091C8E8</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>1</ID>
+      <Description>"Rap Sheet Name"</Description>
+      <Color>80000008</Color>
+      <VariableType>String</VariableType>
+      <Length>4</Length>
+      <Unicode>0</Unicode>
+      <ZeroTerminate>1</ZeroTerminate>
+      <Address>01F0CDE8</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>2</ID>
+      <Description>"Money"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>01F0CE9C</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>3</ID>
+      <Description>"Rap Sheet CaseNr"</Description>
+      <Color>80000008</Color>
+      <VariableType>String</VariableType>
+      <Length>12</Length>
+      <Unicode>0</Unicode>
+      <ZeroTerminate>1</ZeroTerminate>
+      <Address>01F0D0FC</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>4</ID>
+      <Description>"Car1 Tires Upgrade"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>01F1141C</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>5</ID>
+      <Description>"Car1 Breaks Upgrade"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>01F11420</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>6</ID>
+      <Description>"Car1 Suspension Upgrade"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>01F11424</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>7</ID>
+      <Description>"Car1 Transmission Upgrade"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>01F11428</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>8</ID>
+      <Description>"Car1 Engine Upgrade"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>01F1142C</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>9</ID>
+      <Description>"Car1 Turbo Upgrade"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>01F11430</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>10</ID>
+      <Description>"Car1 NOS Upgrade"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>01F11434</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>11</ID>
+      <Description>"Car1 UniquePerf Upgrade"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>01F11438</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>12</ID>
+      <Description>"Car2 Tires Upgrade"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>01F115B4</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>13</ID>
+      <Description>"Car2 Breaks Upgrade"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>01F115B8</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>14</ID>
+      <Description>"Car2 Suspension Upgrade"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>01F115BC</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>15</ID>
+      <Description>"Car2 Transmission Upgrade"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>01F115C0</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>16</ID>
+      <Description>"Car2 Engine Upgrade"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>01F115C4</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>17</ID>
+      <Description>"Car2 Turbo Upgrade"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>01F115C8</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>18</ID>
+      <Description>"Car2 NOS Upgrade"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>01F115CC</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>19</ID>
+      <Description>"Car2 UniquePerf Upgrade"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>01F115D0</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>20</ID>
+      <Description>"Car1 Bounty"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>01F15934</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>21</ID>
+      <Description>"Car1 Evaded"</Description>
+      <Color>80000008</Color>
+      <VariableType>2 Bytes</VariableType>
+      <Address>01F15938</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>22</ID>
+      <Description>"Car1 Busted"</Description>
+      <Color>80000008</Color>
+      <VariableType>2 Bytes</VariableType>
+      <Address>01F1593A</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>23</ID>
+      <Description>"Car1 Unserved Infraction1"</Description>
+      <Color>80000008</Color>
+      <VariableType>2 Bytes</VariableType>
+      <Address>01F1593C</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>24</ID>
+      <Description>"Car1 Unserved Infraction2"</Description>
+      <Color>80000008</Color>
+      <VariableType>2 Bytes</VariableType>
+      <Address>01F1593E</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>25</ID>
+      <Description>"Car1 Unserved Infraction3"</Description>
+      <Color>80000008</Color>
+      <VariableType>2 Bytes</VariableType>
+      <Address>01F15940</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>26</ID>
+      <Description>"Car1 Unserved Infraction4"</Description>
+      <Color>80000008</Color>
+      <VariableType>2 Bytes</VariableType>
+      <Address>01F15942</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>27</ID>
+      <Description>"Car1 Unserved Infraction5"</Description>
+      <Color>80000008</Color>
+      <VariableType>2 Bytes</VariableType>
+      <Address>01F15944</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>28</ID>
+      <Description>"Car1 Unserved Infraction6"</Description>
+      <Color>80000008</Color>
+      <VariableType>2 Bytes</VariableType>
+      <Address>01F15946</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>29</ID>
+      <Description>"Car1 Unserved Infraction7"</Description>
+      <Color>80000008</Color>
+      <VariableType>2 Bytes</VariableType>
+      <Address>01F15948</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>30</ID>
+      <Description>"Car1 Unserved Infraction8"</Description>
+      <Color>80000008</Color>
+      <VariableType>2 Bytes</VariableType>
+      <Address>01F1594A</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>31</ID>
+      <Description>"Car1 Served Infraction1"</Description>
+      <Color>80000008</Color>
+      <VariableType>2 Bytes</VariableType>
+      <Address>01F1594C</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>32</ID>
+      <Description>"Car1 Served Infraction2"</Description>
+      <Color>80000008</Color>
+      <VariableType>2 Bytes</VariableType>
+      <Address>01F1594E</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>33</ID>
+      <Description>"Car1 Served Infraction3"</Description>
+      <Color>80000008</Color>
+      <VariableType>2 Bytes</VariableType>
+      <Address>01F15950</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>34</ID>
+      <Description>"Car1 Served Infraction4"</Description>
+      <Color>80000008</Color>
+      <VariableType>2 Bytes</VariableType>
+      <Address>01F15952</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>35</ID>
+      <Description>"Car1 Served Infraction5"</Description>
+      <Color>80000008</Color>
+      <VariableType>2 Bytes</VariableType>
+      <Address>01F15954</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>36</ID>
+      <Description>"Car1 Served Infraction6"</Description>
+      <Color>80000008</Color>
+      <VariableType>2 Bytes</VariableType>
+      <Address>01F15956</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>37</ID>
+      <Description>"Car1 Served Infraction7"</Description>
+      <Color>80000008</Color>
+      <VariableType>2 Bytes</VariableType>
+      <Address>01F15958</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>38</ID>
+      <Description>"Car1 Served Infraction8"</Description>
+      <Color>80000008</Color>
+      <VariableType>2 Bytes</VariableType>
+      <Address>01F1595A</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>39</ID>
+      <Description>"Car2 Bounty"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>01F1596C</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>40</ID>
+      <Description>"Car3 Bounty"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>01F159A4</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>41</ID>
+      <Description>"Car4 Bounty"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>01F159DC</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>42</ID>
+      <Description>"Car5 Bounty"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>01F15A14</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>43</ID>
+      <Description>"Car6 Bounty"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>01F15A4C</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>44</ID>
+      <Description>"Car7 Bounty"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>01F15A84</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>45</ID>
+      <Description>"Car8 Bounty"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>01F15ABC</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>46</ID>
+      <Description>"Car9 Bounty"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>01F15AF4</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>47</ID>
+      <Description>"Car10 Bounty"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>01F15B2C</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>48</ID>
+      <Description>"Car11 Bounty"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>01F15B64</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>49</ID>
+      <Description>"Car12 Bounty"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>01F15B9C</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>50</ID>
+      <Description>"Car13 Bounty"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>01F15BD4</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>51</ID>
+      <Description>"Car14 Bounty"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>01F15C0C</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>52</ID>
+      <Description>"BMW M3 GTR Bounty"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>01F15C44</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>53</ID>
+      <Description>"TopPursuit1 Name"</Description>
+      <Color>80000008</Color>
+      <VariableType>String</VariableType>
+      <Length>12</Length>
+      <Unicode>0</Unicode>
+      <ZeroTerminate>1</ZeroTerminate>
+      <Address>01F168F4</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>54</ID>
+      <Description>"TopPursuit1 Bounty"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>01F16904</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>55</ID>
+      <Description>"TopPursuit1 Time"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>01F16908</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>56</ID>
+      <Description>"TopPursuit1 Vehicles Involved"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>01F1690C</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>57</ID>
+      <Description>"TopPursuit1 Vehicles Damaged"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>01F16910</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>58</ID>
+      <Description>"TopPursuit1 Vehicles Immobilized"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>01F16914</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>59</ID>
+      <Description>"TopPursuit1 Roadblocks dodged"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>01F16918</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>60</ID>
+      <Description>"TopPursuit1 Spikeblocks dodged"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>01F1691C</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>61</ID>
+      <Description>"TopPursuit1 Cost to State"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>01F16920</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>62</ID>
+      <Description>"TopPursuit1 Infractions"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>01F16924</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>63</ID>
+      <Description>"TopPursuit1 Helis deployed"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>01F16928</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>64</ID>
+      <Description>"Lifetime Pursuit Length"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>01F16A0C</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>65</ID>
+      <Description>"Lifetime Vehicles Involved"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>01F16A10</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>66</ID>
+      <Description>"Lifetime Vehicles Damaged"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>01F16A14</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>67</ID>
+      <Description>"Lifetime Vehicles Immobilized"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>01F16A18</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>68</ID>
+      <Description>"Lifetime Spikes dodged"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>01F16A1C</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>69</ID>
+      <Description>"Lifetime Roadblocks dodged"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>01F16A20</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>70</ID>
+      <Description>"Lifetime Helis deployed"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>01F16A24</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>71</ID>
+      <Description>"Lifetime Cost to state"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>01F16A28</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>72</ID>
+      <Description>"Single Pursuit Length"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>01F16A30</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>73</ID>
+      <Description>"Single Vehicles Involved"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>01F16A38</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>74</ID>
+      <Description>"Single Vehicles Damaged"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>01F16A40</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>75</ID>
+      <Description>"Single Vehicles Immobilized"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>01F16A48</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>76</ID>
+      <Description>"Single Spikes dodged"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>01F16A50</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>77</ID>
+      <Description>"Single Roadblocks dodged"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>01F16A58</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>78</ID>
+      <Description>"Single Helis deployed"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>01F16A60</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>79</ID>
+      <Description>"Single Cost to state"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>01F16A68</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>80</ID>
+      <Description>"Single Infractions"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>01F16A70</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>81</ID>
+      <Description>"Single Bounty"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>01F16A78</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>82</ID>
+      <Description>"CTS Roadblocks"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>01F16A7C</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>83</ID>
+      <Description>"CTS Insurance claims"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>01F16A80</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>84</ID>
+      <Description>"CTS Spikes"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>01F16A84</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>85</ID>
+      <Description>"CTS Vehicles Involved "</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>01F16A8C</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>86</ID>
+      <Description>"CTS special units"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>01F16A90</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>87</ID>
+      <Description>"CTS damage to property $"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>01F16A94</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>88</ID>
+      <Description>"CTS damage to property"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>01F16A98</Address>
+    </CheatEntry>
+  </CheatEntries>
+  <CheatCodes>
+    <CodeEntry>
+      <Description>NOS - change of 00693641 - d8 64 24 2c  - fsub dword ptr [esp+2c]</Description>
+      <Address>00693641</Address>
+      <ModuleName/>
+      <ModuleNameOffset>0</ModuleNameOffset>
+      <Before>
+        <Byte>F8</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+        <Byte>55</Byte>
+      </Before>
+      <Actual>
+        <Byte>D8</Byte>
+        <Byte>64</Byte>
+        <Byte>24</Byte>
+        <Byte>2C</Byte>
+      </Actual>
+      <After>
+        <Byte>57</Byte>
+        <Byte>D9</Byte>
+        <Byte>9E</Byte>
+        <Byte>F8</Byte>
+        <Byte>00</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>SpeedBreaker - code :006ee8a8 - d8 ae 84 00 00 00  - fsubr dword ptr [esi+00000084]</Description>
+      <Address>006EE8A8</Address>
+      <ModuleName/>
+      <ModuleNameOffset>0</ModuleNameOffset>
+      <Before>
+        <Byte>D4</Byte>
+        <Byte>FC</Byte>
+        <Byte>88</Byte>
+        <Byte>00</Byte>
+        <Byte>51</Byte>
+      </Before>
+      <Actual>
+        <Byte>D8</Byte>
+        <Byte>AE</Byte>
+        <Byte>84</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Actual>
+      <After>
+        <Byte>D9</Byte>
+        <Byte>1C</Byte>
+        <Byte>24</Byte>
+        <Byte>E8</Byte>
+        <Byte>0A</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Busted Timer - change of 00443bb8 - d8 86 1c 01 00 00  - fadd dword ptr [esi+0000011c]</Description>
+      <Address>00443BB8</Address>
+      <ModuleName>speed.exe</ModuleName>
+      <ModuleNameOffset>43BB8</ModuleNameOffset>
+      <Before>
+        <Byte>86</Byte>
+        <Byte>20</Byte>
+        <Byte>01</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Before>
+      <Actual>
+        <Byte>D8</Byte>
+        <Byte>86</Byte>
+        <Byte>1C</Byte>
+        <Byte>01</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Actual>
+      <After>
+        <Byte>D9</Byte>
+        <Byte>96</Byte>
+        <Byte>1C</Byte>
+        <Byte>01</Byte>
+        <Byte>00</Byte>
+      </After>
+    </CodeEntry>
+  </CheatCodes>
+  <UserdefinedSymbols/>
+</CheatTable>

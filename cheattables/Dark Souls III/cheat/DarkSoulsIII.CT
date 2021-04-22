@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="19">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>0</ID>
+      <Description>"No description"</Description>
+      <LastState Value="124" Activated="1" RealAddress="7FF5AF8F7CA4"/>
+      <VariableType>4 Bytes</VariableType>
+      <Address>7FF5AF8F7CA4</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>9</ID>
+      <Description>"No description"</Description>
+      <LastState Value="459" Activated="1" RealAddress="7FF5AF8F7C98"/>
+      <VariableType>4 Bytes</VariableType>
+      <Address>7FF5AF8F7C98</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>1</ID>
+      <Description>"No description"</Description>
+      <LastState Value="459" RealAddress="7FF51C5D1AE8"/>
+      <VariableType>4 Bytes</VariableType>
+      <Address>7FF51C5D1AE8</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>2</ID>
+      <Description>"No description"</Description>
+      <LastState Value="459" RealAddress="7FF51C5E6B38"/>
+      <VariableType>4 Bytes</VariableType>
+      <Address>7FF51C5E6B38</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>3</ID>
+      <Description>"No description"</Description>
+      <LastState Value="459" RealAddress="7FF51C6366D0"/>
+      <VariableType>4 Bytes</VariableType>
+      <Address>7FF51C6366D0</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>4</ID>
+      <Description>"No description"</Description>
+      <LastState Value="459" RealAddress="7FF590EDA27C"/>
+      <VariableType>4 Bytes</VariableType>
+      <Address>7FF590EDA27C</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>5</ID>
+      <Description>"No description"</Description>
+      <LastState Value="459" RealAddress="7FF594692240"/>
+      <VariableType>4 Bytes</VariableType>
+      <Address>7FF594692240</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>6</ID>
+      <Description>"No description"</Description>
+      <LastState Value="459" RealAddress="7FF594692248"/>
+      <VariableType>4 Bytes</VariableType>
+      <Address>7FF594692248</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>7</ID>
+      <Description>"No description"</Description>
+      <LastState Value="459" RealAddress="7FF5A0714514"/>
+      <VariableType>4 Bytes</VariableType>
+      <Address>7FF5A0714514</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>8</ID>
+      <Description>"No description"</Description>
+      <LastState Value="459" RealAddress="7FF5A07BA828"/>
+      <VariableType>4 Bytes</VariableType>
+      <Address>7FF5A07BA828</Address>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+</CheatTable>

@@ -1,0 +1,501 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="18">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>0</ID>
+      <Description>"No description"</Description>
+      <LastState Value="31" Activated="0" RealAddress="000201A0"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>000201A0</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>1</ID>
+      <Description>"No description"</Description>
+      <LastState Value="30" Activated="1" RealAddress="006FA900"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>iw3sp.exe+2FA900</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>2</ID>
+      <Description>"No description"</Description>
+      <LastState Value="30" Activated="1" RealAddress="00707BE8"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>iw3sp.exe+307BE8</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>3</ID>
+      <Description>"No description"</Description>
+      <LastState Value="30" Activated="1" RealAddress="00714EE4"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>iw3sp.exe+314EE4</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>4</ID>
+      <Description>"No description"</Description>
+      <LastState Value="30" Activated="1" RealAddress="0085C0E8"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>iw3sp.exe+45C0E8</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>5</ID>
+      <Description>"No description"</Description>
+      <LastState Value="30" Activated="1" RealAddress="008E98AC"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>iw3sp.exe+4E98AC</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>6</ID>
+      <Description>"No description"</Description>
+      <LastState Value="30" Activated="1" RealAddress="00E0DD34"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>iw3sp.exe+A0DD34</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>7</ID>
+      <Description>"No description"</Description>
+      <LastState Value="30" Activated="1" RealAddress="014A6138"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>iw3sp.exe+10A6138</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>8</ID>
+      <Description>"Kills"</Description>
+      <LastState Value="??" Activated="0" RealAddress="00000000"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>iw3mp.exe+C7F0E70</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>9</ID>
+      <Description>"Deaths"</Description>
+      <LastState Value="??" Activated="0" RealAddress="00000000"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>iw3mp.exe+C7F0E78</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>10</ID>
+      <Description>"Experience"</Description>
+      <LastState Value="4265802471" Activated="0" RealAddress="0CBF0E68"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>0CBF0E68</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>11</ID>
+      <Description>"Headshots"</Description>
+      <LastState Value="??" Activated="0" RealAddress="00000000"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>iw3mp.exe+C7F0E84</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>12</ID>
+      <Description>"Streak"</Description>
+      <LastState Value="2125140450" Activated="0" RealAddress="0CBF0E74"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>0CBF0E74</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>13</ID>
+      <Description>"Score"</Description>
+      <LastState Value="2125140372" Activated="0" RealAddress="0CBF0E6C"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>0CBF0E6C</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>14</ID>
+      <Description>"Assists"</Description>
+      <LastState Value="32046218" Activated="0" RealAddress="0CBF0E80"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>0CBF0E80</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>15</ID>
+      <Description>"Godmode (but fucking dog kill!!)"</Description>
+      <LastState Activated="1"/>
+      <Color>80000008</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+alloc(cave,256)
+label(back)
+label(exit)
+
+iw3sp.exe+AE316:
+jmp cave
+nop
+back:
+
+cave:
+cmp byte ptr [ebp],1
+jne exit
+jmp iw3sp.exe+ae7ad
+jmp back
+exit:
+je iw3sp.exe+ae7ad
+jmp back
+
+[DISABLE]
+dealloc(cave)
+iw3sp.exe+AE316:
+je iw3sp.exe+ae7ad
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>16</ID>
+      <Description>"Ammo"</Description>
+      <LastState Value="0" Activated="0" RealAddress="006FA904"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>iw3sp.exe+2FA904</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>17</ID>
+      <Description>"Ammo"</Description>
+      <LastState Value="0" Activated="0" RealAddress="00707BEC"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>iw3sp.exe+307BEC</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>18</ID>
+      <Description>"Ammo"</Description>
+      <LastState Value="0" Activated="0" RealAddress="00714EE8"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>iw3sp.exe+314EE8</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>19</ID>
+      <Description>"Ammo"</Description>
+      <LastState Value="0" Activated="0" RealAddress="0085C0EC"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>iw3sp.exe+45C0EC</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>20</ID>
+      <Description>"Ammo"</Description>
+      <LastState Value="0" Activated="0" RealAddress="008E98B0"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>iw3sp.exe+4E98B0</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>21</ID>
+      <Description>"Ammo"</Description>
+      <LastState Value="0" Activated="0" RealAddress="00E0DD38"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>iw3sp.exe+A0DD38</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>22</ID>
+      <Description>"Ammo"</Description>
+      <LastState Value="0" Activated="0" RealAddress="014A613C"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>iw3sp.exe+10A613C</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>23</ID>
+      <Description>"No description"</Description>
+      <LastState Value="0" Activated="0" RealAddress="006FA90C"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>iw3sp.exe+2FA90C</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>24</ID>
+      <Description>"No description"</Description>
+      <LastState Value="0" Activated="0" RealAddress="00707BF4"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>iw3sp.exe+307BF4</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>25</ID>
+      <Description>"No description"</Description>
+      <LastState Value="0" Activated="0" RealAddress="00714EF0"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>iw3sp.exe+314EF0</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>26</ID>
+      <Description>"No description"</Description>
+      <LastState Value="0" Activated="0" RealAddress="0085C0F4"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>iw3sp.exe+45C0F4</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>27</ID>
+      <Description>"No description"</Description>
+      <LastState Value="0" Activated="0" RealAddress="008E98B8"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>iw3sp.exe+4E98B8</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>28</ID>
+      <Description>"No description"</Description>
+      <LastState Value="0" Activated="0" RealAddress="00E0DD40"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>iw3sp.exe+A0DD40</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>29</ID>
+      <Description>"No description"</Description>
+      <LastState Value="0" Activated="0" RealAddress="014A6144"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>iw3sp.exe+10A6144</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>30</ID>
+      <Description>"No description"</Description>
+      <LastState Value="0" Activated="0" RealAddress="006FA918"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>iw3sp.exe+2FA918</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>31</ID>
+      <Description>"No description"</Description>
+      <LastState Value="0" Activated="0" RealAddress="00707C00"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>iw3sp.exe+307C00</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>32</ID>
+      <Description>"No description"</Description>
+      <LastState Value="0" Activated="0" RealAddress="00714EFC"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>iw3sp.exe+314EFC</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>33</ID>
+      <Description>"No description"</Description>
+      <LastState Value="0" Activated="0" RealAddress="0085C100"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>iw3sp.exe+45C100</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>34</ID>
+      <Description>"No description"</Description>
+      <LastState Value="0" Activated="0" RealAddress="008E98C4"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>iw3sp.exe+4E98C4</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>35</ID>
+      <Description>"No description"</Description>
+      <LastState Value="0" Activated="0" RealAddress="00E0DD4C"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>iw3sp.exe+A0DD4C</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>36</ID>
+      <Description>"No description"</Description>
+      <LastState Value="0" Activated="0" RealAddress="014A6150"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>iw3sp.exe+10A6150</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>37</ID>
+      <Description>"No description"</Description>
+      <LastState Value="0" Activated="0" RealAddress="006FA960"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>iw3sp.exe+2FA960</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>38</ID>
+      <Description>"No description"</Description>
+      <LastState Value="0" Activated="0" RealAddress="00707C48"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>iw3sp.exe+307C48</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>39</ID>
+      <Description>"No description"</Description>
+      <LastState Value="0" Activated="0" RealAddress="00714F44"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>iw3sp.exe+314F44</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>40</ID>
+      <Description>"No description"</Description>
+      <LastState Value="0" Activated="0" RealAddress="0085C148"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>iw3sp.exe+45C148</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>41</ID>
+      <Description>"No description"</Description>
+      <LastState Value="0" Activated="0" RealAddress="008E990C"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>iw3sp.exe+4E990C</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>42</ID>
+      <Description>"No description"</Description>
+      <LastState Value="0" Activated="0" RealAddress="00E0DD94"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>iw3sp.exe+A0DD94</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>43</ID>
+      <Description>"No description"</Description>
+      <LastState Value="0" Activated="0" RealAddress="00E2E804"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>iw3sp.exe+A2E804</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>44</ID>
+      <Description>"No description"</Description>
+      <LastState Value="0" Activated="0" RealAddress="014A6198"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>iw3sp.exe+10A6198</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>45</ID>
+      <Description>"No description"</Description>
+      <LastState Value="0" Activated="0" RealAddress="006FA92C"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>iw3sp.exe+2FA92C</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>46</ID>
+      <Description>"No description"</Description>
+      <LastState Value="0" Activated="0" RealAddress="00707C14"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>iw3sp.exe+307C14</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>47</ID>
+      <Description>"No description"</Description>
+      <LastState Value="0" Activated="0" RealAddress="00714F10"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>iw3sp.exe+314F10</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>48</ID>
+      <Description>"No description"</Description>
+      <LastState Value="0" Activated="0" RealAddress="0085C114"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>iw3sp.exe+45C114</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>49</ID>
+      <Description>"No description"</Description>
+      <LastState Value="0" Activated="0" RealAddress="008E98D8"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>iw3sp.exe+4E98D8</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>50</ID>
+      <Description>"No description"</Description>
+      <LastState Value="0" Activated="0" RealAddress="00E0DD60"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>iw3sp.exe+A0DD60</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>51</ID>
+      <Description>"No description"</Description>
+      <LastState Value="0" Activated="0" RealAddress="014A6164"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>iw3sp.exe+10A6164</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>52</ID>
+      <Description>"Kills"</Description>
+      <LastState Value="??" Activated="0" RealAddress="00000000"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>iw3mp.exe+C7F0E70</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>53</ID>
+      <Description>"Deaths"</Description>
+      <LastState Value="??" Activated="0" RealAddress="00000000"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>iw3mp.exe+C7F0E78</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>54</ID>
+      <Description>"Experience"</Description>
+      <LastState Value="4265802471" Activated="0" RealAddress="0CBF0E68"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>0CBF0E68</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>55</ID>
+      <Description>"Headshots"</Description>
+      <LastState Value="??" Activated="0" RealAddress="00000000"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>iw3mp.exe+C7F0E84</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>56</ID>
+      <Description>"Streak"</Description>
+      <LastState Value="2125140450" Activated="0" RealAddress="0CBF0E74"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>0CBF0E74</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>57</ID>
+      <Description>"Score"</Description>
+      <LastState Value="2125140372" Activated="0" RealAddress="0CBF0E6C"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>0CBF0E6C</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>58</ID>
+      <Description>"Assists"</Description>
+      <LastState Value="32046218" Activated="0" RealAddress="0CBF0E80"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>0CBF0E80</Address>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+</CheatTable>

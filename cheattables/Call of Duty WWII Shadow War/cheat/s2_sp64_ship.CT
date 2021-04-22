@@ -1,0 +1,3607 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="26">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>138</ID>
+      <Description>"Main Code"</Description>
+      <Options moHideChildren="1"/>
+      <LastState/>
+      <Color>800080</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+aobscanmodule(_Teleport,s2_sp64_ship.exe,F3 0F 10 80 90 00 00 00 F3 0F 10) // should be unique
+aobscanmodule(_GodMode,s2_sp64_ship.exe,8B 87 2C 02 00 00)
+aobscanmodule(_NoReload,s2_sp64_ship.exe,42 83 BC B6 A4 06 00 00 00)
+aobscanmodule(_Ammo,s2_sp64_ship.exe,8B 47 10 48 8B 5C 24 50 48 8B)
+aobscanmodule(_MediKits,s2_sp64_ship.exe,8B 48 04 03 4F 14)
+aobscanmodule(_Grenades,s2_sp64_ship.exe,45 8B AE A4 06 00 00)
+aobscanmodule(_RapidFire,s2_sp64_ship.exe,8B 84 8B 90 03 00 00)
+aobscanmodule(_SuperSpeed,s2_sp64_ship.exe,F3 0F 59 B3 18 03 00 00)
+aobscanmodule(_BypassSpeedReset,s2_sp64_ship.exe,89 83 18 03 00 00 4C)
+aobscanmodule(_OneHitKills,s2_sp64_ship.exe,83 B9 2C 02 00 00 00 7E 11)
+alloc(newmemTP,$1000,s2_sp64_ship.exe)
+alloc(newmemGM,$1000,s2_sp64_ship.exe)
+alloc(newmemNR,$1000,s2_sp64_ship.exe)
+alloc(newmemUA,$1000,s2_sp64_ship.exe)
+alloc(newmemMK,$1000,s2_sp64_ship.exe)
+alloc(newmemUG,$1000,s2_sp64_ship.exe)
+alloc(newmemRapid,$1000,s2_sp64_ship.exe)
+alloc(newmemSuperS,$1000,s2_sp64_ship.exe)
+alloc(newmemOhk,$1000,s2_sp64_ship.exe)
+alloc(_SavePosition,8)
+alloc(_LoadPosition,8)
+alloc(_UndoPosition,8)
+alloc(_X_Coord,8)
+alloc(_Y_Coord,8)
+alloc(_Z_Coord,8)
+alloc(_X_Coord_Undo,8)
+alloc(_Y_Coord_Undo,8)
+alloc(_Z_Coord_Undo,8)
+alloc(_enableGodMode,8)
+alloc(_enableNoReload,8)
+alloc(_enableUnlAmmo,8)
+alloc(_enableUnlMediKits,8)
+alloc(_enableUnlGrenades,8)
+alloc(_enableRapidFire,8)
+alloc(_IncPlayerSpeed,8)
+alloc(_DecPlayerSpeed,8)
+alloc(_ResPlayerSpeed,8)
+alloc(_SpeedToAdd,8)
+alloc(_enableOneHitKills,8)
+registersymbol(_Teleport)
+registersymbol(_SavePosition)
+registersymbol(_LoadPosition)
+registersymbol(_UndoPosition)
+registersymbol(_X_Coord)
+registersymbol(_Y_Coord)
+registersymbol(_Z_Coord)
+registersymbol(_X_Coord_Undo)
+registersymbol(_Y_Coord_Undo)
+registersymbol(_Z_Coord_Undo)
+registersymbol(_GodMode)
+registersymbol(_enableGodMode)
+registersymbol(_NoReload)
+registersymbol(_enableNoReload)
+registersymbol(_enableUnlAmmo)
+registersymbol(_Ammo)
+registersymbol(_enableUnlMediKits)
+registersymbol(_MediKits)
+registersymbol(_enableUnlGrenades)
+registersymbol(_Grenades)
+registersymbol(_enableRapidFire)
+registersymbol(_RapidFire)
+registersymbol(_IncPlayerSpeed)
+registersymbol(_DecPlayerSpeed)
+registersymbol(_ResPlayerSpeed)
+registersymbol(_SpeedToAdd)
+registersymbol(_SuperSpeed)
+registersymbol(_BypassSpeedReset)
+registersymbol(_enableOneHitKills)
+registersymbol(_OneHitKills)
+label(codeTP)
+label(returnTP)
+label(Save)
+label(Load)
+label(Undo)
+label(codeGM)
+label(returnGM)
+label(codeNR)
+label(returnNR)
+label(codeUA)
+label(returnUA)
+label(codeMK)
+label(returnMK)
+label(codeUG)
+label(returnUG)
+label(codeRapid)
+label(returnRapid)
+label(codeSuperS)
+label(returnSuperS)
+label(IncSpeed)
+label(DecSpeed)
+label(ResSpeed)
+label(codeOhk)
+label(returnOhk)
+
+
+
+newmemTP:
+cmp byte ptr [_SavePosition],1
+je Save
+cmp byte ptr [_LoadPosition],1
+je Load
+cmp byte ptr [_UndoPosition],1
+je Undo
+jmp codeTP
+
+Save:
+mov [_SavePosition],0
+push rdx
+mov rdx,[rax+00000090]
+mov [_X_Coord],rdx
+mov rdx,[rax+00000094]
+mov [_Y_Coord],rdx
+mov rdx,[rax+00000098]
+mov [_Z_Coord],rdx
+pop rdx
+jmp codeTP
+
+Load:
+mov [_LoadPosition],0
+push rbx
+mov rbx,[rax+00000090]
+mov [_X_Coord_Undo],rbx
+mov rbx,[rax+00000094]
+mov [_Y_Coord_Undo],rbx
+mov rbx,[rax+00000098]
+mov [_Z_Coord_Undo],rbx
+pop rbx
+
+push rdx
+mov rdx,[_X_Coord]
+mov [rax+00000090],rdx
+mov rdx,[_Y_Coord]
+mov [rax+00000094],rdx
+mov rdx,[_Z_Coord]
+mov [rax+00000098],rdx
+pop rdx
+jmp codeTP
+
+Undo:
+mov [_UndoPosition],0
+push rbx
+mov rbx,[_X_Coord_Undo]
+mov [rax+00000090],rbx
+mov rbx,[_Y_Coord_Undo]
+mov [rax+00000094],rbx
+mov rbx,[_Z_Coord_Undo]
+mov [rax+00000098],rbx
+pop rbx
+jmp codeTP
+
+
+codeTP:
+  movss xmm0,[rax+00000090]
+  jmp returnTP
+
+newmemGM:
+cmp [_enableGodMode],1
+jne codeGM
+mov [rdi+0000022C],#999
+
+codeGM:
+  mov eax,[rdi+0000022C]
+  jmp returnGM
+
+newmemNR:
+cmp [_enableNoReload],1
+jne codeNR
+mov [rsi+000006A4],#999
+codeNR:
+  cmp dword ptr [rsi+r14*4+000006A4],00
+  jmp returnNR
+
+newmemUA:
+cmp [_enableUnlAmmo],1
+jne codeUA
+mov [rdi+10],#999
+codeUA:
+  mov eax,[rdi+10]
+  mov rbx,[rsp+50]
+  jmp returnUA
+
+newmemMK:
+cmp byte ptr [_enableUnlMediKits],1
+jne codeMK
+mov [rax+04],#100
+codeMK:
+  mov ecx,[rax+04]
+  add ecx,[rdi+14]
+  jmp returnMK
+
+newmemUG:
+cmp dword ptr [_enableUnlGrenades],1
+jne codeUG
+mov [r14+000006A4],#99
+codeUG:
+  mov r13d,[r14+000006A4]
+  jmp returnUG
+
+newmemRapid:
+cmp [_enableRapidFire],1
+jne codeRapid
+mov [rbx+rcx*4+00000390],0
+
+codeRapid:
+  mov eax,[rbx+rcx*4+00000390]
+  jmp returnRapid
+
+newmemSuperS:
+cmp [rbx-4],0 // filters out Fake Adress
+jne codeSuperS
+cmp byte ptr [_IncPlayerSpeed],1
+je IncSpeed
+cmp byte ptr [_DecPlayerSpeed],1
+je DecSpeed
+cmp byte ptr [_ResPlayerSpeed],1
+je ResSpeed
+jmp codeSuperS
+
+IncSpeed:
+mov byte ptr [_IncPlayerSpeed],0
+fld [rbx+00000318]
+fld [_SpeedToAdd]
+faddp
+fstp [rbx+00000318]
+jmp codeSuperS
+
+DecSpeed:
+mov byte ptr [_DecPlayerSpeed],0
+cmp dword ptr [rbx+00000318],(float)1
+je codeSuperS
+fld [rbx+00000318]
+fld [_SpeedToAdd]
+fsubp
+fstp [rbx+00000318]
+jmp codeSuperS
+
+
+ResSpeed:
+mov byte ptr [_ResPlayerSpeed],0
+mov [rbx+00000318],(float)1
+jmp codeSuperS
+
+
+
+
+codeSuperS:
+  mulss xmm6,[rbx+00000318]
+  jmp returnSuperS
+
+_BypassSpeedReset:
+  db 90 90 90 90 90 90
+
+newmemOhk:
+cmp byte ptr [_enableOneHitKills],1
+jne codeOhk
+mov dword ptr [rcx+0000022C],1
+codeOhk:
+
+  cmp dword ptr [rcx+0000022C],00
+  jmp returnOhk
+
+
+
+
+
+_Teleport:
+  jmp newmemTP
+  nop
+  nop
+  nop
+returnTP:
+
+_GodMode:
+  jmp newmemGM
+  nop
+returnGM:
+
+_NoReload:
+  jmp newmemNR
+  nop
+  nop
+  nop
+  nop
+returnNR:
+
+_Ammo:
+  jmp newmemUA
+  nop
+  nop
+  nop
+returnUA:
+
+_MediKits:
+  jmp newmemMK
+  nop
+returnMK:
+
+_Grenades:
+  jmp newmemUG
+  nop
+  nop
+returnUG:
+
+
+_RapidFire:
+  jmp newmemRapid
+  nop
+  nop
+returnRapid:
+
+_SuperSpeed:
+  jmp newmemSuperS
+  nop
+  nop
+  nop
+returnSuperS:
+
+_OneHitKills:
+  jmp newmemOhk
+  nop
+  nop
+returnOhk:
+
+
+
+
+
+
+
+_SavePosition:
+dd 0
+_LoadPosition:
+dd 0
+_UndoPosition:
+dd 0
+_X_Coord:
+dq 0
+_Y_Coord:
+dq 0
+_Z_Coord:
+dq 0
+_X_Coord_Undo:
+dq 0
+_Y_Coord_Undo:
+dq 0
+_Z_Coord_Undo:
+dq 0
+_enableGodMode:
+dd 0
+_enableNoReload:
+dd 0
+_enableUnlAmmo:
+dd 0
+_enableUnlMediKits:
+dd 0
+_enableUnlGrenades:
+dd 0
+_enableRapidFire:
+dd 0
+_IncPlayerSpeed:
+dd 0
+_DecPlayerSpeed:
+dd 0
+_DecPlayerSpeed:
+dd 0
+_SpeedToAdd:
+dq (float)1
+_enableOneHitKills:
+dd 0
+
+[DISABLE]
+//code from here till the end of the code will be used to disable the cheat
+_Teleport:
+  db F3 0F 10 80 90 00 00 00
+_GodMode:
+  db 8B 87 2C 02 00 00
+_NoReload:
+  db 42 83 BC B6 A4 06 00 00 00
+_Ammo:
+  db 8B 47 10 48 8B 5C 24 50
+_MediKits:
+  db 8B 48 04 03 4F 14
+_Grenades:
+  db 45 8B AE A4 06 00 00
+_RapidFire:
+  db 8B 84 8B 90 03 00 00
+_SuperSpeed:
+  db F3 0F 59 B3 18 03 00 00
+_BypassSpeedReset:
+  db 89 83 18 03 00 00
+_OneHitKills:
+  db 83 B9 2C 02 00 00 00
+
+
+
+unregistersymbol(_Teleport)
+unregistersymbol(_SavePosition)
+unregistersymbol(_LoadPosition)
+unregistersymbol(_UndoPosition)
+unregistersymbol(_X_Coord)
+unregistersymbol(_Y_Coord)
+unregistersymbol(_Z_Coord)
+unregistersymbol(_X_Coord_Undo)
+unregistersymbol(_Y_Coord_Undo)
+unregistersymbol(_Z_Coord_Undo)
+unregistersymbol(_GodMode)
+unregistersymbol(_enableGodMode)
+unregistersymbol(_NoReload)
+unregistersymbol(_enableNoReload)
+unregistersymbol(_Ammo)
+unregistersymbol(_enableUnlAmmo)
+unregistersymbol(_MediKits)
+unregistersymbol(_enableUnlMediKits)
+unregistersymbol(_Grenades)
+unregistersymbol(_enableUnlGrenades)
+unregistersymbol(_RapidFire)
+unregistersymbol(_enableRapidFire)
+unregistersymbol(_SuperSpeed)
+unregistersymbol(_IncPlayerSpeed)
+unregistersymbol(_DecPlayerSpeed)
+unregistersymbol(_ResPlayerSpeed)
+unregistersymbol(_SpeedToAdd)
+unregistersymbol(_BypassSpeedReset)
+unregistersymbol(_OneHitKills)
+unregistersymbol(_enableOneHitKills)
+dealloc(_SavePosition)
+dealloc(_LoadPosition)
+dealloc(_UndoPosition)
+dealloc(_X_Coord)
+dealloc(_Y_Coord)
+dealloc(_Z_Coord)
+dealloc(_X_Coord_Undo)
+dealloc(_Y_Coord_Undo)
+dealloc(_Z_Coord_Undo)
+dealloc(newmemTP)
+dealloc(newmemGM)
+dealloc(_enableGodMode)
+dealloc(_enableNoReload)
+dealloc(newmemNR)
+dealloc(newmemUA)
+dealloc(_enableUnlAmmo)
+dealloc(_enableUnlMediKits)
+dealloc(newmemMK)
+dealloc(newmemUG)
+dealloc(_enableUnlGrenades)
+dealloc(_enableRapidFire)
+dealloc(newmemRapid)
+dealloc(newmemSuperS)
+dealloc(_IncPlayerSpeed)
+dealloc(_DecPlayerSpeed)
+dealloc(_ResPlayerSpeed)
+dealloc(_SpeedToAdd)
+dealloc(_enableOneHitKills)
+dealloc(newmemOhk)
+</AssemblerScript>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>139</ID>
+          <Description>"God Mode"</Description>
+          <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">1:On
+0:Off
+</DropDownList>
+          <VariableType>Byte</VariableType>
+          <Address>_enableGodMode</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>140</ID>
+          <Description>"One Hit Kills"</Description>
+          <DropDownList DescriptionOnly="1" DisplayValueAsItem="1">1:On
+0:Off
+</DropDownList>
+          <VariableType>Byte</VariableType>
+          <Address>_enableOneHitKills</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>141</ID>
+          <Description>"No Reload"</Description>
+          <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">1:On
+0:Off
+</DropDownList>
+          <VariableType>Byte</VariableType>
+          <Address>_enableNoReload</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>142</ID>
+          <Description>"Infinite Ammo"</Description>
+          <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">1:On
+0:Off
+</DropDownList>
+          <VariableType>Byte</VariableType>
+          <Address>_enableUnlAmmo</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>143</ID>
+          <Description>"Infinite Grenades"</Description>
+          <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">1:On
+0:Off
+</DropDownList>
+          <VariableType>Byte</VariableType>
+          <Address>_enableUnlGrenades</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>144</ID>
+          <Description>"Infinite Medi Kits"</Description>
+          <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">1:On
+0:Off
+</DropDownList>
+          <VariableType>Byte</VariableType>
+          <Address>_enableUnlMediKits</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>145</ID>
+          <Description>"Rapid Fire"</Description>
+          <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">1:On
+0:Off
+</DropDownList>
+          <VariableType>Byte</VariableType>
+          <Address>_enableRapidFire</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>146</ID>
+          <Description>"Super Speed"</Description>
+          <Options moHideChildren="1"/>
+          <LastState Value="" RealAddress="00000000"/>
+          <GroupHeader>1</GroupHeader>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>147</ID>
+              <Description>"Increase Player Speed"</Description>
+              <DropDownList DescriptionOnly="1" DisplayValueAsItem="1">1:On
+0:Off
+</DropDownList>
+              <VariableType>Byte</VariableType>
+              <Address>_IncPlayerSpeed</Address>
+              <Hotkeys>
+                <Hotkey>
+                  <Action>Set Value</Action>
+                  <Keys>
+                    <Key>33</Key>
+                  </Keys>
+                  <Value>1</Value>
+                  <ID>0</ID>
+                  <ActivateSound>Activate</ActivateSound>
+                </Hotkey>
+              </Hotkeys>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>148</ID>
+              <Description>"Decrease Player Speed"</Description>
+              <DropDownList DescriptionOnly="1" DisplayValueAsItem="1">1:On
+0:Off
+</DropDownList>
+              <VariableType>Byte</VariableType>
+              <Address>_DecPlayerSpeed</Address>
+              <Hotkeys>
+                <Hotkey>
+                  <Action>Set Value</Action>
+                  <Keys>
+                    <Key>34</Key>
+                  </Keys>
+                  <Value>1</Value>
+                  <ID>0</ID>
+                  <ActivateSound>Activate</ActivateSound>
+                </Hotkey>
+              </Hotkeys>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>149</ID>
+              <Description>"Restore Player Speed"</Description>
+              <DropDownList DescriptionOnly="1" DisplayValueAsItem="1">1:On
+0:Off
+</DropDownList>
+              <VariableType>Byte</VariableType>
+              <Address>_ResPlayerSPeed</Address>
+              <Hotkeys>
+                <Hotkey>
+                  <Action>Set Value</Action>
+                  <Keys>
+                    <Key>36</Key>
+                  </Keys>
+                  <Value>1</Value>
+                  <ID>0</ID>
+                  <ActivateSound>Activate</ActivateSound>
+                </Hotkey>
+              </Hotkeys>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>150</ID>
+          <Description>"Teleporter"</Description>
+          <Options moHideChildren="1"/>
+          <LastState Value="" RealAddress="00000000"/>
+          <GroupHeader>1</GroupHeader>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>151</ID>
+              <Description>"Save Position"</Description>
+              <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">1:On
+0:Off
+</DropDownList>
+              <VariableType>Byte</VariableType>
+              <Address>_SavePosition</Address>
+              <Hotkeys>
+                <Hotkey>
+                  <Action>Set Value</Action>
+                  <Keys>
+                    <Key>103</Key>
+                  </Keys>
+                  <Value>1</Value>
+                  <ID>0</ID>
+                  <ActivateSound>Activate</ActivateSound>
+                </Hotkey>
+              </Hotkeys>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>152</ID>
+              <Description>"Load Position"</Description>
+              <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">1:On
+0:Off
+</DropDownList>
+              <VariableType>Byte</VariableType>
+              <Address>_LoadPosition</Address>
+              <Hotkeys>
+                <Hotkey>
+                  <Action>Set Value</Action>
+                  <Keys>
+                    <Key>104</Key>
+                  </Keys>
+                  <Value>1</Value>
+                  <ID>0</ID>
+                  <ActivateSound>Activate</ActivateSound>
+                </Hotkey>
+              </Hotkeys>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>153</ID>
+              <Description>"Undo teleport"</Description>
+              <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">1:On
+0:Off
+</DropDownList>
+              <VariableType>Byte</VariableType>
+              <Address>_UndoPosition</Address>
+              <Hotkeys>
+                <Hotkey>
+                  <Action>Set Value</Action>
+                  <Keys>
+                    <Key>105</Key>
+                  </Keys>
+                  <Value>1</Value>
+                  <ID>0</ID>
+                  <ActivateSound>Activate</ActivateSound>
+                </Hotkey>
+              </Hotkeys>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>154</ID>
+          <Description>"Player Size"</Description>
+          <Options moHideChildren="1"/>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+
+aobscanmodule(_PlayerSize,s2_sp64_ship.exe,F3 0F 10 83 C0 01 00 00 F3) // should be unique
+aobscanmodule(_BypassPlayerSizeReset,s2_sp64_ship.exe,F3 0F 11 83 C0 01 00 00 39)
+alloc(newmemSize,$1000,s2_sp64_ship.exe)
+
+alloc(_ValueToAdd,8)
+alloc(_IncPlayerSize,8)
+alloc(_DecPlayerSize,8)
+alloc(_ResPlayerSize,8)
+registersymbol(_PlayerSize)
+registersymbol(_IncPlayerSize)
+registersymbol(_DecPlayerSize)
+registersymbol(_ResPlayerSize)
+registersymbol(_ValueToAdd)
+registersymbol(_BypassPlayerSizeReset)
+label(codeSize)
+label(returnSize)
+label(IncPlayer)
+label(DecPlayer)
+label(ResPlayer)
+
+newmemSize:
+cmp byte ptr [_IncPlayerSize],1
+je IncPlayer
+cmp byte ptr [_DecPlayerSize],1
+je DecPlayer
+cmp byte ptr [_ResPlayerSize],1
+je ResPlayer
+jmp codeSize
+
+IncPlayer:
+mov [_IncPlayerSize],0
+fld [rbx+000001C0]
+fld [_ValueToAdd]
+faddp
+fstp [rbx+000001C0]
+jmp codeSize
+
+DecPlayer:
+mov [_DecPlayerSize],0
+fld [rbx+000001C0]
+fld [_ValueToAdd]
+fsubp
+fstp [rbx+000001C0]
+jmp codeSize
+
+ResPlayer:
+mov [_ResPlayerSize],0
+mov [rbx+000001C0],(float)60
+jmp codeSize
+
+codeSize:
+  movss xmm0,[rbx+000001C0]
+  jmp returnSize
+
+_BypassPlayerSizeReset:
+  db 90 90 90 90 90 90 90 90
+
+_PlayerSize:
+  jmp newmemSize
+  nop
+  nop
+  nop
+returnSize:
+
+
+
+_ValueToAdd:
+dq (float)50
+_IncPlayerSize:
+dd 0
+_DecPlayerSize:
+dd 0
+_ResPlayerSize:
+dd 0
+[DISABLE]
+
+_PlayerSize:
+  db F3 0F 10 83 C0 01 00 00
+_BypassPlayerSizeReset:
+  db F3 0F 11 83 C0 01 00 00
+unregistersymbol(_PlayerSize)
+unregistersymbol(_IncPlayerSize)
+unregistersymbol(_DecPlayerSize)
+unregistersymbol(_ResPlayerSize)
+unregistersymbol(_ValueToAdd)
+unregistersymbol(_BypassPlayerSizeReset)
+dealloc(newmemSize)
+dealloc(_ValueToAdd)
+dealloc(_IncPlayerSize)
+dealloc(_DecPlayerSize)
+dealloc(_ResPlayerSize)
+
+
+{
+// ORIGINAL CODE - INJECTION POINT: "CoD_SP.exe"+36182D
+
+"CoD_SP.exe"+3617FC: 8B 83 90 00 00 00        -  mov eax,[rbx+00000090]
+"CoD_SP.exe"+361802: 4C 8D 83 7C 03 00 00     -  lea r8,[rbx+0000037C]
+"CoD_SP.exe"+361809: 89 07                    -  mov [rdi],eax
+"CoD_SP.exe"+36180B: 48 8B CF                 -  mov rcx,rdi
+"CoD_SP.exe"+36180E: 8B 83 94 00 00 00        -  mov eax,[rbx+00000094]
+"CoD_SP.exe"+361814: 89 47 04                 -  mov [rdi+04],eax
+"CoD_SP.exe"+361817: 8B 83 98 00 00 00        -  mov eax,[rbx+00000098]
+"CoD_SP.exe"+36181D: 89 47 08                 -  mov [rdi+08],eax
+"CoD_SP.exe"+361820: F3 0F 10 8B 90 01 00 00  -  movss xmm1,[rbx+00000190]
+"CoD_SP.exe"+361828: E8 33 CF 1B 00           -  call CoD_SP.exe+51E760
+// ---------- INJECTING HERE ----------
+"CoD_SP.exe"+36182D: F3 0F 10 83 C0 01 00 00  -  movss xmm0,[rbx+000001C0]
+// ---------- DONE INJECTING  ----------
+"CoD_SP.exe"+361835: F3 0F 58 47 08           -  addss xmm0,[rdi+08]
+"CoD_SP.exe"+36183A: F3 0F 11 47 08           -  movss [rdi+08],xmm0
+"CoD_SP.exe"+36183F: F3 0F 58 83 D4 01 00 00  -  addss xmm0,[rbx+000001D4]
+"CoD_SP.exe"+361847: F3 0F 11 47 08           -  movss [rdi+08],xmm0
+"CoD_SP.exe"+36184C: E9 5C FF FF FF           -  jmp CoD_SP.exe+3617AD
+"CoD_SP.exe"+361851: 81 FA 54 B5 43 D1        -  cmp edx,D143B554
+"CoD_SP.exe"+361857: E9 34 68 14 00           -  jmp CoD_SP.exe+4A8090
+"CoD_SP.exe"+36185C: 90                       -  nop 
+"CoD_SP.exe"+36185D: 3E 5D                    -  pop rbp
+"CoD_SP.exe"+36185F: 62 48 83                 -  bound ecx,[rax-7D]
+}
+</AssemblerScript>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>155</ID>
+              <Description>"Restore Palyer Size"</Description>
+              <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">1:On
+0:Off
+</DropDownList>
+              <VariableType>Byte</VariableType>
+              <Address>_ResPlayerSize</Address>
+              <Hotkeys>
+                <Hotkey>
+                  <Action>Set Value</Action>
+                  <Keys>
+                    <Key>106</Key>
+                  </Keys>
+                  <Value>1</Value>
+                  <ID>0</ID>
+                  <ActivateSound>Activate</ActivateSound>
+                </Hotkey>
+              </Hotkeys>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>156</ID>
+              <Description>"Increase Player"</Description>
+              <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">1:On
+0:Off
+</DropDownList>
+              <VariableType>Byte</VariableType>
+              <Address>_IncPlayerSize</Address>
+              <Hotkeys>
+                <Hotkey>
+                  <Action>Set Value</Action>
+                  <Keys>
+                    <Key>107</Key>
+                  </Keys>
+                  <Value>1</Value>
+                  <ID>0</ID>
+                  <ActivateSound>Activate</ActivateSound>
+                </Hotkey>
+              </Hotkeys>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>157</ID>
+              <Description>"Decrease Player Size"</Description>
+              <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">1:On
+0:Off
+</DropDownList>
+              <VariableType>Byte</VariableType>
+              <Address>_DecPlayerSize</Address>
+              <Hotkeys>
+                <Hotkey>
+                  <Action>Set Value</Action>
+                  <Keys>
+                    <Key>109</Key>
+                  </Keys>
+                  <Value>1</Value>
+                  <ID>0</ID>
+                  <ActivateSound>Activate</ActivateSound>
+                </Hotkey>
+              </Hotkeys>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>158</ID>
+          <Description>"Turn All Weapons Into Full Auto"</Description>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+aobscanmodule(_TurnAllWeaponsIntoFullAuto,s2_sp64_ship.exe,FF 84 AB A8 03 00 00) // should be unique
+registersymbol(_TurnAllWeaponsIntoFullAuto)
+
+_TurnAllWeaponsIntoFullAuto:
+  db 90 90 90 90 90 90 90
+
+[DISABLE]
+
+_TurnAllWeaponsIntoFullAuto:
+  db FF 84 AB A8 03 00 00
+
+unregistersymbol(_TurnAllWeaponsIntoFullAuto)
+
+
+{
+// ORIGINAL CODE - INJECTION POINT: "CoD_SP.exe"+5BBBA0
+
+"CoD_SP.exe"+5BBB83: 41 0F B6 D4                    -  movzx edx,r12l
+"CoD_SP.exe"+5BBB87: 48 8B CF                       -  mov rcx,rdi
+"CoD_SP.exe"+5BBB8A: 0F 28 F0                       -  movaps xmm6,xmm0
+"CoD_SP.exe"+5BBB8D: E8 1E DC 00 00                 -  call CoD_SP.exe+5C97B0
+"CoD_SP.exe"+5BBB92: 85 C0                          -  test eax,eax
+"CoD_SP.exe"+5BBB94: 75 0A                          -  jne CoD_SP.exe+5BBBA0
+"CoD_SP.exe"+5BBB96: 0F 57 C9                       -  xorps xmm1,xmm1
+"CoD_SP.exe"+5BBB99: 0F 2E F1                       -  ucomiss xmm6,xmm1
+"CoD_SP.exe"+5BBB9C: 7A 02                          -  jp CoD_SP.exe+5BBBA0
+"CoD_SP.exe"+5BBB9E: 74 1F                          -  je CoD_SP.exe+5BBBBF
+// ---------- INJECTING HERE ----------
+"CoD_SP.exe"+5BBBA0: FF 84 AB A8 03 00 00           -  inc [rbx+rbp*4+000003A8]
+// ---------- DONE INJECTING  ----------
+"CoD_SP.exe"+5BBBA7: B9 1F 00 00 00                 -  mov ecx,0000001F
+"CoD_SP.exe"+5BBBAC: 8B 84 AB A8 03 00 00           -  mov eax,[rbx+rbp*4+000003A8]
+"CoD_SP.exe"+5BBBB3: 3B C1                          -  cmp eax,ecx
+"CoD_SP.exe"+5BBBB5: 0F 47 C1                       -  cmova eax,ecx
+"CoD_SP.exe"+5BBBB8: 89 84 AB A8 03 00 00           -  mov [rbx+rbp*4+000003A8],eax
+"CoD_SP.exe"+5BBBBF: 41 0F B6 D4                    -  movzx edx,r12l
+"CoD_SP.exe"+5BBBC3: 48 8B CF                       -  mov rcx,rdi
+"CoD_SP.exe"+5BBBC6: E8 E5 DC 00 00                 -  call CoD_SP.exe+5C98B0
+"CoD_SP.exe"+5BBBCB: 0F 28 74 24 50                 -  movaps xmm6,[rsp+50]
+"CoD_SP.exe"+5BBBD0: 83 F8 02                       -  cmp eax,02
+}
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>159</ID>
+          <Description>"Test/WIP"</Description>
+          <Options moHideChildren="1"/>
+          <LastState Value="" RealAddress="00000000"/>
+          <Color>408000</Color>
+          <GroupHeader>1</GroupHeader>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>160</ID>
+              <Description>"No Sway"</Description>
+              <Options moHideChildren="1"/>
+              <LastState/>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>[ENABLE]
+aobscanmodule(_NoSway,s2_sp64_ship.exe,F3 0F 10 8B 10 03 00 00 F3) // should be unique
+alloc(newmemNoS,$1000,s2_sp64_ship.exe)
+alloc(_enableNoSway,8)
+registersymbol(_enableNoSway)
+registersymbol(_NoSway)
+
+label(codeNoS)
+label(returnNoS)
+
+newmemNoS:
+cmp byte ptr [_enableNoSway],1
+jne codeNoS
+mov [rbx+00000310],(float)0
+codeNoS:
+  movss xmm1,[rbx+00000310]
+  jmp returnNoS
+
+_NoSway:
+  jmp newmemNoS
+  nop
+  nop
+  nop
+returnNoS:
+
+_NoSway+25:
+  db 90 90 90 90 90 90 90 90
+
+_enableNoSway:
+dd 0
+[DISABLE]
+
+_NoSway:
+  db F3 0F 10 8B 10 03 00 00
+
+_NoSway+25:
+  db F3 0F 11 83 10 03 00 00
+unregistersymbol(_NoSway)
+unregistersymbol(_enableNoSway)
+dealloc(newmemNoS)
+dealloc(_enableNoSway)
+
+{
+// ORIGINAL CODE - INJECTION POINT: "CoD_SP.exe"+5B7041
+
+"CoD_SP.exe"+5B7011: 8B 83 14 03 00 00        -  mov eax,[rbx+00000314]
+"CoD_SP.exe"+5B7017: F3 0F 10 15 ED 84 33 00  -  movss xmm2,[CoD_SP.exe+8EF50C]
+"CoD_SP.exe"+5B701F: 2B C6                    -  sub eax,esi
+"CoD_SP.exe"+5B7021: 85 C0                    -  test eax,eax
+"CoD_SP.exe"+5B7023: 0F 4E C1                 -  cmovle eax,ecx
+"CoD_SP.exe"+5B7026: 66 0F 6E C0              -  movd xmm0,eax
+"CoD_SP.exe"+5B702A: 0F 5B C0                 -  cvtdq2ps xmm0,xmm0
+"CoD_SP.exe"+5B702D: F3 0F 5E 05 7F 82 33 00  -  divss xmm0,[CoD_SP.exe+8EF2B4]
+"CoD_SP.exe"+5B7035: F3 0F 59 05 FF 83 36 00  -  mulss xmm0,[CoD_SP.exe+91F43C]
+"CoD_SP.exe"+5B703D: F3 0F 58 C6              -  addss xmm0,xmm6
+// ---------- INJECTING HERE ----------
+"CoD_SP.exe"+5B7041: F3 0F 10 8B 10 03 00 00  -  movss xmm1,[rbx+00000310]
+// ---------- DONE INJECTING  ----------
+"CoD_SP.exe"+5B7049: F3 0F 5C C6              -  subss xmm0,xmm6
+"CoD_SP.exe"+5B704D: 0F 28 DF                 -  movaps xmm3,xmm7
+"CoD_SP.exe"+5B7050: F3 0F 59 83 3C 05 00 00  -  mulss xmm0,[rbx+0000053C]
+"CoD_SP.exe"+5B7058: F3 0F 58 C6              -  addss xmm0,xmm6
+"CoD_SP.exe"+5B705C: E8 5F 29 F5 FF           -  call CoD_SP.exe+5099C0
+"CoD_SP.exe"+5B7061: 0F 28 74 24 30           -  movaps xmm6,[rsp+30]
+"CoD_SP.exe"+5B7066: F3 0F 11 83 10 03 00 00  -  movss [rbx+00000310],xmm0
+"CoD_SP.exe"+5B706E: 48 8B 5C 24 58           -  mov rbx,[rsp+58]
+"CoD_SP.exe"+5B7073: 48 8B 6C 24 60           -  mov rbp,[rsp+60]
+"CoD_SP.exe"+5B7078: 48 8B 74 24 68           -  mov rsi,[rsp+68]
+}
+</AssemblerScript>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>161</ID>
+                  <Description>"No Sway"</Description>
+                  <VariableType>Byte</VariableType>
+                  <Address>_enableNoSway</Address>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>162</ID>
+              <Description>"One Hit Kills"</Description>
+              <LastState/>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{ Game   : CoD_SP.exe
+  Version: 
+  Date   : 2017-11-05
+  Author : Schr4nzi
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+aobscanmodule(_OneHitKills,s2_sp64_ship.exe,8B 90 2C 02 00 00) // should be unique
+alloc(newmem,$1000,s2_sp64_ship.exe)
+
+label(code)
+label(return)
+
+newmem:
+{
+1f0 00015794 = enemys, 00015988 (HEX) = Crowlie
+1f4 00015794 = enemys, 00015988 (HEX) = Crowlie
+230 , 100 Enemys, 1000 = Crwlie
+3e8, 774 = Enemys, 787 = Crrowlie
+1174, 0 enemyies, 1124073472 = crowlie
+1178, 0 enemyies 1109393408 = crowlie
+117c, 0 enemyies, 1126694912 = crowlie
+1a00, 0 enemies, 63266 = Crowlie
+1e00, 0enemies, 63272 = crowlie
+348, 0 = Zassman, Turner, Pierson, 1 nazi
+970,0 = Zassman, Turner, Pierson,
+20c, 22 = Pierson, Zassman, turner, 2 = nazis
+}
+//cmp dword ptr [rax+3e8],(int)787 //Crowlie
+//je code
+//cmp dword ptr [rax+3e8],(int)718 // Fischer
+//je code
+cmp dword ptr [rax+230],(int)1000 // Max Health // Buddys
+je code
+cmp dword ptr [rax+20c],(int)22 // Pierson, Zassman, Turner
+je code
+cmp dword ptr [rax+20c],(int)26 // Ressouce fighter
+je code
+//cmp dword ptr [rax+20c],(int)0 // RCrowlie again
+//je code
+mov [rax+0000022C],0
+code:
+
+  mov edx,[rax+0000022C]
+  jmp return
+
+_OneHitKills:
+  jmp newmem
+  nop
+return:
+registersymbol(_OneHitKills)
+
+[DISABLE]
+
+_OneHitKills:
+  db 8B 90 2C 02 00 00
+
+unregistersymbol(_OneHitKills)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: "CoD_SP.exe"+310114
+
+"CoD_SP.exe"+3100FD: 51                             -  push rcx
+"CoD_SP.exe"+3100FE: EE                             -  out dx,al
+"CoD_SP.exe"+3100FF: 6D                             -  insd 
+"CoD_SP.exe"+310100: 48 89 5C 24 08                 -  mov [rsp+08],rbx
+"CoD_SP.exe"+310105: 57                             -  push rdi
+"CoD_SP.exe"+310106: 48 83 EC 20                    -  sub rsp,20
+"CoD_SP.exe"+31010A: 48 8B 01                       -  mov rax,[rcx]
+"CoD_SP.exe"+31010D: 8B FA                          -  mov edi,edx
+"CoD_SP.exe"+31010F: 33 DB                          -  xor ebx,ebx
+"CoD_SP.exe"+310111: 4C 8B C9                       -  mov r9,rcx
+// ---------- INJECTING HERE ----------
+"CoD_SP.exe"+310114: 8B 90 2C 02 00 00              -  mov edx,[rax+0000022C]
+// ---------- DONE INJECTING  ----------
+"CoD_SP.exe"+31011A: 3B FA                          -  cmp edi,edx
+"CoD_SP.exe"+31011C: 7C 4D                          -  jl CoD_SP.exe+31016B
+"CoD_SP.exe"+31011E: 44 0F B6 91 78 26 00 00        -  movzx r10d,byte ptr [rcx+00002678]
+"CoD_SP.exe"+310126: 41 F6 C2 02                    -  test r10l,02
+"CoD_SP.exe"+31012A: 75 3F                          -  jne CoD_SP.exe+31016B
+"CoD_SP.exe"+31012C: 38 99 C0 28 00 00              -  cmp [rcx+000028C0],bl
+"CoD_SP.exe"+310132: 75 37                          -  jne CoD_SP.exe+31016B
+"CoD_SP.exe"+310134: 8B CB                          -  mov ecx,ebx
+"CoD_SP.exe"+310136: 66 66 0F 1F 84 00 00 00 00 00  -  nop [rax+rax+00000000]
+"CoD_SP.exe"+310140: 8B C1                          -  mov eax,ecx
+}
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>163</ID>
+              <Description>"Infinite Health Vehicles"</Description>
+              <LastState/>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>[ENABLE]
+
+aobscanmodule(_VehicleHealth3,s2_sp64_ship.exe,83 BE 2C 02 00 00 00 0F) // should be unique
+alloc(newmem,$1000,"s2_sp64_ship.exe"+5DF804)
+
+label(code)
+label(return)
+
+newmem:
+cmp [rsi+480],1
+jne code
+mov dword ptr [rsi+0000022C],#99999
+code:
+  cmp dword ptr [rsi+0000022C],00
+  jmp return
+
+_VehicleHealth3:
+  jmp newmem
+  nop
+  nop
+return:
+registersymbol(_VehicleHealth3)
+
+[DISABLE]
+
+_VehicleHealth3:
+  db 83 BE 2C 02 00 00 00
+
+unregistersymbol(_VehicleHealth3)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: "CoD_SP.exe"+5DF804
+
+"CoD_SP.exe"+5DF7CE: 0F 57 C9                    -  xorps xmm1,xmm1
+"CoD_SP.exe"+5DF7D1: 0F 2E D1                    -  ucomiss xmm2,xmm1
+"CoD_SP.exe"+5DF7D4: 0F 8A 63 07 00 00           -  jp CoD_SP.exe+5DFF3D
+"CoD_SP.exe"+5DF7DA: 0F 85 5D 07 00 00           -  jne CoD_SP.exe+5DFF3D
+"CoD_SP.exe"+5DF7E0: F3 0F 10 87 90 04 00 00     -  movss xmm0,[rdi+00000490]
+"CoD_SP.exe"+5DF7E8: 0F 2E C1                    -  ucomiss xmm0,xmm1
+"CoD_SP.exe"+5DF7EB: 0F 8A 4C 07 00 00           -  jp CoD_SP.exe+5DFF3D
+"CoD_SP.exe"+5DF7F1: 0F 85 46 07 00 00           -  jne CoD_SP.exe+5DFF3D
+"CoD_SP.exe"+5DF7F7: 83 BF FC 06 00 00 00        -  cmp dword ptr [rdi+000006FC],00
+"CoD_SP.exe"+5DF7FE: 0F 84 89 06 00 00           -  je CoD_SP.exe+5DFE8D
+// ---------- INJECTING HERE ----------
+"CoD_SP.exe"+5DF804: 83 BE 2C 02 00 00 00        -  cmp dword ptr [rsi+0000022C],00
+// ---------- DONE INJECTING  ----------
+"CoD_SP.exe"+5DF80B: 0F 8E 7C 06 00 00           -  jng CoD_SP.exe+5DFE8D
+"CoD_SP.exe"+5DF811: 48 63 87 00 07 00 00        -  movsxd  rax,dword ptr [rdi+00000700]
+"CoD_SP.exe"+5DF818: 48 8D 1D B1 CD C9 07        -  lea rbx,[CoD_SP.exe+827C5D0]
+"CoD_SP.exe"+5DF81F: 3D 9F 0F 00 00              -  cmp eax,00000F9F
+"CoD_SP.exe"+5DF824: 75 29                       -  jne CoD_SP.exe+5DF84F
+"CoD_SP.exe"+5DF826: F3 0F 10 87 08 07 00 00     -  movss xmm0,[rdi+00000708]
+"CoD_SP.exe"+5DF82E: 45 33 F6                    -  xor r14d,r14d
+"CoD_SP.exe"+5DF831: F3 0F 11 44 24 78           -  movss [rsp+78],xmm0
+"CoD_SP.exe"+5DF837: F3 0F 10 8F 0C 07 00 00     -  movss xmm1,[rdi+0000070C]
+"CoD_SP.exe"+5DF83F: F3 0F 11 4C 24 7C           -  movss [rsp+7C],xmm1
+}
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>164</ID>
+              <Description>"God Mode Hostages"</Description>
+              <LastState/>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>[ENABLE]
+aobscanmodule(_HealthAllies,s2_sp64_ship.exe,66 0F 6E 88 2C 02 00 00 48 8B 88) // should be unique
+alloc(newmem,$1000,s2_sp64_ship.exe)
+
+label(code)
+label(return)
+
+newmem:
+cmp [rax+230],(int)1000
+jne code
+mov [rax+0000022C],(int)9999
+code:
+  movd xmm1,[rax+0000022C]
+  jmp return
+
+_HealthAllies:
+  jmp newmem
+  nop
+  nop
+  nop
+return:
+registersymbol(_HealthAllies)
+
+[DISABLE]
+
+_HealthAllies:
+  db 66 0F 6E 88 2C 02 00 00
+
+unregistersymbol(_HealthAllies)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: "CoD_SP.exe"+3546A5
+
+"CoD_SP.exe"+35467F: 45 8B C4                 -  mov r8d,r12d
+"CoD_SP.exe"+354682: 48 8B D7                 -  mov rdx,rdi
+"CoD_SP.exe"+354685: 48 8B CE                 -  mov rcx,rsi
+"CoD_SP.exe"+354688: E8 73 F9 FF FF           -  call CoD_SP.exe+354000
+"CoD_SP.exe"+35468D: 44 8B F3                 -  mov r14d,ebx
+"CoD_SP.exe"+354690: 85 C0                    -  test eax,eax
+"CoD_SP.exe"+354692: 74 06                    -  je CoD_SP.exe+35469A
+"CoD_SP.exe"+354694: 41 BE 01 00 00 00        -  mov r14d,00000001
+"CoD_SP.exe"+35469A: 48 8B 07                 -  mov rax,[rdi]
+"CoD_SP.exe"+35469D: 66 0F 6E 80 30 02 00 00  -  movd xmm0,[rax+00000230]
+// ---------- INJECTING HERE ----------
+"CoD_SP.exe"+3546A5: 66 0F 6E 88 2C 02 00 00  -  movd xmm1,[rax+0000022C]
+// ---------- DONE INJECTING  ----------
+"CoD_SP.exe"+3546AD: 48 8B 88 C0 01 00 00     -  mov rcx,[rax+000001C0]
+"CoD_SP.exe"+3546B4: 8B C3                    -  mov eax,ebx
+"CoD_SP.exe"+3546B6: F3 0F E6 C0              -  cvtdq2pd xmm0,xmm0
+"CoD_SP.exe"+3546BA: 48 89 4C 24 30           -  mov [rsp+30],rcx
+"CoD_SP.exe"+3546BF: F3 0F E6 C9              -  cvtdq2pd xmm1,xmm1
+"CoD_SP.exe"+3546C3: F2 0F 59 05 A5 3C 5E 00  -  mulsd xmm0,[CoD_SP.exe+938370]
+"CoD_SP.exe"+3546CB: 66 0F 2F C1              -  comisd xmm0,xmm1
+"CoD_SP.exe"+3546CF: 0F 97 C0                 -  seta al
+"CoD_SP.exe"+3546D2: 89 44 24 24              -  mov [rsp+24],eax
+"CoD_SP.exe"+3546D6: 45 85 F6                 -  test r14d,r14d
+}
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>165</ID>
+              <Description>"Health"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>CoD_SP.exe+827C7FC</Address>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+  </CheatEntries>
+  <CheatCodes>
+    <CodeEntry>
+      <Description>Code :movss xmm0,[rax+00000098]</Description>
+      <Address>7FF662E172D7</Address>
+      <ModuleName>CoD_SP.exe</ModuleName>
+      <ModuleNameOffset>5D72D7</ModuleNameOffset>
+      <Before>
+        <Byte>0F</Byte>
+        <Byte>11</Byte>
+        <Byte>44</Byte>
+        <Byte>24</Byte>
+        <Byte>20</Byte>
+      </Before>
+      <Actual>
+        <Byte>F3</Byte>
+        <Byte>0F</Byte>
+        <Byte>10</Byte>
+        <Byte>80</Byte>
+        <Byte>98</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Actual>
+      <After>
+        <Byte>F3</Byte>
+        <Byte>0F</Byte>
+        <Byte>58</Byte>
+        <Byte>80</Byte>
+        <Byte>C0</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Code :movups xmm1,[rdx-70]</Description>
+      <Address>7FF72B181DC5</Address>
+      <ModuleName>CoD_SP.exe</ModuleName>
+      <ModuleNameOffset>271DC5</ModuleNameOffset>
+      <Before>
+        <Byte>00</Byte>
+        <Byte>0F</Byte>
+        <Byte>11</Byte>
+        <Byte>40</Byte>
+        <Byte>80</Byte>
+      </Before>
+      <Actual>
+        <Byte>0F</Byte>
+        <Byte>10</Byte>
+        <Byte>4A</Byte>
+        <Byte>90</Byte>
+      </Actual>
+      <After>
+        <Byte>0F</Byte>
+        <Byte>11</Byte>
+        <Byte>48</Byte>
+        <Byte>90</Byte>
+        <Byte>0F</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Code :mov eax,[rbx+00000098]</Description>
+      <Address>7FF72B271817</Address>
+      <ModuleName>CoD_SP.exe</ModuleName>
+      <ModuleNameOffset>361817</ModuleNameOffset>
+      <Before>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+        <Byte>89</Byte>
+        <Byte>47</Byte>
+        <Byte>04</Byte>
+      </Before>
+      <Actual>
+        <Byte>8B</Byte>
+        <Byte>83</Byte>
+        <Byte>98</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Actual>
+      <After>
+        <Byte>89</Byte>
+        <Byte>47</Byte>
+        <Byte>08</Byte>
+        <Byte>F3</Byte>
+        <Byte>0F</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Code :movss xmm0,[rbx+00000098]</Description>
+      <Address>7FF662DF0C5E</Address>
+      <ModuleName>CoD_SP.exe</ModuleName>
+      <ModuleNameOffset>5B0C5E</ModuleNameOffset>
+      <Before>
+        <Byte>F3</Byte>
+        <Byte>0F</Byte>
+        <Byte>11</Byte>
+        <Byte>4D</Byte>
+        <Byte>B0</Byte>
+      </Before>
+      <Actual>
+        <Byte>F3</Byte>
+        <Byte>0F</Byte>
+        <Byte>10</Byte>
+        <Byte>83</Byte>
+        <Byte>98</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Actual>
+      <After>
+        <Byte>F3</Byte>
+        <Byte>0F</Byte>
+        <Byte>11</Byte>
+        <Byte>45</Byte>
+        <Byte>B4</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Code :movss xmm2,[rsi+00000098]</Description>
+      <Address>7FF72B4BAA7F</Address>
+      <ModuleName>CoD_SP.exe</ModuleName>
+      <ModuleNameOffset>5AAA7F</ModuleNameOffset>
+      <Before>
+        <Byte>11</Byte>
+        <Byte>45</Byte>
+        <Byte>DC</Byte>
+        <Byte>EB</Byte>
+        <Byte>26</Byte>
+      </Before>
+      <Actual>
+        <Byte>F3</Byte>
+        <Byte>0F</Byte>
+        <Byte>10</Byte>
+        <Byte>96</Byte>
+        <Byte>98</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Actual>
+      <After>
+        <Byte>0F</Byte>
+        <Byte>28</Byte>
+        <Byte>C2</Byte>
+        <Byte>F3</Byte>
+        <Byte>0F</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Code :movss xmm0,[rcx+00000098]</Description>
+      <Address>7FF72B4B4ECF</Address>
+      <ModuleName>CoD_SP.exe</ModuleName>
+      <ModuleNameOffset>5A4ECF</ModuleNameOffset>
+      <Before>
+        <Byte>41</Byte>
+        <Byte>0F</Byte>
+        <Byte>11</Byte>
+        <Byte>4B</Byte>
+        <Byte>AC</Byte>
+      </Before>
+      <Actual>
+        <Byte>F3</Byte>
+        <Byte>0F</Byte>
+        <Byte>10</Byte>
+        <Byte>81</Byte>
+        <Byte>98</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Actual>
+      <After>
+        <Byte>F3</Byte>
+        <Byte>41</Byte>
+        <Byte>0F</Byte>
+        <Byte>11</Byte>
+        <Byte>43</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Code :addss xmm0,[rbp+00000098]</Description>
+      <Address>7FF72B4BB29C</Address>
+      <ModuleName>CoD_SP.exe</ModuleName>
+      <ModuleNameOffset>5AB29C</ModuleNameOffset>
+      <Before>
+        <Byte>0F</Byte>
+        <Byte>11</Byte>
+        <Byte>4C</Byte>
+        <Byte>24</Byte>
+        <Byte>44</Byte>
+      </Before>
+      <Actual>
+        <Byte>F3</Byte>
+        <Byte>0F</Byte>
+        <Byte>58</Byte>
+        <Byte>85</Byte>
+        <Byte>98</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Actual>
+      <After>
+        <Byte>F3</Byte>
+        <Byte>0F</Byte>
+        <Byte>11</Byte>
+        <Byte>44</Byte>
+        <Byte>24</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Code :addss xmm6,[r14+08]</Description>
+      <Address>7FF72B4B9133</Address>
+      <ModuleName>CoD_SP.exe</ModuleName>
+      <ModuleNameOffset>5A9133</ModuleNameOffset>
+      <Before>
+        <Byte>44</Byte>
+        <Byte>0F</Byte>
+        <Byte>11</Byte>
+        <Byte>45</Byte>
+        <Byte>A4</Byte>
+      </Before>
+      <Actual>
+        <Byte>F3</Byte>
+        <Byte>41</Byte>
+        <Byte>0F</Byte>
+        <Byte>58</Byte>
+        <Byte>76</Byte>
+        <Byte>08</Byte>
+      </Actual>
+      <After>
+        <Byte>F3</Byte>
+        <Byte>0F</Byte>
+        <Byte>11</Byte>
+        <Byte>75</Byte>
+        <Byte>A8</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Code :movss xmm0,[rdx+08]</Description>
+      <Address>7FF72B36FC16</Address>
+      <ModuleName>CoD_SP.exe</ModuleName>
+      <ModuleNameOffset>45FC16</ModuleNameOffset>
+      <Before>
+        <Byte>F3</Byte>
+        <Byte>0F</Byte>
+        <Byte>11</Byte>
+        <Byte>49</Byte>
+        <Byte>44</Byte>
+      </Before>
+      <Actual>
+        <Byte>F3</Byte>
+        <Byte>0F</Byte>
+        <Byte>10</Byte>
+        <Byte>42</Byte>
+        <Byte>08</Byte>
+      </Actual>
+      <After>
+        <Byte>F3</Byte>
+        <Byte>41</Byte>
+        <Byte>0F</Byte>
+        <Byte>58</Byte>
+        <Byte>41</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Code :addss xmm0,[r15+08]</Description>
+      <Address>7FF72B4E9AEA</Address>
+      <ModuleName>CoD_SP.exe</ModuleName>
+      <ModuleNameOffset>5D9AEA</ModuleNameOffset>
+      <Before>
+        <Byte>4D</Byte>
+        <Byte>C4</Byte>
+        <Byte>0F</Byte>
+        <Byte>28</Byte>
+        <Byte>C2</Byte>
+      </Before>
+      <Actual>
+        <Byte>F3</Byte>
+        <Byte>41</Byte>
+        <Byte>0F</Byte>
+        <Byte>58</Byte>
+        <Byte>47</Byte>
+        <Byte>08</Byte>
+      </Actual>
+      <After>
+        <Byte>F3</Byte>
+        <Byte>41</Byte>
+        <Byte>0F</Byte>
+        <Byte>58</Byte>
+        <Byte>54</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Code :movss xmm0,[r14+08]</Description>
+      <Address>7FF72B4BCA72</Address>
+      <ModuleName>CoD_SP.exe</ModuleName>
+      <ModuleNameOffset>5ACA72</ModuleNameOffset>
+      <Before>
+        <Byte>F3</Byte>
+        <Byte>0F</Byte>
+        <Byte>11</Byte>
+        <Byte>4D</Byte>
+        <Byte>C4</Byte>
+      </Before>
+      <Actual>
+        <Byte>F3</Byte>
+        <Byte>41</Byte>
+        <Byte>0F</Byte>
+        <Byte>10</Byte>
+        <Byte>46</Byte>
+        <Byte>08</Byte>
+      </Actual>
+      <After>
+        <Byte>F3</Byte>
+        <Byte>0F</Byte>
+        <Byte>11</Byte>
+        <Byte>45</Byte>
+        <Byte>C8</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Code :movss xmm0,[rbx+08]</Description>
+      <Address>7FF72B4C2460</Address>
+      <ModuleName>CoD_SP.exe</ModuleName>
+      <ModuleNameOffset>5B2460</ModuleNameOffset>
+      <Before>
+        <Byte>4D</Byte>
+        <Byte>C4</Byte>
+        <Byte>49</Byte>
+        <Byte>8B</Byte>
+        <Byte>CE</Byte>
+      </Before>
+      <Actual>
+        <Byte>F3</Byte>
+        <Byte>0F</Byte>
+        <Byte>10</Byte>
+        <Byte>43</Byte>
+        <Byte>08</Byte>
+      </Actual>
+      <After>
+        <Byte>F3</Byte>
+        <Byte>0F</Byte>
+        <Byte>11</Byte>
+        <Byte>45</Byte>
+        <Byte>C8</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Code :addss xmm0,[rbx+08]</Description>
+      <Address>7FF72B4C1D3C</Address>
+      <ModuleName>CoD_SP.exe</ModuleName>
+      <ModuleNameOffset>5B1D3C</ModuleNameOffset>
+      <Before>
+        <Byte>F3</Byte>
+        <Byte>0F</Byte>
+        <Byte>59</Byte>
+        <Byte>46</Byte>
+        <Byte>08</Byte>
+      </Before>
+      <Actual>
+        <Byte>F3</Byte>
+        <Byte>0F</Byte>
+        <Byte>58</Byte>
+        <Byte>43</Byte>
+        <Byte>08</Byte>
+      </Actual>
+      <After>
+        <Byte>F3</Byte>
+        <Byte>0F</Byte>
+        <Byte>11</Byte>
+        <Byte>45</Byte>
+        <Byte>08</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Code :movss [rbp+00000098],xmm1</Description>
+      <Address>7FF72B4BB3EC</Address>
+      <ModuleName>CoD_SP.exe</ModuleName>
+      <ModuleNameOffset>5AB3EC</ModuleNameOffset>
+      <Before>
+        <Byte>0F</Byte>
+        <Byte>58</Byte>
+        <Byte>4C</Byte>
+        <Byte>24</Byte>
+        <Byte>58</Byte>
+      </Before>
+      <Actual>
+        <Byte>F3</Byte>
+        <Byte>0F</Byte>
+        <Byte>11</Byte>
+        <Byte>8D</Byte>
+        <Byte>98</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Actual>
+      <After>
+        <Byte>E9</Byte>
+        <Byte>3C</Byte>
+        <Byte>FF</Byte>
+        <Byte>FF</Byte>
+        <Byte>FF</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Code :movss xmm8,[rbx+00000098]</Description>
+      <Address>7FF72B4C10F2</Address>
+      <ModuleName>CoD_SP.exe</ModuleName>
+      <ModuleNameOffset>5B10F2</ModuleNameOffset>
+      <Before>
+        <Byte>F3</Byte>
+        <Byte>0F</Byte>
+        <Byte>5C</Byte>
+        <Byte>75</Byte>
+        <Byte>AC</Byte>
+      </Before>
+      <Actual>
+        <Byte>F3</Byte>
+        <Byte>44</Byte>
+        <Byte>0F</Byte>
+        <Byte>10</Byte>
+        <Byte>83</Byte>
+        <Byte>98</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Actual>
+      <After>
+        <Byte>F3</Byte>
+        <Byte>44</Byte>
+        <Byte>0F</Byte>
+        <Byte>5C</Byte>
+        <Byte>45</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Code :movss xmm0,[rcx+00000098]</Description>
+      <Address>7FF72B4B1841</Address>
+      <ModuleName>CoD_SP.exe</ModuleName>
+      <ModuleNameOffset>5A1841</ModuleNameOffset>
+      <Before>
+        <Byte>0F</Byte>
+        <Byte>11</Byte>
+        <Byte>44</Byte>
+        <Byte>24</Byte>
+        <Byte>20</Byte>
+      </Before>
+      <Actual>
+        <Byte>F3</Byte>
+        <Byte>0F</Byte>
+        <Byte>10</Byte>
+        <Byte>81</Byte>
+        <Byte>98</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Actual>
+      <After>
+        <Byte>48</Byte>
+        <Byte>C7</Byte>
+        <Byte>42</Byte>
+        <Byte>3C</Byte>
+        <Byte>01</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Code :mov eax,[rcx+00000098]</Description>
+      <Address>7FF72B26E351</Address>
+      <ModuleName>CoD_SP.exe</ModuleName>
+      <ModuleNameOffset>35E351</ModuleNameOffset>
+      <Before>
+        <Byte>87</Byte>
+        <Byte>9C</Byte>
+        <Byte>01</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Before>
+      <Actual>
+        <Byte>8B</Byte>
+        <Byte>81</Byte>
+        <Byte>98</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Actual>
+      <After>
+        <Byte>89</Byte>
+        <Byte>87</Byte>
+        <Byte>A0</Byte>
+        <Byte>01</Byte>
+        <Byte>00</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Code :addss xmm0,[r14+00000098]</Description>
+      <Address>7FF72B2F6707</Address>
+      <ModuleName>CoD_SP.exe</ModuleName>
+      <ModuleNameOffset>3E6707</ModuleNameOffset>
+      <Before>
+        <Byte>0F</Byte>
+        <Byte>11</Byte>
+        <Byte>4C</Byte>
+        <Byte>24</Byte>
+        <Byte>74</Byte>
+      </Before>
+      <Actual>
+        <Byte>F3</Byte>
+        <Byte>41</Byte>
+        <Byte>0F</Byte>
+        <Byte>58</Byte>
+        <Byte>86</Byte>
+        <Byte>98</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Actual>
+      <After>
+        <Byte>F3</Byte>
+        <Byte>0F</Byte>
+        <Byte>10</Byte>
+        <Byte>4D</Byte>
+        <Byte>B8</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Code :movss xmm0,[r14+08]</Description>
+      <Address>7FF72B4BCBC8</Address>
+      <ModuleName>CoD_SP.exe</ModuleName>
+      <ModuleNameOffset>5ACBC8</ModuleNameOffset>
+      <Before>
+        <Byte>F3</Byte>
+        <Byte>0F</Byte>
+        <Byte>5C</Byte>
+        <Byte>4D</Byte>
+        <Byte>E0</Byte>
+      </Before>
+      <Actual>
+        <Byte>F3</Byte>
+        <Byte>41</Byte>
+        <Byte>0F</Byte>
+        <Byte>10</Byte>
+        <Byte>46</Byte>
+        <Byte>08</Byte>
+      </Actual>
+      <After>
+        <Byte>F3</Byte>
+        <Byte>0F</Byte>
+        <Byte>5C</Byte>
+        <Byte>45</Byte>
+        <Byte>E8</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Code :movss xmm8,[r14+08]</Description>
+      <Address>7FF72B4BCDFB</Address>
+      <ModuleName>CoD_SP.exe</ModuleName>
+      <ModuleNameOffset>5ACDFB</ModuleNameOffset>
+      <Before>
+        <Byte>15</Byte>
+        <Byte>3D</Byte>
+        <Byte>31</Byte>
+        <Byte>34</Byte>
+        <Byte>00</Byte>
+      </Before>
+      <Actual>
+        <Byte>F3</Byte>
+        <Byte>45</Byte>
+        <Byte>0F</Byte>
+        <Byte>10</Byte>
+        <Byte>46</Byte>
+        <Byte>08</Byte>
+      </Actual>
+      <After>
+        <Byte>48</Byte>
+        <Byte>63</Byte>
+        <Byte>C8</Byte>
+        <Byte>41</Byte>
+        <Byte>0F</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Code :subss xmm2,[rbx+08]</Description>
+      <Address>7FF72B4C1DC2</Address>
+      <ModuleName>CoD_SP.exe</ModuleName>
+      <ModuleNameOffset>5B1DC2</ModuleNameOffset>
+      <Before>
+        <Byte>F3</Byte>
+        <Byte>0F</Byte>
+        <Byte>10</Byte>
+        <Byte>55</Byte>
+        <Byte>08</Byte>
+      </Before>
+      <Actual>
+        <Byte>F3</Byte>
+        <Byte>0F</Byte>
+        <Byte>5C</Byte>
+        <Byte>53</Byte>
+        <Byte>08</Byte>
+      </Actual>
+      <After>
+        <Byte>F3</Byte>
+        <Byte>0F</Byte>
+        <Byte>59</Byte>
+        <Byte>D3</Byte>
+        <Byte>F3</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Code :addss xmm2,[rbx+08]</Description>
+      <Address>7FF72B4C1DCB</Address>
+      <ModuleName>CoD_SP.exe</ModuleName>
+      <ModuleNameOffset>5B1DCB</ModuleNameOffset>
+      <Before>
+        <Byte>08</Byte>
+        <Byte>F3</Byte>
+        <Byte>0F</Byte>
+        <Byte>59</Byte>
+        <Byte>D3</Byte>
+      </Before>
+      <Actual>
+        <Byte>F3</Byte>
+        <Byte>0F</Byte>
+        <Byte>58</Byte>
+        <Byte>53</Byte>
+        <Byte>08</Byte>
+      </Actual>
+      <After>
+        <Byte>F3</Byte>
+        <Byte>0F</Byte>
+        <Byte>11</Byte>
+        <Byte>53</Byte>
+        <Byte>08</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Code :movss [rbx+08],xmm2</Description>
+      <Address>7FF72B4C1DD0</Address>
+      <ModuleName>CoD_SP.exe</ModuleName>
+      <ModuleNameOffset>5B1DD0</ModuleNameOffset>
+      <Before>
+        <Byte>F3</Byte>
+        <Byte>0F</Byte>
+        <Byte>58</Byte>
+        <Byte>53</Byte>
+        <Byte>08</Byte>
+      </Before>
+      <Actual>
+        <Byte>F3</Byte>
+        <Byte>0F</Byte>
+        <Byte>11</Byte>
+        <Byte>53</Byte>
+        <Byte>08</Byte>
+      </Actual>
+      <After>
+        <Byte>83</Byte>
+        <Byte>7D</Byte>
+        <Byte>B0</Byte>
+        <Byte>01</Byte>
+        <Byte>75</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Code :mov [r15+000001BC],eax</Description>
+      <Address>7FF606568674</Address>
+      <ModuleName>CoD_SP.exe</ModuleName>
+      <ModuleNameOffset>5A8674</ModuleNameOffset>
+      <Before>
+        <Byte>E8</Byte>
+        <Byte>AC</Byte>
+        <Byte>87</Byte>
+        <Byte>FF</Byte>
+        <Byte>FF</Byte>
+      </Before>
+      <Actual>
+        <Byte>41</Byte>
+        <Byte>89</Byte>
+        <Byte>87</Byte>
+        <Byte>BC</Byte>
+        <Byte>01</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Actual>
+      <After>
+        <Byte>48</Byte>
+        <Byte>8B</Byte>
+        <Byte>D7</Byte>
+        <Byte>49</Byte>
+        <Byte>8B</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Code :movups xmm1,[rdx-50]</Description>
+      <Address>7FF606231DD5</Address>
+      <ModuleName>CoD_SP.exe</ModuleName>
+      <ModuleNameOffset>271DD5</ModuleNameOffset>
+      <Before>
+        <Byte>A0</Byte>
+        <Byte>0F</Byte>
+        <Byte>11</Byte>
+        <Byte>40</Byte>
+        <Byte>A0</Byte>
+      </Before>
+      <Actual>
+        <Byte>0F</Byte>
+        <Byte>10</Byte>
+        <Byte>4A</Byte>
+        <Byte>B0</Byte>
+      </Actual>
+      <After>
+        <Byte>0F</Byte>
+        <Byte>11</Byte>
+        <Byte>48</Byte>
+        <Byte>B0</Byte>
+        <Byte>0F</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Code :cmp dword ptr [rbx+000001BC],16</Description>
+      <Address>7FF606570B34</Address>
+      <ModuleName>CoD_SP.exe</ModuleName>
+      <ModuleNameOffset>5B0B34</ModuleNameOffset>
+      <Before>
+        <Byte>5C</Byte>
+        <Byte>FF</Byte>
+        <Byte>FD</Byte>
+        <Byte>FF</Byte>
+        <Byte>FF</Byte>
+      </Before>
+      <Actual>
+        <Byte>83</Byte>
+        <Byte>BB</Byte>
+        <Byte>BC</Byte>
+        <Byte>01</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+        <Byte>16</Byte>
+      </Actual>
+      <After>
+        <Byte>74</Byte>
+        <Byte>28</Byte>
+        <Byte>E8</Byte>
+        <Byte>CE</Byte>
+        <Byte>FC</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Code :cmp [rbx+000001BC],eax</Description>
+      <Address>7FF606570B58</Address>
+      <ModuleName>CoD_SP.exe</ModuleName>
+      <ModuleNameOffset>5B0B58</ModuleNameOffset>
+      <Before>
+        <Byte>E8</Byte>
+        <Byte>98</Byte>
+        <Byte>02</Byte>
+        <Byte>FF</Byte>
+        <Byte>FF</Byte>
+      </Before>
+      <Actual>
+        <Byte>39</Byte>
+        <Byte>83</Byte>
+        <Byte>BC</Byte>
+        <Byte>01</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Actual>
+      <After>
+        <Byte>74</Byte>
+        <Byte>05</Byte>
+        <Byte>45</Byte>
+        <Byte>8B</Byte>
+        <Byte>F5</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Code :cmp dword ptr [rsi+000001BC],16</Description>
+      <Address>7FF60656E177</Address>
+      <ModuleName>CoD_SP.exe</ModuleName>
+      <ModuleNameOffset>5AE177</ModuleNameOffset>
+      <Before>
+        <Byte>EB</Byte>
+        <Byte>03</Byte>
+        <Byte>45</Byte>
+        <Byte>33</Byte>
+        <Byte>F6</Byte>
+      </Before>
+      <Actual>
+        <Byte>83</Byte>
+        <Byte>BE</Byte>
+        <Byte>BC</Byte>
+        <Byte>01</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+        <Byte>16</Byte>
+      </Actual>
+      <After>
+        <Byte>41</Byte>
+        <Byte>BD</Byte>
+        <Byte>02</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Code :cmp [rsi+000001BC],eax</Description>
+      <Address>7FF60656E191</Address>
+      <ModuleName>CoD_SP.exe</ModuleName>
+      <ModuleNameOffset>5AE191</ModuleNameOffset>
+      <Before>
+        <Byte>E8</Byte>
+        <Byte>7F</Byte>
+        <Byte>26</Byte>
+        <Byte>FF</Byte>
+        <Byte>FF</Byte>
+      </Before>
+      <Actual>
+        <Byte>39</Byte>
+        <Byte>86</Byte>
+        <Byte>BC</Byte>
+        <Byte>01</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Actual>
+      <After>
+        <Byte>75</Byte>
+        <Byte>05</Byte>
+        <Byte>41</Byte>
+        <Byte>8B</Byte>
+        <Byte>CD</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Code :cmp [rsi+000001BC],eax</Description>
+      <Address>7FF60656E1B2</Address>
+      <ModuleName>CoD_SP.exe</ModuleName>
+      <ModuleNameOffset>5AE1B2</ModuleNameOffset>
+      <Before>
+        <Byte>2C</Byte>
+        <Byte>FF</Byte>
+        <Byte>FF</Byte>
+        <Byte>33</Byte>
+        <Byte>C9</Byte>
+      </Before>
+      <Actual>
+        <Byte>39</Byte>
+        <Byte>86</Byte>
+        <Byte>BC</Byte>
+        <Byte>01</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Actual>
+      <After>
+        <Byte>0F</Byte>
+        <Byte>94</Byte>
+        <Byte>C1</Byte>
+        <Byte>44</Byte>
+        <Byte>0F</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Code :cmp [r15+000001BC],eax</Description>
+      <Address>7FF606568651</Address>
+      <ModuleName>CoD_SP.exe</ModuleName>
+      <ModuleNameOffset>5A8651</ModuleNameOffset>
+      <Before>
+        <Byte>E8</Byte>
+        <Byte>9F</Byte>
+        <Byte>87</Byte>
+        <Byte>FF</Byte>
+        <Byte>FF</Byte>
+      </Before>
+      <Actual>
+        <Byte>41</Byte>
+        <Byte>39</Byte>
+        <Byte>87</Byte>
+        <Byte>BC</Byte>
+        <Byte>01</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Actual>
+      <After>
+        <Byte>75</Byte>
+        <Byte>07</Byte>
+        <Byte>E8</Byte>
+        <Byte>B1</Byte>
+        <Byte>81</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Code :mov eax,[rbx+000001BC]</Description>
+      <Address>7FF60656F9E6</Address>
+      <ModuleName>CoD_SP.exe</ModuleName>
+      <ModuleNameOffset>5AF9E6</ModuleNameOffset>
+      <Before>
+        <Byte>93</Byte>
+        <Byte>D4</Byte>
+        <Byte>01</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Before>
+      <Actual>
+        <Byte>8B</Byte>
+        <Byte>83</Byte>
+        <Byte>BC</Byte>
+        <Byte>01</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Actual>
+      <After>
+        <Byte>85</Byte>
+        <Byte>C0</Byte>
+        <Byte>0F</Byte>
+        <Byte>84</Byte>
+        <Byte>63</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Code :cmp dword ptr [rcx+000001BC],16</Description>
+      <Address>7FF7A450A736</Address>
+      <ModuleName>CoD_SP.exe</ModuleName>
+      <ModuleNameOffset>5AA736</ModuleNameOffset>
+      <Before>
+        <Byte>53</Byte>
+        <Byte>48</Byte>
+        <Byte>83</Byte>
+        <Byte>EC</Byte>
+        <Byte>20</Byte>
+      </Before>
+      <Actual>
+        <Byte>83</Byte>
+        <Byte>B9</Byte>
+        <Byte>BC</Byte>
+        <Byte>01</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+        <Byte>16</Byte>
+      </Actual>
+      <After>
+        <Byte>48</Byte>
+        <Byte>8B</Byte>
+        <Byte>D9</Byte>
+        <Byte>75</Byte>
+        <Byte>0B</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Code :cmp [rbx+000001BC],eax</Description>
+      <Address>7FF60656A752</Address>
+      <ModuleName>CoD_SP.exe</ModuleName>
+      <ModuleNameOffset>5AA752</ModuleNameOffset>
+      <Before>
+        <Byte>E8</Byte>
+        <Byte>BE</Byte>
+        <Byte>60</Byte>
+        <Byte>FF</Byte>
+        <Byte>FF</Byte>
+      </Before>
+      <Actual>
+        <Byte>39</Byte>
+        <Byte>83</Byte>
+        <Byte>BC</Byte>
+        <Byte>01</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Actual>
+      <After>
+        <Byte>75</Byte>
+        <Byte>0B</Byte>
+        <Byte>B8</Byte>
+        <Byte>02</Byte>
+        <Byte>00</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Code :cmp [rbx+000001BC],eax</Description>
+      <Address>7FF60656A77D</Address>
+      <ModuleName>CoD_SP.exe</ModuleName>
+      <ModuleNameOffset>5AA77D</ModuleNameOffset>
+      <Before>
+        <Byte>66</Byte>
+        <Byte>FF</Byte>
+        <Byte>FF</Byte>
+        <Byte>33</Byte>
+        <Byte>C9</Byte>
+      </Before>
+      <Actual>
+        <Byte>39</Byte>
+        <Byte>83</Byte>
+        <Byte>BC</Byte>
+        <Byte>01</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Actual>
+      <After>
+        <Byte>0F</Byte>
+        <Byte>94</Byte>
+        <Byte>C1</Byte>
+        <Byte>8B</Byte>
+        <Byte>C1</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Code :cmp dword ptr [rcx+000001BC],16</Description>
+      <Address>7FF60656D4EA</Address>
+      <ModuleName>CoD_SP.exe</ModuleName>
+      <ModuleNameOffset>5AD4EA</ModuleNameOffset>
+      <Before>
+        <Byte>57</Byte>
+        <Byte>48</Byte>
+        <Byte>83</Byte>
+        <Byte>EC</Byte>
+        <Byte>50</Byte>
+      </Before>
+      <Actual>
+        <Byte>83</Byte>
+        <Byte>B9</Byte>
+        <Byte>BC</Byte>
+        <Byte>01</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+        <Byte>16</Byte>
+      </Actual>
+      <After>
+        <Byte>48</Byte>
+        <Byte>8B</Byte>
+        <Byte>FA</Byte>
+        <Byte>48</Byte>
+        <Byte>8B</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Code :cmp [rbx+000001BC],eax</Description>
+      <Address>7FF60656D4FE</Address>
+      <ModuleName>CoD_SP.exe</ModuleName>
+      <ModuleNameOffset>5AD4FE</ModuleNameOffset>
+      <Before>
+        <Byte>E8</Byte>
+        <Byte>12</Byte>
+        <Byte>33</Byte>
+        <Byte>FF</Byte>
+        <Byte>FF</Byte>
+      </Before>
+      <Actual>
+        <Byte>39</Byte>
+        <Byte>83</Byte>
+        <Byte>BC</Byte>
+        <Byte>01</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Actual>
+      <After>
+        <Byte>74</Byte>
+        <Byte>16</Byte>
+        <Byte>F7</Byte>
+        <Byte>43</Byte>
+        <Byte>5C</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Code :cmp [rbx+000001BC],eax</Description>
+      <Address>7FF60656D514</Address>
+      <ModuleName>CoD_SP.exe</ModuleName>
+      <ModuleNameOffset>5AD514</ModuleNameOffset>
+      <Before>
+        <Byte>E8</Byte>
+        <Byte>DC</Byte>
+        <Byte>38</Byte>
+        <Byte>FF</Byte>
+        <Byte>FF</Byte>
+      </Before>
+      <Actual>
+        <Byte>39</Byte>
+        <Byte>83</Byte>
+        <Byte>BC</Byte>
+        <Byte>01</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Actual>
+      <After>
+        <Byte>74</Byte>
+        <Byte>14</Byte>
+        <Byte>33</Byte>
+        <Byte>C0</Byte>
+        <Byte>48</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Code :addss xmm0,[rax+000001C0]</Description>
+      <Address>7FF6065972DF</Address>
+      <ModuleName>CoD_SP.exe</ModuleName>
+      <ModuleNameOffset>5D72DF</ModuleNameOffset>
+      <Before>
+        <Byte>80</Byte>
+        <Byte>98</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Before>
+      <Actual>
+        <Byte>F3</Byte>
+        <Byte>0F</Byte>
+        <Byte>58</Byte>
+        <Byte>80</Byte>
+        <Byte>C0</Byte>
+        <Byte>01</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Actual>
+      <After>
+        <Byte>F3</Byte>
+        <Byte>0F</Byte>
+        <Byte>11</Byte>
+        <Byte>44</Byte>
+        <Byte>24</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Code :movups xmm0,[rdx-40]</Description>
+      <Address>7FF606231DDD</Address>
+      <ModuleName>CoD_SP.exe</ModuleName>
+      <ModuleNameOffset>271DDD</ModuleNameOffset>
+      <Before>
+        <Byte>B0</Byte>
+        <Byte>0F</Byte>
+        <Byte>11</Byte>
+        <Byte>48</Byte>
+        <Byte>B0</Byte>
+      </Before>
+      <Actual>
+        <Byte>0F</Byte>
+        <Byte>10</Byte>
+        <Byte>42</Byte>
+        <Byte>C0</Byte>
+      </Actual>
+      <After>
+        <Byte>0F</Byte>
+        <Byte>11</Byte>
+        <Byte>40</Byte>
+        <Byte>C0</Byte>
+        <Byte>0F</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Code :movss xmm1,[rbx+000001C0]</Description>
+      <Address>7FF60656F9F4</Address>
+      <ModuleName>CoD_SP.exe</ModuleName>
+      <ModuleNameOffset>5AF9F4</ModuleNameOffset>
+      <Before>
+        <Byte>84</Byte>
+        <Byte>63</Byte>
+        <Byte>04</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Before>
+      <Actual>
+        <Byte>F3</Byte>
+        <Byte>0F</Byte>
+        <Byte>10</Byte>
+        <Byte>8B</Byte>
+        <Byte>C0</Byte>
+        <Byte>01</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Actual>
+      <After>
+        <Byte>0F</Byte>
+        <Byte>57</Byte>
+        <Byte>C0</Byte>
+        <Byte>0F</Byte>
+        <Byte>2E</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Code :movss [rbx+000001C0],xmm0</Description>
+      <Address>7FF60656FE5E</Address>
+      <ModuleName>CoD_SP.exe</ModuleName>
+      <ModuleNameOffset>5AFE5E</ModuleNameOffset>
+      <Before>
+        <Byte>6E</Byte>
+        <Byte>C0</Byte>
+        <Byte>0F</Byte>
+        <Byte>5B</Byte>
+        <Byte>C0</Byte>
+      </Before>
+      <Actual>
+        <Byte>F3</Byte>
+        <Byte>0F</Byte>
+        <Byte>11</Byte>
+        <Byte>83</Byte>
+        <Byte>C0</Byte>
+        <Byte>01</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Actual>
+      <After>
+        <Byte>48</Byte>
+        <Byte>83</Byte>
+        <Byte>C4</Byte>
+        <Byte>30</Byte>
+        <Byte>41</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Code :addss xmm0,[rax+000001C0]</Description>
+      <Address>7FF60631F146</Address>
+      <ModuleName>CoD_SP.exe</ModuleName>
+      <ModuleNameOffset>35F146</ModuleNameOffset>
+      <Before>
+        <Byte>0F</Byte>
+        <Byte>11</Byte>
+        <Byte>44</Byte>
+        <Byte>24</Byte>
+        <Byte>7C</Byte>
+      </Before>
+      <Actual>
+        <Byte>F3</Byte>
+        <Byte>0F</Byte>
+        <Byte>58</Byte>
+        <Byte>80</Byte>
+        <Byte>C0</Byte>
+        <Byte>01</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Actual>
+      <After>
+        <Byte>F3</Byte>
+        <Byte>0F</Byte>
+        <Byte>11</Byte>
+        <Byte>44</Byte>
+        <Byte>24</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Code :comiss xmm2,[rbx+000001C0]</Description>
+      <Address>7FF60656FA90</Address>
+      <ModuleName>CoD_SP.exe</ModuleName>
+      <ModuleNameOffset>5AFA90</ModuleNameOffset>
+      <Before>
+        <Byte>41</Byte>
+        <Byte>0F</Byte>
+        <Byte>10</Byte>
+        <Byte>46</Byte>
+        <Byte>24</Byte>
+      </Before>
+      <Actual>
+        <Byte>0F</Byte>
+        <Byte>2F</Byte>
+        <Byte>93</Byte>
+        <Byte>C0</Byte>
+        <Byte>01</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Actual>
+      <After>
+        <Byte>F3</Byte>
+        <Byte>0F</Byte>
+        <Byte>59</Byte>
+        <Byte>05</Byte>
+        <Byte>09</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Code :addss xmm0,[rbx+000001C0]</Description>
+      <Address>7FF60656FAA1</Address>
+      <ModuleName>CoD_SP.exe</ModuleName>
+      <ModuleNameOffset>5AFAA1</ModuleNameOffset>
+      <Before>
+        <Byte>F8</Byte>
+        <Byte>33</Byte>
+        <Byte>00</Byte>
+        <Byte>76</Byte>
+        <Byte>26</Byte>
+      </Before>
+      <Actual>
+        <Byte>F3</Byte>
+        <Byte>0F</Byte>
+        <Byte>58</Byte>
+        <Byte>83</Byte>
+        <Byte>C0</Byte>
+        <Byte>01</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Actual>
+      <After>
+        <Byte>0F</Byte>
+        <Byte>2F</Byte>
+        <Byte>C2</Byte>
+        <Byte>F3</Byte>
+        <Byte>0F</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Code :movss [rbx+000001C0],xmm0</Description>
+      <Address>7FF60656FAAC</Address>
+      <ModuleName>CoD_SP.exe</ModuleName>
+      <ModuleNameOffset>5AFAAC</ModuleNameOffset>
+      <Before>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+        <Byte>0F</Byte>
+        <Byte>2F</Byte>
+        <Byte>C2</Byte>
+      </Before>
+      <Actual>
+        <Byte>F3</Byte>
+        <Byte>0F</Byte>
+        <Byte>11</Byte>
+        <Byte>83</Byte>
+        <Byte>C0</Byte>
+        <Byte>01</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Actual>
+      <After>
+        <Byte>0F</Byte>
+        <Byte>82</Byte>
+        <Byte>16</Byte>
+        <Byte>03</Byte>
+        <Byte>00</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Code :movss [rbx+000001C0],xmm2</Description>
+      <Address>7FF60656FABA</Address>
+      <ModuleName>CoD_SP.exe</ModuleName>
+      <ModuleNameOffset>5AFABA</ModuleNameOffset>
+      <Before>
+        <Byte>82</Byte>
+        <Byte>16</Byte>
+        <Byte>03</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Before>
+      <Actual>
+        <Byte>F3</Byte>
+        <Byte>0F</Byte>
+        <Byte>11</Byte>
+        <Byte>93</Byte>
+        <Byte>C0</Byte>
+        <Byte>01</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Actual>
+      <After>
+        <Byte>E9</Byte>
+        <Byte>09</Byte>
+        <Byte>03</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Code :movss [rbx+000001C0],xmm0</Description>
+      <Address>7FF60656FBCB</Address>
+      <ModuleName>CoD_SP.exe</ModuleName>
+      <ModuleNameOffset>5AFBCB</ModuleNameOffset>
+      <Before>
+        <Byte>E8</Byte>
+        <Byte>A5</Byte>
+        <Byte>02</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Before>
+      <Actual>
+        <Byte>F3</Byte>
+        <Byte>0F</Byte>
+        <Byte>11</Byte>
+        <Byte>83</Byte>
+        <Byte>C0</Byte>
+        <Byte>01</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Actual>
+      <After>
+        <Byte>39</Byte>
+        <Byte>BB</Byte>
+        <Byte>C4</Byte>
+        <Byte>01</Byte>
+        <Byte>00</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Code :cmp [rax+000001A8],ebp</Description>
+      <Address>7FF60606997A</Address>
+      <ModuleName>CoD_SP.exe</ModuleName>
+      <ModuleNameOffset>A997A</ModuleNameOffset>
+      <Before>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+        <Byte>75</Byte>
+        <Byte>20</Byte>
+      </Before>
+      <Actual>
+        <Byte>39</Byte>
+        <Byte>A8</Byte>
+        <Byte>A8</Byte>
+        <Byte>01</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Actual>
+      <After>
+        <Byte>7E</Byte>
+        <Byte>18</Byte>
+        <Byte>0F</Byte>
+        <Byte>B6</Byte>
+        <Byte>90</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Code :mov ecx,[r8+rcx]</Description>
+      <Address>7FF60638C90A</Address>
+      <ModuleName>CoD_SP.exe</ModuleName>
+      <ModuleNameOffset>3CC90A</ModuleNameOffset>
+      <Before>
+        <Byte>48</Byte>
+        <Byte>83</Byte>
+        <Byte>C4</Byte>
+        <Byte>48</Byte>
+        <Byte>C3</Byte>
+      </Before>
+      <Actual>
+        <Byte>41</Byte>
+        <Byte>8B</Byte>
+        <Byte>0C</Byte>
+        <Byte>08</Byte>
+      </Actual>
+      <After>
+        <Byte>E8</Byte>
+        <Byte>9D</Byte>
+        <Byte>23</Byte>
+        <Byte>11</Byte>
+        <Byte>00</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Code :movd xmm7,[rcx+0000022C]</Description>
+      <Address>7FF60631C8C4</Address>
+      <ModuleName>CoD_SP.exe</ModuleName>
+      <ModuleNameOffset>35C8C4</ModuleNameOffset>
+      <Before>
+        <Byte>24</Byte>
+        <Byte>D0</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Before>
+      <Actual>
+        <Byte>66</Byte>
+        <Byte>0F</Byte>
+        <Byte>6E</Byte>
+        <Byte>B9</Byte>
+        <Byte>2C</Byte>
+        <Byte>02</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Actual>
+      <After>
+        <Byte>0F</Byte>
+        <Byte>5B</Byte>
+        <Byte>FF</Byte>
+        <Byte>0F</Byte>
+        <Byte>5B</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Code :mov eax,[rax+0000022C]</Description>
+      <Address>7FF60631C9DC</Address>
+      <ModuleName>CoD_SP.exe</ModuleName>
+      <ModuleNameOffset>35C9DC</ModuleNameOffset>
+      <Before>
+        <Byte>44</Byte>
+        <Byte>0F</Byte>
+        <Byte>B6</Byte>
+        <Byte>6B</Byte>
+        <Byte>2E</Byte>
+      </Before>
+      <Actual>
+        <Byte>8B</Byte>
+        <Byte>80</Byte>
+        <Byte>2C</Byte>
+        <Byte>02</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Actual>
+      <After>
+        <Byte>89</Byte>
+        <Byte>44</Byte>
+        <Byte>24</Byte>
+        <Byte>74</Byte>
+        <Byte>41</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Code :cmp dword ptr [rax+0000022C],00</Description>
+      <Address>7FF60631CA90</Address>
+      <ModuleName>CoD_SP.exe</ModuleName>
+      <ModuleNameOffset>35CA90</ModuleNameOffset>
+      <Before>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+        <Byte>74</Byte>
+        <Byte>10</Byte>
+      </Before>
+      <Actual>
+        <Byte>83</Byte>
+        <Byte>B8</Byte>
+        <Byte>2C</Byte>
+        <Byte>02</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Actual>
+      <After>
+        <Byte>7E</Byte>
+        <Byte>07</Byte>
+        <Byte>B8</Byte>
+        <Byte>01</Byte>
+        <Byte>00</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Code :movd xmm9,[rax+0000022C]</Description>
+      <Address>7FF60631CB94</Address>
+      <ModuleName>CoD_SP.exe</ModuleName>
+      <ModuleNameOffset>35CB94</ModuleNameOffset>
+      <Before>
+        <Byte>24</Byte>
+        <Byte>C0</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Before>
+      <Actual>
+        <Byte>66</Byte>
+        <Byte>44</Byte>
+        <Byte>0F</Byte>
+        <Byte>6E</Byte>
+        <Byte>88</Byte>
+        <Byte>2C</Byte>
+        <Byte>02</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Actual>
+      <After>
+        <Byte>66</Byte>
+        <Byte>0F</Byte>
+        <Byte>6E</Byte>
+        <Byte>80</Byte>
+        <Byte>30</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Code :cmp [rax+000001A8],ebp</Description>
+      <Address>7FF60606997A</Address>
+      <ModuleName>CoD_SP.exe</ModuleName>
+      <ModuleNameOffset>A997A</ModuleNameOffset>
+      <Before>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+        <Byte>75</Byte>
+        <Byte>20</Byte>
+      </Before>
+      <Actual>
+        <Byte>39</Byte>
+        <Byte>A8</Byte>
+        <Byte>A8</Byte>
+        <Byte>01</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Actual>
+      <After>
+        <Byte>7E</Byte>
+        <Byte>18</Byte>
+        <Byte>0F</Byte>
+        <Byte>B6</Byte>
+        <Byte>90</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Code :sub [rbx+0000022C],r12d</Description>
+      <Address>7FF6065A2E2E</Address>
+      <ModuleName>CoD_SP.exe</ModuleName>
+      <ModuleNameOffset>5E2E2E</ModuleNameOffset>
+      <Before>
+        <Byte>24</Byte>
+        <Byte>18</Byte>
+        <Byte>05</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Before>
+      <Actual>
+        <Byte>44</Byte>
+        <Byte>29</Byte>
+        <Byte>A3</Byte>
+        <Byte>2C</Byte>
+        <Byte>02</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Actual>
+      <After>
+        <Byte>48</Byte>
+        <Byte>8B</Byte>
+        <Byte>BC</Byte>
+        <Byte>24</Byte>
+        <Byte>10</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Code :mov eax,[rbx+0000022C]</Description>
+      <Address>7FF6065A2E90</Address>
+      <ModuleName>CoD_SP.exe</ModuleName>
+      <ModuleNameOffset>5E2E90</ModuleNameOffset>
+      <Before>
+        <Byte>E8</Byte>
+        <Byte>90</Byte>
+        <Byte>C6</Byte>
+        <Byte>D8</Byte>
+        <Byte>FF</Byte>
+      </Before>
+      <Actual>
+        <Byte>8B</Byte>
+        <Byte>83</Byte>
+        <Byte>2C</Byte>
+        <Byte>02</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Actual>
+      <After>
+        <Byte>85</Byte>
+        <Byte>C0</Byte>
+        <Byte>0F</Byte>
+        <Byte>8F</Byte>
+        <Byte>C6</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Code :mov eax,[rcx+14]</Description>
+      <Address>7FF7A44FFF65</Address>
+      <ModuleName>CoD_SP.exe</ModuleName>
+      <ModuleNameOffset>59FF65</ModuleNameOffset>
+      <Before>
+        <Byte>10</Byte>
+        <Byte>41</Byte>
+        <Byte>89</Byte>
+        <Byte>40</Byte>
+        <Byte>04</Byte>
+      </Before>
+      <Actual>
+        <Byte>8B</Byte>
+        <Byte>41</Byte>
+        <Byte>14</Byte>
+      </Actual>
+      <After>
+        <Byte>41</Byte>
+        <Byte>89</Byte>
+        <Byte>40</Byte>
+        <Byte>08</Byte>
+        <Byte>48</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Code :movups [rcx+000003E0],xmm1</Description>
+      <Address>7FF7A41912A2</Address>
+      <ModuleName>CoD_SP.exe</ModuleName>
+      <ModuleNameOffset>2312A2</ModuleNameOffset>
+      <Before>
+        <Byte>81</Byte>
+        <Byte>74</Byte>
+        <Byte>04</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Before>
+      <Actual>
+        <Byte>0F</Byte>
+        <Byte>11</Byte>
+        <Byte>89</Byte>
+        <Byte>E0</Byte>
+        <Byte>03</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Actual>
+      <After>
+        <Byte>0F</Byte>
+        <Byte>10</Byte>
+        <Byte>89</Byte>
+        <Byte>84</Byte>
+        <Byte>04</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Code :movups xmm0,[rax-60]</Description>
+      <Address>7FF7A453792D</Address>
+      <ModuleName>CoD_SP.exe</ModuleName>
+      <ModuleNameOffset>5D792D</ModuleNameOffset>
+      <Before>
+        <Byte>90</Byte>
+        <Byte>0F</Byte>
+        <Byte>11</Byte>
+        <Byte>4A</Byte>
+        <Byte>90</Byte>
+      </Before>
+      <Actual>
+        <Byte>0F</Byte>
+        <Byte>10</Byte>
+        <Byte>40</Byte>
+        <Byte>A0</Byte>
+      </Actual>
+      <After>
+        <Byte>0F</Byte>
+        <Byte>11</Byte>
+        <Byte>42</Byte>
+        <Byte>A0</Byte>
+        <Byte>0F</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Code :mov [rbp+2C],eax</Description>
+      <Address>7FF7A427882A</Address>
+      <ModuleName>CoD_SP.exe</ModuleName>
+      <ModuleNameOffset>31882A</ModuleNameOffset>
+      <Before>
+        <Byte>45</Byte>
+        <Byte>28</Byte>
+        <Byte>8B</Byte>
+        <Byte>47</Byte>
+        <Byte>08</Byte>
+      </Before>
+      <Actual>
+        <Byte>89</Byte>
+        <Byte>45</Byte>
+        <Byte>2C</Byte>
+      </Actual>
+      <After>
+        <Byte>F3</Byte>
+        <Byte>0F</Byte>
+        <Byte>10</Byte>
+        <Byte>85</Byte>
+        <Byte>A4</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Code :movups [rcx+000003E0],xmm1</Description>
+      <Address>7FF7A41912A2</Address>
+      <ModuleName>CoD_SP.exe</ModuleName>
+      <ModuleNameOffset>2312A2</ModuleNameOffset>
+      <Before>
+        <Byte>81</Byte>
+        <Byte>74</Byte>
+        <Byte>04</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Before>
+      <Actual>
+        <Byte>0F</Byte>
+        <Byte>11</Byte>
+        <Byte>89</Byte>
+        <Byte>E0</Byte>
+        <Byte>03</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Actual>
+      <After>
+        <Byte>0F</Byte>
+        <Byte>10</Byte>
+        <Byte>89</Byte>
+        <Byte>84</Byte>
+        <Byte>04</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Code :cmp dword ptr [rcx+0000022C],00</Description>
+      <Address>7FF7A3F7F875</Address>
+      <ModuleName>CoD_SP.exe</ModuleName>
+      <ModuleNameOffset>1F875</ModuleNameOffset>
+      <Before>
+        <Byte>01</Byte>
+        <Byte>3C</Byte>
+        <Byte>0E</Byte>
+        <Byte>75</Byte>
+        <Byte>25</Byte>
+      </Before>
+      <Actual>
+        <Byte>83</Byte>
+        <Byte>B9</Byte>
+        <Byte>2C</Byte>
+        <Byte>02</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Actual>
+      <After>
+        <Byte>7E</Byte>
+        <Byte>11</Byte>
+        <Byte>48</Byte>
+        <Byte>8B</Byte>
+        <Byte>81</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Code :cmp [rax+000001A8],ebp</Description>
+      <Address>7FF7A400997A</Address>
+      <ModuleName>CoD_SP.exe</ModuleName>
+      <ModuleNameOffset>A997A</ModuleNameOffset>
+      <Before>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+        <Byte>75</Byte>
+        <Byte>20</Byte>
+      </Before>
+      <Actual>
+        <Byte>39</Byte>
+        <Byte>A8</Byte>
+        <Byte>A8</Byte>
+        <Byte>01</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Actual>
+      <After>
+        <Byte>7E</Byte>
+        <Byte>18</Byte>
+        <Byte>0F</Byte>
+        <Byte>B6</Byte>
+        <Byte>90</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Code :movd xmm1,[rax+0000022C]</Description>
+      <Address>7FF7A42B46A5</Address>
+      <ModuleName>CoD_SP.exe</ModuleName>
+      <ModuleNameOffset>3546A5</ModuleNameOffset>
+      <Before>
+        <Byte>80</Byte>
+        <Byte>30</Byte>
+        <Byte>02</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Before>
+      <Actual>
+        <Byte>66</Byte>
+        <Byte>0F</Byte>
+        <Byte>6E</Byte>
+        <Byte>88</Byte>
+        <Byte>2C</Byte>
+        <Byte>02</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Actual>
+      <After>
+        <Byte>48</Byte>
+        <Byte>8B</Byte>
+        <Byte>88</Byte>
+        <Byte>C0</Byte>
+        <Byte>01</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Code :movd xmm7,[rcx+0000022C]</Description>
+      <Address>7FF7A42BC8C4</Address>
+      <ModuleName>CoD_SP.exe</ModuleName>
+      <ModuleNameOffset>35C8C4</ModuleNameOffset>
+      <Before>
+        <Byte>24</Byte>
+        <Byte>D0</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Before>
+      <Actual>
+        <Byte>66</Byte>
+        <Byte>0F</Byte>
+        <Byte>6E</Byte>
+        <Byte>B9</Byte>
+        <Byte>2C</Byte>
+        <Byte>02</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Actual>
+      <After>
+        <Byte>0F</Byte>
+        <Byte>5B</Byte>
+        <Byte>FF</Byte>
+        <Byte>0F</Byte>
+        <Byte>5B</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Code :mov eax,[rax+0000022C]</Description>
+      <Address>7FF7A42BC9DC</Address>
+      <ModuleName>CoD_SP.exe</ModuleName>
+      <ModuleNameOffset>35C9DC</ModuleNameOffset>
+      <Before>
+        <Byte>44</Byte>
+        <Byte>0F</Byte>
+        <Byte>B6</Byte>
+        <Byte>6B</Byte>
+        <Byte>2E</Byte>
+      </Before>
+      <Actual>
+        <Byte>8B</Byte>
+        <Byte>80</Byte>
+        <Byte>2C</Byte>
+        <Byte>02</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Actual>
+      <After>
+        <Byte>89</Byte>
+        <Byte>44</Byte>
+        <Byte>24</Byte>
+        <Byte>74</Byte>
+        <Byte>41</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Code :mov edx,[rax+0000022C]</Description>
+      <Address>7FF7A4270114</Address>
+      <ModuleName>CoD_SP.exe</ModuleName>
+      <ModuleNameOffset>310114</ModuleNameOffset>
+      <Before>
+        <Byte>33</Byte>
+        <Byte>DB</Byte>
+        <Byte>4C</Byte>
+        <Byte>8B</Byte>
+        <Byte>C9</Byte>
+      </Before>
+      <Actual>
+        <Byte>8B</Byte>
+        <Byte>90</Byte>
+        <Byte>2C</Byte>
+        <Byte>02</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Actual>
+      <After>
+        <Byte>3B</Byte>
+        <Byte>FA</Byte>
+        <Byte>7C</Byte>
+        <Byte>4D</Byte>
+        <Byte>44</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Code :mov eax,[r14+0000022C]</Description>
+      <Address>7FF7A42CEF31</Address>
+      <ModuleName>CoD_SP.exe</ModuleName>
+      <ModuleNameOffset>36EF31</ModuleNameOffset>
+      <Before>
+        <Byte>8E</Byte>
+        <Byte>C8</Byte>
+        <Byte>01</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Before>
+      <Actual>
+        <Byte>41</Byte>
+        <Byte>8B</Byte>
+        <Byte>86</Byte>
+        <Byte>2C</Byte>
+        <Byte>02</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Actual>
+      <After>
+        <Byte>F3</Byte>
+        <Byte>0F</Byte>
+        <Byte>10</Byte>
+        <Byte>05</Byte>
+        <Byte>44</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Code :sub [r14+0000022C],eax</Description>
+      <Address>7FF7A42CEF5F</Address>
+      <ModuleName>CoD_SP.exe</ModuleName>
+      <ModuleNameOffset>36EF5F</ModuleNameOffset>
+      <Before>
+        <Byte>C8</Byte>
+        <Byte>F3</Byte>
+        <Byte>0F</Byte>
+        <Byte>2C</Byte>
+        <Byte>C1</Byte>
+      </Before>
+      <Actual>
+        <Byte>41</Byte>
+        <Byte>29</Byte>
+        <Byte>86</Byte>
+        <Byte>2C</Byte>
+        <Byte>02</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Actual>
+      <After>
+        <Byte>48</Byte>
+        <Byte>85</Byte>
+        <Byte>FF</Byte>
+        <Byte>0F</Byte>
+        <Byte>84</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Code :cmp dword ptr [rax+0000022C],00</Description>
+      <Address>7FF7A4275376</Address>
+      <ModuleName>CoD_SP.exe</ModuleName>
+      <ModuleNameOffset>315376</ModuleNameOffset>
+      <Before>
+        <Byte>8B</Byte>
+        <Byte>01</Byte>
+        <Byte>4C</Byte>
+        <Byte>8B</Byte>
+        <Byte>C1</Byte>
+      </Before>
+      <Actual>
+        <Byte>83</Byte>
+        <Byte>B8</Byte>
+        <Byte>2C</Byte>
+        <Byte>02</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Actual>
+      <After>
+        <Byte>7F</Byte>
+        <Byte>03</Byte>
+        <Byte>B0</Byte>
+        <Byte>01</Byte>
+        <Byte>C3</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Code :mov eax,[r14+0000022C]</Description>
+      <Address>7FF7A42CF0DA</Address>
+      <ModuleName>CoD_SP.exe</ModuleName>
+      <ModuleNameOffset>36F0DA</ModuleNameOffset>
+      <Before>
+        <Byte>E8</Byte>
+        <Byte>A6</Byte>
+        <Byte>AB</Byte>
+        <Byte>D3</Byte>
+        <Byte>FF</Byte>
+      </Before>
+      <Actual>
+        <Byte>41</Byte>
+        <Byte>8B</Byte>
+        <Byte>86</Byte>
+        <Byte>2C</Byte>
+        <Byte>02</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Actual>
+      <After>
+        <Byte>85</Byte>
+        <Byte>C0</Byte>
+        <Byte>0F</Byte>
+        <Byte>8F</Byte>
+        <Byte>D4</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Code :cmp dword ptr [rax+0000022C],00</Description>
+      <Address>7FF7A42BCA90</Address>
+      <ModuleName>CoD_SP.exe</ModuleName>
+      <ModuleNameOffset>35CA90</ModuleNameOffset>
+      <Before>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+        <Byte>74</Byte>
+        <Byte>10</Byte>
+      </Before>
+      <Actual>
+        <Byte>83</Byte>
+        <Byte>B8</Byte>
+        <Byte>2C</Byte>
+        <Byte>02</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Actual>
+      <After>
+        <Byte>7E</Byte>
+        <Byte>07</Byte>
+        <Byte>B8</Byte>
+        <Byte>01</Byte>
+        <Byte>00</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Code :movd xmm9,[rax+0000022C]</Description>
+      <Address>7FF7A42BCB94</Address>
+      <ModuleName>CoD_SP.exe</ModuleName>
+      <ModuleNameOffset>35CB94</ModuleNameOffset>
+      <Before>
+        <Byte>24</Byte>
+        <Byte>C0</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Before>
+      <Actual>
+        <Byte>66</Byte>
+        <Byte>44</Byte>
+        <Byte>0F</Byte>
+        <Byte>6E</Byte>
+        <Byte>88</Byte>
+        <Byte>2C</Byte>
+        <Byte>02</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Actual>
+      <After>
+        <Byte>66</Byte>
+        <Byte>0F</Byte>
+        <Byte>6E</Byte>
+        <Byte>80</Byte>
+        <Byte>30</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Code :mov ecx,[r8+rcx]</Description>
+      <Address>7FF7A432C90A</Address>
+      <ModuleName>CoD_SP.exe</ModuleName>
+      <ModuleNameOffset>3CC90A</ModuleNameOffset>
+      <Before>
+        <Byte>48</Byte>
+        <Byte>83</Byte>
+        <Byte>C4</Byte>
+        <Byte>48</Byte>
+        <Byte>C3</Byte>
+      </Before>
+      <Actual>
+        <Byte>41</Byte>
+        <Byte>8B</Byte>
+        <Byte>0C</Byte>
+        <Byte>08</Byte>
+      </Actual>
+      <After>
+        <Byte>E8</Byte>
+        <Byte>9D</Byte>
+        <Byte>23</Byte>
+        <Byte>11</Byte>
+        <Byte>00</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Possible enemie vehicle only</Description>
+      <Address>7FF7A4557A2A</Address>
+      <ModuleName>CoD_SP.exe</ModuleName>
+      <ModuleNameOffset>5F7A2A</ModuleNameOffset>
+      <Before>
+        <Byte>E8</Byte>
+        <Byte>A6</Byte>
+        <Byte>77</Byte>
+        <Byte>EE</Byte>
+        <Byte>FF</Byte>
+      </Before>
+      <Actual>
+        <Byte>66</Byte>
+        <Byte>0F</Byte>
+        <Byte>6E</Byte>
+        <Byte>8F</Byte>
+        <Byte>2C</Byte>
+        <Byte>02</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Actual>
+      <After>
+        <Byte>0F</Byte>
+        <Byte>57</Byte>
+        <Byte>C0</Byte>
+        <Byte>0F</Byte>
+        <Byte>5B</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Code :push rbx</Description>
+      <Address>7FF7A42C6430</Address>
+      <ModuleName>CoD_SP.exe</ModuleName>
+      <ModuleNameOffset>366430</ModuleNameOffset>
+      <Before>
+        <Byte>C3</Byte>
+        <Byte>CC</Byte>
+        <Byte>CC</Byte>
+        <Byte>CC</Byte>
+        <Byte>CC</Byte>
+      </Before>
+      <Actual>
+        <Byte>40</Byte>
+        <Byte>53</Byte>
+      </Actual>
+      <After>
+        <Byte>48</Byte>
+        <Byte>83</Byte>
+        <Byte>EC</Byte>
+        <Byte>30</Byte>
+        <Byte>8B</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Code :mov r11,rsp</Description>
+      <Address>7FF7A43213E0</Address>
+      <ModuleName>CoD_SP.exe</ModuleName>
+      <ModuleNameOffset>3C13E0</ModuleNameOffset>
+      <Before>
+        <Byte>83</Byte>
+        <Byte>C4</Byte>
+        <Byte>20</Byte>
+        <Byte>5B</Byte>
+        <Byte>C3</Byte>
+      </Before>
+      <Actual>
+        <Byte>4C</Byte>
+        <Byte>8B</Byte>
+        <Byte>DC</Byte>
+      </Actual>
+      <After>
+        <Byte>48</Byte>
+        <Byte>81</Byte>
+        <Byte>EC</Byte>
+        <Byte>78</Byte>
+        <Byte>01</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Code :mov r11,rsp</Description>
+      <Address>7FF7A4319190</Address>
+      <ModuleName>CoD_SP.exe</ModuleName>
+      <ModuleNameOffset>3B9190</ModuleNameOffset>
+      <Before>
+        <Byte>CC</Byte>
+        <Byte>CC</Byte>
+        <Byte>CC</Byte>
+        <Byte>CC</Byte>
+        <Byte>CC</Byte>
+      </Before>
+      <Actual>
+        <Byte>4C</Byte>
+        <Byte>8B</Byte>
+        <Byte>DC</Byte>
+      </Actual>
+      <After>
+        <Byte>48</Byte>
+        <Byte>81</Byte>
+        <Byte>EC</Byte>
+        <Byte>28</Byte>
+        <Byte>01</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Code :mov [rsp+10],rbx</Description>
+      <Address>7FF7A4320970</Address>
+      <ModuleName>CoD_SP.exe</ModuleName>
+      <ModuleNameOffset>3C0970</ModuleNameOffset>
+      <Before>
+        <Byte>CC</Byte>
+        <Byte>CC</Byte>
+        <Byte>CC</Byte>
+        <Byte>CC</Byte>
+        <Byte>CC</Byte>
+      </Before>
+      <Actual>
+        <Byte>48</Byte>
+        <Byte>89</Byte>
+        <Byte>5C</Byte>
+        <Byte>24</Byte>
+        <Byte>10</Byte>
+      </Actual>
+      <After>
+        <Byte>57</Byte>
+        <Byte>48</Byte>
+        <Byte>83</Byte>
+        <Byte>EC</Byte>
+        <Byte>30</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Code :mov r11,rsp</Description>
+      <Address>7FF7A43197E0</Address>
+      <ModuleName>CoD_SP.exe</ModuleName>
+      <ModuleNameOffset>3B97E0</ModuleNameOffset>
+      <Before>
+        <Byte>CC</Byte>
+        <Byte>CC</Byte>
+        <Byte>CC</Byte>
+        <Byte>CC</Byte>
+        <Byte>CC</Byte>
+      </Before>
+      <Actual>
+        <Byte>4C</Byte>
+        <Byte>8B</Byte>
+        <Byte>DC</Byte>
+      </Actual>
+      <After>
+        <Byte>48</Byte>
+        <Byte>81</Byte>
+        <Byte>EC</Byte>
+        <Byte>F8</Byte>
+        <Byte>00</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Code :mov r11,rsp</Description>
+      <Address>7FF7A4321D90</Address>
+      <ModuleName>CoD_SP.exe</ModuleName>
+      <ModuleNameOffset>3C1D90</ModuleNameOffset>
+      <Before>
+        <Byte>CC</Byte>
+        <Byte>CC</Byte>
+        <Byte>CC</Byte>
+        <Byte>CC</Byte>
+        <Byte>CC</Byte>
+      </Before>
+      <Actual>
+        <Byte>4C</Byte>
+        <Byte>8B</Byte>
+        <Byte>DC</Byte>
+      </Actual>
+      <After>
+        <Byte>48</Byte>
+        <Byte>81</Byte>
+        <Byte>EC</Byte>
+        <Byte>68</Byte>
+        <Byte>01</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Code :inc [rbx+rbp*4+000003A8]</Description>
+      <Address>7FF6DB3DBBA0</Address>
+      <ModuleName>CoD_SP.exe</ModuleName>
+      <ModuleNameOffset>5BBBA0</ModuleNameOffset>
+      <Before>
+        <Byte>F1</Byte>
+        <Byte>7A</Byte>
+        <Byte>02</Byte>
+        <Byte>74</Byte>
+        <Byte>1F</Byte>
+      </Before>
+      <Actual>
+        <Byte>FF</Byte>
+        <Byte>84</Byte>
+        <Byte>AB</Byte>
+        <Byte>A8</Byte>
+        <Byte>03</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Actual>
+      <After>
+        <Byte>B9</Byte>
+        <Byte>1F</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </After>
+    </CodeEntry>
+  </CheatCodes>
+  <UserdefinedSymbols/>
+  <DisassemblerComments>
+    <DisassemblerComment>
+      <Address>"CoD_SP.exe"+36EF5F</Address>
+      <Comment>Injection Point
+</Comment>
+    </DisassemblerComment>
+    <DisassemblerComment>
+      <Address>"CoD_SP.exe"+3C0970</Address>
+      <Comment>mov [rsp+10],rbx
+</Comment>
+    </DisassemblerComment>
+  </DisassemblerComments>
+</CheatTable>

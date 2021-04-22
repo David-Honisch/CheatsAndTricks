@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="14">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>7</ID>
+      <Description>"Borderlands 2 script"</Description>
+      <Options moHideChildren="1"/>
+      <Color>80000008</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+alloc(newmem,4096)
+alloc(buffer,512)
+aobscan(aobAmmoUpdate,F3 0F 58 45 08 51)
+aobscan(aobAmmoOnShot,3B C1 7C 0B 8B 55 0C 89 02 8B E5 5D C2 08 00)
+aobscan(aobHealth,8B 06 8B 4D EC 8D 04 88 85 C0)
+aobscan(aobSkillPts,83 B8 74 02 00 00 00 0F 8E B9)
+aobscan(aobBigBadAss,8B 86 70 16 00 00 8B 04 B8 5F)
+
+label(aobAmmoUpdate_r)
+label(lblAmmoUpdate)
+label(lblAmmoUpdateSkip)
+label(lblAmmoUpdateDisabled)
+label(lblAmmoUpdateReturn)
+registersymbol(aobAmmoUpdate_r)
+
+label(bInfiniteAmmo)
+registersymbol(bInfiniteAmmo)
+
+label(aobAmmoOnShot_r)
+label(lblAmmoOnShot)
+label(lblAmmoOnShotDisabled)
+label(lblAmmoOnShotReturn)
+registersymbol(aobAmmoOnShot_r)
+
+label(bNoReloadEnabled)
+registersymbol(bNoReloadEnabled)
+
+label(aobHealth_r)
+label(lblHealth)
+label(lblHealthSkip)
+label(lblHealthDisabled)
+label(lblHealthReturn)
+registersymbol(aobHealth_r)
+
+label(bGodModeEnabled)
+registersymbol(bGodModeEnabled)
+
+label(aobSkillPts_r)
+label(lblSkillPts)
+label(lblSkillPtsSkip)
+label(lblSkillPtsDisabled)
+label(lblSkillPtsReturn)
+registersymbol(aobSkillPts_r)
+
+label(bSkillPointHackEnabled)
+label(iDesiredSkillPoints)
+registersymbol(bSkillPointHackEnabled)
+registersymbol(iDesiredSkillPoints)
+
+label(aobBigBadAss_r)
+label(lblBigBadAss)
+label(lblBigBadAssLoop)
+label(lblBigBadAssSkip)
+label(lblBigBadAssDisabled)
+label(lblBigBadAssReturn)
+registersymbol(aobBigBadAss_r)
+
+label(bBigBadAssHackEnabled)
+label(iDesiredBigBadAssValue)
+registersymbol(bBigBadAssHackEnabled)
+registersymbol(iDesiredBigBadAssValue)
+
+label(pTest)
+registersymbol(pTest)
+
+newmem:
+pTest:
+dd 0
+
+lblAmmoUpdate:
+cmp dword ptr [bInfiniteAmmo],1
+jne short lblAmmoUpdateDisabled
+fxsave [buffer]
+movss xmm1,[ebp+08]
+xorps xmm3,xmm3
+comiss xmm1,xmm3
+jle short lblAmmoUpdateSkip
+movss [ebp+08],xmm3
+lblAmmoUpdateSkip:
+fxrstor [buffer]
+lblAmmoUpdateDisabled:
+addss xmm0,[ebp+08]  // Original code
+jmp lblAmmoUpdateReturn
+
+bInfiniteAmmo:
+dd 1
+
+lblAmmoOnShot:
+cmp dword ptr [bNoReloadEnabled],1
+jne short lblAmmoOnShotDisabled
+mov eax,[edx]
+lblAmmoOnShotDisabled:
+mov [edx],eax  // Original code
+mov esp,ebp    // Original code
+pop ebp        // Original code
+jmp lblAmmoOnShotReturn
+
+bNoReloadEnabled:
+dd 1
+
+lblHealth:
+lea eax,[eax+ecx*4] // Original code
+test eax,eax        // Original code
+jz short lblHealthSkip
+cmp ecx,b
+jne short lblHealthSkip
+mov edx,[ebp-40]
+pushad
+cmp dword ptr [bGodModeEnabled],1
+jne short lblHealthDisabled
+mov eax,[edx+1b0]
+mov ebx,[eax+58]
+mov [eax+6c],ebx
+mov eax,[edx+1b4]
+mov ebx,[eax+58]
+mov [eax+6c],ebx
+lblHealthDisabled:
+popad
+lblHealthSkip:
+test eax,eax
+jmp lblHealthReturn
+
+bGodModeEnabled:
+dd 1
+
+lblSkillPts:
+cmp dword ptr [bSkillPointHackEnabled],1
+jne short lblSkillPtsDisabled
+push ebx
+push ecx
+mov ebx,[eax+274]
+mov ecx,[iDesiredSkillPoints]
+cmp ecx,ebx
+jl short lblSkillPtsSkip
+mov [eax+274],ecx
+lblSkillPtsSkip:
+pop ecx
+pop ebx
+lblSkillPtsDisabled:
+cmp dword ptr [eax+00000274],00 // Original code
+jmp lblSkillPtsReturn
+
+bSkillPointHackEnabled:
+dd 0
+iDesiredSkillPoints:
+dd 2
+
+lblBigBadAss:
+mov eax,[esi+00001670]  // Original code
+pushfd
+cmp dword ptr [bBigBadAssHackEnabled],1
+jne short lblBigBadAssDisabled
+pushad
+mov ebx,[iDesiredBigBadAssValue]
+mov ecx,[esi+1674]
+lblBigBadAssLoop:
+dec ecx
+mov edx,[eax+ecx*4]
+cmp ebx,edx
+jl short lblBigBadAssSkip
+mov [eax+ecx*4],ebx
+lblBigBadAssSkip:
+test ecx,ecx
+jnz short lblBigBadAssLoop
+mov dword ptr [bBigBadAssHackEnabled],ecx
+popad
+lblBigBadAssDisabled:
+popfd
+jmp lblBigBadAssReturn
+
+bBigBadAssHackEnabled:
+dd 0
+iDesiredBigBadAssValue:
+dd (int)464
+
+//"Borderlands2.exe"+913B50:
+aobAmmoUpdate:
+aobAmmoUpdate_r:
+jmp lblAmmoUpdate
+lblAmmoUpdateReturn:
+
+//"Borderlands2.exe"+A5BD5A:
+aobAmmoOnShot+7:
+aobAmmoOnShot_r:
+jmp lblAmmoOnShot
+lblAmmoOnShotReturn:
+
+//"Borderlands2.exe"+3B6468:
+aobHealth+5:
+aobHealth_r:
+jmp lblHealth
+lblHealthReturn:
+
+//"Borderlands2.exe"+D0ED57:
+aobSkillPts:
+aobSkillPts_r:
+jmp lblSkillPts
+nop
+nop
+lblSkillPtsReturn:
+
+//"Borderlands2.exe"+A5D708:
+aobBigBadAss:
+aobBigBadAss_r:
+jmp lblBigBadAss
+nop
+lblBigBadAssReturn:
+
+[DISABLE]
+//"Borderlands2.exe"+913B50:
+aobAmmoUpdate_r:
+//Alt: addss xmm0,[ebp+08]
+db F3 0F 58 45 08
+
+unregistersymbol(aobAmmoUpdate_r)
+unregistersymbol(bInfiniteAmmo)
+
+//"Borderlands2.exe"+A5BD5A:
+aobAmmoOnShot_r:
+//Alt: mov [edx],eax
+//Alt: mov esp,ebp
+//Alt: pop ebp
+db 89 02 8B E5 5D
+
+unregistersymbol(aobAmmoOnShot_r)
+unregistersymbol(bNoReloadEnabled)
+
+//"Borderlands2.exe"+3B6468:
+aobHealth_r:
+//Alt: lea eax,[eax+ecx*4]
+//Alt: test eax,eax
+db 8D 04 88 85 C0
+
+unregistersymbol(aobHealth_r)
+unregistersymbol(bGodModeEnabled)
+
+//"Borderlands2.exe"+D0ED57:
+aobSkillPts_r:
+cmp dword ptr [eax+00000274],00
+//Alt: db 83 B8 74 02 00 00 00
+
+unregistersymbol(aobSkillPts_r)
+unregistersymbol(bSkillPointHackEnabled)
+unregistersymbol(iDesiredSkillPoints)
+
+//"Borderlands2.exe"+A5D708:
+aobBigBadAss_r:
+//Alt: mov eax,[esi+00001670]
+db 8B 86 70 16 00 00
+
+unregistersymbol(aobBigBadAss_r)
+unregistersymbol(bBigBadAssHackEnabled)
+unregistersymbol(iDesiredBigBadAssValue)
+
+unregistersymbol(pTest)
+
+dealloc(buffer)
+dealloc(newmem)
+
+</AssemblerScript>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>13</ID>
+          <Description>"bNoReloadEnabled"</Description>
+          <Color>008000</Color>
+          <VariableType>4 Bytes</VariableType>
+          <Address>bNoReloadEnabled</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>11</ID>
+          <Description>"bInfiniteAmmo"</Description>
+          <Color>008000</Color>
+          <VariableType>4 Bytes</VariableType>
+          <Address>bInfiniteAmmo</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>27</ID>
+          <Description>"bGodModeEnabled"</Description>
+          <Color>008000</Color>
+          <VariableType>4 Bytes</VariableType>
+          <Address>bGodModeEnabled</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>67</ID>
+          <Description>"bSkillPointHackEnabled"</Description>
+          <Color>008000</Color>
+          <VariableType>4 Bytes</VariableType>
+          <Address>bSkillPointHackEnabled</Address>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>68</ID>
+              <Description>"iDesiredSkillPoints"</Description>
+              <Color>FF0000</Color>
+              <VariableType>4 Bytes</VariableType>
+              <Address>iDesiredSkillPoints</Address>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>51</ID>
+          <Description>"bBigBadAssHackEnabled"</Description>
+          <Color>008000</Color>
+          <VariableType>4 Bytes</VariableType>
+          <Address>bBigBadAssHackEnabled</Address>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>52</ID>
+              <Description>"iDesiredBigBadAssValue"</Description>
+              <Color>FF0000</Color>
+              <VariableType>4 Bytes</VariableType>
+              <Address>iDesiredBigBadAssValue</Address>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>69</ID>
+      <Description>"Money"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>13630ABC</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>70</ID>
+      <Description>"Money"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>13630AB8</Address>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols>
+    <SymbolEntry>
+      <Name>aobAmmoUpdate_r</Name>
+      <Address>00D13B50</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>bInfiniteAmmo</Name>
+      <Address>0A380037</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>aobAmmoOnShot_r</Name>
+      <Address>00E5BD5A</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>bNoReloadEnabled</Name>
+      <Address>0A380050</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>aobHealth_r</Name>
+      <Address>007B6468</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>bGodModeEnabled</Name>
+      <Address>0A38008D</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>aobSkillPts_r</Name>
+      <Address>0110ED57</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>bSkillPointHackEnabled</Name>
+      <Address>0A3800C0</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>iDesiredSkillPoints</Name>
+      <Address>0A3800C4</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>aobBigBadAss_r</Name>
+      <Address>00E5D708</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>bBigBadAssHackEnabled</Name>
+      <Address>0A380101</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>iDesiredBigBadAssValue</Name>
+      <Address>0A380105</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>pTest</Name>
+      <Address>0A380000</Address>
+    </SymbolEntry>
+  </UserdefinedSymbols>
+</CheatTable>

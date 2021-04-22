@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="16">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>0</ID>
+      <Description>"No description"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>00283C60</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>1</ID>
+      <Description>"No description"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>00284FD4</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>2</ID>
+      <Description>"No description"</Description>
+      <Color>80000008</Color>
+      <VariableType>Float</VariableType>
+      <Address>00286B84</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>4</ID>
+      <Description>"No description"</Description>
+      <Color>80000008</Color>
+      <VariableType>Double</VariableType>
+      <Address>00286B88</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>5</ID>
+      <Description>"No description"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>002666E8</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>6</ID>
+      <Description>"No description"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>00266738</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>7</ID>
+      <Description>"Pointer"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>00266738</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>8</ID>
+      <Description>"pointerscan result"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"Tutorial-i386.exe"+00231360</Address>
+      <Offsets>
+        <Offset>0</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>9</ID>
+      <Description>"pointerscan result"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"Tutorial-i386.exe"+00231360</Address>
+      <Offsets>
+        <Offset>0</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>10</ID>
+      <Description>"No description"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>0028BC0C</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>11</ID>
+      <Description>"No description"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>0028B790</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>12</ID>
+      <Description>"pointerscan result"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"Tutorial-i386.exe"+0004B278</Address>
+      <Offsets>
+        <Offset>0</Offset>
+        <Offset>8</Offset>
+        <Offset>4</Offset>
+        <Offset>1C</Offset>
+        <Offset>558</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>13</ID>
+      <Description>"No description"</Description>
+      <ShowAsHex>1</ShowAsHex>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"Tutorial-i386.exe"+231370</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>14</ID>
+      <Description>"No description"</Description>
+      <ShowAsHex>1</ShowAsHex>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>00256C4C</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>15</ID>
+      <Description>"pointerscan result"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"Tutorial-i386.exe"+0004B278</Address>
+      <Offsets>
+        <Offset>0</Offset>
+        <Offset>8</Offset>
+        <Offset>4</Offset>
+        <Offset>1C</Offset>
+        <Offset>558</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>16</ID>
+      <Description>"pointerscan result"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"Tutorial-i386.exe"+0004B278</Address>
+      <Offsets>
+        <Offset>CC</Offset>
+        <Offset>80</Offset>
+        <Offset>C</Offset>
+        <Offset>A0</Offset>
+        <Offset>458</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>17</ID>
+      <Description>"No description"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>002FC778</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>18</ID>
+      <Description>"No description"</Description>
+      <ShowAsHex>1</ShowAsHex>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>002C01A8</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>19</ID>
+      <Description>"pointerscan result"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"Tutorial-i386.exe"+0004B278</Address>
+      <Offsets>
+        <Offset>CC</Offset>
+        <Offset>80</Offset>
+        <Offset>C</Offset>
+        <Offset>A0</Offset>
+        <Offset>458</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>20</ID>
+      <Description>"No description"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"Tutorial-i386.exe"+231370</Address>
+    </CheatEntry>
+  </CheatEntries>
+  <CheatCodes>
+    <CodeEntry>
+      <Description>Change of mov [eax],edx</Description>
+      <Address>004264E9</Address>
+      <ModuleName>Tutorial-i386.exe</ModuleName>
+      <ModuleNameOffset>264E9</ModuleNameOffset>
+      <Before>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+        <Byte>8B</Byte>
+        <Byte>55</Byte>
+        <Byte>F0</Byte>
+      </Before>
+      <Actual>
+        <Byte>89</Byte>
+        <Byte>10</Byte>
+      </Actual>
+      <After>
+        <Byte>8B</Byte>
+        <Byte>45</Byte>
+        <Byte>F8</Byte>
+        <Byte>8B</Byte>
+        <Byte>80</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Code :nop </Description>
+      <Address>004264E9</Address>
+      <ModuleName>Tutorial-i386.exe</ModuleName>
+      <ModuleNameOffset>264E9</ModuleNameOffset>
+      <Before>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+        <Byte>8B</Byte>
+        <Byte>55</Byte>
+        <Byte>F0</Byte>
+      </Before>
+      <Actual>
+        <Byte>90</Byte>
+        <Byte>90</Byte>
+      </Actual>
+      <After>
+        <Byte>8B</Byte>
+        <Byte>45</Byte>
+        <Byte>F8</Byte>
+        <Byte>8B</Byte>
+        <Byte>80</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Code :dec [ebx+0000047C]</Description>
+      <Address>00426E99</Address>
+      <ModuleName>Tutorial-i386.exe</ModuleName>
+      <ModuleNameOffset>26E99</ModuleNameOffset>
+      <Before>
+        <Byte>B3</Byte>
+        <Byte>7C</Byte>
+        <Byte>04</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Before>
+      <Actual>
+        <Byte>FF</Byte>
+        <Byte>8B</Byte>
+        <Byte>7C</Byte>
+        <Byte>04</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Actual>
+      <After>
+        <Byte>8D</Byte>
+        <Byte>45</Byte>
+        <Byte>D4</Byte>
+        <Byte>E8</Byte>
+        <Byte>A9</Byte>
+      </After>
+    </CodeEntry>
+  </CheatCodes>
+  <UserdefinedSymbols/>
+</CheatTable>

@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<CheatTable CheatEngineTableVersion="12">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>4</ID>
+      <Description>"Unlimited.Pistol.Amuntion"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>05F23F64</Address>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+</CheatTable>

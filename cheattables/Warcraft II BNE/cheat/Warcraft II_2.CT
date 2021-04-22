@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="26">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>94</ID>
+      <Description>"human - money"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"Warcraft II BNE_dx.exe"+0000CE0C</Address>
+      <Offsets>
+        <Offset>14</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>3</ID>
+      <Description>"money"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"Warcraft II BNE_dx.exe"+0000CE0C</Address>
+      <Offsets>
+        <Offset>0</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>7</ID>
+      <Description>"money2"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"Warcraft II BNE_dx.exe"+0000CE0C</Address>
+      <Offsets>
+        <Offset>14</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>96</ID>
+      <Description>"human - wood"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"Warcraft II BNE_dx.exe"+0000DDA4</Address>
+      <Offsets>
+        <Offset>14</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>28</ID>
+      <Description>"pointerscan result"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"Warcraft II BNE_dx.exe"+0000CE0C</Address>
+      <Offsets>
+        <Offset>4</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>30</ID>
+      <Description>"pointerscan result"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"Warcraft II BNE_dx.exe"+0000DDA4</Address>
+      <Offsets>
+        <Offset>4</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>32</ID>
+      <Description>"pointerscan result"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"Warcraft II BNE_dx.exe"+0000CE20</Address>
+      <Offsets>
+        <Offset>4</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>5</ID>
+      <Description>"wood"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"Warcraft II BNE_dx.exe"+0000DDA4</Address>
+      <Offsets>
+        <Offset>0</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>9</ID>
+      <Description>"wood"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"Warcraft II BNE_dx.exe"+0000DDA4</Address>
+      <Offsets>
+        <Offset>14</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>11</ID>
+      <Description>"oil"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"Warcraft II BNE_dx.exe"+0000CE20</Address>
+      <Offsets>
+        <Offset>14</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>16</ID>
+      <Description>"oil"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"Warcraft II BNE_dx.exe"+0000CE20</Address>
+      <Offsets>
+        <Offset>0</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>18</ID>
+      <Description>"money nodx"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"Warcraft II BNE.exe"+0000CE0C</Address>
+      <Offsets>
+        <Offset>0</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>14</ID>
+      <Description>"pointerscan result"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"Warcraft II BNE_dx.exe"+0000CE20</Address>
+      <Offsets>
+        <Offset>0</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>22</ID>
+      <Description>"money"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"Warcraft II BNE.exe"+0000CE0C</Address>
+      <Offsets>
+        <Offset>4</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>24</ID>
+      <Description>"wood"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"Warcraft II BNE.exe"+0000DDA4</Address>
+      <Offsets>
+        <Offset>4</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>26</ID>
+      <Description>"pointerscan result"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"Warcraft II BNE.exe"+0000CE20</Address>
+      <Offsets>
+        <Offset>4</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>34</ID>
+      <Description>"pointerscan result"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"Warcraft II BNE_dx.exe"+000724C0</Address>
+      <Offsets>
+        <Offset>18</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>36</ID>
+      <Description>"money human"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"Warcraft II BNE_dx.exe"+0000CE0C</Address>
+      <Offsets>
+        <Offset>18</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>38</ID>
+      <Description>"wood human"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"Warcraft II BNE_dx.exe"+0000DDA4</Address>
+      <Offsets>
+        <Offset>18</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>40</ID>
+      <Description>"oil human"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"Warcraft II BNE_dx.exe"+0000CE20</Address>
+      <Offsets>
+        <Offset>18</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>42</ID>
+      <Description>"pointerscan result"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"Warcraft II BNE_dx.exe"+0000CE0C</Address>
+      <Offsets>
+        <Offset>4</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>44</ID>
+      <Description>"pointerscan result"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"Warcraft II BNE_dx.exe"+0000DDA4</Address>
+      <Offsets>
+        <Offset>4</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>46</ID>
+      <Description>"pointerscan result"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"Warcraft II BNE_dx.exe"+0000CE20</Address>
+      <Offsets>
+        <Offset>4</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>48</ID>
+      <Description>"pointerscan result"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"Warcraft II BNE_dx.exe"+0000CE0C</Address>
+      <Offsets>
+        <Offset>18</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>50</ID>
+      <Description>"pointerscan result"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"Warcraft II BNE_dx.exe"+0000DDA4</Address>
+      <Offsets>
+        <Offset>18</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>52</ID>
+      <Description>"pointerscan result"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"Warcraft II BNE_dx.exe"+0000CE20</Address>
+      <Offsets>
+        <Offset>18</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>60</ID>
+      <Description>"pointerscan result"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"Warcraft II BNE_dx.exe"+0000DDA4</Address>
+      <Offsets>
+        <Offset>0</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>97</ID>
+      <Description>"No description"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"Warcraft II BNE_dx.exe"+ABB18</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>98</ID>
+      <Description>"No description"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"Warcraft II BNE_dx.exe"+ABB20</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>99</ID>
+      <Description>"No description"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"Warcraft II BNE_dx.exe"+ACB74</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>100</ID>
+      <Description>"No description"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"Warcraft II BNE_dx.exe"+ABC04</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>101</ID>
+      <Description>"No description"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"Warcraft II BNE_dx.exe"+ABB1C</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>102</ID>
+      <Description>"No description"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"Warcraft II BNE_dx.exe"+ACB70</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>103</ID>
+      <Description>"No description"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"Warcraft II BNE_dx.exe"+ABC00</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>104</ID>
+      <Description>"No description"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"Warcraft II BNE_dx.exe"+ABB30</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>105</ID>
+      <Description>"No description"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"Warcraft II BNE_dx.exe"+ABB1C</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>106</ID>
+      <Description>"No description"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"Warcraft II BNE_dx.exe"+ACB70</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>107</ID>
+      <Description>"No description"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"Warcraft II BNE_dx.exe"+BE160</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>108</ID>
+      <Description>"No description"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"Warcraft II BNE_dx.exe"+ABC00</Address>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+</CheatTable>

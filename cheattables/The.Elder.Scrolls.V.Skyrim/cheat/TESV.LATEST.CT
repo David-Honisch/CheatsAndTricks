@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="18">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>0</ID>
+      <Description>"No description"</Description>
+      <LastState Value="??" Activated="1" RealAddress="130A9464"/>
+      <Color>80000008</Color>
+      <VariableType>Double</VariableType>
+      <Address>130A9464</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>1</ID>
+      <Description>"No description"</Description>
+      <LastState Value="??" Activated="1" RealAddress="130A950C"/>
+      <Color>80000008</Color>
+      <VariableType>Double</VariableType>
+      <Address>130A950C</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>2</ID>
+      <Description>"No description"</Description>
+      <LastState Value="??" Activated="1" RealAddress="23F2DC9C"/>
+      <Color>80000008</Color>
+      <VariableType>Float</VariableType>
+      <Address>23F2DC9C</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>3</ID>
+      <Description>"No description"</Description>
+      <LastState Value="??" Activated="1" RealAddress="240CE4FC"/>
+      <Color>80000008</Color>
+      <VariableType>Float</VariableType>
+      <Address>240CE4FC</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>4</ID>
+      <Description>"No description"</Description>
+      <LastState Value="??" Activated="1" RealAddress="0E4C6B90"/>
+      <Color>80000008</Color>
+      <VariableType>Byte</VariableType>
+      <Address>0E4C6B90</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>5</ID>
+      <Description>"No description"</Description>
+      <LastState Value="??" Activated="1" RealAddress="130AC1B4"/>
+      <Color>80000008</Color>
+      <VariableType>Double</VariableType>
+      <Address>130AC1B4</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>6</ID>
+      <Description>"No description"</Description>
+      <LastState Value="??" Activated="1" RealAddress="130AC25C"/>
+      <Color>80000008</Color>
+      <VariableType>Double</VariableType>
+      <Address>130AC25C</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>7</ID>
+      <Description>"No description"</Description>
+      <LastState Value="??" Activated="1" RealAddress="23F2DCAC"/>
+      <Color>80000008</Color>
+      <VariableType>Float</VariableType>
+      <Address>23F2DCAC</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>8</ID>
+      <Description>"No description"</Description>
+      <LastState Value="??" Activated="1" RealAddress="240CE48C"/>
+      <Color>80000008</Color>
+      <VariableType>Float</VariableType>
+      <Address>240CE48C</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>9</ID>
+      <Description>"No description"</Description>
+      <LastState Value="??" Activated="0" RealAddress="138972A8"/>
+      <Color>80000008</Color>
+      <VariableType>Byte</VariableType>
+      <Address>138972A8</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>10</ID>
+      <Description>"No description"</Description>
+      <LastState Value="??" Activated="0" RealAddress="138972A8"/>
+      <Color>80000008</Color>
+      <VariableType>2 Bytes</VariableType>
+      <Address>138972A8</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>11</ID>
+      <Description>"No description"</Description>
+      <LastState Value="??" Activated="1" RealAddress="138972A8"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>138972A8</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>12</ID>
+      <Description>"No description"</Description>
+      <LastState Value="??" Activated="1" RealAddress="17208C4C"/>
+      <Color>80000008</Color>
+      <VariableType>Double</VariableType>
+      <Address>17208C4C</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>13</ID>
+      <Description>"No description"</Description>
+      <LastState Value="??" Activated="1" RealAddress="179B15FC"/>
+      <Color>80000008</Color>
+      <VariableType>Double</VariableType>
+      <Address>179B15FC</Address>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+</CheatTable>

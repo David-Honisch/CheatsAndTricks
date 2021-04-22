@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="16">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>0</ID>
+      <Description>"No description"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>4F9466B4</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>1</ID>
+      <Description>"No description"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>5C14C2FC</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>2</ID>
+      <Description>"Health"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>5F23437C</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>932</ID>
+      <Description>"PP"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>596DC998</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>933</ID>
+      <Description>"Health"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>625638AC</Address>
+    </CheatEntry>
+  </CheatEntries>
+  <CheatCodes>
+    <CodeEntry>
+      <Description>Change of sub [esi+00000404],eax</Description>
+      <Address>00A80D5D</Address>
+      <ModuleName>AoW3.exe</ModuleName>
+      <ModuleNameOffset>680D5D</ModuleNameOffset>
+      <Before>
+        <Byte>5E</Byte>
+        <Byte>5D</Byte>
+        <Byte>C2</Byte>
+        <Byte>08</Byte>
+        <Byte>00</Byte>
+      </Before>
+      <Actual>
+        <Byte>29</Byte>
+        <Byte>86</Byte>
+        <Byte>04</Byte>
+        <Byte>04</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Actual>
+      <After>
+        <Byte>8B</Byte>
+        <Byte>16</Byte>
+        <Byte>8B</Byte>
+        <Byte>82</Byte>
+        <Byte>28</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Code :nop </Description>
+      <Address>00A80D5D</Address>
+      <ModuleName>AoW3.exe</ModuleName>
+      <ModuleNameOffset>680D5D</ModuleNameOffset>
+      <Before>
+        <Byte>5E</Byte>
+        <Byte>5D</Byte>
+        <Byte>C2</Byte>
+        <Byte>08</Byte>
+        <Byte>00</Byte>
+      </Before>
+      <Actual>
+        <Byte>90</Byte>
+        <Byte>90</Byte>
+        <Byte>90</Byte>
+        <Byte>90</Byte>
+        <Byte>90</Byte>
+        <Byte>90</Byte>
+      </Actual>
+      <After>
+        <Byte>8B</Byte>
+        <Byte>16</Byte>
+        <Byte>8B</Byte>
+        <Byte>82</Byte>
+        <Byte>28</Byte>
+      </After>
+    </CodeEntry>
+  </CheatCodes>
+  <UserdefinedSymbols/>
+</CheatTable>

@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="34">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>41</ID>
+      <Description>"Campaign/Echoes/Overkill   [Ammo]   Batteries chaingun"</Description>
+      <LastState/>
+      <Color>A00000</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+aobscanmodule(ammo_batteries_chaingun,StormGame-Win64-Shipping.exe,50 F3 0F 11 07 F3 0F 11 06)
+alloc(newmem,$100,"StormGame-Win64-Shipping.exe"+64B53)
+label(code)
+label(return)
+newmem:
+  cmp [rdi+C4],42240000
+  jne code
+  mov [rdi],(float)41
+  movss [rsi],xmm0
+  jmp return
+code:
+  movss [rdi],xmm0
+  movss [rsi],xmm0
+  jmp return
+ammo_batteries_chaingun+01:
+  jmp newmem
+  nop 3
+return:
+registersymbol(ammo_batteries_chaingun)
+[DISABLE]
+ammo_batteries_chaingun+01:
+  db F3 0F 11 07 F3 0F 11 06
+unregistersymbol(ammo_batteries_chaingun)
+dealloc(newmem)
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>45</ID>
+      <Description>"Campaign/Echoes/Overkill   [Ammo]   Charge/Inventory   [Reload off]"</Description>
+      <LastState/>
+      <Color>DD6F00</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+aobscanmodule(ammo_charge,StormGame-Win64-Shipping.exe,42 39 94 81 AC 17 00 00)
+alloc(newmem,$100,"StormGame-Win64-Shipping.exe"+EB16F9)
+label(return)
+aobscanmodule(ammo_inventory,StormGame-Win64-Shipping.exe,29 84 8B A4 17 00 00)
+alloc(newmem_x,$100,"StormGame-Win64-Shipping.exe"+E9F076)
+label(return_x)
+aobscanmodule(ammo_mag,StormGame-Win64-Shipping.exe,29 84 8B AC 17 00 00)
+alloc(newmem_y,$100,"StormGame-Win64-Shipping.exe"+E9F06F)
+label(return_y)
+newmem:
+  mov [rcx+r8*4+17AC],A
+  jmp return
+ammo_charge:
+  jmp newmem
+  nop 3
+return:
+registersymbol(ammo_charge)
+newmem_x:
+  mov [rbx+rcx*4+17A4],3E7
+  jmp return_x
+ammo_inventory:
+  jmp newmem_x
+  nop 2
+return_x:
+registersymbol(ammo_inventory)
+newmem_y:
+  mov [rbx+rcx*4+17AC],63
+  jmp return_y
+ammo_mag:
+  jmp newmem_y
+  nop 2
+return_y:
+registersymbol(ammo_mag)
+[DISABLE]
+ammo_charge:
+  db 42 39 94 81 AC 17 00 00
+unregistersymbol(ammo_charge)
+dealloc(newmem)
+ammo_inventory:
+  db 29 84 8B A4 17 00 00
+unregistersymbol(ammo_inventory)
+dealloc(newmem_x)
+ammo_mag:
+  db 29 84 8B AC 17 00 00
+unregistersymbol(ammo_mag)
+dealloc(newmem_y)
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>37</ID>
+      <Description>"Campaign/Echoes/Overkill   [Ammo]   Charge/Inventory   [Reload on]"</Description>
+      <LastState/>
+      <Color>DD6F00</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+aobscanmodule(ammo_charge,StormGame-Win64-Shipping.exe,42 39 94 81 AC 17 00 00)
+alloc(newmem,$100,"StormGame-Win64-Shipping.exe"+EB16F9)
+label(return)
+aobscanmodule(ammo_inventory,StormGame-Win64-Shipping.exe,29 84 8B A4 17 00 00)
+alloc(newmem_x,$100,"StormGame-Win64-Shipping.exe"+E9F076)
+label(return_x)
+newmem:
+  mov [rcx+r8*4+17AC],A
+  jmp return
+ammo_charge:
+  jmp newmem
+  nop 3
+return:
+registersymbol(ammo_charge)
+newmem_x:
+  mov [rbx+rcx*4+17A4],3E7
+  jmp return_x
+ammo_inventory:
+  jmp newmem_x
+  nop 2
+return_x:
+registersymbol(ammo_inventory)
+[DISABLE]
+ammo_charge:
+  db 42 39 94 81 AC 17 00 00
+unregistersymbol(ammo_charge)
+dealloc(newmem)
+ammo_inventory:
+  db 29 84 8B A4 17 00 00
+unregistersymbol(ammo_inventory)
+dealloc(newmem_x)
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>44</ID>
+      <Description>"Campaign/Echoes/Overkill   [Ammo]   Thumper"</Description>
+      <LastState/>
+      <Color>800080</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+aobscanmodule(ammo_thumper,StormGame-Win64-Shipping.exe,FF 0B 48 8B 5C 24 30)
+alloc(newmem,$100,"StormGame-Win64-Shipping.exe"+6397D)
+label(code)
+label(return)
+newmem:
+  cmp [rbx+C],3
+  jne code
+  mov [rbx],A
+  mov rbx,[rsp+30]
+  jmp return
+code:
+  dec [rbx]
+  mov rbx,[rsp+30]
+  jmp return
+ammo_thumper:
+  jmp newmem
+  nop 2
+return:
+registersymbol(ammo_thumper)
+[DISABLE]
+ammo_thumper:
+  db FF 0B 48 8B 5C 24 30
+unregistersymbol(ammo_thumper)
+dealloc(newmem)
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>112</ID>
+      <Description>"Campaign/Echoes/Overkill   [Endurance/Health/Skillpoints]   Banshee/Collected/Dropshop/Player/Train"</Description>
+      <LastState/>
+      <Color>0000FF</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+aobscanmodule(health_player,StormGame-Win64-Shipping.exe,29 07 8B 07 89 06)
+alloc(newmem,$100,"StormGame-Win64-Shipping.exe"+636BE)
+aobscanmodule(endurance_banshee_train,StormGame-Win64-Shipping.exe,F3 0F 11 30 FF C3 48)
+alloc(newmem_x,$100,"StormGame-Win64-Shipping.exe"+6A0966)
+aobscanmodule(skillpoints_collected_combat,StormGame-Win64-Shipping.exe,89 0F 48 83 C4 20 5F C3 CC CC CC CC 40)
+alloc(newmem_y,$100,"StormGame-Win64-Shipping.exe"+63BA4)
+aobscanmodule(skillpoints_collected_visual,StormGame-Win64-Shipping.exe,01 83 48 03 00 00)
+alloc(newmem_z,$100,"StormGame-Win64-Shipping.exe"+DECC38)
+label(code)
+label(code_y)
+label(code_z)
+label(life)
+label(return)
+label(return_x)
+label(return_y)
+label(return_z)
+label(skills)
+newmem:
+  cmp [rdi+4BC],3F800000
+  je life
+  cmp [rdi+F8],3
+  je skills
+  jmp code
+life:
+  mov [rdi],2710
+  mov eax,[rdi]
+  mov [rsi],eax
+  jmp return
+skills:
+  mov [rdi],3B9AC9FF
+  mov eax,[rdi]
+  mov [rsi],eax
+  jmp return
+code:
+  sub [rdi],eax
+  mov eax,[rdi]
+  mov [rsi],eax
+  jmp return
+health_player:
+  jmp newmem
+  nop
+return:
+registersymbol(health_player)
+newmem_x:
+  mov [rax],(float)10000
+  inc ebx
+  jmp return_x
+endurance_banshee_train:
+  jmp newmem_x
+  nop
+return_x:
+registersymbol(endurance_banshee_train)
+newmem_y:
+  cmp [rdi+C],1
+  jne code_y
+  mov [rdi],3B9AC9FF
+  add rsp,20
+  jmp return_y
+code_y:
+  mov [rdi],ecx
+  add rsp,20
+  jmp return_y
+skillpoints_collected_combat:
+  jmp newmem_y
+  nop
+return_y:
+registersymbol(skillpoints_collected_combat)
+newmem_z:
+  mov [rbx+348],3B9AC9FF
+  jmp return_z
+code_z:
+  add [rbx+348],eax
+  jmp return_z
+skillpoints_collected_visual:
+  jmp newmem_z
+  nop
+return_z:
+registersymbol(skillpoints_collected_visual)
+[DISABLE]
+health_player:
+  db 29 07 8B 07 89 06
+unregistersymbol(health_player)
+dealloc(newmem)
+endurance_banshee_train:
+  db F3 0F 11 30 FF C3
+unregistersymbol(endurance_banshee_train)
+dealloc(newmem_x)
+skillpoints_collected_combat:
+  db 89 0F 48 83 C4 20
+unregistersymbol(skillpoints_collected_combat)
+dealloc(newmem_y)
+skillpoints_collected_visual:
+  db 01 83 48 03 00 00
+unregistersymbol(skillpoints_collected_visual)
+dealloc(newmem_z)
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>46</ID>
+      <Description>"Game   [Speed]   Fast"</Description>
+      <LastState/>
+      <Color>004000</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+luacall(speedhack_setSpeed(2.5))
+[DISABLE]
+luacall(speedhack_setSpeed(1))
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>47</ID>
+      <Description>"Game   [Speed]   Slow"</Description>
+      <LastState/>
+      <Color>004000</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+luacall(speedhack_setSpeed(0.5))
+[DISABLE]
+luacall(speedhack_setSpeed(1))
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>113</ID>
+      <Description>"NoReload"</Description>
+      <LastState/>
+      <Color>DD6F00</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+
+aobscanmodule(_ammo,StormGame-Win64-Shipping.exe,29 84 8B AC 17 00 00) // Current Ammo Routine
+alloc(newmem,$1000,"StormGame-Win64-Shipping.exe"+E9F06F)
+
+label(code)
+label(return)
+
+aobscanmodule(_ammo2,StormGame-Win64-Shipping.exe,29 84 8B A4 17 00 00) // Clip Routine (Linked to CurrentAmmo)
+alloc(newmem2,$1000,"StormGame-Win64-Shipping.exe"+E9F076)
+
+label(code2)
+label(return2)
+
+newmem:
+
+code:
+  mov eax,[rbx+rcx*4+000017B4]  //Move max ammo count into eax
+  mov [rbx+rcx*4+000017AC],eax
+  jmp return
+
+_ammo:
+  jmp newmem
+  nop
+  nop
+return:
+registersymbol(_ammo)
+
+newmem2:
+
+code2:
+  mov eax,[rbx+rcx*4+000017BC]  //Move max clip amount into eax
+  mov [rbx+rcx*4+000017A4],eax
+  jmp return2
+
+_ammo2:
+  jmp newmem2
+  nop
+  nop
+return2:
+registersymbol(_ammo2)
+
+[DISABLE]
+
+_ammo:
+  db 29 84 8B AC 17 00 00
+
+unregistersymbol(_ammo)
+dealloc(newmem)
+
+_ammo2:
+  db 29 84 8B A4 17 00 00
+
+unregistersymbol(_ammo2)
+dealloc(newmem2)
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>118</ID>
+      <Description>"No description"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>2CC2A318</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>119</ID>
+      <Description>"No description"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>5A20E4A0</Address>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+</CheatTable>

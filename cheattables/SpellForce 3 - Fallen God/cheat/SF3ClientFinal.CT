@@ -1,0 +1,1325 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="34">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>0</ID>
+      <Description>"No description"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>2346C01F838</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>171</ID>
+      <Description>"No Casting Cost"</Description>
+      <LastState/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript Async="1">[ENABLE]
+aobscanmodule(focus,$process,45 1B C0 41 83 E0 02 E8 ?? ?? ?? ?? 80)
+alloc(focusBkp,5)
+focusBkp:
+  readmem(focus+07,5)
+focus+07:
+  nop 5
+registersymbol(focus)
+registersymbol(focusBkp)
+
+[DISABLE]
+focus+07:
+  readmem(focusBkp,5)
+unregistersymbol(focus)
+unregistersymbol(focusBkp)
+dealloc(focusBkp)
+
+{
+// ORIGINAL CODE - INJECTION POINT: "SF3ClientFinal.exe"+137F252
+
+"SF3ClientFinal.exe"+137F22A: 41 83 C9 FF           -  or r9d,-01
+"SF3ClientFinal.exe"+137F22E: 48 89 44 24 20        -  mov [rsp+20],rax
+"SF3ClientFinal.exe"+137F233: 41 B8 14 00 00 00     -  mov r8d,00000014
+"SF3ClientFinal.exe"+137F239: 48 8B D6              -  mov rdx,rsi
+"SF3ClientFinal.exe"+137F23C: E8 8F 2A 29 00        -  call SF3ClientFinal.exe+1611CD0
+"SF3ClientFinal.exe"+137F241: F6 5C 24 68           -  neg byte ptr [rsp+68]
+"SF3ClientFinal.exe"+137F245: 48 8B D6              -  mov rdx,rsi
+"SF3ClientFinal.exe"+137F248: 48 8B CF              -  mov rcx,rdi
+"SF3ClientFinal.exe"+137F24B: 45 1B C0              -  sbb r8d,r8d
+"SF3ClientFinal.exe"+137F24E: 41 83 E0 02           -  and r8d,02
+// ---------- INJECTING HERE ----------
+"SF3ClientFinal.exe"+137F252: E8 C9 09 00 00        -  call SF3ClientFinal.exe+137FC20
+// ---------- DONE INJECTING  ----------
+"SF3ClientFinal.exe"+137F257: 80 BF E5 00 00 00 00  -  cmp byte ptr [rdi+000000E5],00
+"SF3ClientFinal.exe"+137F25E: 48 8B 6C 24 48        -  mov rbp,[rsp+48]
+"SF3ClientFinal.exe"+137F263: 74 21                 -  je SF3ClientFinal.exe+137F286
+"SF3ClientFinal.exe"+137F265: 80 BF E0 00 00 00 00  -  cmp byte ptr [rdi+000000E0],00
+"SF3ClientFinal.exe"+137F26C: 75 2F                 -  jne SF3ClientFinal.exe+137F29D
+"SF3ClientFinal.exe"+137F26E: 4C 8B 86 00 05 00 00  -  mov r8,[rsi+00000500]
+"SF3ClientFinal.exe"+137F275: BA 01 00 00 00        -  mov edx,00000001
+"SF3ClientFinal.exe"+137F27A: 48 8B CF              -  mov rcx,rdi
+"SF3ClientFinal.exe"+137F27D: E8 FE F8 FF FF        -  call SF3ClientFinal.exe+137EB80
+"SF3ClientFinal.exe"+137F282: 84 C0                 -  test al,al
+}
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>172</ID>
+      <Description>"No Casting Cooldown"</Description>
+      <LastState/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript Async="1">[ENABLE]
+aobscanmodule(cooldown,$process,75 ?? 48 8B ?? ?? ?? ?? ?? 0F B7 ?? 08 48 81 C1 ?? ?? ?? ?? E8)
+alloc(cooldownBkp,5)
+cooldownBkp:
+  readmem(cooldown+14,5)
+cooldown+14:
+  nop 5
+registersymbol(cooldown)
+registersymbol(cooldownBkp)
+
+[DISABLE]
+cooldown+14:
+  readmem(cooldownBkp,5)
+unregistersymbol(cooldown)
+unregistersymbol(cooldownBkp)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: "SF3ClientFinal.exe"+137F298
+
+"SF3ClientFinal.exe"+137F26C: 75 2F                 -  jne SF3ClientFinal.exe+137F29D
+"SF3ClientFinal.exe"+137F26E: 4C 8B 86 00 05 00 00  -  mov r8,[rsi+00000500]
+"SF3ClientFinal.exe"+137F275: BA 01 00 00 00        -  mov edx,00000001
+"SF3ClientFinal.exe"+137F27A: 48 8B CF              -  mov rcx,rdi
+"SF3ClientFinal.exe"+137F27D: E8 FE F8 FF FF        -  call SF3ClientFinal.exe+137EB80
+"SF3ClientFinal.exe"+137F282: 84 C0                 -  test al,al
+"SF3ClientFinal.exe"+137F284: 75 17                 -  jne SF3ClientFinal.exe+137F29D
+"SF3ClientFinal.exe"+137F286: 48 8B 8E 00 05 00 00  -  mov rcx,[rsi+00000500]
+"SF3ClientFinal.exe"+137F28D: 0F B7 57 08           -  movzx edx,word ptr [rdi+08]
+"SF3ClientFinal.exe"+137F291: 48 81 C1 A8 08 00 00  -  add rcx,000008A8
+// ---------- INJECTING HERE ----------
+"SF3ClientFinal.exe"+137F298: E8 B3 77 26 00        -  call SF3ClientFinal.exe+15E6A50
+// ---------- DONE INJECTING  ----------
+"SF3ClientFinal.exe"+137F29D: 48 8B 74 24 50        -  mov rsi,[rsp+50]
+"SF3ClientFinal.exe"+137F2A2: 48 83 C4 30           -  add rsp,30
+"SF3ClientFinal.exe"+137F2A6: 5F                    -  pop rdi
+"SF3ClientFinal.exe"+137F2A7: C3                    -  ret 
+"SF3ClientFinal.exe"+137F2A8: CC                    -  int 3 
+"SF3ClientFinal.exe"+137F2A9: CC                    -  int 3 
+"SF3ClientFinal.exe"+137F2AA: CC                    -  int 3 
+"SF3ClientFinal.exe"+137F2AB: CC                    -  int 3 
+"SF3ClientFinal.exe"+137F2AC: CC                    -  int 3 
+"SF3ClientFinal.exe"+137F2AD: CC                    -  int 3 
+}
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>4</ID>
+      <Description>"Character Sheet Pointer"</Description>
+      <Options moHideChildren="1"/>
+      <LastState/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript Async="1">[ENABLE]
+aobscanmodule(selected,$process,74 ?? 0F B7 ?? ?? ?? ?? ?? 66 41 89 ?? ?? 4D)
+alloc(newmem,$1000,selected)
+
+label(selectedBkp)
+label(selectedPtr)
+label(abilityPtsOffset)
+label(return)
+
+(DWORD)[selected+05]:
+abilityPtsOffset:
+
+newmem:
+  mov rcx,[rax+charNameOffset]
+  push rcx
+  mov rcx,selectedPtr
+  pop qword ptr [rcx+08]
+selectedBkp:
+  readmem(selected+02,7)
+  jmp return
+
+align 10
+selectedPtr:
+  dq 0
+
+selected+02:
+  jmp newmem
+  nop 2
+return:
+registersymbol(selected)
+registersymbol(selectedPtr)
+registersymbol(selectedBkp)
+registersymbol(abilityPtsOffset)
+
+aobscanmodule(character,$process,48 8B 86 ?? ?? ?? ?? 48 8D 8C 24 ?? ?? ?? ?? 48 8B)
+alloc(newmem2,$1000,character)
+
+label(characterBkp)
+label(charNameOffset)
+label(return2)
+
+(DWORD)[character+12]-10:
+charNameOffset:
+
+newmem2:
+
+characterBkp:
+  readmem(character,7)
+  mov rcx,selectedPtr
+  mov rcx,[rcx+08]
+  cmp rcx,[rax+charNameOffset]
+  jne return2
+  mov rcx,selectedPtr
+  mov [rcx],rax
+  jmp return2
+
+character:
+  jmp newmem2
+  nop 2
+return2:
+registersymbol(character)
+registersymbol(characterBkp)
+registersymbol(charNameOffset)
+
+[DISABLE]
+character:
+  readmem(characterBkp,7)
+unregistersymbol(character)
+unregistersymbol(characterBkp)
+unregistersymbol(charNameOffset)
+dealloc(newmem2)
+
+selected+02:
+  readmem(selectedBkp,7)
+unregistersymbol(selected)
+unregistersymbol(selectedPtr)
+unregistersymbol(selectedBkp)
+unregistersymbol(abilityPtsOffset)
+dealloc(newmem)
+
+{
+"SF3ClientFinal.exe"+152D838: 32 C9                    -  xor cl,cl
+"SF3ClientFinal.exe"+152D83A: 48 69 FA ED 87 64 00     -  imul rdi,rdx,006487ED
+"SF3ClientFinal.exe"+152D841: 48 D3 FF                 -  sar rdi,cl
+"SF3ClientFinal.exe"+152D844: 85 C0                    -  test eax,eax
+"SF3ClientFinal.exe"+152D846: 74 03                    -  je SF3ClientFinal.exe+152D84B
+"SF3ClientFinal.exe"+152D848: 48 F7 DF                 -  neg rdi
+"SF3ClientFinal.exe"+152D84B: 48 8B DF                 -  mov rbx,rdi
+"SF3ClientFinal.exe"+152D84E: 48 85 FF                 -  test rdi,rdi
+"SF3ClientFinal.exe"+152D851: 79 03                    -  jns SF3ClientFinal.exe+152D856
+"SF3ClientFinal.exe"+152D853: 48 F7 DB                 -  neg rbx
+// ---------- INJECTING HERE ----------
+"SF3ClientFinal.exe"+152D856: 48 8B 86 00 05 00 00     -  mov rax,[rsi+00000500]
+// ---------- DONE INJECTING  ----------
+"SF3ClientFinal.exe"+152D85D: 48 8D 8C 24 80 00 00 00  -  lea rcx,[rsp+00000080]
+"SF3ClientFinal.exe"+152D865: 48 8B 90 90 00 00 00     -  mov rdx,[rax+00000090]
+"SF3ClientFinal.exe"+152D86C: 48 8B 92 A0 00 00 00     -  mov rdx,[rdx+000000A0]
+"SF3ClientFinal.exe"+152D873: E8 A8 81 4F FF           -  call SF3ClientFinal.exe+A25A20
+"SF3ClientFinal.exe"+152D878: 45 33 C0                 -  xor r8d,r8d
+"SF3ClientFinal.exe"+152D87B: 48 8B 08                 -  mov rcx,[rax]
+"SF3ClientFinal.exe"+152D87E: 48 8B 05 5B A3 17 02     -  mov rax,[SF3ClientFinal.exe+36A7BE0]
+"SF3ClientFinal.exe"+152D885: 48 85 C9                 -  test rcx,rcx
+"SF3ClientFinal.exe"+152D888: 41 0F 98 C0              -  sets r8l
+"SF3ClientFinal.exe"+152D88C: 45 33 C9                 -  xor r9d,r9d
+}
+
+{
+"SF3ClientFinal.exe"+B4C701: 49 8D 56 14                    -  lea rdx,[r14+14]
+"SF3ClientFinal.exe"+B4C705: 48 8B 02                       -  mov rax,[rdx]
+"SF3ClientFinal.exe"+B4C708: 48 3B 05 71 DF C7 02           -  cmp rax,[SF3ClientFinal.exe+37CA680]
+"SF3ClientFinal.exe"+B4C70F: 75 0D                          -  jne SF3ClientFinal.exe+B4C71E
+"SF3ClientFinal.exe"+B4C711: 48 8B 42 08                    -  mov rax,[rdx+08]
+"SF3ClientFinal.exe"+B4C715: 48 3B 05 6C DF C7 02           -  cmp rax,[SF3ClientFinal.exe+37CA688]
+"SF3ClientFinal.exe"+B4C71C: 74 16                          -  je SF3ClientFinal.exe+B4C734
+"SF3ClientFinal.exe"+B4C71E: E8 8D 0B 7D 00                 -  call SF3ClientFinal.exe+131D2B0
+"SF3ClientFinal.exe"+B4C723: 48 85 C0                       -  test rax,rax
+"SF3ClientFinal.exe"+B4C726: 74 0C                          -  je SF3ClientFinal.exe+B4C734
+// ---------- INJECTING HERE ----------
+"SF3ClientFinal.exe"+B4C728: 0F B7 88 30 04 00 00           -  movzx ecx,word ptr [rax+00000430]
+// ---------- DONE INJECTING  ----------
+"SF3ClientFinal.exe"+B4C72F: 66 41 89 4E 24                 -  mov [r14+24],cx
+"SF3ClientFinal.exe"+B4C734: 4D 85 FF                       -  test r15,r15
+"SF3ClientFinal.exe"+B4C737: 0F 84 81 00 00 00              -  je SF3ClientFinal.exe+B4C7BE
+"SF3ClientFinal.exe"+B4C73D: 48 8B 4C 24 38                 -  mov rcx,[rsp+38]
+"SF3ClientFinal.exe"+B4C742: 49 2B CF                       -  sub rcx,r15
+"SF3ClientFinal.exe"+B4C745: 48 8B C3                       -  mov rax,rbx
+"SF3ClientFinal.exe"+B4C748: 48 F7 E9                       -  imul rcx
+"SF3ClientFinal.exe"+B4C74B: 48 D1 FA                       -  sar rdx,1
+"SF3ClientFinal.exe"+B4C74E: 48 8B C2                       -  mov rax,rdx
+"SF3ClientFinal.exe"+B4C751: 48 C1 E8 3F                    -  shr rax,3F
+}
+</AssemblerScript>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>5</ID>
+          <Description>"Character"</Description>
+          <Options moHideChildren="1"/>
+          <LastState Value="" RealAddress="00000000"/>
+          <GroupHeader>1</GroupHeader>
+          <Address>selectedPtr</Address>
+          <Offsets>
+            <Offset>0</Offset>
+          </Offsets>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>14</ID>
+              <Description>"Immortal?"</Description>
+              <VariableType>Binary</VariableType>
+              <BitStart>0</BitStart>
+              <BitLength>1</BitLength>
+              <ShowAsBinary>0</ShowAsBinary>
+              <Address>+B0</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>170</ID>
+              <Description>"Health (Current)"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>+F0</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>17</ID>
+              <Description>"Health (Max)"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>+D0</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>16</ID>
+              <Description>"Focus (Current)"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>+130</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>15</ID>
+              <Description>"Focus (Max)"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>+110</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>6</ID>
+              <Description>"Attribute Points"</Description>
+              <VariableType>2 Bytes</VariableType>
+              <Address>+abilityPtsOffset-20</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>132</ID>
+              <Description>"Ability Points"</Description>
+              <VariableType>2 Bytes</VariableType>
+              <Address>+abilityPtsOffset</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>108</ID>
+              <Description>"Update Attributes Offset (+230)"</Description>
+              <LastState/>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>[ENABLE]
+aobscanmodule(attributeOffsetAOB,$process,48 8D 9F ?? ?? ?? ?? FF C0 89)
+label(attributeOffset)
+(DWORD)[attributeOffsetAOB+03]:
+attributeOffset:
+registersymbol(attributeOffset)
+
+[DISABLE]
+
+{
+// ORIGINAL CODE - INJECTION POINT: "SF3ClientFinal.exe"+1390240
+
+"SF3ClientFinal.exe"+1390222: 4C 8B 07                 -  mov r8,[rdi]
+"SF3ClientFinal.exe"+1390225: 48 8B D0                 -  mov rdx,rax
+"SF3ClientFinal.exe"+1390228: 48 8B CF                 -  mov rcx,rdi
+"SF3ClientFinal.exe"+139022B: 41 FF 50 38              -  call qword ptr [r8+38]
+"SF3ClientFinal.exe"+139022F: B8 01 0D 00 00           -  mov eax,00000D01
+"SF3ClientFinal.exe"+1390234: FF C3                    -  inc ebx
+"SF3ClientFinal.exe"+1390236: 83 FB 0B                 -  cmp ebx,0B
+"SF3ClientFinal.exe"+1390239: 76 B8                    -  jna SF3ClientFinal.exe+13901F3
+"SF3ClientFinal.exe"+139023B: 33 C0                    -  xor eax,eax
+"SF3ClientFinal.exe"+139023D: 89 45 77                 -  mov [rbp+77],eax
+// ---------- INJECTING HERE ----------
+"SF3ClientFinal.exe"+1390240: 48 8D 9F 30 02 00 00     -  lea rbx,[rdi+00000230]
+// ---------- DONE INJECTING  ----------
+"SF3ClientFinal.exe"+1390247: FF C0                    -  inc eax
+"SF3ClientFinal.exe"+1390249: 89 45 7F                 -  mov [rbp+7F],eax
+"SF3ClientFinal.exe"+139024C: 48 8B CF                 -  mov rcx,rdi
+"SF3ClientFinal.exe"+139024F: E8 3C 46 00 00           -  call SF3ClientFinal.exe+1394890
+"SF3ClientFinal.exe"+1390254: 48 8B 97 90 00 00 00     -  mov rdx,[rdi+00000090]
+"SF3ClientFinal.exe"+139025B: 48 8B CF                 -  mov rcx,rdi
+"SF3ClientFinal.exe"+139025E: E8 2D A4 FF FF           -  call SF3ClientFinal.exe+138A690
+"SF3ClientFinal.exe"+1390263: 88 45 67                 -  mov [rbp+67],al
+"SF3ClientFinal.exe"+1390266: 45 0F B7 F4              -  movzx r14d,r12w
+"SF3ClientFinal.exe"+139026A: 4D 8B FC                 -  mov r15,r12
+}
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>102</ID>
+              <Description>"Attributes"</Description>
+              <Options moHideChildren="1"/>
+              <LastState Value="" RealAddress="00000000"/>
+              <GroupHeader>1</GroupHeader>
+              <Address>+attributeOffset</Address>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>103</ID>
+                  <Description>"Strength Bonus"</Description>
+                  <VariableType>2 Bytes</VariableType>
+                  <Address>+0*20+A0</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>104</ID>
+                  <Description>"Dexterity Bonus"</Description>
+                  <VariableType>2 Bytes</VariableType>
+                  <Address>+1*20+A0</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>105</ID>
+                  <Description>"Intelligence Bonus"</Description>
+                  <VariableType>2 Bytes</VariableType>
+                  <Address>+2*20+A0</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>106</ID>
+                  <Description>"Constitution Bonus"</Description>
+                  <VariableType>2 Bytes</VariableType>
+                  <Address>+3*20+A0</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>107</ID>
+                  <Description>"Willpower Bonus"</Description>
+                  <VariableType>2 Bytes</VariableType>
+                  <Address>+4*20+A0</Address>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>124</ID>
+      <Description>"Inventory Pointer"</Description>
+      <Options moHideChildren="1"/>
+      <LastState/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript Async="1">[ENABLE]
+aobscanmodule(resources,$process,74 07 48 8D 8F ?? ?? ?? ?? 48 8D)
+alloc(newmem,$1000,resources)
+
+label(resourcesBkp)
+label(resourcesPtr)
+label(return)
+
+newmem:
+
+resourcesBkp:
+  readmem(resources+02,7)
+  mov [resourcesPtr],rcx
+  jmp return
+
+resourcesPtr:
+  dq 0
+
+resources+02:
+  jmp newmem
+  nop 2
+return:
+registersymbol(resources)
+registersymbol(resourcesBkp)
+registersymbol(resourcesPtr)
+
+[DISABLE]
+resources+02:
+  readmem(resourcesBkp,7)
+unregistersymbol(resources)
+unregistersymbol(resourcesBkp)
+unregistersymbol(resourcesPtr)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: "SF3ClientFinal.exe"+1300037
+
+"SF3ClientFinal.exe"+1300016: 48 8B F9                 -  mov rdi,rcx
+"SF3ClientFinal.exe"+1300019: 48 85 D2                 -  test rdx,rdx
+"SF3ClientFinal.exe"+130001C: 74 0C                    -  je SF3ClientFinal.exe+130002A
+"SF3ClientFinal.exe"+130001E: 48 8B CB                 -  mov rcx,rbx
+"SF3ClientFinal.exe"+1300021: E8 3A 53 0C 00           -  call SF3ClientFinal.exe+13C5360
+"SF3ClientFinal.exe"+1300026: 84 C0                    -  test al,al
+"SF3ClientFinal.exe"+1300028: 75 0D                    -  jne SF3ClientFinal.exe+1300037
+"SF3ClientFinal.exe"+130002A: 83 7B 54 0B              -  cmp dword ptr [rbx+54],0B
+"SF3ClientFinal.exe"+130002E: 48 8D 8F 68 02 00 00     -  lea rcx,[rdi+00000268]
+"SF3ClientFinal.exe"+1300035: 74 07                    -  je SF3ClientFinal.exe+130003E
+// ---------- INJECTING HERE ----------
+"SF3ClientFinal.exe"+1300037: 48 8D 8F 20 02 00 00     -  lea rcx,[rdi+00000220]
+// ---------- DONE INJECTING  ----------
+"SF3ClientFinal.exe"+130003E: 48 8D 6B 40              -  lea rbp,[rbx+40]
+"SF3ClientFinal.exe"+1300042: 48 8B D5                 -  mov rdx,rbp
+"SF3ClientFinal.exe"+1300045: E8 16 DC 0E 00           -  call SF3ClientFinal.exe+13EDC60
+"SF3ClientFinal.exe"+130004A: 83 7B 5C 00              -  cmp dword ptr [rbx+5C],00
+"SF3ClientFinal.exe"+130004E: 8B F0                    -  mov esi,eax
+"SF3ClientFinal.exe"+1300050: 0F 84 10 02 00 00        -  je SF3ClientFinal.exe+1300266
+"SF3ClientFinal.exe"+1300056: 83 7B 50 5B              -  cmp dword ptr [rbx+50],5B
+"SF3ClientFinal.exe"+130005A: 0F 84 06 02 00 00        -  je SF3ClientFinal.exe+1300266
+"SF3ClientFinal.exe"+1300060: 4D 85 FF                 -  test r15,r15
+"SF3ClientFinal.exe"+1300063: 0F 84 FD 01 00 00        -  je SF3ClientFinal.exe+1300266
+}
+</AssemblerScript>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>125</ID>
+          <Description>"Items"</Description>
+          <Options moHideChildren="1"/>
+          <LastState Value="" RealAddress="00000000"/>
+          <GroupHeader>1</GroupHeader>
+          <Address>resourcesPtr</Address>
+          <Offsets>
+            <Offset>0</Offset>
+            <Offset>30</Offset>
+          </Offsets>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>128</ID>
+              <Description>"Slot 1 Quantity"</Description>
+              <VariableType>2 Bytes</VariableType>
+              <Address>+0*8</Address>
+              <Offsets>
+                <Offset>30</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>129</ID>
+              <Description>"Slot 2 Quantity"</Description>
+              <VariableType>2 Bytes</VariableType>
+              <Address>+1*8</Address>
+              <Offsets>
+                <Offset>30</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>130</ID>
+              <Description>"Slot 3 Quantity"</Description>
+              <VariableType>2 Bytes</VariableType>
+              <Address>+2*8</Address>
+              <Offsets>
+                <Offset>30</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>131</ID>
+              <Description>"Slot 4 Quantity"</Description>
+              <VariableType>2 Bytes</VariableType>
+              <Address>+3*8</Address>
+              <Offsets>
+                <Offset>30</Offset>
+              </Offsets>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>154</ID>
+      <Description>"Materials Pointer"</Description>
+      <Options moHideChildren="1"/>
+      <LastState/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript Async="1">[ENABLE]
+aobscanmodule(materials,$process,48 8B 58 30 48 3B DE 74 ?? 0F)
+alloc(newmem,$1000,materials)
+
+label(code)
+label(return)
+
+newmem:
+  mov rbx,materialsPtr
+  mov [rbx],rax
+code:
+  mov rbx,[rax+30]
+  cmp rbx,rsi
+  jmp return
+
+materialsPtr:
+  dq 0
+
+materials:
+  jmp newmem
+  nop 2
+return:
+registersymbol(materials)
+registersymbol(materialsPtr)
+
+[DISABLE]
+materials:
+  db 48 8B 58 30 48 3B DE
+unregistersymbol(materials)
+unregistersymbol(materialsPtr)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: "SF3ClientFinal.exe"+16212D3
+
+"SF3ClientFinal.exe"+16212AA: FF 50 68              -  call qword ptr [rax+68]
+"SF3ClientFinal.exe"+16212AD: 48 8B C8              -  mov rcx,rax
+"SF3ClientFinal.exe"+16212B0: E8 9B 62 D6 FF        -  call SF3ClientFinal.exe+1387550
+"SF3ClientFinal.exe"+16212B5: 48 8B 90 A8 00 00 00  -  mov rdx,[rax+000000A8]
+"SF3ClientFinal.exe"+16212BC: 83 7A 48 01           -  cmp dword ptr [rdx+48],01
+"SF3ClientFinal.exe"+16212C0: 75 49                 -  jne SF3ClientFinal.exe+162130B
+"SF3ClientFinal.exe"+16212C2: BA 01 00 00 00        -  mov edx,00000001
+"SF3ClientFinal.exe"+16212C7: 48 8B CB              -  mov rcx,rbx
+"SF3ClientFinal.exe"+16212CA: E8 A1 C0 FC FF        -  call SF3ClientFinal.exe+15ED370
+"SF3ClientFinal.exe"+16212CF: 48 8B 70 38           -  mov rsi,[rax+38]
+// ---------- INJECTING HERE ----------
+"SF3ClientFinal.exe"+16212D3: 48 8B 58 30           -  mov rbx,[rax+30]
+"SF3ClientFinal.exe"+16212D7: 48 3B DE              -  cmp rbx,rsi
+// ---------- DONE INJECTING  ----------
+"SF3ClientFinal.exe"+16212DA: 74 2F                 -  je SF3ClientFinal.exe+162130B
+"SF3ClientFinal.exe"+16212DC: 0F 1F 40 00           -  nop dword ptr [rax+00]
+"SF3ClientFinal.exe"+16212E0: 33 D2                 -  xor edx,edx
+"SF3ClientFinal.exe"+16212E2: 48 8B CB              -  mov rcx,rbx
+"SF3ClientFinal.exe"+16212E5: E8 86 6A E2 FF        -  call SF3ClientFinal.exe+1447D70
+"SF3ClientFinal.exe"+16212EA: 48 8B CB              -  mov rcx,rbx
+"SF3ClientFinal.exe"+16212ED: 44 8B F0              -  mov r14d,eax
+"SF3ClientFinal.exe"+16212F0: E8 CB 6C E2 FF        -  call SF3ClientFinal.exe+1447FC0
+"SF3ClientFinal.exe"+16212F5: 8B D0                 -  mov edx,eax
+"SF3ClientFinal.exe"+16212F7: 45 8B C6              -  mov r8d,r14d
+}
+</AssemblerScript>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>155</ID>
+          <Description>"Materials"</Description>
+          <Options moHideChildren="1"/>
+          <LastState Value="" RealAddress="00000000"/>
+          <GroupHeader>1</GroupHeader>
+          <Address>materialsPtr</Address>
+          <Offsets>
+            <Offset>0</Offset>
+            <Offset>30</Offset>
+          </Offsets>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>156</ID>
+              <Description>"Wood"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>+0*18+4</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>157</ID>
+              <Description>"Stone"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>+1*18+4</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>158</ID>
+              <Description>"Food"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>+2*18+4</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>159</ID>
+              <Description>"Scrap Metal"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>+3*18+4</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>160</ID>
+              <Description>"Offerings"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>+4*18+4</Address>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>99</ID>
+      <Description>"Ignore This"</Description>
+      <Options moHideChildren="1"/>
+      <LastState Value="" RealAddress="00000000"/>
+      <Color>FFFFFF</Color>
+      <GroupHeader>1</GroupHeader>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>90</ID>
+          <Description>"First Character Pointer"</Description>
+          <Options moHideChildren="1"/>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+aobscanmodule(firstHero,SF3ClientFinal.exe,48 8B 88 ?? ?? ?? ?? 83 B9 ?? ?? ?? ?? 00 7F ?? F7)
+alloc(newmem,$1000,firstHero)
+
+label(firstHeroBkp)
+label(firstHeroPtr)
+label(return)
+
+newmem:
+
+firstHeroBkp:
+  readmem(firstHero,7)
+  mov [firstHeroPtr],rcx
+  jmp return
+
+firstHeroPtr:
+  dq 0
+
+firstHero:
+  jmp newmem
+  nop 2
+return:
+registersymbol(firstHero)
+registersymbol(firstHeroBkp)
+registersymbol(firstHeroPtr)
+
+[DISABLE]
+firstHero:
+  readmem(firstHeroBkp,7)
+unregistersymbol(firstHero)
+unregistersymbol(firstHeroBkp)
+unregistersymbol(firstHeroPtr)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: "SF3ClientFinal.exe"+164523D
+
+"SF3ClientFinal.exe"+164520E: 8B 42 20                       -  mov eax,[rdx+20]
+"SF3ClientFinal.exe"+1645211: 89 45 BF                       -  mov [rbp-41],eax
+"SF3ClientFinal.exe"+1645214: 48 8D 55 BF                    -  lea rdx,[rbp-41]
+"SF3ClientFinal.exe"+1645218: 49 8B 89 78 0E 00 00           -  mov rcx,[r9+00000E78]
+"SF3ClientFinal.exe"+164521F: E8 0C 95 F1 FF                 -  call SF3ClientFinal.exe+155E730
+"SF3ClientFinal.exe"+1645224: 4C 8B E8                       -  mov r13,rax
+"SF3ClientFinal.exe"+1645227: 48 85 C0                       -  test rax,rax
+"SF3ClientFinal.exe"+164522A: 0F 84 E2 03 00 00              -  je SF3ClientFinal.exe+1645612
+"SF3ClientFinal.exe"+1645230: F6 80 98 00 00 00 01           -  test byte ptr [rax+00000098],01
+"SF3ClientFinal.exe"+1645237: 0F 84 D5 03 00 00              -  je SF3ClientFinal.exe+1645612
+// ---------- INJECTING HERE ----------
+"SF3ClientFinal.exe"+164523D: 48 8B 88 00 05 00 00           -  mov rcx,[rax+00000500]
+// ---------- DONE INJECTING  ----------
+"SF3ClientFinal.exe"+1645244: 83 B9 F0 00 00 00 00           -  cmp dword ptr [rcx+000000F0],00
+"SF3ClientFinal.exe"+164524B: 7F 10                          -  jg SF3ClientFinal.exe+164525D
+"SF3ClientFinal.exe"+164524D: F7 80 10 03 00 00 08 40 00 00  -  test [rax+00000310],00004008
+"SF3ClientFinal.exe"+1645257: 0F 84 B5 03 00 00              -  je SF3ClientFinal.exe+1645612
+"SF3ClientFinal.exe"+164525D: 48 8B 5F 30                    -  mov rbx,[rdi+30]
+"SF3ClientFinal.exe"+1645261: 48 3B 5F 38                    -  cmp rbx,[rdi+38]
+"SF3ClientFinal.exe"+1645265: 74 6F                          -  je SF3ClientFinal.exe+16452D6
+"SF3ClientFinal.exe"+1645267: 66 0F 1F 84 00 00 00 00 00     -  nop word ptr [rax+rax+00000000]
+"SF3ClientFinal.exe"+1645270: 48 8B 0B                       -  mov rcx,[rbx]
+"SF3ClientFinal.exe"+1645273: 8B 81 C8 02 00 00              -  mov eax,[rcx+000002C8]
+}
+</AssemblerScript>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>91</ID>
+              <Description>"Character"</Description>
+              <LastState Value="" RealAddress="00000000"/>
+              <GroupHeader>1</GroupHeader>
+              <Address>firstHeroPtr</Address>
+              <Offsets>
+                <Offset>0</Offset>
+              </Offsets>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>92</ID>
+          <Description>"Characters"</Description>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+aobscanmodule(characters,SF3ClientFinal.exe,48 8B 88 ?? ?? ?? ?? BA)
+alloc(newmem,$1000,characters)
+
+label(charactersBkp)
+label(return)
+
+newmem:
+
+charactersBkp:
+  readmem(characters,7)
+  jmp return
+
+characters:
+  jmp newmem
+  nop 2
+return:
+registersymbol(characters)
+registersymbol(charactersBkp)
+
+[DISABLE]
+characters:
+  readmem(charactersBkp,7)
+unregistersymbol(characters)
+unregistersymbol(charactersBkp)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: "SF3ClientFinal.exe"+1518D1C
+
+"SF3ClientFinal.exe"+1518CEC: 8B 49 0C                    -  mov ecx,[rcx+0C]
+"SF3ClientFinal.exe"+1518CEF: 89 4C 24 6C                 -  mov [rsp+6C],ecx
+"SF3ClientFinal.exe"+1518CF3: 89 44 24 34                 -  mov [rsp+34],eax
+"SF3ClientFinal.exe"+1518CF7: 49 8B 84 24 60 01 00 00     -  mov rax,[r12+00000160]
+"SF3ClientFinal.exe"+1518CFF: 48 8D 54 24 34              -  lea rdx,[rsp+34]
+"SF3ClientFinal.exe"+1518D04: 48 8B 88 78 0E 00 00        -  mov rcx,[rax+00000E78]
+"SF3ClientFinal.exe"+1518D0B: E8 20 5A 04 00              -  call SF3ClientFinal.exe+155E730
+"SF3ClientFinal.exe"+1518D10: 48 8B F0                    -  mov rsi,rax
+"SF3ClientFinal.exe"+1518D13: 48 85 C0                    -  test rax,rax
+"SF3ClientFinal.exe"+1518D16: 0F 84 3E 07 00 00           -  je SF3ClientFinal.exe+151945A
+// ---------- INJECTING HERE ----------
+"SF3ClientFinal.exe"+1518D1C: 48 8B 88 00 05 00 00        -  mov rcx,[rax+00000500]
+// ---------- DONE INJECTING  ----------
+"SF3ClientFinal.exe"+1518D23: BA D9 AD 00 00              -  mov edx,0000ADD9
+"SF3ClientFinal.exe"+1518D28: 48 8B 89 88 08 00 00        -  mov rcx,[rcx+00000888]
+"SF3ClientFinal.exe"+1518D2F: E8 EC 0D EA FF              -  call SF3ClientFinal.exe+13B9B20
+"SF3ClientFinal.exe"+1518D34: 48 85 C0                    -  test rax,rax
+"SF3ClientFinal.exe"+1518D37: 0F 84 A8 00 00 00           -  je SF3ClientFinal.exe+1518DE5
+"SF3ClientFinal.exe"+1518D3D: B9 40 00 00 00              -  mov ecx,00000040
+"SF3ClientFinal.exe"+1518D42: E8 09 83 32 00              -  call SF3ClientFinal.exe+1841050
+"SF3ClientFinal.exe"+1518D47: 48 8B D8                    -  mov rbx,rax
+"SF3ClientFinal.exe"+1518D4A: 48 89 44 24 78              -  mov [rsp+78],rax
+"SF3ClientFinal.exe"+1518D4F: 48 85 C0                    -  test rax,rax
+}
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>93</ID>
+          <Description>"Characters"</Description>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+aobscanmodule(characters,SF3ClientFinal.exe,48 8B 8F ?? ?? ?? ?? 48 8D ?? ?? ?? 48 ?? ?? 45)
+alloc(newmem,$1000,characters)
+
+label(charactersBkp)
+label(return)
+
+newmem:
+
+charactersBkp:
+  readmem(characters,7)
+  jmp return
+
+characters:
+  jmp newmem
+  nop 2
+return:
+registersymbol(characters)
+registersymbol(charactersBkp)
+
+[DISABLE]
+characters:
+  readmem(charactersBkp,7)
+unregistersymbol(characters)
+unregistersymbol(charactersBkp)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: "SF3ClientFinal.exe"+1528901
+
+"SF3ClientFinal.exe"+15288DF: 48 8B 1E                 -  mov rbx,[rsi]
+"SF3ClientFinal.exe"+15288E2: E8 B9 63 E6 FF           -  call SF3ClientFinal.exe+138ECA0
+"SF3ClientFinal.exe"+15288E7: 48 8B 00                 -  mov rax,[rax]
+"SF3ClientFinal.exe"+15288EA: 48 3B D8                 -  cmp rbx,rax
+"SF3ClientFinal.exe"+15288ED: 48 0F 4C D8              -  cmovl rbx,rax
+"SF3ClientFinal.exe"+15288F1: 48 89 1E                 -  mov [rsi],rbx
+"SF3ClientFinal.exe"+15288F4: 8B 87 10 03 00 00        -  mov eax,[rdi+00000310]
+"SF3ClientFinal.exe"+15288FA: C1 E8 03                 -  shr eax,03
+"SF3ClientFinal.exe"+15288FD: A8 01                    -  test al,01
+"SF3ClientFinal.exe"+15288FF: 74 27                    -  je SF3ClientFinal.exe+1528928
+// ---------- INJECTING HERE ----------
+"SF3ClientFinal.exe"+1528901: 48 8B 8F 00 05 00 00     -  mov rcx,[rdi+00000500]
+// ---------- DONE INJECTING  ----------
+"SF3ClientFinal.exe"+1528908: 48 8D 54 24 30           -  lea rdx,[rsp+30]
+"SF3ClientFinal.exe"+152890D: 48 8B 1E                 -  mov rbx,[rsi]
+"SF3ClientFinal.exe"+1528910: 45 33 C9                 -  xor r9d,r9d
+"SF3ClientFinal.exe"+1528913: 45 33 C0                 -  xor r8d,r8d
+"SF3ClientFinal.exe"+1528916: E8 65 37 E6 FF           -  call SF3ClientFinal.exe+138C080
+"SF3ClientFinal.exe"+152891B: 48 8B 00                 -  mov rax,[rax]
+"SF3ClientFinal.exe"+152891E: 48 3B D8                 -  cmp rbx,rax
+"SF3ClientFinal.exe"+1528921: 48 0F 4C D8              -  cmovl rbx,rax
+"SF3ClientFinal.exe"+1528925: 48 89 1E                 -  mov [rsi],rbx
+"SF3ClientFinal.exe"+1528928: 48 8B 5C 24 38           -  mov rbx,[rsp+38]
+}
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>94</ID>
+          <Description>"Characters"</Description>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+aobscanmodule(characters,SF3ClientFinal.exe,01 74 ?? 48 8B 88 ?? ?? ?? ?? 83 B9 ?? ?? ?? ?? 00 7E)
+alloc(newmem,$1000,characters)
+
+label(charactersBkp)
+label(charactersPtr)
+label(return)
+
+newmem:
+
+charactersBkp:
+  readmem(characters+03,7)
+  mov [charactersPtr],rcx
+  jmp return
+
+charactersPtr:
+  dq 0
+
+characters+03:
+  jmp newmem
+  nop 2
+return:
+registersymbol(characters)
+registersymbol(charactersBkp)
+registersymbol(charactersPtr)
+
+[DISABLE]
+characters+03:
+  readmem(charactersBkp,7)
+unregistersymbol(characters)
+unregistersymbol(charactersBkp)
+unregistersymbol(charactersPtr)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: "SF3ClientFinal.exe"+16BAC55
+
+"SF3ClientFinal.exe"+16BAC25: 42 8B 84 28 A8 00 00 00  -  mov eax,[rax+r13+000000A8]
+"SF3ClientFinal.exe"+16BAC2D: 89 45 77                 -  mov [rbp+77],eax
+"SF3ClientFinal.exe"+16BAC30: 49 8B 86 08 01 00 00     -  mov rax,[r14+00000108]
+"SF3ClientFinal.exe"+16BAC37: 48 8D 55 77              -  lea rdx,[rbp+77]
+"SF3ClientFinal.exe"+16BAC3B: 48 8B 88 78 0E 00 00     -  mov rcx,[rax+00000E78]
+"SF3ClientFinal.exe"+16BAC42: E8 E9 3A EA FF           -  call SF3ClientFinal.exe+155E730
+"SF3ClientFinal.exe"+16BAC47: 48 85 C0                 -  test rax,rax
+"SF3ClientFinal.exe"+16BAC4A: 74 51                    -  je SF3ClientFinal.exe+16BAC9D
+"SF3ClientFinal.exe"+16BAC4C: F6 80 98 00 00 00 01     -  test byte ptr [rax+00000098],01
+"SF3ClientFinal.exe"+16BAC53: 74 48                    -  je SF3ClientFinal.exe+16BAC9D
+// ---------- INJECTING HERE ----------
+"SF3ClientFinal.exe"+16BAC55: 48 8B 88 00 05 00 00     -  mov rcx,[rax+00000500]
+// ---------- DONE INJECTING  ----------
+"SF3ClientFinal.exe"+16BAC5C: 83 B9 F0 00 00 00 00     -  cmp dword ptr [rcx+000000F0],00
+"SF3ClientFinal.exe"+16BAC63: 7E 38                    -  jle SF3ClientFinal.exe+16BAC9D
+"SF3ClientFinal.exe"+16BAC65: 49 8B 9E A0 01 00 00     -  mov rbx,[r14+000001A0]
+"SF3ClientFinal.exe"+16BAC6C: 49 8B BE A8 01 00 00     -  mov rdi,[r14+000001A8]
+"SF3ClientFinal.exe"+16BAC73: 48 3B DF                 -  cmp rbx,rdi
+"SF3ClientFinal.exe"+16BAC76: 74 25                    -  je SF3ClientFinal.exe+16BAC9D
+"SF3ClientFinal.exe"+16BAC78: 48 8D B0 E0 00 00 00     -  lea rsi,[rax+000000E0]
+"SF3ClientFinal.exe"+16BAC7F: 90                       -  nop 
+"SF3ClientFinal.exe"+16BAC80: 48 8B D6                 -  mov rdx,rsi
+"SF3ClientFinal.exe"+16BAC83: 48 8B 0B                 -  mov rcx,[rbx]
+}
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>95</ID>
+          <Description>"Characters"</Description>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>// second search result
+[ENABLE]
+aobscanmodule(characters,SF3ClientFinal.exe,48 8B 88 ?? ?? ?? ?? 83 B9 ?? ?? ?? ?? 00 0F 9F C0)
+alloc(newmem,$1000,characters)
+
+label(charactersBkp)
+label(return)
+
+newmem:
+
+charactersBkp:
+  readmem(characters,7)
+  jmp return
+
+characters:
+  jmp newmem
+  nop 2
+return:
+registersymbol(characters)
+registersymbol(charactersBkp)
+
+[DISABLE]
+characters:
+  readmem(charactersBkp,7)
+unregistersymbol(characters)
+unregistersymbol(charactersBkp)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: "SF3ClientFinal.exe"+17246D4
+
+"SF3ClientFinal.exe"+17246C4: 48 83 C4 28              -  add rsp,28
+"SF3ClientFinal.exe"+17246C8: C3                       -  ret 
+"SF3ClientFinal.exe"+17246C9: CC                       -  int 3 
+"SF3ClientFinal.exe"+17246CA: CC                       -  int 3 
+"SF3ClientFinal.exe"+17246CB: CC                       -  int 3 
+"SF3ClientFinal.exe"+17246CC: CC                       -  int 3 
+"SF3ClientFinal.exe"+17246CD: CC                       -  int 3 
+"SF3ClientFinal.exe"+17246CE: CC                       -  int 3 
+"SF3ClientFinal.exe"+17246CF: CC                       -  int 3 
+"SF3ClientFinal.exe"+17246D0: 48 8B 41 20              -  mov rax,[rcx+20]
+// ---------- INJECTING HERE ----------
+"SF3ClientFinal.exe"+17246D4: 48 8B 88 00 05 00 00     -  mov rcx,[rax+00000500]
+// ---------- DONE INJECTING  ----------
+"SF3ClientFinal.exe"+17246DB: 83 B9 F0 00 00 00 00     -  cmp dword ptr [rcx+000000F0],00
+"SF3ClientFinal.exe"+17246E2: 0F 9F C0                 -  setg al
+"SF3ClientFinal.exe"+17246E5: C3                       -  ret 
+"SF3ClientFinal.exe"+17246E6: CC                       -  int 3 
+"SF3ClientFinal.exe"+17246E7: CC                       -  int 3 
+"SF3ClientFinal.exe"+17246E8: CC                       -  int 3 
+"SF3ClientFinal.exe"+17246E9: CC                       -  int 3 
+"SF3ClientFinal.exe"+17246EA: CC                       -  int 3 
+"SF3ClientFinal.exe"+17246EB: CC                       -  int 3 
+"SF3ClientFinal.exe"+17246EC: CC                       -  int 3 
+}
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>116</ID>
+          <Description>"Invulnerability"</Description>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+aobscanmodule(invuln,$process,FF 50 08 0F B6 ?? 20 44 8D ?? 01)
+registersymbol(invuln)
+
+[DISABLE]
+unregistersymbol(invuln)
+
+{
+// ORIGINAL CODE - INJECTION POINT: "SF3ClientDebug.exe"+1852979
+
+"SF3ClientDebug.exe"+1852956: 48 8B 07                          -  mov rax,[rdi]
+"SF3ClientDebug.exe"+1852959: 48 8B CF                          -  mov rcx,rdi
+"SF3ClientDebug.exe"+185295C: FF 50 08                          -  call qword ptr [rax+08]
+"SF3ClientDebug.exe"+185295F: 0F B6 45 1F                       -  movzx eax,byte ptr [rbp+1F]
+"SF3ClientDebug.exe"+1852963: 44 8D 46 01                       -  lea r8d,[rsi+01]
+"SF3ClientDebug.exe"+1852967: 88 44 24 30                       -  mov [rsp+30],al
+"SF3ClientDebug.exe"+185296B: 48 8D 54 24 30                    -  lea rdx,[rsp+30]
+"SF3ClientDebug.exe"+1852970: 48 8B 07                          -  mov rax,[rdi]
+"SF3ClientDebug.exe"+1852973: 48 8B CF                          -  mov rcx,rdi
+"SF3ClientDebug.exe"+1852976: FF 50 08                          -  call qword ptr [rax+08]
+// ---------- INJECTING HERE ----------
+"SF3ClientDebug.exe"+1852979: 0F B6 45 20                       -  movzx eax,byte ptr [rbp+20]
+"SF3ClientDebug.exe"+185297D: 44 8D 46 01                       -  lea r8d,[rsi+01]
+// ---------- DONE INJECTING  ----------
+"SF3ClientDebug.exe"+1852981: 88 44 24 30                       -  mov [rsp+30],al
+"SF3ClientDebug.exe"+1852985: 48 8D 54 24 30                    -  lea rdx,[rsp+30]
+"SF3ClientDebug.exe"+185298A: 48 8B 07                          -  mov rax,[rdi]
+"SF3ClientDebug.exe"+185298D: 48 8B CF                          -  mov rcx,rdi
+"SF3ClientDebug.exe"+1852990: FF 50 08                          -  call qword ptr [rax+08]
+"SF3ClientDebug.exe"+1852993: 0F B6 45 21                       -  movzx eax,byte ptr [rbp+21]
+"SF3ClientDebug.exe"+1852997: 44 8D 46 01                       -  lea r8d,[rsi+01]
+"SF3ClientDebug.exe"+185299B: 88 44 24 30                       -  mov [rsp+30],al
+"SF3ClientDebug.exe"+185299F: 48 8D 54 24 30                    -  lea rdx,[rsp+30]
+"SF3ClientDebug.exe"+18529A4: 48 8B 07                          -  mov rax,[rdi]
+}
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>163</ID>
+          <Description>"Unlock All Buildings"</Description>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript Async="1">[ENABLE]
+aobscanmodule(unlockBuildings1,$process,80 78 10 00 48 0F 45)
+aobscanmodule(unlockBuildings2,$process,48 8B ?? 80 78 10 00 74 ?? B0)
+aobscanmodule(unlockBuildings3,$process,80 78 10 00 74 ?? B0 01 EB)
+
+unlockBuildings1+03:
+  db 02
+unlockBuildings2+06:
+  db 02
+unlockBuildings3+03:
+  db 02
+
+registersymbol(unlockBuildings1)
+registersymbol(unlockBuildings2)
+registersymbol(unlockBuildings3)
+
+[DISABLE]
+unlockBuildings1+03:
+  db 00
+unlockBuildings2+06:
+  db 00
+unlockBuildings3+03:
+  db 00
+
+unregistersymbol(unlockBuildings1)
+unregistersymbol(unlockBuildings2)
+unregistersymbol(unlockBuildings3)
+
+{
+// ORIGINAL CODE - INJECTION POINT: "SF3ClientDebug.exe"+11D1F20
+
+"SF3ClientDebug.exe"+11D1EED: 48 83 B8 50 06 00 00 00  -  cmp qword ptr [rax+00000650],00
+"SF3ClientDebug.exe"+11D1EF5: 74 0F                    -  je SF3ClientDebug.exe+11D1F06
+"SF3ClientDebug.exe"+11D1EF7: 48 8B 80 50 06 00 00     -  mov rax,[rax+00000650]
+"SF3ClientDebug.exe"+11D1EFE: 48 05 A0 01 00 00        -  add rax,000001A0
+"SF3ClientDebug.exe"+11D1F04: EB 09                    -  jmp SF3ClientDebug.exe+11D1F0F
+"SF3ClientDebug.exe"+11D1F06: E8 55 9C 3B 00           -  call SF3ClientDebug.exe+158BB60
+"SF3ClientDebug.exe"+11D1F0B: 48 83 C0 18              -  add rax,18
+"SF3ClientDebug.exe"+11D1F0F: 48 8D 0D D6 BE 58 02     -  lea rcx,[SF3ClientDebug.exe+375DDEC]
+"SF3ClientDebug.exe"+11D1F16: 4C 8D 0D D3 BE 58 02     -  lea r9,[SF3ClientDebug.exe+375DDF0]
+"SF3ClientDebug.exe"+11D1F1D: 49 8B D1                 -  mov rdx,r9
+// ---------- INJECTING HERE ----------
+"SF3ClientDebug.exe"+11D1F20: 80 78 10 00              -  cmp byte ptr [rax+10],00
+"SF3ClientDebug.exe"+11D1F24: 48 0F 45 D1              -  cmovne rdx,rcx
+// ---------- DONE INJECTING  ----------
+"SF3ClientDebug.exe"+11D1F28: 80 BF E0 08 00 00 00     -  cmp byte ptr [rdi+000008E0],00
+"SF3ClientDebug.exe"+11D1F2F: 4C 0F 45 C9              -  cmovne r9,rcx
+"SF3ClientDebug.exe"+11D1F33: 0F B7 05 76 D4 F7 02     -  movzx eax,word ptr [SF3ClientDebug.exe+414F3B0]
+"SF3ClientDebug.exe"+11D1F3A: 0F B7 0D 73 D4 F7 02     -  movzx ecx,word ptr [SF3ClientDebug.exe+414F3B4]
+"SF3ClientDebug.exe"+11D1F41: 89 44 24 30              -  mov [rsp+30],eax
+"SF3ClientDebug.exe"+11D1F45: 89 4C 24 28              -  mov [rsp+28],ecx
+"SF3ClientDebug.exe"+11D1F49: 48 89 54 24 20           -  mov [rsp+20],rdx
+"SF3ClientDebug.exe"+11D1F4E: 4C 8D 05 3B 42 5A 02     -  lea r8,[SF3ClientDebug.exe+3776190]
+"SF3ClientDebug.exe"+11D1F55: 48 83 CA FF              -  or rdx,-01
+"SF3ClientDebug.exe"+11D1F59: 48 8D 8D E0 01 00 00     -  lea rcx,[rbp+000001E0]
+}
+
+{
+// ORIGINAL CODE - INJECTION POINT: "SF3ClientDebug.exe"+17EC700
+
+"SF3ClientDebug.exe"+17EC6DE: CC                          -  int 3
+"SF3ClientDebug.exe"+17EC6DF: CC                          -  int 3
+"SF3ClientDebug.exe"+17EC6E0: 48 89 5C 24 08              -  mov [rsp+08],rbx
+"SF3ClientDebug.exe"+17EC6E5: 48 89 74 24 10              -  mov [rsp+10],rsi
+"SF3ClientDebug.exe"+17EC6EA: 57                          -  push rdi
+"SF3ClientDebug.exe"+17EC6EB: 48 83 EC 20                 -  sub rsp,20
+"SF3ClientDebug.exe"+17EC6EF: 48 8B 81 A8 00 00 00        -  mov rax,[rcx+000000A8]
+"SF3ClientDebug.exe"+17EC6F6: 49 8B D9                    -  mov rbx,r9
+"SF3ClientDebug.exe"+17EC6F9: 41 0F B6 F0                 -  movzx esi,r8l
+"SF3ClientDebug.exe"+17EC6FD: 48 8B FA                    -  mov rdi,rdx
+// ---------- INJECTING HERE ----------
+"SF3ClientDebug.exe"+17EC700: 80 78 10 00                 -  cmp byte ptr [rax+10],00
+"SF3ClientDebug.exe"+17EC704: 74 12                       -  je SF3ClientDebug.exe+17EC718
+// ---------- DONE INJECTING  ----------
+"SF3ClientDebug.exe"+17EC706: B0 01                       -  mov al,01
+"SF3ClientDebug.exe"+17EC708: 48 8B 5C 24 30              -  mov rbx,[rsp+30]
+"SF3ClientDebug.exe"+17EC70D: 48 8B 74 24 38              -  mov rsi,[rsp+38]
+"SF3ClientDebug.exe"+17EC712: 48 83 C4 20                 -  add rsp,20
+"SF3ClientDebug.exe"+17EC716: 5F                          -  pop rdi
+"SF3ClientDebug.exe"+17EC717: C3                          -  ret
+"SF3ClientDebug.exe"+17EC718: 48 8B CF                    -  mov rcx,rdi
+"SF3ClientDebug.exe"+17EC71B: E8 60 71 D9 FF              -  call SF3ClientDebug.exe+1583880
+"SF3ClientDebug.exe"+17EC720: 4C 8B C0                    -  mov r8,rax
+"SF3ClientDebug.exe"+17EC723: 44 0F B6 CE                 -  movzx r9d,sil
+}
+
+{
+// ORIGINAL CODE - INJECTION POINT: "SF3ClientDebug.exe"+17A3E81
+
+"SF3ClientDebug.exe"+17A3E5D: CC                             -  int 3 
+"SF3ClientDebug.exe"+17A3E5E: CC                             -  int 3 
+"SF3ClientDebug.exe"+17A3E5F: CC                             -  int 3 
+"SF3ClientDebug.exe"+17A3E60: 40 57                          -  push rdi
+"SF3ClientDebug.exe"+17A3E62: 48 83 EC 40                    -  sub rsp,40
+"SF3ClientDebug.exe"+17A3E66: 48 C7 44 24 20 FE FF FF FF     -  mov qword ptr [rsp+20],FFFFFFFFFFFFFFFE
+"SF3ClientDebug.exe"+17A3E6F: 48 89 5C 24 58                 -  mov [rsp+58],rbx
+"SF3ClientDebug.exe"+17A3E74: 0F B6 FA                       -  movzx edi,dl
+"SF3ClientDebug.exe"+17A3E77: 48 8B D9                       -  mov rbx,rcx
+"SF3ClientDebug.exe"+17A3E7A: 48 8B 81 10 06 00 00           -  mov rax,[rcx+00000610]
+// ---------- INJECTING HERE ----------
+"SF3ClientDebug.exe"+17A3E81: 80 78 10 00                    -  cmp byte ptr [rax+10],00
+"SF3ClientDebug.exe"+17A3E85: 74 04                          -  je SF3ClientDebug.exe+17A3E8B
+// ---------- DONE INJECTING  ----------
+"SF3ClientDebug.exe"+17A3E87: B0 01                          -  mov al,01
+"SF3ClientDebug.exe"+17A3E89: EB 7D                          -  jmp SF3ClientDebug.exe+17A3F08
+"SF3ClientDebug.exe"+17A3E8B: 49 8B D0                       -  mov rdx,r8
+"SF3ClientDebug.exe"+17A3E8E: 48 8D 4C 24 28                 -  lea rcx,[rsp+28]
+"SF3ClientDebug.exe"+17A3E93: E8 58 80 D2 FF                 -  call SF3ClientDebug.exe+14CBEF0
+"SF3ClientDebug.exe"+17A3E98: 90                             -  nop 
+"SF3ClientDebug.exe"+17A3E99: 41 B1 01                       -  mov r9l,01
+"SF3ClientDebug.exe"+17A3E9C: 4C 8D 44 24 28                 -  lea r8,[rsp+28]
+"SF3ClientDebug.exe"+17A3EA1: 40 0F B6 D7                    -  movzx edx,dil
+"SF3ClientDebug.exe"+17A3EA5: 48 8B CB                       -  mov rcx,rbx
+}
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>164</ID>
+          <Description>"Free Building"</Description>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript Async="1">[ENABLE]
+
+aobscanmodule(freeBuild,$process,0F B6 41 10 F6 D8)
+freeBuild:
+  db B0 01 90 90
+registersymbol(freeBuild)
+
+[DISABLE]
+freeBuild:
+  db 0F B6 41 10
+unregistersymbol(freeBuild)
+
+{
+// ORIGINAL CODE - INJECTION POINT: "SF3ClientDebug.exe"+19FA760
+
+"SF3ClientDebug.exe"+19FA728: 48 8B 8B A8 0E 00 00        -  mov rcx,[rbx+00000EA8]
+"SF3ClientDebug.exe"+19FA72F: E8 2C 96 DA FF              -  call SF3ClientDebug.exe+17A3D60
+"SF3ClientDebug.exe"+19FA734: 84 C0                       -  test al,al
+"SF3ClientDebug.exe"+19FA736: 0F 84 B0 00 00 00           -  je SF3ClientDebug.exe+19FA7EC
+"SF3ClientDebug.exe"+19FA73C: 0F 57 C0                    -  xorps xmm0,xmm0
+"SF3ClientDebug.exe"+19FA73F: F3 0F 7F 44 24 50           -  movdqu [rsp+50],xmm0
+"SF3ClientDebug.exe"+19FA745: 48 C7 44 24 60 00 00 00 00  -  mov qword ptr [rsp+60],00000000
+"SF3ClientDebug.exe"+19FA74E: 48 8B 8B B0 01 00 00        -  mov rcx,[rbx+000001B0]
+"SF3ClientDebug.exe"+19FA755: 48 8B 83 80 0E 00 00        -  mov rax,[rbx+00000E80]
+"SF3ClientDebug.exe"+19FA75C: 4C 8B 50 18                 -  mov r10,[rax+18]
+// ---------- INJECTING HERE ----------
+"SF3ClientDebug.exe"+19FA760: 0F B6 41 10                 -  movzx eax,byte ptr [rcx+10]
+"SF3ClientDebug.exe"+19FA764: F6 D8                       -  neg al
+// ---------- DONE INJECTING  ----------
+"SF3ClientDebug.exe"+19FA766: 1B D2                       -  sbb edx,edx
+"SF3ClientDebug.exe"+19FA768: 83 E2 02                    -  and edx,02
+"SF3ClientDebug.exe"+19FA76B: 48 8D 44 24 50              -  lea rax,[rsp+50]
+"SF3ClientDebug.exe"+19FA770: 48 89 44 24 40              -  mov [rsp+40],rax
+"SF3ClientDebug.exe"+19FA775: 0F B6 47 40                 -  movzx eax,byte ptr [rdi+40]
+"SF3ClientDebug.exe"+19FA779: 88 44 24 38                 -  mov [rsp+38],al
+"SF3ClientDebug.exe"+19FA77D: 89 54 24 30                 -  mov [rsp+30],edx
+"SF3ClientDebug.exe"+19FA781: 48 8B 47 38                 -  mov rax,[rdi+38]
+"SF3ClientDebug.exe"+19FA785: 48 89 44 24 28              -  mov [rsp+28],rax
+"SF3ClientDebug.exe"+19FA78A: 48 89 74 24 20              -  mov [rsp+20],rsi
+}
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>169</ID>
+          <Description>"Free Casting"</Description>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript Async="1">[ENABLE]
+aobscanmodule(freeCast,$process,80 78 ?? 00 75 ?? F6 5D)
+freeCast+03:
+  db 02
+registersymbol(freeCast)
+
+[DISABLE]
+freeCast+03:
+  db 00
+unregistersymbol(freeCast)
+
+{
+// ORIGINAL CODE - INJECTION POINT: "SF3ClientDebug.exe"+16CD8B3
+
+"SF3ClientDebug.exe"+16CD87E: 49 8B 8F 90 02 00 00  -  mov rcx,[r15+00000290]
+"SF3ClientDebug.exe"+16CD885: E8 F6 89 2B 00        -  call SF3ClientDebug.exe+1986280
+"SF3ClientDebug.exe"+16CD88A: 48 8D 46 10           -  lea rax,[rsi+10]
+"SF3ClientDebug.exe"+16CD88E: 48 89 44 24 20        -  mov [rsp+20],rax
+"SF3ClientDebug.exe"+16CD893: 41 83 C9 FF           -  or r9d,-01
+"SF3ClientDebug.exe"+16CD897: 41 B8 14 00 00 00     -  mov r8d,00000014
+"SF3ClientDebug.exe"+16CD89D: 49 8B D6              -  mov rdx,r14
+"SF3ClientDebug.exe"+16CD8A0: 49 8B 8F 90 02 00 00  -  mov rcx,[r15+00000290]
+"SF3ClientDebug.exe"+16CD8A7: E8 D4 89 2B 00        -  call SF3ClientDebug.exe+1986280
+"SF3ClientDebug.exe"+16CD8AC: 49 8B 87 B0 01 00 00  -  mov rax,[r15+000001B0]
+// ---------- INJECTING HERE ----------
+"SF3ClientDebug.exe"+16CD8B3: 80 78 21 00           -  cmp byte ptr [rax+21],00
+"SF3ClientDebug.exe"+16CD8B7: 75 56                 -  jne SF3ClientDebug.exe+16CD90F
+// ---------- DONE INJECTING  ----------
+"SF3ClientDebug.exe"+16CD8B9: F6 5D 7F              -  neg byte ptr [rbp+7F]
+"SF3ClientDebug.exe"+16CD8BC: 45 1B C0              -  sbb r8d,r8d
+"SF3ClientDebug.exe"+16CD8BF: 41 83 E0 02           -  and r8d,02
+"SF3ClientDebug.exe"+16CD8C3: 49 8B D6              -  mov rdx,r14
+"SF3ClientDebug.exe"+16CD8C6: 48 8B CE              -  mov rcx,rsi
+"SF3ClientDebug.exe"+16CD8C9: E8 D2 0A 00 00        -  call SF3ClientDebug.exe+16CE3A0
+"SF3ClientDebug.exe"+16CD8CE: 80 BE E5 00 00 00 00  -  cmp byte ptr [rsi+000000E5],00
+"SF3ClientDebug.exe"+16CD8D5: 74 21                 -  je SF3ClientDebug.exe+16CD8F8
+"SF3ClientDebug.exe"+16CD8D7: 80 BE E0 00 00 00 00  -  cmp byte ptr [rsi+000000E0],00
+"SF3ClientDebug.exe"+16CD8DE: 75 2F                 -  jne SF3ClientDebug.exe+16CD90F
+}
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>166</ID>
+          <Description>"Worker Speed Multiplier"</Description>
+          <Options moHideChildren="1"/>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript Async="1">[ENABLE]
+aobscanmodule(speed,$process,49 8B 42 08 4C 8B C0)
+alloc(newmem,$1000,speed)
+
+label(code)
+label(return)
+label(speedPtr)
+
+newmem:
+  mov rax,speedPtr
+  mov [rax],r10
+code:
+  mov rax,[r10+08]
+  mov r8,rax
+  jmp return
+
+speedPtr:
+  dq 0
+
+speed:
+  jmp newmem
+  nop 2
+return:
+registersymbol(speed)
+registersymbol(speedPtr)
+
+[DISABLE]
+speed:
+  db 49 8B 42 08 4C 8B C0
+unregistersymbol(speed)
+unregistersymbol(speedPtr)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: "SF3ClientDebug.exe"+188BBFB
+
+"SF3ClientDebug.exe"+188BBCC: 48 89 4C 24 50        -  mov [rsp+50],rcx
+"SF3ClientDebug.exe"+188BBD1: 48 8B 44 24 40        -  mov rax,[rsp+40]
+"SF3ClientDebug.exe"+188BBD6: 48 89 44 24 40        -  mov [rsp+40],rax
+"SF3ClientDebug.exe"+188BBDB: 48 8D 54 24 40        -  lea rdx,[rsp+40]
+"SF3ClientDebug.exe"+188BBE0: 4C 8D 44 24 50        -  lea r8,[rsp+50]
+"SF3ClientDebug.exe"+188BBE5: 48 3B C1              -  cmp rax,rcx
+"SF3ClientDebug.exe"+188BBE8: 49 0F 4D D0           -  cmovge rdx,r8
+"SF3ClientDebug.exe"+188BBEC: 48 8B 0A              -  mov rcx,[rdx]
+"SF3ClientDebug.exe"+188BBEF: 48 89 4C 24 40        -  mov [rsp+40],rcx
+"SF3ClientDebug.exe"+188BBF4: 4D 8B 97 B0 01 00 00  -  mov r10,[r15+000001B0]
+// ---------- INJECTING HERE ----------
+"SF3ClientDebug.exe"+188BBFB: 49 8B 42 08           -  mov rax,[r10+08]
+"SF3ClientDebug.exe"+188BBFF: 4C 8B C0              -  mov r8,rax
+// ---------- DONE INJECTING  ----------
+"SF3ClientDebug.exe"+188BC02: 49 C1 E8 3F           -  shr r8,3F
+"SF3ClientDebug.exe"+188BC06: 44 8B CE              -  mov r9d,esi
+"SF3ClientDebug.exe"+188BC09: 48 85 C9              -  test rcx,rcx
+"SF3ClientDebug.exe"+188BC0C: 41 0F 98 C1           -  sets r9l
+"SF3ClientDebug.exe"+188BC10: 48 85 C9              -  test rcx,rcx
+"SF3ClientDebug.exe"+188BC13: 79 03                 -  jns SF3ClientDebug.exe+188BC18
+"SF3ClientDebug.exe"+188BC15: 48 F7 D9              -  neg rcx
+"SF3ClientDebug.exe"+188BC18: 48 85 C0              -  test rax,rax
+"SF3ClientDebug.exe"+188BC1B: 79 03                 -  jns SF3ClientDebug.exe+188BC20
+"SF3ClientDebug.exe"+188BC1D: 48 F7 D8              -  neg rax
+}
+</AssemblerScript>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>162</ID>
+              <Description>"Multiplier (1 - 30)"</Description>
+              <VariableType>Binary</VariableType>
+              <BitStart>4</BitStart>
+              <BitLength>5</BitLength>
+              <ShowAsBinary>0</ShowAsBinary>
+              <Address>speedPtr</Address>
+              <Offsets>
+                <Offset>A</Offset>
+              </Offsets>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>173</ID>
+      <Description>"No description"</Description>
+      <VariableType>Float</VariableType>
+      <Address>2335C67ACD4</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>174</ID>
+      <Description>"No description"</Description>
+      <VariableType>Float</VariableType>
+      <Address>8B2DCFC704</Address>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+</CheatTable>

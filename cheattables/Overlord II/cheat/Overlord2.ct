@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="18">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>0</ID>
+      <Description>"Forge hack"</Description>
+      <LastState Activated="1"/>
+      <Color>80000008</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+
+006313FE:
+nop
+nop
+nop
+nop
+nop
+nop
+nop
+nop
+nop
+
+0063140A:
+nop
+nop
+nop
+nop
+nop
+nop
+nop
+nop
+nop
+
+00631416:
+nop
+nop
+nop
+nop
+nop
+nop
+nop
+nop
+nop
+
+00631422:
+nop
+nop
+nop
+nop
+nop
+nop
+nop
+nop
+nop
+
+[DISABLE]
+006313FE:
+add dword ptr [esi+14],ff
+call 00442e90
+
+0063140A:
+add dword ptr [esi+18],ff
+call 00442e90
+
+00631416:
+add dword ptr [esi+1C],ff
+call 00442e90
+
+00631422:
+add dword ptr [esi+20],ff
+call 00442e90
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>1</ID>
+      <Description>"Overlord hack"</Description>
+      <LastState Activated="1"/>
+      <Color>80000008</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+define(CAVE_LORDHACK,00B9109A)
+define(LORD_VALUE,47435000) // float 50 000
+
+005FD17A:
+call CAVE_LORDHACK
+nop
+
+CAVE_LORDHACK:
+mov [eax+00000a34],LORD_VALUE // HP
+mov [eax+00000ac8],LORD_VALUE // Mana
+fld dword ptr [eax+00000a34] // Original
+ret
+ 
+ 
+[DISABLE]
+005FD17A:
+fld dword ptr [eax+00000a34]
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>2</ID>
+      <Description>"Minion HP hack"</Description>
+      <LastState Activated="1"/>
+      <Color>80000008</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+define(CAVE_MINIONHACK,00B910C5)
+define(MINION_VALUE,48F42400) // float 500 000
+
+007261F3:
+call CAVE_MINIONHACK 
+nop
+
+CAVE_MINIONHACK:
+mov [edi+00000a34],MINION_VALUE // Current HP
+mov [edi+00000a38],MINION_VALUE // Max HP
+mov eax,[edi+00000b04] // Original
+ret
+ 
+ 
+[DISABLE]
+007261F3:
+mov eax,[edi+00000b04]
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>3</ID>
+      <Description>"Treasury hack"</Description>
+      <LastState Activated="1"/>
+      <Color>80000008</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+define(CAVE_TREASURY,00B910F0)
+define(TREASURY_VALUE,0007A120) // int 500000
+
+005FCD94:
+call CAVE_TREASURY
+nop
+
+CAVE_TREASURY:
+mov [esi+00000254],TREASURY_VALUE
+mov [esi+00000258],TREASURY_VALUE
+mov [esi+0000025C],TREASURY_VALUE
+mov edx,[esi+00000254] // Original
+ret
+ 
+[DISABLE]
+005FCD94:
+mov edx,[esi+00000254]
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>4</ID>
+      <Description>"Horde hack"</Description>
+      <LastState Activated="1"/>
+      <Color>80000008</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+define(CAVE_HORDE,00B91125)
+define(HORDE_SIZE,00000078) // int 120
+
+005FCDA9:
+call CAVE_HORDE
+nop
+
+CAVE_HORDE:
+mov [esi+0000026c],HORDE_SIZE
+mov eax,[esi+00000258] // Original
+ret
+ 
+[DISABLE]
+005FCDA9:
+mov eax,[esi+00000258]
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>5</ID>
+      <Description>"Ship hack"</Description>
+      <LastState Activated="1"/>
+      <Color>80000008</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+define(CAVE_SHIPHACK,00B91146)
+define(SHIP_VALUE,41200000) // float 10
+
+005FD32D:
+call CAVE_SHIPHACK
+nop
+
+CAVE_SHIPHACK:
+mov [edi+00000804],SHIP_VALUE
+mov [edi+000008a8],SHIP_VALUE
+fld dword ptr [edi+000008a8] // Original
+ret
+ 
+[DISABLE]
+005FD32D:
+fld dword ptr [edi+000008a8]
+</AssemblerScript>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+</CheatTable>

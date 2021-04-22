@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="29">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>2</ID>
+      <Description>"pointerscan result"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"gzdoom.exe"+011DD928</Address>
+      <Offsets>
+        <Offset>B28</Offset>
+        <Offset>688</Offset>
+        <Offset>28</Offset>
+        <Offset>8</Offset>
+        <Offset>C8</Offset>
+        <Offset>40</Offset>
+        <Offset>20</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>5</ID>
+      <Description>"grenade launcher"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"gzdoom.exe"+01664170</Address>
+      <Offsets>
+        <Offset>F88</Offset>
+        <Offset>20</Offset>
+        <Offset>170</Offset>
+        <Offset>60</Offset>
+        <Offset>50</Offset>
+        <Offset>3E0</Offset>
+        <Offset>A8</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>0</ID>
+      <Description>"No description"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>1D800C4D5E8</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>1</ID>
+      <Description>"No description"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>1D87E1C4918</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>3</ID>
+      <Description>"pointerscan result"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"gzdoom.exe"+011DD8D8</Address>
+      <Offsets>
+        <Offset>B28</Offset>
+        <Offset>688</Offset>
+        <Offset>28</Offset>
+        <Offset>8</Offset>
+        <Offset>C8</Offset>
+        <Offset>40</Offset>
+        <Offset>30</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>4</ID>
+      <Description>"No description"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>1F4992F6558</Address>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+</CheatTable>

@@ -1,0 +1,710 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="18">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>29</ID>
+      <Description>"Minerals for v1.4.3.21029 human player only (not working for AI/computer)"</Description>
+      <LastState Value="??" Activated="0" RealAddress="00000000"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>SC2.exe+1EA9448</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>27</ID>
+      <Description>"[X] &lt;== Starcraft II - Heart of the Swarm v2.0.6 Script"</Description>
+      <Options moHideChildren="1"/>
+      <LastState Activated="0"/>
+      <Color>FF0000</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>{
+===========================================
+ Game Title    : StarCraft II - Heart of the Swarm
+ Game Version  : 2.0.6.25180
+ Game Sponsor  : RELOADED
+ Proces Name   : SC2.exe
+ Script Version: 1.0
+ CE Version    : 6.2
+ Release date  : 04-Apr-2013
+ Author        : Recifense
+ History:
+ 04-Apr-13: First Release
+ Features:
+ - Unlimited Resources
+ - God Mode
+ - Full Energy
+ - Full Shield
+===========================================
+}
+
+//=========================================
+// Definitions
+define(LUDO,"SC2.exe")
+define(MRES,SC2.exe+00621560)
+define(GDMD,SC2.exe+00722b84)
+define(MSEL,SC2.exe+005baaf5)
+define(MUEN,SC2.exe+00722f67)
+define(MUSH,SC2.exe+00722dbb)
+
+//=========================================
+[ENABLE]
+//=========================================
+//LuaCall(CheckVersion())
+//=========================================
+// Check if script is compatible to this game version
+// If false the script will not be loaded
+
+assert(MRES,8b 4d fc 8b 31 3b 33 ?? ?? 56 8d 4d d4 e8 ?? ?? ?? ?? 8b cf)
+assert(GDMD,89 be 10 01 00 00 3b fb ?? ?? 6a 01 6a 01 6a 00 51 8b c3 2b)
+assert(MSEL,8b 9e 10 01 00 00 8d 45 e8 50 8b ce e8 ?? ?? ?? ?? 8b 00 2b)
+assert(MUEN,89 86 18 01 00 00 3b c7 ?? ?? 6a 00 6a 05 6a 04 51 2b c7 57)
+assert(MUSH,89 86 14 01 00 00 3b c7 ?? ?? 6a 01 6a 09 6a 08 51 8b d7 2b)
+
+//=========================================
+alloc(MyCode,4096,LUDO)
+//=========================================
+// Declaration section
+label(_MonPlayerRes)
+label(_BackMPR)
+label(_ExitMPR)
+label(_GodMode)
+label(_GodMD00)
+label(_BackGMD)
+label(_ExitGMD)
+label(_MonSelUnit)
+label(_BackMSU)
+label(_ExitMSU)
+label(_MonUnitEnergy)
+label(_BackMUE)
+label(_ExitMUE)
+label(_MonUnitShield)
+label(_BackMUS)
+label(_ExitMUS)
+label(pPlayer)
+label(pUnit)
+label(pSel)
+label(iEnableMPR)
+label(iEnableGMD)
+label(iEnableQKK)
+label(iEnableMUE)
+label(iEnableMUS)
+
+//=========================================
+// Registering Symbols
+registersymbol(MyCode)
+registersymbol(pPlayer)
+registersymbol(pUnit)
+registersymbol(pSel)
+registersymbol(iEnableMPR)
+registersymbol(iEnableGMD)
+registersymbol(iEnableQKK)
+registersymbol(iEnableMUE)
+registersymbol(iEnableMUS)
+
+//=========================================
+MyCode:
+//=========================================
+_MonPlayerRes:
+ mov [pPlayer],edi
+
+ mov ecx,[ebp-04]               // Original code
+
+ cmp dword ptr [iEnableMPR],0
+ je _ExitMPR                    // Jump if feature is disabled
+
+ cmp dword ptr [ecx],0
+ je _ExitMPR
+
+ cmp dword ptr [ecx],#5000
+ jge _ExitMPR
+
+ mov dword ptr [ecx],#5000
+
+_ExitMPR:
+ mov esi,[ecx]                  // Original code
+ jmp _BackMPR                   // Back to main code
+
+//=========================================
+_GodMode:
+ cmp byte ptr [esi+27],1        // Player's unit?
+ jne _GodMD00                   // Jump if false
+
+ mov [pUnit],esi
+
+ cmp dword ptr [iEnableGMD],0
+ je _ExitGMD                    // Jump if feature is disabled
+
+ xor edi,edi                    // Make damage = 0
+ jmp _ExitGMD
+
+_GodMD00:
+ cmp dword ptr [iEnableQKK],0
+ je _ExitGMD                    // Jump if feature is disabled
+
+ mov edi,ecx
+
+_ExitGMD:
+ mov [esi+00000110],edi         // Original code
+ jmp _BackGMD                   // Back to main code
+
+//=========================================
+_MonSelUnit:
+ mov [pSel],esi
+
+_ExitMSU:
+ mov ebx,[esi+00000110]         // Original code
+ jmp _BackMSU                   // Back to main code
+
+//=========================================
+_MonUnitEnergy:
+ cmp byte ptr [esi+27],1        // Player's unit?
+ jne _ExitMUE                   // Jump if false
+
+ cmp dword ptr [iEnableMUE],0
+ je _ExitMUE                    // Jump if feature is disabled
+
+ mov eax,ecx                    // Get Maximum
+
+_ExitMUE:
+ mov [esi+00000118],eax         // Original code
+ jmp _BackMUE                   // Back to main code
+
+//=========================================
+_MonUnitShield:
+ cmp byte ptr [esi+27],1        // PlayerÃ‚Â´s unit?
+ jne _ExitMUS                   // Jump if false
+
+ cmp dword ptr [iEnableMUS],0
+ je _ExitMUS                    // Jump if feature is disabled
+
+ xor eax,eax                    // make used_shield = 0
+
+_ExitMUS:
+ mov [esi+00000114],eax         // Original code
+ jmp _BackMUS                   // Back to main code
+
+//=========================================
+ db '================================&gt;'
+ db 'CE6.2 Script by Recifense 040413'
+//=========================================
+// Variables
+iEnableMPR:
+ dd 0
+iEnableGMD:
+ dd 0
+iEnableQKK:
+ dd 0
+iEnableMUE:
+ dd 0
+iEnableMUS:
+ dd 0
+pPlayer:
+ dd 0
+pUnit:
+ dd 0
+pSel:
+ dd 0
+
+//=========================================
+// Hacking Points
+MRES:
+ jmp _MonPlayerRes
+_BackMPR:
+
+GDMD:
+ jmp _GodMode
+ nop
+_BackGMD:
+
+MSEL:
+ jmp _MonSelUnit
+ nop
+_BackMSU:
+
+MUEN:
+ jmp _MonUnitEnergy
+ nop
+_BackMUE:
+
+MUSH:
+ jmp _MonUnitShield
+ nop
+_BackMUS:
+
+//=========================================
+// Script for Restoring Original Codes
+[DISABLE]
+MRES:
+// mov ecx,[ebp-04]
+// mov esi,[ecx]
+ db 8b 4d fc 8b 31
+
+GDMD:
+//mov [esi+00000110],edi
+ db 89 be 10 01 00 00
+
+MSEL:
+//mov ebx,[esi+00000110]
+ db 8b 9e 10 01 00 00
+
+MUEN:
+//mov [esi+00000118],eax
+ db 89 86 18 01 00 00
+
+MUSH:
+//mov [esi+00000114],eax
+ db 89 86 14 01 00 00
+
+//=========================================
+// Unregistering Symbols
+unregistersymbol(MyCode)
+unregistersymbol(pPlayer)
+unregistersymbol(pUnit)
+unregistersymbol(pSel)
+unregistersymbol(iEnableMPR)
+unregistersymbol(iEnableGMD)
+unregistersymbol(iEnableQKK)
+unregistersymbol(iEnableMUE)
+unregistersymbol(iEnableMUS)
+
+//=========================================
+dealloc(MyCode)
+//============= Scripts End ===============
+
+// ****************************************
+// NOTES
+// ****************************************
+{
+}
+
+</AssemblerScript>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>18</ID>
+          <Description>"Enable/Disable Minimum Resources =&gt; (1/0)"</Description>
+          <LastState Value="??" Activated="0" RealAddress="00000000"/>
+          <Color>008000</Color>
+          <VariableType>4 Bytes</VariableType>
+          <Address>iEnableMPR</Address>
+          <Hotkeys>
+            <Hotkey>
+              <Action>Set Value</Action>
+              <Keys>
+                <Key>17</Key>
+                <Key>36</Key>
+              </Keys>
+              <Value>1</Value>
+              <ID>0</ID>
+            </Hotkey>
+            <Hotkey>
+              <Action>Set Value</Action>
+              <Keys>
+                <Key>17</Key>
+                <Key>35</Key>
+              </Keys>
+              <Value>0</Value>
+              <ID>1</ID>
+            </Hotkey>
+          </Hotkeys>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>19</ID>
+          <Description>"Enable/Disable God Mode =&gt; (1/0)"</Description>
+          <LastState Value="??" Activated="0" RealAddress="00000000"/>
+          <Color>008000</Color>
+          <VariableType>4 Bytes</VariableType>
+          <Address>iEnableGMD</Address>
+          <Hotkeys>
+            <Hotkey>
+              <Action>Set Value</Action>
+              <Keys>
+                <Key>17</Key>
+                <Key>36</Key>
+              </Keys>
+              <Value>1</Value>
+              <ID>0</ID>
+            </Hotkey>
+            <Hotkey>
+              <Action>Set Value</Action>
+              <Keys>
+                <Key>17</Key>
+                <Key>35</Key>
+              </Keys>
+              <Value>0</Value>
+              <ID>1</ID>
+            </Hotkey>
+          </Hotkeys>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>25</ID>
+          <Description>"Enable/Disable Full Energy =&gt; (1/0)"</Description>
+          <LastState Value="??" Activated="0" RealAddress="00000000"/>
+          <Color>008000</Color>
+          <VariableType>4 Bytes</VariableType>
+          <Address>iEnableMUE</Address>
+          <Hotkeys>
+            <Hotkey>
+              <Action>Set Value</Action>
+              <Keys>
+                <Key>17</Key>
+                <Key>36</Key>
+              </Keys>
+              <Value>1</Value>
+              <ID>0</ID>
+            </Hotkey>
+            <Hotkey>
+              <Action>Set Value</Action>
+              <Keys>
+                <Key>17</Key>
+                <Key>35</Key>
+              </Keys>
+              <Value>0</Value>
+              <ID>1</ID>
+            </Hotkey>
+          </Hotkeys>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>28</ID>
+          <Description>"Enable/Disable Full Shield =&gt; (1/0)"</Description>
+          <LastState Value="??" Activated="0" RealAddress="00000000"/>
+          <Color>008000</Color>
+          <VariableType>4 Bytes</VariableType>
+          <Address>iEnableMUS</Address>
+          <Hotkeys>
+            <Hotkey>
+              <Action>Set Value</Action>
+              <Keys>
+                <Key>17</Key>
+                <Key>36</Key>
+              </Keys>
+              <Value>1</Value>
+              <ID>0</ID>
+            </Hotkey>
+            <Hotkey>
+              <Action>Set Value</Action>
+              <Keys>
+                <Key>17</Key>
+                <Key>35</Key>
+              </Keys>
+              <Value>0</Value>
+              <ID>1</ID>
+            </Hotkey>
+          </Hotkeys>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>41</ID>
+      <Description>"Minerals"</Description>
+      <LastState Value="??" Activated="1" RealAddress="00000000"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"SC2_x64.exe"+02091510</Address>
+      <Offsets>
+        <Offset>628</Offset>
+        <Offset>1B8</Offset>
+        <Offset>38</Offset>
+        <Offset>530</Offset>
+        <Offset>40</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>43</ID>
+      <Description>"Vespene Gas"</Description>
+      <LastState Value="??" Activated="1" RealAddress="00000000"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"SC2_x64.exe"+02091510</Address>
+      <Offsets>
+        <Offset>630</Offset>
+        <Offset>1B8</Offset>
+        <Offset>38</Offset>
+        <Offset>530</Offset>
+        <Offset>40</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>40</ID>
+      <Description>"Minerals"</Description>
+      <LastState Value="??" Activated="0" RealAddress="05260968"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>05260968</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>42</ID>
+      <Description>"Vespene Gas"</Description>
+      <LastState Value="??" Activated="0" RealAddress="05260970"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>05260970</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>36</ID>
+      <Description>"Minerals"</Description>
+      <LastState Value="??" Activated="0" RealAddress="4FC74004"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>4FC74004</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>0</ID>
+      <Description>"No description"</Description>
+      <LastState Value="??" Activated="0" RealAddress="0856B854"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>0856B854</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>1</ID>
+      <Description>"vespene gas"</Description>
+      <LastState Value="??" Activated="0" RealAddress="17A2D104"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>17A2D104</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>2</ID>
+      <Description>"minerals"</Description>
+      <LastState Value="??" Activated="0" RealAddress="0856B850"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>0856B850</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>3</ID>
+      <Description>"No description"</Description>
+      <LastState Value="??" Activated="0" RealAddress="2C67D484"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>2C67D484</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>4</ID>
+      <Description>"No description"</Description>
+      <LastState Value="??" Activated="0" RealAddress="2C67D48C"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>2C67D48C</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>5</ID>
+      <Description>"No description"</Description>
+      <LastState Value="??" Activated="0" RealAddress="9C68A968"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>9C68A968</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>6</ID>
+      <Description>"No description"</Description>
+      <LastState Value="??" Activated="0" RealAddress="17A2D10C"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>17A2D10C</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>30</ID>
+      <Description>"Vespene Gas for v1.4.3.21029 human player only (not working for AI/computer)"</Description>
+      <LastState Value="??" Activated="0" RealAddress="00000000"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>SC2.exe+1EA9450</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>31</ID>
+      <Description>"Terrazine for v1.4.3.21029 human player only (not working for AI/computer)"</Description>
+      <LastState Value="??" Activated="0" RealAddress="00000000"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>SC2.exe+1EA9458</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>32</ID>
+      <Description>"Population * 4096 for v1.4.3.21029 human player only (not working for AI/computer)"</Description>
+      <LastState Value="??" Activated="0" RealAddress="00000000"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>SC2.exe+1EA9432</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>33</ID>
+      <Description>"No description"</Description>
+      <LastState Value="??" Activated="0" RealAddress="22554F80"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>22554F80</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>34</ID>
+      <Description>"No description"</Description>
+      <LastState Value="??" Activated="0" RealAddress="4FBBC1C0"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>4FBBC1C0</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>35</ID>
+      <Description>"No description"</Description>
+      <LastState Value="??" Activated="0" RealAddress="4FC727C0"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>4FC727C0</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>37</ID>
+      <Description>"No description"</Description>
+      <LastState Value="??" Activated="0" RealAddress="4FC7400C"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>4FC7400C</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>38</ID>
+      <Description>"No description"</Description>
+      <LastState Value="??" Activated="0" RealAddress="A78289F8"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>A78289F8</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>39</ID>
+      <Description>"No description"</Description>
+      <LastState Value="??" Activated="0" RealAddress="7FF787350BD0"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>7FF787350BD0</Address>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+  <LuaScript>[ENABLE]
+//code from here to '[DISABLE]' will be used to enable the cheat
+alloc(cave,256)
+alloc(table,256)
+label(back)
+label(loop)
+label(exit)
+
+table:
+//
+// for v1.4.3.21029 by nemrod
+dd 14DC0DC // Cooldown On/Off
+//dd  // Lose Mission
+//dd  // Fast Build On/Off
+//dd  // Fast Heal On/Off
+//dd  // Food Usage (Supply/Control/Psi) On/Off
+//dd  // Cost checking On/Off
+//dd  // 5,000 Minerals and Vespene Gas Granted
+//dd  // 5,000 Minerals Granted
+dd 14DC1C8 // God Mode On/Off
+//dd 14EEEB0 // Defeat Conditions
+//dd 14EEECC // Victory Conditions
+//dd 14EEF04 // Fog of War On/Off
+//dd 14EEF20 // Tech Requirements On/Off
+//dd 14EEF3C // Resources Granted
+//dd 14EEF58 // Time of Day Progression On/Off
+//dd 14EEF80 // Upgrades +1 (Weapon, Armor, Shield), Research All Abilities
+//dd 14EEFC0 // 5,000 Vespene Gas Granted
+//dd 14EEFDC // Win Mission
+//dd 14EEFF8 // Gives $5000 Credits
+//dd 14EF014 // Show Mission Progress
+//dd 14EF04C // TV News (Use Outside of Mission)
+//dd 14EF068 // Research Points Granted
+//
+// for v1.1.2.16755 by nemrod
+//dd 14EED8C // Cooldown On/Off
+//dd 14EEDB8 // Lose Mission
+//dd 14EEDD4 // Fast Build On/Off
+//dd 14EEDF0 // Fast Heal On/Off
+//dd 14EEE0C // Food Usage (Supply/Control/Psi) On/Off
+//dd 14EEE28 // Cost checking On/Off
+//dd 14EEE44 // 5,000 Minerals and Vespene Gas Granted
+//dd 14EEE94 // 5,000 Minerals Granted
+//dd 14EEE78 // God Mode On/Off
+//dd 14EEEB0 // Defeat Conditions
+//dd 14EEECC // Victory Conditions
+//dd 14EEF04 // Fog of War On/Off
+//dd 14EEF20 // Tech Requirements On/Off
+//dd 14EEF3C // Resources Granted
+//dd 14EEF58 // Time of Day Progression On/Off
+//dd 14EEF80 // Upgrades +1 (Weapon, Armor, Shield), Research All Abilities
+//dd 14EEFC0 // 5,000 Vespene Gas Granted
+//dd 14EEFDC // Win Mission
+//dd 14EEFF8 // Gives $5000 Credits
+//dd 14EF014 // Show Mission Progress
+//dd 14EF04C // TV News (Use Outside of Mission)
+//dd 14EF068 // Research Points Granted
+//
+// for v1.1.1.16605 by nemrod
+//dd 14EEC4C // cooldown
+//dd 14EEC94 // fast build
+//dd 14EECB0 // fast heal
+//dd 14EECCC // population
+//dd 14EECE8 // cost cheat
+//dd 14EED04 // resources
+//dd 14EED38 // god mode
+//dd 14EEDC4 // reveal map
+//dd 14EEDE0 // disable techs
+//
+// for v1.0.2.16223 by SunBeam
+//dd 14C821C // cooldown
+//dd 14C8264 // fast build
+//dd 14C8280 // fast heal
+//dd 14C829C // population
+//dd 14C82B8 // cost cheat
+//dd 14C82D4 // resources
+//dd 14C8308 // god mode
+//dd 14C8394 // reveal map
+//dd 14C83B0 // disable techs
+dd 0000000 // NULL terminator
+
+cave:
+pushfd
+pushad
+mov ebx,table
+loop:
+cmp dword ptr [ebx],0
+je exit
+mov eax,[ebx]
+mov edx,[eax+C]
+push esi
+mov ecx,edi
+call edx
+add ebx,4
+jmp loop
+exit:
+popad
+popfd
+jmp back+5
+
+SC2.exe+259D70: // for v1.4.3.21029 by nemrod
+//SC2.exe+2E6ED0: // for v1.1.2.16755 by nemrod
+//SC2.exe+2E7240: // for v1.1.1.16605 by nemrod
+//SC2.exe+2D5730: // for v1.0.2.16223 by SunBeam
+ret // disable achievements disabler
+
+SC2.exe+2A5EA9C: // for v1.4.3.21029 by nemrod
+//SC2.exe+2E8DDC: // for v1.1.2.16755 by nemrod
+//SC2.exe+2E90FC: // for v1.1.1.16605 by nemrod
+//SC2.exe+2D749C: // for v1.0.2.16223 by SunBeam
+jmp cave
+back:
+
+[DISABLE]
+//code from here till the end of the code will be used to disable the cheat
+SC2.exe+259D70: // for v1.4.3.21029 by nemrod
+//SC2.exe+2E6ED0: // for v1.1.2.16755 by nemrod
+//SC2.exe+2E7240: // for v1.1.1.16605 by nemrod
+//SC2.exe+2D5730: // for v1.0.2.16223 by SunBeam
+push ebp
+
+SC2.exe+2A5EA9C: // for v1.4.3.21029 by nemrod
+//SC2.exe+2E8DDC: // for v1.1.2.16755 by nemrod
+//SC2.exe+2E90FC: // for v1.1.1.16605 by nemrod
+//SC2.exe+2D749C: // for v1.0.2.16223 by SunBeam
+mov eax,[edi]
+mov edx,[eax+C]
+
+dealloc(table)
+dealloc(cave)
+</LuaScript>
+</CheatTable>

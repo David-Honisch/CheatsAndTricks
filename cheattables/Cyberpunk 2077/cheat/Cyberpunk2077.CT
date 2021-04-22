@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="26">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>1</ID>
+      <Description>"Cyberpunk 2077 (GOG)"</Description>
+      <Options moHideChildren="1"/>
+	  <GroupHeader>1</GroupHeader>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>10</ID>
+          <Description>"Enable"</Description>
+          <Options moHideChildren="1"/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+label(AttributesBasePtr)
+registersymbol(AttributesBasePtr)
+
+"Cyberpunk2077.exe" + 045D7248:
+AttributesBasePtr:
+
+[DISABLE]
+
+</AssemblerScript>
+        <CheatEntries>
+			<CheatEntry>
+              <ID>100</ID>
+              <Description>"[Scripts]"</Description>
+              <Options moHideChildren="1"/>
+              <GroupHeader>1</GroupHeader>
+              <CheatEntries>
+			  </CheatEntries>
+			</CheatEntry>
+            <CheatEntry>
+              <ID>4000</ID>
+              <Description>"Pointers"</Description>
+              <Options moHideChildren="1"/>
+			  <GroupHeader>1</GroupHeader>
+			  <CheatEntries>
+                <CheatEntry>
+                  <ID>4100</ID>
+                  <Description>"Player Attributes"</Description>
+				  <Options moHideChildren="1" moRecursiveSetValue="1"/>
+				  <GroupHeader>1</GroupHeader>
+				  <CheatEntries>
+					<CheatEntry>
+					  <ID>4101</ID>
+					  <Description>"Body"</Description>
+					  <VariableType>4 Bytes</VariableType>
+					  <Address>AttributesBasePtr</Address>
+					  <Offsets>
+						<Offset>40</Offset>
+						<Offset>38</Offset>
+						<Offset>F0</Offset>
+						<Offset>38</Offset>
+						<Offset>128</Offset>
+						<Offset>98</Offset>
+						<Offset>40</Offset>
+					  </Offsets>
+					</CheatEntry>
+					<CheatEntry>
+					  <ID>4102</ID>
+					  <Description>"Intelligence"</Description>
+					  <VariableType>4 Bytes</VariableType>
+					  <Address>AttributesBasePtr</Address>
+					  <Offsets>
+						<Offset>40</Offset>
+						<Offset>38</Offset>
+						<Offset>F0</Offset>
+						<Offset>38</Offset>
+						<Offset>128</Offset>
+						<Offset>260</Offset>
+						<Offset>40</Offset>
+					  </Offsets>
+					</CheatEntry>
+					<CheatEntry>
+					  <ID>4103</ID>
+					  <Description>"Reflexes"</Description>
+					  <VariableType>4 Bytes</VariableType>
+					  <Address>AttributesBasePtr</Address>
+					  <Offsets>
+						<Offset>40</Offset>
+						<Offset>38</Offset>
+						<Offset>F0</Offset>
+						<Offset>38</Offset>
+						<Offset>128</Offset>
+						<Offset>428</Offset>
+						<Offset>40</Offset>
+					  </Offsets>
+					</CheatEntry>
+					<CheatEntry>
+					  <ID>4104</ID>
+					  <Description>"Technical Ability"</Description>
+					  <VariableType>4 Bytes</VariableType>
+					  <Address>AttributesBasePtr</Address>
+					  <Offsets>
+						<Offset>40</Offset>
+						<Offset>38</Offset>
+						<Offset>F0</Offset>
+						<Offset>38</Offset>
+						<Offset>128</Offset>
+						<Offset>5F0</Offset>
+						<Offset>40</Offset>
+					  </Offsets>
+					</CheatEntry>
+					<CheatEntry>
+					  <ID>4104</ID>
+					  <Description>"Cool"</Description>
+					  <VariableType>4 Bytes</VariableType>
+					  <Address>AttributesBasePtr</Address>
+					  <Offsets>
+						<Offset>40</Offset>
+						<Offset>38</Offset>
+						<Offset>F0</Offset>
+						<Offset>38</Offset>
+						<Offset>128</Offset>
+						<Offset>7B8</Offset>
+						<Offset>40</Offset>
+					  </Offsets>
+					</CheatEntry>
+				  </CheatEntries>
+                </CheatEntry>
+			  </CheatEntries>
+			</CheatEntry>
+		</CheatEntries>
+		</CheatEntry>
+	   </CheatEntries>
+	</CheatEntry>
+	</CheatEntries>
+<LuaScript>
+function lua_aobscan(name,module,bytes,index)
+  index = index - 1
+  if(module == "") then
+    local resultSet = AOBScan(bytes)
+      if(resultSet == nil) then
+        unregisterSymbol(name)
+        print(name.." not found")
+      else
+        unregisterSymbol(name)
+        registerSymbol(name,resultSet[index])
+        resultSet.destroy()
+      end
+  else
+    if(getModuleSize(module) == nil) then
+      print("Module "..module.." not found")
+    else
+      local memScanner = createMemScan()
+      local memFoundList = createFoundList(memScanner)
+      memScanner.firstScan(
+        soExactValue,vtByteArray,rtRounded,bytes,nil,
+        getAddress(module),(getAddress(module)+getModuleSize(module)),"",
+        fsmNotAligned,"",true,false,false,false)
+      memScanner.waitTillDone()
+      memFoundList.initialize()
+        if(memFoundList.Count == 0) then
+          unregisterSymbol(name)
+          print(name.." in module "..module.." not found")
+        else
+          unregisterSymbol(name)
+          registerSymbol(name,memFoundList.Address[index])
+        end
+      memScanner.destroy()
+      memFoundList.destroy()
+    end
+  end
+end
+</LuaScript>
+</CheatTable>

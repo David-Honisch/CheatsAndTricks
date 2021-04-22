@@ -1,0 +1,237 @@
+<?xml version="1.0"?>
+<CheatTable CheatEngineTableVersion="12">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>6</ID>
+      <Description>"No Reload"</Description>
+      <Color>80000008</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+//code from here to '[DISABLE]' will be used to enable the cheat
+alloc(newmem,32) //2kb should be enough
+label(returnhere)
+label(originalcode)
+label(exit)
+
+newmem: //this is allocated memory, you have read,write,execute access
+//place your code here
+cmp esi,[dxhr.exe+199e720]
+jnz originalcode
+
+mov ecx,[esi+70]
+jmp exit
+
+originalcode:
+dec word ptr [eax+14]
+mov ecx,[esi+70]
+
+exit:
+jmp returnhere
+
+"dxhr.exe"+12BC18:
+jmp newmem
+nop
+nop
+returnhere:
+
+
+
+ 
+ 
+[DISABLE]
+//code from here till the end of the code will be used to disable the cheat
+dealloc(newmem)
+"dxhr.exe"+12BC18:
+dec word ptr [eax+14]
+mov ecx,[esi+70]
+//Alt: db 66 FF 48 14 8B 4E 70
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>8</ID>
+      <Description>"Health"</Description>
+      <Color>80000008</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+//code from here to '[DISABLE]' will be used to enable the cheat
+alloc(newmem,2048) //2kb should be enough
+label(returnhere)
+label(originalcode)
+label(exit)
+
+newmem: //this is allocated memory, you have read,write,execute access
+//place your code here
+push eax
+lea eax, [dxhr.exe+1729afc]
+mov eax, [eax]
+mov eax, [eax]
+mov eax, [eax+4]
+mov eax, [eax+58]
+mov eax, [eax+14]
+//mov eax, [eax+60]
+mov eax, [eax+64]
+cmp esi, eax
+pop eax
+jnz originalcode
+
+fstp dword ptr [esi+5C]
+jmp exit
+
+originalcode:
+fsub dword ptr [esp+10]
+fstp dword ptr [esi+5C]
+
+exit:
+jmp returnhere
+
+"dxhr.exe"+37DA63:
+jmp newmem
+nop
+nop
+returnhere:
+
+
+
+[DISABLE]
+//code from here till the end of the code will be used to disable the cheat
+dealloc(newmem)
+"dxhr.exe"+37DA63:
+fsub dword ptr [esp+10]
+fstp dword ptr [esi+5C]
+//Alt: db D8 64 24 10 D9 5E 5C
+
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>9</ID>
+      <Description>"Battery Unlim_set to 1"</Description>
+      <Color>80000008</Color>
+      <VariableType>Byte</VariableType>
+      <Address>01d9e4d5</Address>
+    </CheatEntry>
+  </CheatEntries>
+  <CheatCodes>
+    <CodeEntry>
+      <Description>Change of dec word ptr [eax+14] Ammo</Description>
+      <Address>0052BC18</Address>
+      <ModuleName>dxhr.exe</ModuleName>
+      <ModuleNameOffset>12BC18</ModuleNameOffset>
+      <Before>
+        <Byte>79</Byte>
+        <Byte>18</Byte>
+        <Byte>00</Byte>
+        <Byte>7C</Byte>
+        <Byte>28</Byte>
+      </Before>
+      <Actual>
+        <Byte>66</Byte>
+        <Byte>FF</Byte>
+        <Byte>48</Byte>
+        <Byte>14</Byte>
+      </Actual>
+      <After>
+        <Byte>8B</Byte>
+        <Byte>4E</Byte>
+        <Byte>70</Byte>
+        <Byte>0F</Byte>
+        <Byte>B7</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Code :fstp dword ptr [ecx+04] sub buttery</Description>
+      <Address>004298BF</Address>
+      <ModuleName>dxhr.exe</ModuleName>
+      <ModuleNameOffset>298BF</ModuleNameOffset>
+      <Before>
+        <Byte>01</Byte>
+        <Byte>DE</Byte>
+        <Byte>E2</Byte>
+        <Byte>D9</Byte>
+        <Byte>C9</Byte>
+      </Before>
+      <Actual>
+        <Byte>D9</Byte>
+        <Byte>59</Byte>
+        <Byte>04</Byte>
+      </Actual>
+      <After>
+        <Byte>D9</Byte>
+        <Byte>59</Byte>
+        <Byte>08</Byte>
+        <Byte>C2</Byte>
+        <Byte>04</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Code :fstp dword ptr [esi+5C] sub health</Description>
+      <Address>0077DA67</Address>
+      <ModuleName>dxhr.exe</ModuleName>
+      <ModuleNameOffset>37DA67</ModuleNameOffset>
+      <Before>
+        <Byte>5C</Byte>
+        <Byte>D8</Byte>
+        <Byte>64</Byte>
+        <Byte>24</Byte>
+        <Byte>10</Byte>
+      </Before>
+      <Actual>
+        <Byte>D9</Byte>
+        <Byte>5E</Byte>
+        <Byte>5C</Byte>
+      </Actual>
+      <After>
+        <Byte>D9</Byte>
+        <Byte>41</Byte>
+        <Byte>68</Byte>
+        <Byte>D9</Byte>
+        <Byte>5E</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Code :mov [dxhr.exe+199E720],eax !!!ESI</Description>
+      <Address>007E6D06</Address>
+      <ModuleName>dxhr.exe</ModuleName>
+      <ModuleNameOffset>3E6D06</ModuleNameOffset>
+      <Before>
+        <Byte>01</Byte>
+        <Byte>8B</Byte>
+        <Byte>56</Byte>
+        <Byte>18</Byte>
+        <Byte>41</Byte>
+      </Before>
+      <Actual>
+        <Byte>A3</Byte>
+        <Byte>20</Byte>
+        <Byte>E7</Byte>
+        <Byte>D9</Byte>
+        <Byte>01</Byte>
+      </Actual>
+      <After>
+        <Byte>89</Byte>
+        <Byte>15</Byte>
+        <Byte>1C</Byte>
+        <Byte>E7</Byte>
+        <Byte>D9</Byte>
+      </After>
+    </CodeEntry>
+  </CheatCodes>
+  <UserdefinedSymbols/>
+  <DisassemblerComments>
+    <DisassemblerComment>
+      <Address>"dxhr.exe"+D003</Address>
+      <Comment>store health when inc</Comment>
+    </DisassemblerComment>
+    <DisassemblerComment>
+      <Address>"dxhr.exe"+298BF</Address>
+      <Comment>sub battery</Comment>
+    </DisassemblerComment>
+    <DisassemblerComment>
+      <Address>"dxhr.exe"+37DA67</Address>
+      <Comment>store health when sub</Comment>
+    </DisassemblerComment>
+    <DisassemblerComment>
+      <Address>"dxhr.exe"+3F0DC7</Address>
+      <Comment>in EDI  + 5c  health</Comment>
+    </DisassemblerComment>
+  </DisassemblerComments>
+</CheatTable>

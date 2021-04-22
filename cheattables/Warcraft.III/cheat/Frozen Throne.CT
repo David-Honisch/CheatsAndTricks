@@ -1,0 +1,616 @@
+<?xml version="1.0"?>
+<CheatTable CheatEngineTableVersion="12">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>0</ID>
+      <Description>"Player 1 Gold"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>GameMain+AC4D70</Address>
+      <Offsets>
+        <Offset>78</Offset>
+        <Offset>14</Offset>
+        <Offset>C</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>1</ID>
+      <Description>"Player 1 Wood"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>GameMain+AC4D70</Address>
+      <Offsets>
+        <Offset>78</Offset>
+        <Offset>1C</Offset>
+        <Offset>C</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>2</ID>
+      <Description>"Player 1 Max Food"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>GameMain+AC4D70</Address>
+      <Offsets>
+        <Offset>78</Offset>
+        <Offset>2C</Offset>
+        <Offset>C</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>3</ID>
+      <Description>"Player 1 Current Food"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>GameMain+AC4D70</Address>
+      <Offsets>
+        <Offset>78</Offset>
+        <Offset>34</Offset>
+        <Offset>C</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>4</ID>
+      <Description>"Player 2 Gold"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>GameMain+AC4D70</Address>
+      <Offsets>
+        <Offset>78</Offset>
+        <Offset>154</Offset>
+        <Offset>C</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>5</ID>
+      <Description>"Player 2 Wood"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>GameMain+AC4D70</Address>
+      <Offsets>
+        <Offset>78</Offset>
+        <Offset>15C</Offset>
+        <Offset>C</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>6</ID>
+      <Description>"Player 2 Max Food"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>GameMain+AC4D70</Address>
+      <Offsets>
+        <Offset>78</Offset>
+        <Offset>16C</Offset>
+        <Offset>C</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>7</ID>
+      <Description>"Player 2 Current Food"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>GameMain+AC4D70</Address>
+      <Offsets>
+        <Offset>78</Offset>
+        <Offset>174</Offset>
+        <Offset>C</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>8</ID>
+      <Description>"Player 3 Gold"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>GameMain+AC4D70</Address>
+      <Offsets>
+        <Offset>78</Offset>
+        <Offset>294</Offset>
+        <Offset>C</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>9</ID>
+      <Description>"Player 3 Wood"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>GameMain+AC4D70</Address>
+      <Offsets>
+        <Offset>78</Offset>
+        <Offset>29C</Offset>
+        <Offset>C</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>10</ID>
+      <Description>"Player 3 Max Food"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>GameMain+AC4D70</Address>
+      <Offsets>
+        <Offset>78</Offset>
+        <Offset>30C</Offset>
+        <Offset>C</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>11</ID>
+      <Description>"Player 3 Current Food"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>GameMain+AC4D70</Address>
+      <Offsets>
+        <Offset>78</Offset>
+        <Offset>314</Offset>
+        <Offset>C</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>12</ID>
+      <Description>"Player 4 Gold"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>GameMain+AC4D70</Address>
+      <Offsets>
+        <Offset>78</Offset>
+        <Offset>3D4</Offset>
+        <Offset>C</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>13</ID>
+      <Description>"Player 4 Wood"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>GameMain+AC4D70</Address>
+      <Offsets>
+        <Offset>78</Offset>
+        <Offset>3DC</Offset>
+        <Offset>C</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>14</ID>
+      <Description>"Player 4 Max Food"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>GameMain+AC4D70</Address>
+      <Offsets>
+        <Offset>78</Offset>
+        <Offset>3EC</Offset>
+        <Offset>C</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>15</ID>
+      <Description>"Player 4 Current Food"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>GameMain+AC4D70</Address>
+      <Offsets>
+        <Offset>78</Offset>
+        <Offset>3F4</Offset>
+        <Offset>C</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>16</ID>
+      <Description>"Player 5 Gold"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>GameMain+AC4D70</Address>
+      <Offsets>
+        <Offset>78</Offset>
+        <Offset>514</Offset>
+        <Offset>C</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>17</ID>
+      <Description>"Player 5 Wood"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>GameMain+AC4D70</Address>
+      <Offsets>
+        <Offset>78</Offset>
+        <Offset>51C</Offset>
+        <Offset>C</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>18</ID>
+      <Description>"Player 5 Max Food"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>GameMain+AC4D70</Address>
+      <Offsets>
+        <Offset>78</Offset>
+        <Offset>52C</Offset>
+        <Offset>C</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>19</ID>
+      <Description>"Player 5 Current Food"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>GameMain+AC4D70</Address>
+      <Offsets>
+        <Offset>78</Offset>
+        <Offset>534</Offset>
+        <Offset>C</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>20</ID>
+      <Description>"Player 6 Gold"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>GameMain+AC4D70</Address>
+      <Offsets>
+        <Offset>78</Offset>
+        <Offset>654</Offset>
+        <Offset>C</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>21</ID>
+      <Description>"Player 6 Wood"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>GameMain+AC4D70</Address>
+      <Offsets>
+        <Offset>78</Offset>
+        <Offset>65C</Offset>
+        <Offset>C</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>22</ID>
+      <Description>"Player 6 Max Food"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>GameMain+AC4D70</Address>
+      <Offsets>
+        <Offset>78</Offset>
+        <Offset>66C</Offset>
+        <Offset>C</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>23</ID>
+      <Description>"Player 6 Current Food"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>GameMain+AC4D70</Address>
+      <Offsets>
+        <Offset>78</Offset>
+        <Offset>674</Offset>
+        <Offset>C</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>24</ID>
+      <Description>"Player 7 Gold"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>GameMain+AC4D70</Address>
+      <Offsets>
+        <Offset>78</Offset>
+        <Offset>794</Offset>
+        <Offset>C</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>25</ID>
+      <Description>"Player 7 Wood"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>GameMain+AC4D70</Address>
+      <Offsets>
+        <Offset>78</Offset>
+        <Offset>79C</Offset>
+        <Offset>C</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>26</ID>
+      <Description>"Player 7 Max Food"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>GameMain+AC4D70</Address>
+      <Offsets>
+        <Offset>78</Offset>
+        <Offset>80C</Offset>
+        <Offset>C</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>27</ID>
+      <Description>"Player 7 Current Food"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>GameMain+AC4D70</Address>
+      <Offsets>
+        <Offset>78</Offset>
+        <Offset>804</Offset>
+        <Offset>C</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>28</ID>
+      <Description>"Player 8 Gold"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>GameMain+AC4D70</Address>
+      <Offsets>
+        <Offset>78</Offset>
+        <Offset>8D4</Offset>
+        <Offset>C</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>29</ID>
+      <Description>"Player 8 Wood"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>GameMain+AC4D70</Address>
+      <Offsets>
+        <Offset>78</Offset>
+        <Offset>8DC</Offset>
+        <Offset>C</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>30</ID>
+      <Description>"Player 8 Max Food"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>GameMain+AC4D70</Address>
+      <Offsets>
+        <Offset>78</Offset>
+        <Offset>8EC</Offset>
+        <Offset>C</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>31</ID>
+      <Description>"Player 8 Current Food"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>GameMain+AC4D70</Address>
+      <Offsets>
+        <Offset>78</Offset>
+        <Offset>8F4</Offset>
+        <Offset>C</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>32</ID>
+      <Description>"Player 9 Gold"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>GameMain+AC4D70</Address>
+      <Offsets>
+        <Offset>78</Offset>
+        <Offset>A14</Offset>
+        <Offset>C</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>33</ID>
+      <Description>"Player 9 Wood"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>GameMain+AC4D70</Address>
+      <Offsets>
+        <Offset>78</Offset>
+        <Offset>A1C</Offset>
+        <Offset>C</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>34</ID>
+      <Description>"Player 9 Max Food"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>GameMain+AC4D70</Address>
+      <Offsets>
+        <Offset>78</Offset>
+        <Offset>A2C</Offset>
+        <Offset>C</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>35</ID>
+      <Description>"Player 9 Current Food"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>GameMain+AC4D70</Address>
+      <Offsets>
+        <Offset>78</Offset>
+        <Offset>A34</Offset>
+        <Offset>C</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>36</ID>
+      <Description>"Player 10 Gold"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>GameMain+AC4D70</Address>
+      <Offsets>
+        <Offset>78</Offset>
+        <Offset>C94</Offset>
+        <Offset>C</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>37</ID>
+      <Description>"Player 10 Wood"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>GameMain+AC4D70</Address>
+      <Offsets>
+        <Offset>78</Offset>
+        <Offset>C9C</Offset>
+        <Offset>C</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>38</ID>
+      <Description>"Player 10 Max Food"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>GameMain+AC4D70</Address>
+      <Offsets>
+        <Offset>78</Offset>
+        <Offset>CAC</Offset>
+        <Offset>C</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>39</ID>
+      <Description>"Player 10 Current Food"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>GameMain+AC4D70</Address>
+      <Offsets>
+        <Offset>78</Offset>
+        <Offset>CB4</Offset>
+        <Offset>C</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>40</ID>
+      <Description>"Player 11 Gold"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>GameMain+AC4D70</Address>
+      <Offsets>
+        <Offset>78</Offset>
+        <Offset>B54</Offset>
+        <Offset>C</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>41</ID>
+      <Description>"Player 11 Wood"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>GameMain+AC4D70</Address>
+      <Offsets>
+        <Offset>78</Offset>
+        <Offset>B5C</Offset>
+        <Offset>C</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>42</ID>
+      <Description>"Player 11 Max Food"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>GameMain+AC4D70</Address>
+      <Offsets>
+        <Offset>78</Offset>
+        <Offset>B6C</Offset>
+        <Offset>C</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>43</ID>
+      <Description>"Player 11 Current Food"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>GameMain+AC4D70</Address>
+      <Offsets>
+        <Offset>78</Offset>
+        <Offset>B74</Offset>
+        <Offset>C</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>44</ID>
+      <Description>"Player 12 Gold"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>GameMain+AC4D70</Address>
+      <Offsets>
+        <Offset>78</Offset>
+        <Offset>DD4</Offset>
+        <Offset>C</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>45</ID>
+      <Description>"Player 12 Wood"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>GameMain+AC4D70</Address>
+      <Offsets>
+        <Offset>78</Offset>
+        <Offset>DDC</Offset>
+        <Offset>C</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>46</ID>
+      <Description>"Player 12 Max Food"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>GameMain+AC4D70</Address>
+      <Offsets>
+        <Offset>78</Offset>
+        <Offset>DEC</Offset>
+        <Offset>C</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>47</ID>
+      <Description>"Player 12 Current Food"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>GameMain+AC4D70</Address>
+      <Offsets>
+        <Offset>78</Offset>
+        <Offset>DF4</Offset>
+        <Offset>C</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>48</ID>
+      <Description>"Gold Mines"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>GameMain+AC4D70</Address>
+      <Offsets>
+        <Offset>6C</Offset>
+        <Offset>54</Offset>
+        <Offset>17B4</Offset>
+        <Offset>C</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>49</ID>
+      <Description>"Distance"</Description>
+      <Color>80000008</Color>
+      <VariableType>Float</VariableType>
+      <Address>6F9485BC</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>50</ID>
+      <Description>"AoA"</Description>
+      <Color>80000008</Color>
+      <VariableType>Float</VariableType>
+      <Address>6F948598</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>51</ID>
+      <Description>"Rotation"</Description>
+      <Color>80000008</Color>
+      <VariableType>Float</VariableType>
+      <Address>6F9485A4</Address>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+</CheatTable>

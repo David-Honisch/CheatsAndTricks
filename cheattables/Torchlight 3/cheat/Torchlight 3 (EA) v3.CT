@@ -1,0 +1,532 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="31">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>157</ID>
+      <Description>"────────────────────────────    A  C  T  I  V   A   T   O   R   S   ───────────────────────────────────"</Description>
+      <Options moHideChildren="1"/>
+      <LastState Value="" Activated="1" RealAddress="00000000"/>
+      <Color>400080</Color>
+      <GroupHeader>1</GroupHeader>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>17</ID>
+          <Description>"Infinite Health, Infinite Relic Energy &amp; Ammo (Numpad 1)"</Description>
+          <LastState/>
+          <Color>0000FF</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{ Game   : Frontiers-Win64-Shipping.exe
+  Version: 
+  Date   : 2020-10-07
+  Author : ndck76
+}
+
+[ENABLE]
+
+aobscanmodule(hp1,Frontiers-Win64-Shipping.exe,F3 0F 11 B3 50 01 00 00 E8 45) // should be unique
+alloc(newmem,$1000,"Frontiers-Win64-Shipping.exe"+52C9FE)
+
+label(code)
+label(return)
+
+newmem:
+
+code:
+  mov [rbx+00000150],(float)99999
+  jmp return
+
+hp1:
+  jmp newmem
+  nop 3
+return:
+registersymbol(hp1)
+
+[DISABLE]
+
+hp1:
+  db F3 0F 11 B3 50 01 00 00
+
+unregistersymbol(hp1)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: "Frontiers-Win64-Shipping.exe"+52C9FE
+
+"Frontiers-Win64-Shipping.exe"+52C9D2: 48 83 EC 30              -  sub rsp,30
+"Frontiers-Win64-Shipping.exe"+52C9D6: 48 8B 01                 -  mov rax,[rcx]
+"Frontiers-Win64-Shipping.exe"+52C9D9: 48 8B D9                 -  mov rbx,rcx
+"Frontiers-Win64-Shipping.exe"+52C9DC: 0F 29 74 24 20           -  movaps [rsp+20],xmm6
+"Frontiers-Win64-Shipping.exe"+52C9E1: 0F 28 F1                 -  movaps xmm6,xmm1
+"Frontiers-Win64-Shipping.exe"+52C9E4: FF 90 C0 03 00 00        -  call qword ptr [rax+000003C0]
+"Frontiers-Win64-Shipping.exe"+52C9EA: 0F 2E B3 50 01 00 00     -  ucomiss xmm6,[rbx+00000150]
+"Frontiers-Win64-Shipping.exe"+52C9F1: F3 0F 11 83 54 01 00 00  -  movss [rbx+00000154],xmm0
+"Frontiers-Win64-Shipping.exe"+52C9F9: 74 10                    -  je Frontiers-Win64-Shipping.exe+52CA0B
+"Frontiers-Win64-Shipping.exe"+52C9FB: 48 8B CB                 -  mov rcx,rbx
+// ---------- INJECTING HERE ----------
+"Frontiers-Win64-Shipping.exe"+52C9FE: F3 0F 11 B3 50 01 00 00  -  movss [rbx+00000150],xmm6
+// ---------- DONE INJECTING  ----------
+"Frontiers-Win64-Shipping.exe"+52CA06: E8 45 5D FF FF           -  call Frontiers-Win64-Shipping.exe+522750
+"Frontiers-Win64-Shipping.exe"+52CA0B: 0F 28 74 24 20           -  movaps xmm6,[rsp+20]
+"Frontiers-Win64-Shipping.exe"+52CA10: 48 83 C4 30              -  add rsp,30
+"Frontiers-Win64-Shipping.exe"+52CA14: 5B                       -  pop rbx
+"Frontiers-Win64-Shipping.exe"+52CA15: C3                       -  ret 
+"Frontiers-Win64-Shipping.exe"+52CA16: CC                       -  int 3 
+"Frontiers-Win64-Shipping.exe"+52CA17: CC                       -  int 3 
+"Frontiers-Win64-Shipping.exe"+52CA18: CC                       -  int 3 
+"Frontiers-Win64-Shipping.exe"+52CA19: CC                       -  int 3 
+"Frontiers-Win64-Shipping.exe"+52CA1A: CC                       -  int 3 
+}
+</AssemblerScript>
+          <Hotkeys>
+            <Hotkey>
+              <Action>Toggle Activation</Action>
+              <Keys>
+                <Key>97</Key>
+              </Keys>
+              <ID>0</ID>
+              <ActivateSound TTS="EN">Infinite Health, Infinite Relic Energy &amp; Ammo on</ActivateSound>
+              <DeactivateSound TTS="EN">Infinite Health, Infinite Relic Energy &amp; Ammo off</DeactivateSound>
+            </Hotkey>
+          </Hotkeys>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>14</ID>
+          <Description>"Infinite Health Potions (Numpad 2)"</Description>
+          <LastState/>
+          <Color>FF0000</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{ Game   : Frontiers-Win64-Shipping.exe
+  Version: 
+  Date   : 2020-10-07
+  Author : ndck76
+}
+
+[ENABLE]
+
+aobscanmodule(potions1,Frontiers-Win64-Shipping.exe,29 AE A4 00 00 00) // should be unique
+alloc(newmem,$1000,"Frontiers-Win64-Shipping.exe"+8342CA)
+
+label(code)
+label(return)
+
+newmem:
+
+code:
+  mov [rsi+000000A4],(int)999
+  jmp return
+
+potions1:
+  jmp newmem
+  nop
+return:
+registersymbol(potions1)
+
+[DISABLE]
+
+potions1:
+  db 29 AE A4 00 00 00
+
+unregistersymbol(potions1)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: "Frontiers-Win64-Shipping.exe"+8342CA
+
+"Frontiers-Win64-Shipping.exe"+8342AA: 3B E8                 -  cmp ebp,eax
+"Frontiers-Win64-Shipping.exe"+8342AC: 0F 8F E3 00 00 00     -  jg Frontiers-Win64-Shipping.exe+834395
+"Frontiers-Win64-Shipping.exe"+8342B2: 7D 2A                 -  jnl Frontiers-Win64-Shipping.exe+8342DE
+"Frontiers-Win64-Shipping.exe"+8342B4: 48 8B 06              -  mov rax,[rsi]
+"Frontiers-Win64-Shipping.exe"+8342B7: 48 8B CE              -  mov rcx,rsi
+"Frontiers-Win64-Shipping.exe"+8342BA: FF 50 38              -  call qword ptr [rax+38]
+"Frontiers-Win64-Shipping.exe"+8342BD: 48 8B D8              -  mov rbx,rax
+"Frontiers-Win64-Shipping.exe"+8342C0: E8 9B 80 0A 00        -  call Frontiers-Win64-Shipping.exe+8DC360
+"Frontiers-Win64-Shipping.exe"+8342C5: 48 3B D8              -  cmp rbx,rax
+"Frontiers-Win64-Shipping.exe"+8342C8: 75 12                 -  jne Frontiers-Win64-Shipping.exe+8342DC
+// ---------- INJECTING HERE ----------
+"Frontiers-Win64-Shipping.exe"+8342CA: 29 AE A4 00 00 00     -  sub [rsi+000000A4],ebp
+// ---------- DONE INJECTING  ----------
+"Frontiers-Win64-Shipping.exe"+8342D0: 48 8B CF              -  mov rcx,rdi
+"Frontiers-Win64-Shipping.exe"+8342D3: 48 8B 07              -  mov rax,[rdi]
+"Frontiers-Win64-Shipping.exe"+8342D6: FF 90 70 04 00 00     -  call qword ptr [rax+00000470]
+"Frontiers-Win64-Shipping.exe"+8342DC: 32 DB                 -  xor bl,bl
+"Frontiers-Win64-Shipping.exe"+8342DE: 33 C0                 -  xor eax,eax
+"Frontiers-Win64-Shipping.exe"+8342E0: 48 89 44 24 20        -  mov [rsp+20],rax
+"Frontiers-Win64-Shipping.exe"+8342E5: 48 89 44 24 28        -  mov [rsp+28],rax
+"Frontiers-Win64-Shipping.exe"+8342EA: 38 87 58 01 00 00     -  cmp [rdi+00000158],al
+"Frontiers-Win64-Shipping.exe"+8342F0: 74 0D                 -  je Frontiers-Win64-Shipping.exe+8342FF
+"Frontiers-Win64-Shipping.exe"+8342F2: 48 8D 54 24 20        -  lea rdx,[rsp+20]
+}
+</AssemblerScript>
+          <Hotkeys>
+            <Hotkey>
+              <Action>Toggle Activation</Action>
+              <Keys>
+                <Key>98</Key>
+              </Keys>
+              <ID>0</ID>
+              <ActivateSound TTS="EN">Infinite Health Potions on</ActivateSound>
+              <DeactivateSound TTS="EN">Infinite Health Potions off</DeactivateSound>
+            </Hotkey>
+          </Hotkeys>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>1</ID>
+          <Description>"Max Xp &amp; Skill Points (Numpad 3)"</Description>
+          <LastState/>
+          <Color>000080</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{ Game   : Frontiers-Win64-Shipping.exe
+  Version: 
+  Date   : 2020-10-07
+  Author : ndck76
+}
+
+[ENABLE]
+
+aobscanmodule(xp1,Frontiers-Win64-Shipping.exe,F3 0F 11 71 08 48 8B 07) // should be unique
+alloc(newmem,$1000,"Frontiers-Win64-Shipping.exe"+8A3F0C)
+
+label(code)
+label(return)
+
+newmem:
+
+code:
+  mov [rcx+08],(float)1000
+  jmp return
+
+xp1:
+  jmp newmem
+return:
+registersymbol(xp1)
+
+[DISABLE]
+
+xp1:
+  db F3 0F 11 71 08
+
+unregistersymbol(xp1)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: "Frontiers-Win64-Shipping.exe"+8A3F0C
+
+"Frontiers-Win64-Shipping.exe"+8A3ED6: 45 33 C9                 -  xor r9d,r9d
+"Frontiers-Win64-Shipping.exe"+8A3ED9: 48 89 BC 24 80 00 00 00  -  mov [rsp+00000080],rdi
+"Frontiers-Win64-Shipping.exe"+8A3EE1: 4C 8D 84 24 80 00 00 00  -  lea r8,[rsp+00000080]
+"Frontiers-Win64-Shipping.exe"+8A3EE9: 48 8B CB                 -  mov rcx,rbx
+"Frontiers-Win64-Shipping.exe"+8A3EEC: 48 8D 94 24 90 00 00 00  -  lea rdx,[rsp+00000090]
+"Frontiers-Win64-Shipping.exe"+8A3EF4: E8 F7 1F E0 FF           -  call Frontiers-Win64-Shipping.exe+6A5EF0
+"Frontiers-Win64-Shipping.exe"+8A3EF9: 48 63 84 24 90 00 00 00  -  movsxd  rax,dword ptr [rsp+00000090]
+"Frontiers-Win64-Shipping.exe"+8A3F01: 48 8D 0C 40              -  lea rcx,[rax+rax*2]
+"Frontiers-Win64-Shipping.exe"+8A3F05: 48 8B 03                 -  mov rax,[rbx]
+"Frontiers-Win64-Shipping.exe"+8A3F08: 48 8D 0C C8              -  lea rcx,[rax+rcx*8]
+// ---------- INJECTING HERE ----------
+"Frontiers-Win64-Shipping.exe"+8A3F0C: F3 0F 11 71 08           -  movss [rcx+08],xmm6
+// ---------- DONE INJECTING  ----------
+"Frontiers-Win64-Shipping.exe"+8A3F11: 48 8B 07                 -  mov rax,[rdi]
+"Frontiers-Win64-Shipping.exe"+8A3F14: 48 8D 94 24 80 00 00 00  -  lea rdx,[rsp+00000080]
+"Frontiers-Win64-Shipping.exe"+8A3F1C: 0F 28 D6                 -  movaps xmm2,xmm6
+"Frontiers-Win64-Shipping.exe"+8A3F1F: 48 89 84 24 80 00 00 00  -  mov [rsp+00000080],rax
+"Frontiers-Win64-Shipping.exe"+8A3F27: 48 8B CD                 -  mov rcx,rbp
+"Frontiers-Win64-Shipping.exe"+8A3F2A: E8 41 00 00 00           -  call Frontiers-Win64-Shipping.exe+8A3F70
+"Frontiers-Win64-Shipping.exe"+8A3F2F: 48 8B 07                 -  mov rax,[rdi]
+"Frontiers-Win64-Shipping.exe"+8A3F32: 48 8D 8D F8 00 00 00     -  lea rcx,[rbp+000000F8]
+"Frontiers-Win64-Shipping.exe"+8A3F39: 48 89 84 24 80 00 00 00  -  mov [rsp+00000080],rax
+"Frontiers-Win64-Shipping.exe"+8A3F41: 48 8D 94 24 80 00 00 00  -  lea rdx,[rsp+00000080]
+}
+</AssemblerScript>
+          <Hotkeys>
+            <Hotkey>
+              <Action>Toggle Activation</Action>
+              <Keys>
+                <Key>99</Key>
+              </Keys>
+              <ID>0</ID>
+              <ActivateSound TTS="EN">Max Xp &amp; Skill Points on</ActivateSound>
+              <DeactivateSound TTS="EN">Max Xp &amp; Skill Points off</DeactivateSound>
+            </Hotkey>
+          </Hotkeys>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>187</ID>
+          <Description>"19.5k Gold (Numpad 4)"</Description>
+          <LastState/>
+          <Color>008080</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{ Game   : Frontiers-Win64-Shipping.exe
+  Version: 
+  Date   : 2020-10-08
+  Author : ndck76
+}
+
+[ENABLE]
+
+aobscanmodule(gold1,Frontiers-Win64-Shipping.exe,F3 0F 11 71 08 48 8B 07) // should be unique
+alloc(newmem,$1000,"Frontiers-Win64-Shipping.exe"+8A3F0C)
+
+label(code)
+label(return)
+
+newmem:
+
+code:
+  mov [rcx+08],(float)19500
+  jmp return
+
+gold1:
+  jmp newmem
+return:
+registersymbol(gold1)
+
+[DISABLE]
+
+gold1:
+  db F3 0F 11 71 08
+
+unregistersymbol(gold1)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: "Frontiers-Win64-Shipping.exe"+8A3F0C
+
+"Frontiers-Win64-Shipping.exe"+8A3ED6: 45 33 C9                 -  xor r9d,r9d
+"Frontiers-Win64-Shipping.exe"+8A3ED9: 48 89 BC 24 80 00 00 00  -  mov [rsp+00000080],rdi
+"Frontiers-Win64-Shipping.exe"+8A3EE1: 4C 8D 84 24 80 00 00 00  -  lea r8,[rsp+00000080]
+"Frontiers-Win64-Shipping.exe"+8A3EE9: 48 8B CB                 -  mov rcx,rbx
+"Frontiers-Win64-Shipping.exe"+8A3EEC: 48 8D 94 24 90 00 00 00  -  lea rdx,[rsp+00000090]
+"Frontiers-Win64-Shipping.exe"+8A3EF4: E8 F7 1F E0 FF           -  call Frontiers-Win64-Shipping.exe+6A5EF0
+"Frontiers-Win64-Shipping.exe"+8A3EF9: 48 63 84 24 90 00 00 00  -  movsxd  rax,dword ptr [rsp+00000090]
+"Frontiers-Win64-Shipping.exe"+8A3F01: 48 8D 0C 40              -  lea rcx,[rax+rax*2]
+"Frontiers-Win64-Shipping.exe"+8A3F05: 48 8B 03                 -  mov rax,[rbx]
+"Frontiers-Win64-Shipping.exe"+8A3F08: 48 8D 0C C8              -  lea rcx,[rax+rcx*8]
+// ---------- INJECTING HERE ----------
+"Frontiers-Win64-Shipping.exe"+8A3F0C: F3 0F 11 71 08           -  movss [rcx+08],xmm6
+// ---------- DONE INJECTING  ----------
+"Frontiers-Win64-Shipping.exe"+8A3F11: 48 8B 07                 -  mov rax,[rdi]
+"Frontiers-Win64-Shipping.exe"+8A3F14: 48 8D 94 24 80 00 00 00  -  lea rdx,[rsp+00000080]
+"Frontiers-Win64-Shipping.exe"+8A3F1C: 0F 28 D6                 -  movaps xmm2,xmm6
+"Frontiers-Win64-Shipping.exe"+8A3F1F: 48 89 84 24 80 00 00 00  -  mov [rsp+00000080],rax
+"Frontiers-Win64-Shipping.exe"+8A3F27: 48 8B CD                 -  mov rcx,rbp
+"Frontiers-Win64-Shipping.exe"+8A3F2A: E8 41 00 00 00           -  call Frontiers-Win64-Shipping.exe+8A3F70
+"Frontiers-Win64-Shipping.exe"+8A3F2F: 48 8B 07                 -  mov rax,[rdi]
+"Frontiers-Win64-Shipping.exe"+8A3F32: 48 8D 8D F8 00 00 00     -  lea rcx,[rbp+000000F8]
+"Frontiers-Win64-Shipping.exe"+8A3F39: 48 89 84 24 80 00 00 00  -  mov [rsp+00000080],rax
+"Frontiers-Win64-Shipping.exe"+8A3F41: 48 8D 94 24 80 00 00 00  -  lea rdx,[rsp+00000080]
+}
+</AssemblerScript>
+          <Hotkeys>
+            <Hotkey>
+              <Action>Toggle Activation</Action>
+              <Keys>
+                <Key>100</Key>
+              </Keys>
+              <ID>0</ID>
+              <ActivateSound TTS="EN">19.5k Gold on</ActivateSound>
+              <DeactivateSound TTS="EN">19.5k Gold off</DeactivateSound>
+            </Hotkey>
+          </Hotkeys>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>156</ID>
+      <Description>"────────────────────────────    Created    By   N D C K 7 6    ───────────────────────────────────"</Description>
+      <Options moHideChildren="1"/>
+      <LastState Value="" RealAddress="00000000"/>
+      <Color>008080</Color>
+      <GroupHeader>1</GroupHeader>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>158</ID>
+          <Description>"MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM"</Description>
+          <LastState Value="" RealAddress="00000000"/>
+          <Color>408080</Color>
+          <GroupHeader>1</GroupHeader>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>159</ID>
+          <Description>"MMMMMMMMMMMMMMMMMMMMMMMMNNMMMMMMMMMMMMMMMMMMMMMMMM"</Description>
+          <LastState Value="" RealAddress="00000000"/>
+          <Color>408080</Color>
+          <GroupHeader>1</GroupHeader>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>160</ID>
+          <Description>"  MMMMMMMMMMMMMMMMMMMMMMNN++NNMMMMMMMMMMMMMMMMMMMMMM"</Description>
+          <LastState Value="" RealAddress="00000000"/>
+          <Color>408080</Color>
+          <GroupHeader>1</GroupHeader>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>161</ID>
+          <Description>"   MMMMMMMMMMMMMMMMMMMMMMNy++yNMMMMMMMMMMMMMMMMMMMMMM"</Description>
+          <LastState Value="" RealAddress="00000000"/>
+          <Color>408080</Color>
+          <GroupHeader>1</GroupHeader>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>162</ID>
+          <Description>"    MMMMMMMMMMMMMMMMMMMMMNhoddohNMMMMMMMMMMMMMMMMMMMMM"</Description>
+          <LastState Value="" RealAddress="00000000"/>
+          <Color>408080</Color>
+          <GroupHeader>1</GroupHeader>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>163</ID>
+          <Description>"     MMMMMMMMMMMMMMMMMMMMNd+hddh+dNMMMMMMMMMMMMMMMMMMMM"</Description>
+          <LastState Value="" RealAddress="00000000"/>
+          <Color>408080</Color>
+          <GroupHeader>1</GroupHeader>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>164</ID>
+          <Description>"      MMMMMMMMMMMMMMMMMMNNmshmyymhsmNNMMMMMMMMMMMMMMMMMM"</Description>
+          <LastState Value="" RealAddress="00000000"/>
+          <Color>408080</Color>
+          <GroupHeader>1</GroupHeader>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>165</ID>
+          <Description>"       MMMMMMMMMMMMMMMMMNNNddmhyyhmddNNNMMMMMMMMMMMMMMMMM"</Description>
+          <LastState Value="" RealAddress="00000000"/>
+          <Color>408080</Color>
+          <GroupHeader>1</GroupHeader>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>166</ID>
+          <Description>"          MMMMMMMMMMMMMMMMmNmNds/-::-/sdNmNmMMMMMMMMMMMMMMMM"</Description>
+          <LastState Value="" RealAddress="00000000"/>
+          <Color>408080</Color>
+          <GroupHeader>1</GroupHeader>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>167</ID>
+          <Description>"           MMMMMMMMMMMMNMMmdhNy-+ysmmsy+-yNhdmMMNMMMMMMMMMMMM"</Description>
+          <LastState Value="" RealAddress="00000000"/>
+          <Color>408080</Color>
+          <GroupHeader>1</GroupHeader>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>168</ID>
+          <Description>"             MMMMMMMMMMMMNNNmmNd:shhyyyyhhs:dNmmNNNMMMMMMMMMMMM"</Description>
+          <LastState Value="" RealAddress="00000000"/>
+          <Color>408080</Color>
+          <GroupHeader>1</GroupHeader>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>169</ID>
+          <Description>"       MMMMMMMMMMMMMNNmmNshmMmhyyhmMmhsNmmNNMMMMMMMMMMMMM"</Description>
+          <LastState Value="" RealAddress="00000000"/>
+          <Color>408080</Color>
+          <GroupHeader>1</GroupHeader>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>170</ID>
+          <Description>"        MMMMMMMMNMMMNNNmmsydmhmmNNmmhmdysmmNNNMMMNMMMMMMMM"</Description>
+          <LastState Value="" RealAddress="00000000"/>
+          <Color>408080</Color>
+          <GroupHeader>1</GroupHeader>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>171</ID>
+          <Description>"                   MMMMMMNNdNNNmmhyhsdNm..hood..mNhsdyhmmNNNdNNMMMMMM"</Description>
+          <LastState Value="" RealAddress="00000000"/>
+          <Color>408080</Color>
+          <GroupHeader>1</GroupHeader>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>172</ID>
+          <Description>"                      MMMMMMNNh:/++//sdhNmmdhhyyhhdmmNhds//++/:hNNMMMMMM"</Description>
+          <LastState Value="" RealAddress="00000000"/>
+          <Color>408080</Color>
+          <GroupHeader>1</GroupHeader>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>173</ID>
+          <Description>"                        MMMMMMNmds.`.:yhdMNdhhosmmsohhdNMdhy:.`.sdmNMMMMMM"</Description>
+          <LastState Value="" RealAddress="00000000"/>
+          <Color>408080</Color>
+          <GroupHeader>1</GroupHeader>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>174</ID>
+          <Description>"                  MMMMMMMNmh:-/:sdmNMNNdo+oo+odNNMNmds:/-:hmNMMMMMMM"</Description>
+          <LastState Value="" RealAddress="00000000"/>
+          <Color>408080</Color>
+          <GroupHeader>1</GroupHeader>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>175</ID>
+          <Description>"            MMMNMMNNNmmo-omNmhdNNmmdhhdmmNNdhmNmo-ommNNNMMNMMM"</Description>
+          <LastState Value="" RealAddress="00000000"/>
+          <Color>408080</Color>
+          <GroupHeader>1</GroupHeader>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>176</ID>
+          <Description>"               MMMMNNNNNmNNy+sNmdyhmmhhddhhmmhydmNs+yNNmNNNNNMMMM"</Description>
+          <LastState Value="" RealAddress="00000000"/>
+          <Color>408080</Color>
+          <GroupHeader>1</GroupHeader>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>177</ID>
+          <Description>"              MMMMMMNNddmNNdyhNMMNdddhhhhdddNMMNhyhNNmddNNMMMMMM"</Description>
+          <LastState Value="" RealAddress="00000000"/>
+          <Color>408080</Color>
+          <GroupHeader>1</GroupHeader>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>178</ID>
+          <Description>"        MMMMMMMMmdyydmMNNNNNNMNmddmNMNNNNNNMmdyydmMMMMMMMM"</Description>
+          <LastState Value="" RealAddress="00000000"/>
+          <Color>408080</Color>
+          <GroupHeader>1</GroupHeader>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>179</ID>
+          <Description>"           MMMMMMMMMMNNdyyyhddmNmmddddmmNmdddyyydNNMMMMMMMMMM"</Description>
+          <LastState Value="" RealAddress="00000000"/>
+          <Color>408080</Color>
+          <GroupHeader>1</GroupHeader>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>180</ID>
+          <Description>"         MMMMMMMMMMMMMMNNmddhhhhhyyhhhhhddmNNMMMMMMMMMMMMMM"</Description>
+          <LastState Value="" RealAddress="00000000"/>
+          <Color>408080</Color>
+          <GroupHeader>1</GroupHeader>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>181</ID>
+          <Description>" MMMMMMMMMMMMMMMMMMMMMNNNNNNNNMMMMMMMMMMMMMMMMMMMMM"</Description>
+          <LastState Value="" RealAddress="00000000"/>
+          <Color>408080</Color>
+          <GroupHeader>1</GroupHeader>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>182</ID>
+          <Description>"MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM"</Description>
+          <LastState Value="" RealAddress="00000000"/>
+          <Color>408080</Color>
+          <GroupHeader>1</GroupHeader>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols>
+    <SymbolEntry>
+      <Name>health</Name>
+      <Address>2112C3C0000</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>pot1</Name>
+      <Address>2112C3C0010</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>lvlup</Name>
+      <Address>2112C3C0020</Address>
+    </SymbolEntry>
+  </UserdefinedSymbols>
+</CheatTable>

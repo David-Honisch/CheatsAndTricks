@@ -1,0 +1,1417 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="18">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>7</ID>
+      <Description>"Enable Cheats"</Description>
+      <LastState Activated="1"/>
+      <Color>80000008</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[Enable]
+alloc(cheats,4096,gamedll_x64_rwdi.dll)
+
+label(is_1) //Weapon Stamina
+label(is_1_orig)
+label(is_status)
+registersymbol(is_status)
+aobscanmodule(is_aob1,gamedll_x64_rwdi.dll,0F 28 F9 0F 2F 3D ? ? ? ? F3 0F 11 7B 10)
+registersymbol(is_aob1)
+label(returnhere_is_1)
+
+label(is_2) //Sprinting Stamina
+label(is_2_orig)
+aobscanmodule(is_aob2,gamedll_x64_rwdi.dll,0F 2F FE F3 0F 5C C7 F3 0F 11 43 10)
+registersymbol(is_aob2)
+label(returnhere_is_2)
+
+label(ih_1) //Infinite Health
+label(ih_1_orig)
+label(ih_status)
+registersymbol(ih_status)
+aobscanmodule(ih_aob1,gamedll_x64_rwdi.dll,0F 28 C7 F3 0F 11 83 D4 10 00 00)
+registersymbol(ih_aob1)
+label(returnhere_ih_1)
+
+label(iw_1) //Indestructible Weapons
+label(iw_1_orig)
+label(iw_status)
+registersymbol(iw_status)
+aobscanmodule(iw_aob1,gamedll_x64_rwdi.dll,0F 28 F0 48 8B 47 18 48 8D 4F 18 F3 0F 11 77 04)
+registersymbol(iw_aob1)
+label(returnhere_iw_1)
+
+label(lf_1) //Level Faster (Agility + Power)
+label(lf_1_orig)
+label(lf_1_mo) //Max Out
+label(lf_1_rl) //Reset Levels
+label(lf_status)
+registersymbol(lf_status)
+label(mo_status)
+registersymbol(mo_status)
+label(rl_status)
+registersymbol(rl_status)
+aobscanmodule(lf_aob1,gamedll_x64_rwdi.dll,01 74 28 08 48 8B 43)
+registersymbol(lf_aob1)
+label(returnhere_lf_1)
+
+label(lf_2) //Level Faster (Survivor)
+label(lf_2_orig)
+label(lf_2_mo) //Max Out
+label(lf_2_rl) //Reset Levels
+aobscanmodule(lf_aob2,gamedll_x64_rwdi.dll,48 8B 43 40 8B 50 68 01 78 68)
+registersymbol(lf_aob2)
+label(returnhere_lf_2)
+
+label(ic_1) //Infinite Cash
+label(ic_1_orig)
+label(ic_status)
+registersymbol(ic_status)
+aobscanmodule(ic_aob1,gamedll_x64_rwdi.dll,8B 71 40 8B C6 2B C7 89 41 40)
+registersymbol(ic_aob1)
+label(returnhere_ic_1)
+
+label(ik_1) //Instant Kill
+label(ik_1_orig)
+label(ik_status)
+registersymbol(ik_status)
+aobscanmodule(ik_aob1,gamedll_x64_rwdi.dll,80 78 50 00 74 05 8B 07 89 43 78 48 8B 5C 24 30)
+registersymbol(ik_aob1)
+label(returnhere_ik_1)
+
+label(ica_1) //Infinite Clip Ammo
+label(ica_1_orig)
+label(ica_status)
+registersymbol(ica_status)
+aobscanmodule(ica_aob1,gamedll_x64_rwdi.dll,8B 50 40 48 8D 48 40 FF CA)
+registersymbol(ica_aob1)
+label(returnhere_ica_1)
+
+label(ioa_1) //Infinite Overall Ammo
+label(ioa_1_orig)
+label(ioawc) //Work With Infinite Clip Ammo
+label(ioa_status)
+registersymbol(ioa_status)
+aobscanmodule(ioa_aob1,gamedll_x64_rwdi.dll,48 63 C3 48 03 C0 45 89 44 C2 04)
+registersymbol(ioa_aob1)
+label(returnhere_ioa_1)
+
+label(pc_1) //Permanent Camouflage
+label(pc_1_orig)
+label(pc_status)
+registersymbol(pc_status)
+aobscanmodule(pc_aob1,gamedll_x64_rwdi.dll,F3 41 0F 59 C8 F3 0F 59 CF F3 0F 5C C1 F3 0F 11 43 14)
+registersymbol(pc_aob1)
+label(returnhere_pc_1)
+
+label(pc_2) //Don't Lose Camoflage When Shooting
+label(pc_2_orig)
+aobscanmodule(pc_aob2,gamedll_x64_rwdi.dll,72 03 0F 28 F0 F3 0F 11 73 14)
+registersymbol(pc_aob2)
+label(returnhere_pc_2)
+
+label(ici_1) //Infinite Crafting Items
+label(ici_1_orig)
+label(ici_status)
+registersymbol(ici_status)
+aobscanmodule(ici_aob1,gamedll_x64_rwdi.dll,48 39 1C 28 75 59 8B 73 40 48 8D 4B 40)
+registersymbol(ici_aob1)
+label(returnhere_ici_1)
+
+label(iha_1) //Instant "Hold" Actions
+label(iha_1_orig)
+label(iha_status)
+registersymbol(iha_status)
+aobscanmodule(iha_aob1,gamedll_x64_rwdi.dll,0F 28 F7 F3 0F 11 B3 FC 01 00 00)
+registersymbol(iha_aob1)
+label(returnhere_iha_1)
+
+label(igh_1) //Infinite Grappling Hook
+label(igh_1_orig)
+aobscanmodule(igh_aob1,gamedll_x64_rwdi.dll,F3 0F 5C C6 0F 2F C1 F3 0F 11 43 40)
+registersymbol(igh_aob1)
+label(returnhere_igh_1)
+
+cheats:
+//--------------------------------------------------//
+is_1:
+cmp [is_status],0
+je is_1_orig
+mov [rbx+10],(float)1
+jmp returnhere_is_1
+
+is_1_orig:
+movss [rbx+10],xmm7
+jmp returnhere_is_1
+
+is_status:
+dd 0
+//--------------------------------------------------//
+is_2:
+cmp [is_status],0
+je is_2_orig
+mov [rbx+10],(float)1.5
+jmp returnhere_is_2
+
+is_2_orig:
+movss [rbx+10],xmm0
+jmp returnhere_is_2
+//--------------------------------------------------//
+ih_1:
+cmp [ih_status],0
+je ih_1_orig
+mov [rbx+000010D4],(float)100
+jmp returnhere_ih_1
+
+ih_1_orig:
+movss [rbx+000010D4],xmm0
+jmp returnhere_ih_1
+
+ih_status:
+dd 0
+//--------------------------------------------------//
+iw_1:
+cmp [iw_status],0
+je iw_1_orig
+mov [rdi+04],(float)100
+jmp returnhere_iw_1
+
+iw_1_orig:
+movss [rdi+04],xmm6
+jmp returnhere_iw_1
+
+iw_status:
+dd 0
+//--------------------------------------------------//
+lf_1:
+cmp [mo_status],1
+je lf_1_mo
+cmp [rl_status],1
+je lf_1_rl
+cmp [lf_status],0
+je lf_1_orig
+add [rax+rbp+08],2710
+mov rax,[rbx+40]
+jmp returnhere_lf_1
+
+lf_1_mo:
+add [rax+rbp+08],3B9AC9FF
+mov rax,[rbx+40]
+jmp returnhere_lf_1
+
+lf_1_rl:
+mov [rax+rbp+08],0
+mov rax,[rbx+40]
+jmp returnhere_lf_1
+
+lf_1_orig:
+add [rax+rbp+08],esi
+mov rax,[rbx+40]
+jmp returnhere_lf_1
+
+lf_status:
+dd 0
+
+mo_status:
+dd 0
+
+rl_status:
+dd 0
+//--------------------------------------------------//
+lf_2:
+cmp [mo_status],1
+je lf_2_mo
+cmp [rl_status],1
+je lf_2_rl
+cmp [lf_status],0
+je lf_2_orig
+mov edx,[rax+68]
+add [rax+68],186A0
+jmp returnhere_lf_2
+
+lf_2_mo:
+mov edx,[rax+68]
+add [rax+68],3B9AC9FF
+jmp returnhere_lf_2
+
+lf_2_rl:
+mov edx,[rax+68]
+mov [rax+68],0
+jmp returnhere_lf_2
+
+lf_2_orig:
+mov edx,[rax+68]
+add [rax+68],edi
+jmp returnhere_lf_2
+//--------------------------------------------------//
+ic_1:
+cmp [ic_status],0
+je ic_1_orig
+add eax,edi
+mov [rcx+40],eax
+jmp returnhere_ic_1
+
+ic_1_orig:
+sub eax,edi
+mov [rcx+40],eax
+jmp returnhere_ic_1
+
+ic_status:
+dd 0
+//--------------------------------------------------//
+ik_1:
+cmp [ik_status],0
+je ik_1_orig
+mov [rbx+78],0
+mov rbx,[rsp+30]
+jmp returnhere_ik_1
+
+ik_1_orig:
+mov [rbx+78],eax
+mov rbx,[rsp+30]
+jmp returnhere_ik_1
+
+ik_status:
+dd 0
+//--------------------------------------------------//
+ica_1:
+cmp [ica_status],0
+je ica_1_orig
+add [rax+40],1
+mov edx,[rax+40]
+lea rcx,[rax+40]
+jmp returnhere_ica_1
+
+ica_1_orig:
+mov edx,[rax+40]
+lea rcx,[rax+40]
+jmp returnhere_ica_1
+
+ica_status:
+dd 0
+//--------------------------------------------------//
+ioa_1:
+cmp [ica_status],1
+je ioawc
+cmp [ioa_status],0
+je ioa_1_orig
+mov [r10+rax*8+04],r8d
+add [r10+rax*8+04],1
+jmp returnhere_ioa_1
+
+ioawc:
+mov [r10+rax*8+04],r8d
+add [r10+rax*8+04],1
+jmp returnhere_ioa_1
+
+ioa_1_orig:
+mov [r10+rax*8+04],r8d
+jmp returnhere_ioa_1
+
+ioa_status:
+dd 0
+//--------------------------------------------------//
+pc_1:
+cmp [pc_status],0
+je pc_1_orig
+mov [rbx+14],(float)1
+jmp returnhere_pc_1
+
+pc_1_orig:
+movss [rbx+14],xmm0
+jmp returnhere_pc_1
+
+pc_status:
+dd 0
+//--------------------------------------------------//
+pc_2:
+cmp [pc_status],0
+je pc_2_orig
+mov [rbx+14],(float)1
+jmp returnhere_pc_2
+
+pc_2_orig:
+movss [rbx+14],xmm6
+jmp returnhere_pc_2
+//--------------------------------------------------//
+ici_1:
+cmp [ici_status],0
+je ici_1_orig
+mov [rbx+40],32
+mov esi,[rbx+40]
+lea rcx,[rbx+40]
+jmp returnhere_ici_1
+
+ici_1_orig:
+mov esi,[rbx+40]
+lea rcx,[rbx+40]
+jmp returnhere_ici_1
+
+ici_status:
+dd 0
+//--------------------------------------------------//
+iha_1:
+cmp [iha_status],0
+je iha_1_orig
+movaps xmm6,xmm7
+mov [rbx+000001FC],(float)1
+jmp returnhere_iha_1
+
+iha_1_orig:
+movaps xmm6,xmm7
+movss [rbx+000001FC],xmm6
+jmp returnhere_iha_1
+
+iha_status:
+dd 0
+//--------------------------------------------------//
+igh_1:
+cmp [ica_status],0
+je igh_1_orig
+addss xmm0,xmm6
+comiss xmm0,xmm1
+jmp returnhere_igh_1
+
+igh_1_orig:
+subss xmm0,xmm6
+comiss xmm0,xmm1
+jmp returnhere_igh_1
+//--------------------------------------------------//
+
+is_aob1+A:
+jmp is_1
+returnhere_is_1:
+
+is_aob2+7:
+jmp is_2
+returnhere_is_2:
+
+ih_aob1+3:
+jmp ih_1
+nop
+nop
+nop
+returnhere_ih_1:
+
+iw_aob1+B:
+jmp iw_1
+returnhere_iw_1:
+
+lf_aob1:
+jmp lf_1
+nop
+nop
+nop
+returnhere_lf_1:
+
+lf_aob2+4:
+jmp lf_2
+nop
+returnhere_lf_2:
+
+ic_aob1+5:
+jmp ic_1
+returnhere_ic_1:
+
+ik_aob1+8:
+jmp ik_1
+nop
+nop
+nop
+returnhere_ik_1:
+
+ica_aob1:
+jmp ica_1
+nop
+nop
+returnhere_ica_1:
+
+ioa_aob1+6:
+jmp ioa_1
+returnhere_ioa_1:
+
+pc_aob1+D:
+jmp pc_1
+returnhere_pc_1:
+
+pc_aob2+5:
+jmp pc_2
+returnhere_pc_2:
+
+ici_aob1+6:
+jmp ici_1
+nop
+nop
+returnhere_ici_1:
+
+iha_aob1:
+jmp iha_1
+nop
+nop
+nop
+nop
+nop
+nop
+returnhere_iha_1:
+
+igh_aob1:
+jmp igh_1
+nop
+nop
+returnhere_igh_1:
+
+[Disable]
+
+is_aob1+A:
+db F3 0F 11 7B 10
+unregistersymbol(is_aob1)
+unregistersymbol(is_status)
+
+is_aob2+7:
+db F3 0F 11 43 10
+unregistersymbol(is_aob2)
+
+ih_aob1+3:
+db F3 0F 11 83 D4 10 00 00
+unregistersymbol(ih_aob1)
+unregistersymbol(ih_status)
+
+iw_aob1+B:
+db F3 0F 11 77 04
+unregistersymbol(iw_aob1)
+unregistersymbol(iw_status)
+
+lf_aob1:
+db 01 74 28 08 48 8B 43
+unregistersymbol(lf_aob1)
+unregistersymbol(lf_status)
+unregistersymbol(mo_status)
+unregistersymbol(rl_status)
+
+lf_aob2+4:
+db 8B 50 68 01 78 68
+unregistersymbol(lf_aob2)
+
+ic_aob1+5:
+db 2B C7 89 41 40
+unregistersymbol(ic_aob1)
+unregistersymbol(ic_status)
+
+ik_aob1+8:
+db 89 43 78 48 8B 5C 24 30
+unregistersymbol(ik_aob1)
+unregistersymbol(ik_status)
+
+ica_aob1:
+db 8B 50 40 48 8D 48 40
+unregistersymbol(ica_aob1)
+unregistersymbol(ica_status)
+
+ioa_aob1+6:
+db 45 89 44 C2 04
+unregistersymbol(ioa_aob1)
+unregistersymbol(ioa_status)
+
+pc_aob1+D:
+db F3 0F 11 43 14
+unregistersymbol(pc_aob1)
+unregistersymbol(pc_status)
+
+pc_aob2+5:
+db F3 0F 11 73 14
+unregistersymbol(pc_aob2)
+
+ici_aob1+6:
+db 8B 73 40 48 8D 4B 40
+unregistersymbol(ici_aob1)
+unregistersymbol(ici_status)
+
+iha_aob1:
+db 0F 28 F7 F3 0F 11 B3 FC 01 00 00
+unregistersymbol(iha_aob1)
+unregistersymbol(iha_status)
+
+igh_aob1:
+db F3 0F 5C C6 0F 2F C1
+unregistersymbol(igh_aob1)
+
+dealloc(cheats)
+</AssemblerScript>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>13</ID>
+          <Description>"Infinite Health"</Description>
+          <LastState Activated="1"/>
+          <Color>80000008</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[Enable]
+
+ih_status:
+dd 1
+
+[Disable]
+
+ih_status:
+dd 0
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>44</ID>
+          <Description>"Instant Kill"</Description>
+          <LastState Activated="0"/>
+          <Color>80000008</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[Enable]
+
+ik_status:
+dd 1
+
+[Disable]
+
+ik_status:
+dd 0
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>23</ID>
+          <Description>"Level Faster"</Description>
+          <LastState Activated="0"/>
+          <Color>80000008</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[Enable]
+
+lf_status:
+dd 1
+
+[Disable]
+
+lf_status:
+dd 0
+</AssemblerScript>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>24</ID>
+              <Description>"Max Out"</Description>
+              <LastState Activated="0"/>
+              <Color>80000008</Color>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>[Enable]
+
+mo_status:
+dd 1
+rl_status:
+dd 0
+
+[Disable]
+
+mo_status:
+dd 0
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>80</ID>
+              <Description>"Reset Levels"</Description>
+              <LastState Activated="0"/>
+              <Color>80000008</Color>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>[Enable]
+
+rl_status:
+dd 1
+mo_status:
+dd 0
+
+[Disable]
+
+rl_status:
+dd 0
+</AssemblerScript>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>31</ID>
+          <Description>"Infinite Cash"</Description>
+          <LastState Activated="1"/>
+          <Color>80000008</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[Enable]
+
+ic_status:
+dd 1
+
+[Disable]
+
+ic_status:
+dd 0
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>83</ID>
+          <Description>"Infinite Crafting Items"</Description>
+          <LastState Activated="1"/>
+          <Color>80000008</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[Enable]
+
+ici_status:
+dd 1
+
+[Disable]
+
+ici_status:
+dd 0
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>9</ID>
+          <Description>"Infinite Stamina"</Description>
+          <LastState Activated="1"/>
+          <Color>80000008</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[Enable]
+
+is_status:
+dd 1
+
+[Disable]
+
+is_status:
+dd 0
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>20</ID>
+          <Description>"Indestructible Weapons"</Description>
+          <LastState Activated="1"/>
+          <Color>80000008</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[Enable]
+
+iw_status:
+dd 1
+
+[Disable]
+
+iw_status:
+dd 0
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>48</ID>
+          <Description>"Infinite Clip Ammo"</Description>
+          <LastState Activated="1"/>
+          <Color>80000008</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[Enable]
+
+ica_status:
+dd 1
+
+[Disable]
+
+ica_status:
+dd 0
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>50</ID>
+          <Description>"Infinite Overall Ammo"</Description>
+          <LastState Activated="1"/>
+          <Color>80000008</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[Enable]
+
+ioa_status:
+dd 1
+
+[Disable]
+
+ioa_status:
+dd 0
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>87</ID>
+          <Description>"Instant "Hold" Actions"</Description>
+          <LastState Activated="1"/>
+          <Color>80000008</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[Enable]
+
+iha_status:
+dd 1
+
+[Disable]
+
+iha_status:
+dd 0
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>1063</ID>
+          <Description>"Stop Challenge Timer"</Description>
+          <LastState Activated="0"/>
+          <Color>80000008</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[Enable]
+
+aobscanmodule(sct_aob1,gamedll_x64_rwdi.dll,F3 0F 11 83 F0 00 00 00 48 8B CB)
+registersymbol(sct_aob1)
+
+sct_aob1:
+db 90 90 90 90 90 90 90 90
+
+[Disable]
+
+sct_aob1:
+db F3 0F 11 83 F0 00 00 00 48 8B CB
+unregistersymbol(sct_aob1)
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>70</ID>
+          <Description>"Permanent Camouflage"</Description>
+          <LastState Activated="0"/>
+          <Color>80000008</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[Enable]
+
+pc_status:
+dd 1
+
+[Disable]
+
+pc_status:
+dd 0
+</AssemblerScript>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>75</ID>
+              <Description>"Remove Tinted Screen"</Description>
+              <LastState Activated="0"/>
+              <Color>80000008</Color>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>[Enable]
+aobscanmodule(pc_aob3,gamedll_x64_rwdi.dll,0F 28 DC C7 81 48 3B 00 00 00 00 80 3F EB 17)
+registersymbol(pc_aob3)
+
+pc_aob3+3:
+db C7 81 48 3B 00 00 00 00 00 00
+
+[Disable]
+
+pc_aob3+3:
+db C7 81 48 3B 00 00 00 00 80 3F
+unregistersymbol(pc_aob3)
+</AssemblerScript>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>57</ID>
+          <Description>"Time Of Day"</Description>
+          <LastState Activated="0"/>
+          <Color>80000008</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[Enable]
+alloc(timeofday,2048,gamedll_x64_rwdi.dll)
+
+label(tod) //Control Time Of Day
+label(tod_day) //Day
+label(tod_day_status)
+registersymbol(tod_day_status)
+label(tod_dawn) //Dawn
+label(tod_dawn_status)
+registersymbol(tod_dawn_status)
+label(tod_night) //Night
+label(tod_night_status)
+registersymbol(tod_night_status)
+label(tod_orig) //Resume Clock
+aobscanmodule(tod_aob1,gamedll_x64_rwdi.dll,F3 0F 58 B3 A8 00 00 00 F3 0F 11 B3 A8 00 00 00)
+registersymbol(tod_aob1)
+label(returnhere_tod)
+
+timeofday:
+//-------------------------------------------------------//
+tod:
+cmp [tod_day_status],1
+je tod_day
+cmp [tod_dawn_status],1
+je tod_dawn
+cmp [tod_night_status],1
+je tod_night
+jmp tod_orig
+
+tod_day:
+mov [rbx+000000A8],(float)0.5
+jmp returnhere_tod
+
+tod_dawn:
+mov [rbx+000000A8],(float)0.8
+jmp returnhere_tod
+
+tod_night:
+mov [rbx+000000A8],(float)0.9
+jmp returnhere_tod
+
+tod_orig:
+movss [rbx+000000A8],xmm6
+jmp returnhere_tod
+
+tod_day_status:
+dd 0
+
+tod_dawn_status:
+dd 0
+
+tod_night_status:
+dd 0
+//-------------------------------------------------------//
+
+tod_aob1+8:
+jmp tod
+nop
+nop
+nop
+returnhere_tod:
+
+[Disable]
+
+tod_aob1+8:
+db F3 0F 11 B3 A8 00 00 00
+unregistersymbol(tod_aob1)
+unregistersymbol(tod_day_status)
+unregistersymbol(tod_dawn_status)
+unregistersymbol(tod_night_status)
+
+</AssemblerScript>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>63</ID>
+              <Description>"Day"</Description>
+              <LastState Activated="0"/>
+              <Color>80000008</Color>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>[Enable]
+
+tod_day_status:
+dd 1
+
+tod_dawn_status:
+dd 0
+
+tod_night_status:
+dd 0
+
+[Disable]
+
+tod_day_status:
+dd 0
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>64</ID>
+              <Description>"Dawn"</Description>
+              <LastState Activated="0"/>
+              <Color>80000008</Color>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>[Enable]
+
+tod_day_status:
+dd 0
+
+tod_dawn_status:
+dd 1
+
+tod_night_status:
+dd 0
+
+[Disable]
+
+tod_dawn_status:
+dd 0
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>65</ID>
+              <Description>"Night"</Description>
+              <LastState Activated="0"/>
+              <Color>80000008</Color>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>[Enable]
+
+tod_day_status:
+dd 0
+
+tod_dawn_status:
+dd 0
+
+tod_night_status:
+dd 1
+
+[Disable]
+
+tod_night_status:
+dd 0
+</AssemblerScript>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+  </CheatEntries>
+  <CheatCodes>
+    <CodeEntry>
+      <Description>Change of movss xmm0,[r15+78]</Description>
+      <Address>7FEE78C7AE7</Address>
+      <ModuleName>gamedll_x64_rwdi.dll</ModuleName>
+      <ModuleNameOffset>1F7AE7</ModuleNameOffset>
+      <Before>
+        <Byte>85</Byte>
+        <Byte>B3</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Before>
+      <Actual>
+        <Byte>F3</Byte>
+        <Byte>41</Byte>
+        <Byte>0F</Byte>
+        <Byte>10</Byte>
+        <Byte>47</Byte>
+        <Byte>78</Byte>
+      </Actual>
+      <After>
+        <Byte>F3</Byte>
+        <Byte>41</Byte>
+        <Byte>0F</Byte>
+        <Byte>5C</Byte>
+        <Byte>C2</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Change of movss xmm1,[r12+78]</Description>
+      <Address>7FEE7B85326</Address>
+      <ModuleName>gamedll_x64_rwdi.dll</ModuleName>
+      <ModuleNameOffset>4B5326</ModuleNameOffset>
+      <Before>
+        <Byte>8F</Byte>
+        <Byte>88</Byte>
+        <Byte>08</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Before>
+      <Actual>
+        <Byte>F3</Byte>
+        <Byte>41</Byte>
+        <Byte>0F</Byte>
+        <Byte>10</Byte>
+        <Byte>4C</Byte>
+        <Byte>24</Byte>
+        <Byte>78</Byte>
+      </Actual>
+      <After>
+        <Byte>F3</Byte>
+        <Byte>0F</Byte>
+        <Byte>10</Byte>
+        <Byte>35</Byte>
+        <Byte>87</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Change of inc [rbx+08]</Description>
+      <Address>7FEE8E6FA29</Address>
+      <ModuleName>gamedll_x64_rwdi.dll</ModuleName>
+      <ModuleNameOffset>28FA29</ModuleNameOffset>
+      <Before>
+        <Byte>E8</Byte>
+        <Byte>19</Byte>
+        <Byte>AE</Byte>
+        <Byte>D8</Byte>
+        <Byte>00</Byte>
+      </Before>
+      <Actual>
+        <Byte>FF</Byte>
+        <Byte>43</Byte>
+        <Byte>08</Byte>
+      </Actual>
+      <After>
+        <Byte>4C</Byte>
+        <Byte>8D</Byte>
+        <Byte>9C</Byte>
+        <Byte>24</Byte>
+        <Byte>00</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Change of mov edi,[rdx+40]</Description>
+      <Address>7FEE67F0648</Address>
+      <ModuleName>gamedll_x64_rwdi.dll</ModuleName>
+      <ModuleNameOffset>2C0648</ModuleNameOffset>
+      <Before>
+        <Byte>48</Byte>
+        <Byte>85</Byte>
+        <Byte>D2</Byte>
+        <Byte>74</Byte>
+        <Byte>6E</Byte>
+      </Before>
+      <Actual>
+        <Byte>8B</Byte>
+        <Byte>7A</Byte>
+        <Byte>40</Byte>
+      </Actual>
+      <After>
+        <Byte>41</Byte>
+        <Byte>8B</Byte>
+        <Byte>C4</Byte>
+        <Byte>48</Byte>
+        <Byte>8B</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Change of mov esi,[rbx+40]</Description>
+      <Address>7FEE6FC723F</Address>
+      <ModuleName>gamedll_x64_rwdi.dll</ModuleName>
+      <ModuleNameOffset>A9723F</ModuleNameOffset>
+      <Before>
+        <Byte>39</Byte>
+        <Byte>1C</Byte>
+        <Byte>28</Byte>
+        <Byte>75</Byte>
+        <Byte>59</Byte>
+      </Before>
+      <Actual>
+        <Byte>8B</Byte>
+        <Byte>73</Byte>
+        <Byte>40</Byte>
+      </Actual>
+      <After>
+        <Byte>48</Byte>
+        <Byte>8D</Byte>
+        <Byte>4B</Byte>
+        <Byte>40</Byte>
+        <Byte>85</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Change of movss [rbx+74],xmm4</Description>
+      <Address>7FEEC892BDF</Address>
+      <ModuleName>gamedll_x64_rwdi.dll</ModuleName>
+      <ModuleNameOffset>922BDF</ModuleNameOffset>
+      <Before>
+        <Byte>0F</Byte>
+        <Byte>2F</Byte>
+        <Byte>E0</Byte>
+        <Byte>77</Byte>
+        <Byte>05</Byte>
+      </Before>
+      <Actual>
+        <Byte>F3</Byte>
+        <Byte>0F</Byte>
+        <Byte>11</Byte>
+        <Byte>63</Byte>
+        <Byte>74</Byte>
+      </Actual>
+      <After>
+        <Byte>0F</Byte>
+        <Byte>28</Byte>
+        <Byte>74</Byte>
+        <Byte>24</Byte>
+        <Byte>40</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Change of movss [rbx+0000026C],xmm6</Description>
+      <Address>7FEECF22814</Address>
+      <ModuleName>engine_x64_rwdi.dll</ModuleName>
+      <ModuleNameOffset>5B2814</ModuleNameOffset>
+      <Before>
+        <Byte>0F</Byte>
+        <Byte>28</Byte>
+        <Byte>7C</Byte>
+        <Byte>24</Byte>
+        <Byte>20</Byte>
+      </Before>
+      <Actual>
+        <Byte>F3</Byte>
+        <Byte>0F</Byte>
+        <Byte>11</Byte>
+        <Byte>B3</Byte>
+        <Byte>6C</Byte>
+        <Byte>02</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Actual>
+      <After>
+        <Byte>0F</Byte>
+        <Byte>28</Byte>
+        <Byte>74</Byte>
+        <Byte>24</Byte>
+        <Byte>30</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Change of movss [r13+00000094],xmm0</Description>
+      <Address>7FEEAE6C2C2</Address>
+      <ModuleName>gamedll_x64_rwdi.dll</ModuleName>
+      <ModuleNameOffset>B5C2C2</ModuleNameOffset>
+      <Before>
+        <Byte>85</Byte>
+        <Byte>94</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Before>
+      <Actual>
+        <Byte>F3</Byte>
+        <Byte>41</Byte>
+        <Byte>0F</Byte>
+        <Byte>11</Byte>
+        <Byte>85</Byte>
+        <Byte>94</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Actual>
+      <After>
+        <Byte>E8</Byte>
+        <Byte>A0</Byte>
+        <Byte>2B</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Change of movss [r13+00000098],xmm0</Description>
+      <Address>7FEEAE6C2A8</Address>
+      <ModuleName>gamedll_x64_rwdi.dll</ModuleName>
+      <ModuleNameOffset>B5C2A8</ModuleNameOffset>
+      <Before>
+        <Byte>85</Byte>
+        <Byte>98</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Before>
+      <Actual>
+        <Byte>F3</Byte>
+        <Byte>41</Byte>
+        <Byte>0F</Byte>
+        <Byte>11</Byte>
+        <Byte>85</Byte>
+        <Byte>98</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Actual>
+      <After>
+        <Byte>E8</Byte>
+        <Byte>7A</Byte>
+        <Byte>35</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Change of mov [rdx+rcx*4+08],eax</Description>
+      <Address>7FEECEE0746</Address>
+      <ModuleName>engine_x64_rwdi.dll</ModuleName>
+      <ModuleNameOffset>570746</ModuleNameOffset>
+      <Before>
+        <Byte>8A</Byte>
+        <Byte>04</Byte>
+        <Byte>8B</Byte>
+        <Byte>47</Byte>
+        <Byte>04</Byte>
+      </Before>
+      <Actual>
+        <Byte>89</Byte>
+        <Byte>44</Byte>
+        <Byte>8A</Byte>
+        <Byte>08</Byte>
+      </Actual>
+      <After>
+        <Byte>8B</Byte>
+        <Byte>47</Byte>
+        <Byte>08</Byte>
+        <Byte>89</Byte>
+        <Byte>44</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Change of movss [rbx+34],xmm1</Description>
+      <Address>7FEECAF014D</Address>
+      <ModuleName>engine_x64_rwdi.dll</ModuleName>
+      <ModuleNameOffset>18014D</ModuleNameOffset>
+      <Before>
+        <Byte>F3</Byte>
+        <Byte>0F</Byte>
+        <Byte>11</Byte>
+        <Byte>43</Byte>
+        <Byte>30</Byte>
+      </Before>
+      <Actual>
+        <Byte>F3</Byte>
+        <Byte>0F</Byte>
+        <Byte>11</Byte>
+        <Byte>4B</Byte>
+        <Byte>34</Byte>
+      </Actual>
+      <After>
+        <Byte>F3</Byte>
+        <Byte>0F</Byte>
+        <Byte>11</Byte>
+        <Byte>53</Byte>
+        <Byte>38</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Change of movss [rbx+000000F0],xmm0</Description>
+      <Address>7FEE8BD7FA9</Address>
+      <ModuleName>gamedll_x64_rwdi.dll</ModuleName>
+      <ModuleNameOffset>A77FA9</ModuleNameOffset>
+      <Before>
+        <Byte>83</Byte>
+        <Byte>F0</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Before>
+      <Actual>
+        <Byte>F3</Byte>
+        <Byte>0F</Byte>
+        <Byte>11</Byte>
+        <Byte>83</Byte>
+        <Byte>F0</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Actual>
+      <After>
+        <Byte>48</Byte>
+        <Byte>8B</Byte>
+        <Byte>CB</Byte>
+        <Byte>E8</Byte>
+        <Byte>E7</Byte>
+      </After>
+    </CodeEntry>
+  </CheatCodes>
+  <UserdefinedSymbols>
+    <SymbolEntry>
+      <Name>r_status</Name>
+      <Address>7FEE8090179</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>is_status</Name>
+      <Address>7FFBB31F0035</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>is_aob1</Name>
+      <Address> 7FFBB4ED11AD</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>is_aob2</Name>
+      <Address> 7FFBB4EC425C</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>ih_status</Name>
+      <Address>7FFBB31F00A9</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>ih_aob1</Name>
+      <Address> 7FFBB4DA81AA</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>iw_status</Name>
+      <Address>7FFBB31F00E2</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>iw_aob1</Name>
+      <Address> 7FFBB49DAE5B</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>lf_status</Name>
+      <Address>7FFBB31F0171</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>mo_status</Name>
+      <Address>7FFBB31F0175</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>rl_status</Name>
+      <Address>7FFBB31F0179</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>lf_aob1</Name>
+      <Address> 7FFBB4DAB77C</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>lf_aob2</Name>
+      <Address> 7FFBB44F11F7</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>ic_status</Name>
+      <Address>7FFBB31F0233</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>ic_aob1</Name>
+      <Address> 7FFBB4EB5743</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>ik_status</Name>
+      <Address>7FFBB31F0274</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>ik_aob1</Name>
+      <Address> 7FFBB445FE5B</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>ica_status</Name>
+      <Address>7FFBB31F02B3</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>ica_aob1</Name>
+      <Address> 7FFBB4F7B234</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>ioa_status</Name>
+      <Address>7FFBB31F0316</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>ioa_aob1</Name>
+      <Address> 7FFBB4EB6732</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>pc_status</Name>
+      <Address>7FFBB31F034F</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>pc_aob1</Name>
+      <Address> 7FFBB4EBF7D8</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>pc_aob2</Name>
+      <Address> 7FFBB4EBF86E</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>ici_status</Name>
+      <Address>7FFBB31F03C6</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>ici_aob1</Name>
+      <Address> 7FFBB4EB7239</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>iha_status</Name>
+      <Address>7FFBB31F040B</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>iha_aob1</Name>
+      <Address> 7FFBB50B6B73</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>igh_aob1</Name>
+      <Address> 7FFBB4F5DE22</Address>
+    </SymbolEntry>
+  </UserdefinedSymbols>
+</CheatTable>

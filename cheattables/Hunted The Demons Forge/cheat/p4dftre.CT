@@ -1,0 +1,238 @@
+<?xml version="1.0"?>
+<CheatTable CheatEngineTableVersion="12">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>0</ID>
+      <Description>"Enable cheat script"</Description>
+      <Color>80000008</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>//Made by Geri with Cheat Engine 6.0
+//2nd June, 2011
+//All rights reserved. You are not allowed to use these scripts to create Your own trainer without my permission.
+//Contact e-mail: trainers4free@gmail.com
+[ENABLE]
+//code from here to '[DISABLE]' will be used to enable the cheat
+alloc(newmem,2048) //2kb should be enough
+label(returnhere)
+label(originalcode)
+label(exit)
+label(label1)
+registersymbol(label1)
+aobscan(aob1,8B 10 8B C8 8B 82 * * * * 6A 05 FF D0 E8)
+globalalloc(healthenable,4)
+globalalloc(manaenable,4)
+globalalloc(ammoenable,4)
+globalalloc(rapidenable,4)
+globalalloc(extrarapidenable,4)
+label(manacheat)
+label(ammocheat)
+label(rapidcheat)
+label(extrarapidcheat)
+
+healthenable:
+dd 0
+
+manaenable:
+dd 0
+
+ammoenable:
+dd 0
+
+rapidenable:
+dd 0
+
+extrarapidenable:
+dd 0
+
+newmem: //this is allocated memory, you have read,write,execute access
+cmp [healthenable],1
+jne manacheat
+mov [eax+1F0],(float)9999  //max health
+mov [eax+1F8],(float)9999  //health
+
+manacheat:
+cmp [manaenable],1
+jne ammocheat
+mov [eax+200],(float)9999  //max mana
+mov [eax+208],(float)9999  //current mana
+
+ammocheat:
+cmp [ammoenable],1
+jne rapidcheat
+mov [eax+218],(float)99  //ammo
+
+rapidcheat:
+cmp [rapidenable],1
+jne extrarapidcheat
+mov [eax+290],(float)10  //rapid fire
+
+
+extrarapidcheat:
+cmp [extrarapidenable],1
+jne originalcode
+mov [eax+290],(float)40  //extra rapid fire
+
+
+originalcode:
+mov edx,[eax]
+mov ecx,eax
+mov eax,[edx+000003C0]
+
+exit:
+jmp returnhere
+
+aob1:
+label1:
+jmp newmem
+nop
+nop
+nop
+nop
+nop
+returnhere:
+
+
+ 
+ 
+[DISABLE]
+//code from here till the end of the code will be used to disable the cheat
+dealloc(newmem)
+label1:
+db 8B 10 8B C8 8B 82 C0 03 00 00
+unregistersymbol(label1)
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>1</ID>
+      <Description>"Enable/Disable Unlimited Health"</Description>
+      <Color>80000008</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+//code from here to '[DISABLE]' will be used to enable the cheat
+healthenable:
+dd 1
+ 
+ 
+[DISABLE]
+//code from here till the end of the code will be used to disable the cheat
+healthenable:
+dd 0
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>2</ID>
+      <Description>"Enable/Disable Unlimited Mana"</Description>
+      <Color>80000008</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+//code from here to '[DISABLE]' will be used to enable the cheat
+manaenable:
+dd 1
+ 
+ 
+[DISABLE]
+//code from here till the end of the code will be used to disable the cheat
+manaenable:
+dd 0
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>3</ID>
+      <Description>"Enable/Disable Unlimited Ammo"</Description>
+      <Color>80000008</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+//code from here to '[DISABLE]' will be used to enable the cheat
+ammoenable:
+dd 1
+ 
+ 
+[DISABLE]
+//code from here till the end of the code will be used to disable the cheat
+ammoenable:
+dd 0
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>4</ID>
+      <Description>"Enable/Disable Rapid Fire"</Description>
+      <Color>80000008</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+//code from here to '[DISABLE]' will be used to enable the cheat
+rapidenable:
+dd 1
+ 
+ 
+[DISABLE]
+//code from here till the end of the code will be used to disable the cheat
+rapidenable:
+dd 0
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>5</ID>
+      <Description>"Enable/Disable Extra Rapid Fire"</Description>
+      <Color>80000008</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+//code from here to '[DISABLE]' will be used to enable the cheat
+extrarapidenable:
+dd 1
+ 
+ 
+[DISABLE]
+//code from here till the end of the code will be used to disable the cheat
+extrarapidenable:
+dd 0
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>6</ID>
+      <Description>"Infinite Charges (for enchanted weapons)"</Description>
+      <Color>80000008</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>//Made by Geri with Cheat Engine 6.0
+//4th June, 2011
+//All rights reserved. You are not allowed to use these scripts to create Your own trainer without my permission.
+//Contact e-mail: trainers4free@gmail.com
+[ENABLE]
+//code from here to '[DISABLE]' will be used to enable the cheat
+alloc(newmem,2048) //2kb should be enough
+label(returnhere)
+label(originalcode)
+label(exit)
+label(label2)
+registersymbol(label2)
+aobscan(aob2,8B 84 8E 94 0B 00 00)
+
+newmem: //this is allocated memory, you have read,write,execute access
+mov [esi+ecx*4+00000B94],(int)99
+
+originalcode:
+mov eax,[esi+ecx*4+00000B94]
+
+exit:
+jmp returnhere
+
+aob2:
+label2:
+jmp newmem
+nop
+nop
+returnhere:
+
+
+ 
+ 
+[DISABLE]
+//code from here till the end of the code will be used to disable the cheat
+dealloc(newmem)
+label2:
+db 8B 84 8E 94 0B 00 00
+unregistersymbol(label2)
+</AssemblerScript>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+</CheatTable>

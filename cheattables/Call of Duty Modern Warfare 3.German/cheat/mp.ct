@@ -1,0 +1,56 @@
+<CheatEntry>
+      <ID>263</ID>
+      <Description>"Desert Eagle"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>iw5mp.exe+18CC054</Address>
+    </CheatEntry>
+	    <CheatEntry>
+      <ID>263</ID>
+      <Description>"ak 47"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>iw5mp.exe+18CC07C</Address>
+    </CheatEntry>
+	    <CheatEntry>
+      <ID>263</ID>
+      <Description>"striker"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>iw5mp.exe+18CC0CC</Address>
+    </CheatEntry>
+	    <CheatEntry>
+      <ID>263</ID>
+      <Description>"model 1887!"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>iw5mp.exe+18CC0D0</Address>
+    </CheatEntry>
+	    <CheatEntry>
+      <ID>263</ID>
+      <Description>"M60"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>iw5mp.exe+18CC0DC</Address>
+    </CheatEntry>
+	    <CheatEntry>
+      <ID>263</ID>
+      <Description>"mp7"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>iw5mp.exe+18CC0AC</Address>
+    </CheatEntry>
+	    <CheatEntry>
+      <ID>263</ID>
+      <Description>"pm-9"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>iw5mp.exe+18CC09C</Address>
+    </CheatEntry>
+	    <CheatEntry>
+      <ID>263</ID>
+      <Description>"mk46 mg!"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>iw5mp.exe+18CBBDC</Address>
+    </CheatEntry>

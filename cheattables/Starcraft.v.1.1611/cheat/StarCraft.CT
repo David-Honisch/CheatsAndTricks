@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="18">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>17</ID>
+      <Description>"Human Minerals"</Description>
+      <LastState Value="??" Activated="1" RealAddress="0057F108"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>STARCRAFT.EXE+17F108</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>18</ID>
+      <Description>"Human Vespene Gas"</Description>
+      <LastState Value="??" Activated="1" RealAddress="0057F138"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>STARCRAFT.EXE+17F138</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>4</ID>
+      <Description>"Protoss Minerals"</Description>
+      <LastState Value="??" Activated="0" RealAddress="0057F0F4"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>STARCRAFT.EXE+17F0F4</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>7</ID>
+      <Description>"Protoss Vespene Gas"</Description>
+      <LastState Value="??" Activated="0" RealAddress="0057F124"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>STARCRAFT.EXE+17F124</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>13</ID>
+      <Description>"Duran"</Description>
+      <LastState Value="??" Activated="0" RealAddress="006CAC0C"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>STARCRAFT.EXE+2CAC0C</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>8</ID>
+      <Description>"No description"</Description>
+      <LastState Value="??" Activated="0" RealAddress="006CA9EC"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>STARCRAFT.EXE+2CA9EC</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>9</ID>
+      <Description>"No description"</Description>
+      <LastState Value="??" Activated="0" RealAddress="0057F104"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>STARCRAFT.EXE+17F104</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>12</ID>
+      <Description>"No description"</Description>
+      <LastState Value="??" Activated="0" RealAddress="0057F134"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>STARCRAFT.EXE+17F134</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>10</ID>
+      <Description>"No description"</Description>
+      <LastState Value="??" Activated="0" RealAddress="0068C230"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>STARCRAFT.EXE+28C230</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>11</ID>
+      <Description>"No description"</Description>
+      <LastState Value="??" Activated="0" RealAddress="06E28A3C"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>06E28A3C</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>14</ID>
+      <Description>"No description"</Description>
+      <LastState Value="??" Activated="0" RealAddress="0061E9AB"/>
+      <Color>80000008</Color>
+      <VariableType>Byte</VariableType>
+      <Address>STARCRAFT.EXE+21E9AB</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>15</ID>
+      <Description>"No description"</Description>
+      <LastState Value="??" Activated="0" RealAddress="0057AED0"/>
+      <Color>80000008</Color>
+      <VariableType>Byte</VariableType>
+      <Address>STARCRAFT.EXE+17AED0</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>16</ID>
+      <Description>"No description"</Description>
+      <LastState Value="??" Activated="0" RealAddress="006196FB"/>
+      <Color>80000008</Color>
+      <VariableType>Byte</VariableType>
+      <Address>STARCRAFT.EXE+2196FB</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>19</ID>
+      <Description>"Duran Health"</Description>
+      <LastState Value="??" Activated="0" RealAddress="0060B3EB"/>
+      <Color>80000008</Color>
+      <VariableType>Byte</VariableType>
+      <Address>STARCRAFT.EXE+20B3EB</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>20</ID>
+      <Description>"No description"</Description>
+      <LastState Value="??" Activated="0" RealAddress="0060B351"/>
+      <Color>80000008</Color>
+      <VariableType>Byte</VariableType>
+      <Address>STARCRAFT.EXE+20B351</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>21</ID>
+      <Description>"No description"</Description>
+      <LastState Value="??" Activated="0" RealAddress="006CA94D"/>
+      <Color>80000008</Color>
+      <VariableType>Byte</VariableType>
+      <Address>STARCRAFT.EXE+2CA94D</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>22</ID>
+      <Description>"No description"</Description>
+      <LastState Value="??" Activated="0" RealAddress="0052F810"/>
+      <Color>80000008</Color>
+      <VariableType>Byte</VariableType>
+      <Address>STARCRAFT.EXE+12F810</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>23</ID>
+      <Description>"No description"</Description>
+      <LastState Value="??" Activated="0" RealAddress="00618941"/>
+      <Color>80000008</Color>
+      <VariableType>Byte</VariableType>
+      <Address>STARCRAFT.EXE+218941</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>24</ID>
+      <Description>"No description"</Description>
+      <LastState Value="??" Activated="0" RealAddress="006182B1"/>
+      <Color>80000008</Color>
+      <VariableType>Byte</VariableType>
+      <Address>STARCRAFT.EXE+2182B1</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>25</ID>
+      <Description>"Duran Health"</Description>
+      <LastState Value="??" Activated="0" RealAddress="0060B3EB"/>
+      <Color>80000008</Color>
+      <VariableType>Byte</VariableType>
+      <Address>STARCRAFT.EXE+20B3EB</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>26</ID>
+      <Description>"Duran Shield"</Description>
+      <LastState Value="??" Activated="0" RealAddress="0060B351"/>
+      <Color>80000008</Color>
+      <VariableType>Byte</VariableType>
+      <Address>STARCRAFT.EXE+20B351</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>27</ID>
+      <Description>"No description"</Description>
+      <LastState Value="??" Activated="1" RealAddress="072F0A1D"/>
+      <Color>80000008</Color>
+      <VariableType>Byte</VariableType>
+      <Address>072F0A1D</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>28</ID>
+      <Description>"No description"</Description>
+      <LastState Value="??" Activated="1" RealAddress="072F11F8"/>
+      <Color>80000008</Color>
+      <VariableType>Byte</VariableType>
+      <Address>072F11F8</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>29</ID>
+      <Description>"No description"</Description>
+      <LastState Value="??" Activated="1" RealAddress="072F11F9"/>
+      <Color>80000008</Color>
+      <VariableType>Byte</VariableType>
+      <Address>072F11F9</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>30</ID>
+      <Description>"No description"</Description>
+      <LastState Value="??" Activated="1" RealAddress="072F1253"/>
+      <Color>80000008</Color>
+      <VariableType>Byte</VariableType>
+      <Address>072F1253</Address>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+</CheatTable>

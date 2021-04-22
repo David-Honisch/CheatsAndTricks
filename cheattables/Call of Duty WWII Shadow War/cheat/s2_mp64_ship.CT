@@ -1,0 +1,775 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="26">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>9</ID>
+      <Description>"Main Code"</Description>
+      <Options moHideChildren="1"/>
+      <LastState Activated="1"/>
+      <Color>800080</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+aobscanmodule(_GodMode,s2_mp64_ship.exe,8B 86 DC 02 00 00)
+aobscanmodule(_NoReload,s2_mp64_ship.exe,42 83 BC B6 E4 06 00 00 00)
+aobscanmodule(_RapidFire,s2_mp64_ship.exe,8B 84 8B C8 03 00 00)
+aobscanmodule(_SuperSpeed,s2_mp64_ship.exe,F3 0F 59 B3 48 03 00 00)
+aobscanmodule(_BypassSpeedReset,s2_mp64_ship.exe,89 83 48 03 00 00 44)
+aobscanmodule(_NoSway,s2_mp64_ship.exe,F3 0F 10 8B 40 03 00 00 F3)
+aobscanmodule(_BypassSwayReset,s2_mp64_ship.exe,F3 0F 11 83 40 03 00 00 48)
+aobscanmodule(_UnlimitedAmmo,s2_mp64_ship.exe,41 8B 76 10 41 83 FC 01)
+aobscanmodule(_UnlimitedThrowables,s2_mp64_ship.exe,83 BE E4 06 00 00 00 74)
+alloc(newmemGM,$1000,s2_mp64_ship.exe)
+alloc(newmemNR,$1000,s2_mp64_ship.exe)
+alloc(newmemRapid,$1000,s2_mp64_ship.exe)
+alloc(newmemSS,$1000,s2_mp64_ship.exe)
+alloc(newmemNS,$1000,s2_mp64_ship.exe)
+alloc(newmemUA,$1000,s2_mp64_ship.exe)
+alloc(newmemUT,$1000,s2_mp64_ship.exe)
+alloc(_enableGodMode,8)
+alloc(_enableNoReload,8)
+alloc(_enableRapidFire,8)
+alloc(_IncPlayerSpeed,8)
+alloc(_DecPlayerSpeed,8)
+alloc(_ResPlayerSpeed,8)
+alloc(_SpeedToAdd,8)
+alloc(_enableNoSway,8)
+alloc(_enableUnlimitedAmmo,8)
+alloc(UnlimitedThrowables,8)
+registersymbol(_enableGodMode)
+registersymbol(_GodMode)
+registersymbol(_enableNoReload)
+registersymbol(_NoReload)
+registersymbol(_enableRapidFire)
+registersymbol(_RapidFire)
+registersymbol(_IncPlayerSpeed)
+registersymbol(_DecPlayerSpeed)
+registersymbol(_ResPlayerSpeed)
+registersymbol(_SpeedToAdd)
+registersymbol(_SuperSpeed)
+registersymbol(_BypassSpeedReset)
+registersymbol(_enableNoSway)
+registersymbol(_NoSway)
+registersymbol(_BypassSwayReset)
+registersymbol(_enableUnlimitedAmmo)
+registersymbol(_UnlimitedAmmo)
+registersymbol(UnlimitedThrowables)
+registersymbol(_UnlimitedThrowables)
+label(codeGM)
+label(returnGM)
+label(codeNR)
+label(returnNR)
+label(codeRapid)
+label(returnRapid)
+label(codeSS)
+label(returnSS)
+label(IncSpeed)
+label(DecSpeed)
+label(ResSpeed)
+label(codeNS)
+label(returnNS)
+label(codeUA)
+label(returnUA)
+label(codeUT)
+label(returnUT)
+
+newmemGM:
+cmp byte ptr [_enableGodMode],1
+jne codeGM
+mov [rsi+000002DC],#999999
+
+codeGM:
+  mov eax,[rsi+000002DC]
+  jmp returnGM
+
+
+newmemNR:
+cmp byte ptr [_enableNoReload],1
+jne codeNR
+mov dword ptr [rsi+000006E4],#999
+codeNR:
+  cmp dword ptr [rsi+r14*4+000006E4],00
+  jmp returnNR
+
+newmemRapid:
+cmp byte ptr [_enableRapidFire],1
+jne codeRapid
+mov [rbx+rcx*4+000003C8],0
+codeRapid:
+  mov eax,[rbx+rcx*4+000003C8]
+  jmp returnRapid
+
+newmemSS:
+cmp [rbx-4],0
+jne codeSS
+cmp byte ptr [_IncPlayerSpeed],1
+je IncSpeed
+cmp byte ptr [_DecPlayerSpeed],1
+je DecSpeed
+cmp byte ptr [_ResPlayerSpeed],1
+je ResSpeed
+jmp codeSS
+
+IncSpeed:
+mov byte ptr [_IncPlayerSpeed],0
+fld [rbx+00000348]
+fld [_SpeedToAdd]
+faddp
+fstp [rbx+00000348]
+jmp codeSS
+
+DecSpeed:
+mov byte ptr [_DecPlayerSpeed],0
+cmp dword ptr [rbx+00000348],(float)1
+je codeSS
+fld [rbx+00000348]
+fld [_SpeedToAdd]
+fsubp
+fstp [rbx+00000348]
+jmp codeSS
+
+ResSpeed:
+mov byte ptr [_ResPlayerSpeed],0
+mov [rbx+00000348],(float)1
+jmp codeSS
+
+codeSS:
+  mulss xmm6,[rbx+00000348]
+  jmp returnSS
+
+_BypassSpeedReset:
+  db 90 90 90 90 90 90
+
+newmemNS:
+cmp byte ptr [_enableNoSway],1
+jne codeNS
+mov [rbx+00000340],0
+codeNS:
+  movss xmm1,[rbx+00000340]
+  jmp returnNS
+
+_BypassSwayReset:
+  db 90 90 90 90 90 90 90 90
+
+newmemUA:
+cmp byte ptr [_enableUnlimitedAmmo],1
+jne codeUA
+mov [r14+10],#999
+codeUA:
+  mov esi,[r14+10]
+  cmp r12d,01
+  jmp returnUA
+
+newmemUT:
+cmp byte ptr [UnlimitedThrowables],1
+jne codeUT
+  mov dword ptr [rsi+000006E4],#99
+codeUT:
+  cmp dword ptr [rsi+000006E4],00
+  jmp returnUT
+
+
+
+
+_GodMode:
+  jmp newmemGM
+  nop
+returnGM:
+
+_NoReload:
+  jmp newmemNR
+  nop
+  nop
+  nop
+  nop
+returnNR:
+
+_RapidFire:
+  jmp newmemRapid
+  nop
+  nop
+returnRapid:
+
+_SuperSpeed:
+  jmp newmemSS
+  nop
+  nop
+  nop
+returnSS:
+
+_NoSway:
+  jmp newmemNS
+  nop
+  nop
+  nop
+returnNS:
+
+_UnlimitedAmmo:
+  jmp newmemUA
+  nop
+  nop
+  nop
+returnUA:
+
+_UnlimitedThrowables:
+  jmp newmemUT
+  nop
+  nop
+returnUT:
+
+
+
+
+_enableGodMode:
+dd 0
+_enableNoReload:
+dd 0
+_enableRapidFire:
+dd 0
+_IncPlayerSpeed:
+dd 0
+_DecPlayerSpeed:
+dd 0
+_ResPlayerSpeed:
+dd 0
+_SpeedToAdd:
+dq (float)1
+_enableNoSway:
+dd 0
+_enableUnlimitedAmmo:
+dd 0
+UnlimitedThrowables:
+dd 0
+
+[DISABLE]
+
+_GodMode:
+  db 8B 86 DC 02 00 00
+_NoReload:
+  db 42 83 BC B6 E4 06 00 00 00
+_RapidFire:
+  db 8B 84 8B C8 03 00 00
+_SuperSpeed:
+  db F3 0F 59 B3 48 03 00 00
+_BypassSpeedReset:
+  db 89 83 48 03 00 00
+_NoSway:
+  db F3 0F 10 8B 40 03 00 00
+_BypassSwayReset:
+  db F3 0F 11 83 40 03 00 00
+_UnlimitedAmmo:
+  db 41 8B 76 10 41 83 FC 01
+_UnlimitedThrowables:
+  db 83 BE E4 06 00 00 00
+
+dealloc(_enableGodMode)
+dealloc(newmemGM)
+dealloc(newmemNR)
+dealloc(_enableNoReload)
+dealloc(_enableRapidFire)
+dealloc(newmemRapid)
+dealloc(newmemSS)
+dealloc(_IncPlayerSpeed)
+dealloc(_DecPlayerSpeed)
+dealloc(_ResPlayerSpeed)
+dealloc(_SpeedToAdd)
+dealloc(_enableNoSway)
+dealloc(newmemNS)
+dealloc(_enableUnlimitedAmmo)
+dealloc(newmemUA)
+dealloc(newmemUT)
+dealloc(UnlimitedThrowables)
+unregistersymbol(_GodMode)
+unregistersymbol(_enableGodMode)
+unregistersymbol(_NoReload)
+unregistersymbol(_enableNoReload)
+unregistersymbol(_RapidFire)
+unregistersymbol(_enableRapidFire)
+unregistersymbol(_IncPlayerSpeed)
+unregistersymbol(_DecPlayerSpeed)
+unregistersymbol(_ResPlayerSpeed)
+unregistersymbol(_SpeedToAdd)
+unregistersymbol(_SuperSpeed)
+unregistersymbol(_BypassSpeedReset)
+unregistersymbol(_NoSway)
+unregistersymbol(_enableNoSway)
+unregistersymbol(_BypassSwayReset)
+unregistersymbol(_UnlimitedAmmo)
+unregistersymbol(_enableUnlimitedAmmo)
+unregistersymbol(_UnlimitedThrowables)
+unregistersymbol(UnlimitedThrowables)
+{
+// ORIGINAL CODE - INJECTION POINT: "s2_mp64_ship.exe"+5B288C
+
+"s2_mp64_ship.exe"+5B2861: 8B 43 58                 -  mov eax,[rbx+58]
+"s2_mp64_ship.exe"+5B2864: F3 0F 11 83 D4 5D 00 00  -  movss [rbx+00005DD4],xmm0
+"s2_mp64_ship.exe"+5B286C: 39 86 18 01 00 00        -  cmp [rsi+00000118],eax
+"s2_mp64_ship.exe"+5B2872: 7D 08                    -  jnl s2_mp64_ship.exe+5B287C
+"s2_mp64_ship.exe"+5B2874: 48 8B CE                 -  mov rcx,rsi
+"s2_mp64_ship.exe"+5B2877: E8 14 F3 07 00           -  call s2_mp64_ship.exe+631B90
+"s2_mp64_ship.exe"+5B287C: 48 8B CE                 -  mov rcx,rsi
+"s2_mp64_ship.exe"+5B287F: E8 8C F1 07 00           -  call s2_mp64_ship.exe+631A10
+"s2_mp64_ship.exe"+5B2884: 48 8B CE                 -  mov rcx,rsi
+"s2_mp64_ship.exe"+5B2887: E8 B4 3C 00 00           -  call s2_mp64_ship.exe+5B6540
+// ---------- INJECTING HERE ----------
+"s2_mp64_ship.exe"+5B288C: 8B 86 DC 02 00 00        -  mov eax,[rsi+000002DC]
+// ---------- DONE INJECTING  ----------
+"s2_mp64_ship.exe"+5B2892: 48 8D 3D 27 36 70 1B     -  lea rdi,[s2_mp64_ship.exe+1BCB5EC0]
+"s2_mp64_ship.exe"+5B2899: 89 83 A4 02 00 00        -  mov [rbx+000002A4],eax
+"s2_mp64_ship.exe"+5B289F: 48 63 93 90 59 00 00     -  movsxd  rdx,dword ptr [rbx+00005990]
+"s2_mp64_ship.exe"+5B28A6: 0F B7 46 08              -  movzx eax,word ptr [rsi+08]
+"s2_mp64_ship.exe"+5B28AA: 66 89 43 34              -  mov [rbx+34],ax
+"s2_mp64_ship.exe"+5B28AE: 44 38 BC 3A 94 06 00 00  -  cmp [rdx+rdi+00000694],r15l
+"s2_mp64_ship.exe"+5B28B6: 75 0C                    -  jne s2_mp64_ship.exe+5B28C4
+"s2_mp64_ship.exe"+5B28B8: 41 8B C7                 -  mov eax,r15d
+"s2_mp64_ship.exe"+5B28BB: 44 39 BB EC 5A 00 00     -  cmp [rbx+00005AEC],r15d
+"s2_mp64_ship.exe"+5B28C2: 74 05                    -  je s2_mp64_ship.exe+5B28C9
+}
+</AssemblerScript>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>10</ID>
+          <Description>"God Mode"</Description>
+          <DropDownList DescriptionOnly="1" DisplayValueAsItem="1">1:On
+0:Off
+</DropDownList>
+          <LastState Value="0" RealAddress="7FF6E3697000"/>
+          <VariableType>Byte</VariableType>
+          <Address>_enableGodMode</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>13</ID>
+          <Description>"No Reload"</Description>
+          <DropDownList DescriptionOnly="1" DisplayValueAsItem="1">1:On
+0:Off
+</DropDownList>
+          <LastState Value="0" RealAddress="7FF6E3697008"/>
+          <VariableType>Byte</VariableType>
+          <Address>_enableNoReload</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>41</ID>
+          <Description>"Infinite Ammo"</Description>
+          <DropDownList DescriptionOnly="1" DisplayValueAsItem="1">1:On
+0:Off
+</DropDownList>
+          <LastState Value="0" RealAddress="7FF6E3697040"/>
+          <VariableType>Byte</VariableType>
+          <Address>_enableUnlimitedAmmo</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>93</ID>
+          <Description>"Unlimited Thowables(Grenades,Mines..)"</Description>
+          <DropDownList DescriptionOnly="1" DisplayValueAsItem="1">1:On
+0:Off
+</DropDownList>
+          <LastState Value="0" RealAddress="7FF6E3697048"/>
+          <VariableType>Byte</VariableType>
+          <Address>UnlimitedThrowables</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>38</ID>
+          <Description>"No Sway"</Description>
+          <DropDownList DescriptionOnly="1" DisplayValueAsItem="1">1:On
+0:Off
+</DropDownList>
+          <LastState Value="0" RealAddress="7FF6E3697038"/>
+          <VariableType>Byte</VariableType>
+          <Address>_enableNoSway</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>26</ID>
+          <Description>"Rapid Fire"</Description>
+          <DropDownList DescriptionOnly="1" DisplayValueAsItem="1">1:On
+0:Off
+</DropDownList>
+          <LastState Value="0" RealAddress="7FF6E3697010"/>
+          <VariableType>Byte</VariableType>
+          <Address>_enableRapidFire</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>36</ID>
+          <Description>"Player Speed"</Description>
+          <Options moHideChildren="1"/>
+          <LastState Value="" Activated="1" RealAddress="00000000"/>
+          <GroupHeader>1</GroupHeader>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>33</ID>
+              <Description>"Increase Player Speed"</Description>
+              <DropDownList DescriptionOnly="1" DisplayValueAsItem="1">1:On
+0:Off
+</DropDownList>
+              <LastState Value="0" RealAddress="7FF6E3697018"/>
+              <VariableType>Byte</VariableType>
+              <Address>_IncPlayerSpeed</Address>
+              <Hotkeys>
+                <Hotkey>
+                  <Action>Set Value</Action>
+                  <Keys>
+                    <Key>33</Key>
+                  </Keys>
+                  <Value>1</Value>
+                  <ID>0</ID>
+                  <ActivateSound>Activate</ActivateSound>
+                </Hotkey>
+              </Hotkeys>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>34</ID>
+              <Description>"Decrease Player Speed"</Description>
+              <DropDownList DescriptionOnly="1" DisplayValueAsItem="1">1:On
+0:Off
+</DropDownList>
+              <LastState Value="0" RealAddress="7FF6E3697020"/>
+              <VariableType>Byte</VariableType>
+              <Address>_DecPlayerSpeed</Address>
+              <Hotkeys>
+                <Hotkey>
+                  <Action>Set Value</Action>
+                  <Keys>
+                    <Key>34</Key>
+                  </Keys>
+                  <Value>1</Value>
+                  <ID>0</ID>
+                  <ActivateSound>Activate</ActivateSound>
+                </Hotkey>
+              </Hotkeys>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>35</ID>
+              <Description>"Restore Player Speed"</Description>
+              <DropDownList DescriptionOnly="1" DisplayValueAsItem="1">1:On
+0:Off
+</DropDownList>
+              <LastState Value="0" RealAddress="7FF6E3697028"/>
+              <VariableType>Byte</VariableType>
+              <Address>_ResPlayerSpeed</Address>
+              <Hotkeys>
+                <Hotkey>
+                  <Action>Set Value</Action>
+                  <Keys>
+                    <Key>36</Key>
+                  </Keys>
+                  <Value>1</Value>
+                  <ID>0</ID>
+                  <ActivateSound>Activate</ActivateSound>
+                </Hotkey>
+              </Hotkeys>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>19</ID>
+          <Description>"Turn All Weapons Into Full-Auto"</Description>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+aobscanmodule(_TurnAllWeaponsIntoFullAuto,s2_mp64_ship.exe,FF 84 BB E0 03 00 00) // should be unique
+registersymbol(_TurnAllWeaponsIntoFullAuto)
+
+_TurnAllWeaponsIntoFullAuto:
+  db 90 90 90 90 90 90 90
+[DISABLE]
+
+_TurnAllWeaponsIntoFullAuto:
+  db FF 84 BB E0 03 00 00
+
+unregistersymbol(_TurnAllWeaponsIntoFullAuto)
+
+{
+// ORIGINAL CODE - INJECTION POINT: "s2_mp64_ship.exe"+46AF23
+
+"s2_mp64_ship.exe"+46AF06: 41 0F B6 D4                    -  movzx edx,r12l
+"s2_mp64_ship.exe"+46AF0A: 49 8B CE                       -  mov rcx,r14
+"s2_mp64_ship.exe"+46AF0D: 0F 28 F0                       -  movaps xmm6,xmm0
+"s2_mp64_ship.exe"+46AF10: E8 2B F6 00 00                 -  call s2_mp64_ship.exe+47A540
+"s2_mp64_ship.exe"+46AF15: 85 C0                          -  test eax,eax
+"s2_mp64_ship.exe"+46AF17: 75 0A                          -  jne s2_mp64_ship.exe+46AF23
+"s2_mp64_ship.exe"+46AF19: 0F 57 C9                       -  xorps xmm1,xmm1
+"s2_mp64_ship.exe"+46AF1C: 0F 2E F1                       -  ucomiss xmm6,xmm1
+"s2_mp64_ship.exe"+46AF1F: 7A 02                          -  jp s2_mp64_ship.exe+46AF23
+"s2_mp64_ship.exe"+46AF21: 74 1F                          -  je s2_mp64_ship.exe+46AF42
+// ---------- INJECTING HERE ----------
+"s2_mp64_ship.exe"+46AF23: FF 84 BB E0 03 00 00           -  inc [rbx+rdi*4+000003E0]
+// ---------- DONE INJECTING  ----------
+"s2_mp64_ship.exe"+46AF2A: B9 1F 00 00 00                 -  mov ecx,0000001F
+"s2_mp64_ship.exe"+46AF2F: 8B 84 BB E0 03 00 00           -  mov eax,[rbx+rdi*4+000003E0]
+"s2_mp64_ship.exe"+46AF36: 3B C1                          -  cmp eax,ecx
+"s2_mp64_ship.exe"+46AF38: 0F 47 C1                       -  cmova eax,ecx
+"s2_mp64_ship.exe"+46AF3B: 89 84 BB E0 03 00 00           -  mov [rbx+rdi*4+000003E0],eax
+"s2_mp64_ship.exe"+46AF42: 41 0F B6 D4                    -  movzx edx,r12l
+"s2_mp64_ship.exe"+46AF46: 49 8B CE                       -  mov rcx,r14
+"s2_mp64_ship.exe"+46AF49: E8 F2 F6 00 00                 -  call s2_mp64_ship.exe+47A640
+"s2_mp64_ship.exe"+46AF4E: 0F 28 74 24 50                 -  movaps xmm6,[rsp+50]
+"s2_mp64_ship.exe"+46AF53: 83 F8 02                       -  cmp eax,02
+}
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>27</ID>
+          <Description>"Debug/Test/WIP"</Description>
+          <Options moHideChildren="1"/>
+          <LastState Value="" Activated="1" RealAddress="00000000"/>
+          <Color>0080FF</Color>
+          <GroupHeader>1</GroupHeader>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>2</ID>
+              <Description>"Health (Setting to 0 = Zombieas Ignore you )"</Description>
+              <LastState Value="0" RealAddress="7FF6FF35ECFC"/>
+              <VariableType>4 Bytes</VariableType>
+              <Address>s2_mp64_ship.exe+1BCBECFC</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>90</ID>
+              <Description>"Get Max Cash/Points (enable in Lobby)"</Description>
+              <LastState/>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>
+[ENABLE]
+
+aobscanmodule(_Points,s2_mp64_ship.exe,48 8B 02 83 E1 7F) // should be unique
+alloc(newmem,$1000,"s2_mp64_ship.exe"+6F1109)
+
+label(code)
+label(return)
+
+newmem:
+cmp [rdx],(int)500
+jne code
+mov [rdx],#999999
+code:
+  mov rax,[rdx]
+  and ecx,7F
+  jmp return
+
+_Points:
+  jmp newmem
+  nop
+return:
+registersymbol(_Points)
+
+[DISABLE]
+
+_Points:
+  db 48 8B 02 83 E1 7F
+
+unregistersymbol(_Points)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: "s2_mp64_ship.exe"+6F1109
+
+"s2_mp64_ship.exe"+6F10E6: 41 8B D0                 -  mov edx,r8d
+"s2_mp64_ship.exe"+6F10E9: 41 8B F0                 -  mov esi,r8d
+"s2_mp64_ship.exe"+6F10EC: E8 5F CC FF FF           -  call s2_mp64_ship.exe+6EDD50
+"s2_mp64_ship.exe"+6F10F1: 85 C0                    -  test eax,eax
+"s2_mp64_ship.exe"+6F10F3: 74 73                    -  je s2_mp64_ship.exe+6F1168
+"s2_mp64_ship.exe"+6F10F5: 8B D0                    -  mov edx,eax
+"s2_mp64_ship.exe"+6F10F7: 48 8D 05 82 F3 C1 1C     -  lea rax,[s2_mp64_ship.exe+1D310480]
+"s2_mp64_ship.exe"+6F10FE: 48 C1 E2 05              -  shl rdx,05
+"s2_mp64_ship.exe"+6F1102: 48 03 D0                 -  add rdx,rax
+"s2_mp64_ship.exe"+6F1105: 0F B7 4A 0C              -  movzx ecx,word ptr [rdx+0C]
+// ---------- INJECTING HERE ----------
+"s2_mp64_ship.exe"+6F1109: 48 8B 02                 -  mov rax,[rdx]
+"s2_mp64_ship.exe"+6F110C: 83 E1 7F                 -  and ecx,7F
+// ---------- DONE INJECTING  ----------
+"s2_mp64_ship.exe"+6F110F: FF C9                    -  dec ecx
+"s2_mp64_ship.exe"+6F1111: 83 F9 04                 -  cmp ecx,04
+"s2_mp64_ship.exe"+6F1114: 73 38                    -  jae s2_mp64_ship.exe+6F114E
+"s2_mp64_ship.exe"+6F1116: 85 C9                    -  test ecx,ecx
+"s2_mp64_ship.exe"+6F1118: 75 14                    -  jne s2_mp64_ship.exe+6F112E
+"s2_mp64_ship.exe"+6F111A: 8B C8                    -  mov ecx,eax
+"s2_mp64_ship.exe"+6F111C: 4C 8D 05 5D 26 A9 1C     -  lea r8,[s2_mp64_ship.exe+1D183780]
+"s2_mp64_ship.exe"+6F1123: 48 8D 04 49              -  lea rax,[rcx+rcx*2]
+"s2_mp64_ship.exe"+6F1127: 66 41 FF 04 80           -  inc word ptr [r8+rax*4]
+"s2_mp64_ship.exe"+6F112C: EB 20                    -  jmp s2_mp64_ship.exe+6F114E
+}
+</AssemblerScript>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+  </CheatEntries>
+  <CheatCodes>
+    <CodeEntry>
+      <Description>Code :add ebp,[rsi+000006E4]</Description>
+      <Address>7FF6E3C5D47F</Address>
+      <ModuleName>s2_mp64_ship.exe</ModuleName>
+      <ModuleNameOffset>5BD47F</ModuleNameOffset>
+      <Before>
+        <Byte>AE</Byte>
+        <Byte>E8</Byte>
+        <Byte>06</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Before>
+      <Actual>
+        <Byte>03</Byte>
+        <Byte>AE</Byte>
+        <Byte>E4</Byte>
+        <Byte>06</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Actual>
+      <After>
+        <Byte>EB</Byte>
+        <Byte>5D</Byte>
+        <Byte>E8</Byte>
+        <Byte>64</Byte>
+        <Byte>33</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Code :movups [r15+00000204],xmm0</Description>
+      <Address>7FF6E3C53C5D</Address>
+      <ModuleName>s2_mp64_ship.exe</ModuleName>
+      <ModuleNameOffset>5B3C5D</ModuleNameOffset>
+      <Before>
+        <Byte>8D</Byte>
+        <Byte>D4</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Before>
+      <Actual>
+        <Byte>41</Byte>
+        <Byte>0F</Byte>
+        <Byte>11</Byte>
+        <Byte>87</Byte>
+        <Byte>04</Byte>
+        <Byte>02</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Actual>
+      <After>
+        <Byte>F2</Byte>
+        <Byte>41</Byte>
+        <Byte>0F</Byte>
+        <Byte>11</Byte>
+        <Byte>8F</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Code :movsd [r15+00000214],xmm1</Description>
+      <Address>7FF6E3C53C65</Address>
+      <ModuleName>s2_mp64_ship.exe</ModuleName>
+      <ModuleNameOffset>5B3C65</ModuleNameOffset>
+      <Before>
+        <Byte>90</Byte>
+        <Byte>90</Byte>
+        <Byte>90</Byte>
+        <Byte>90</Byte>
+        <Byte>90</Byte>
+      </Before>
+      <Actual>
+        <Byte>F2</Byte>
+        <Byte>41</Byte>
+        <Byte>0F</Byte>
+        <Byte>11</Byte>
+        <Byte>8F</Byte>
+        <Byte>14</Byte>
+        <Byte>02</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Actual>
+      <After>
+        <Byte>E8</Byte>
+        <Byte>6D</Byte>
+        <Byte>F0</Byte>
+        <Byte>FF</Byte>
+        <Byte>FF</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Code :jmp 7FF6E3690000</Description>
+      <Address>7FF6E3B0D0C9</Address>
+      <ModuleName>s2_mp64_ship.exe</ModuleName>
+      <ModuleNameOffset>46D0C9</ModuleNameOffset>
+      <Before>
+        <Byte>0F</Byte>
+        <Byte>7C</Byte>
+        <Byte>D9</Byte>
+        <Byte>EB</Byte>
+        <Byte>29</Byte>
+      </Before>
+      <Actual>
+        <Byte>E9</Byte>
+        <Byte>32</Byte>
+        <Byte>2F</Byte>
+        <Byte>B8</Byte>
+        <Byte>FF</Byte>
+        <Byte>90</Byte>
+        <Byte>90</Byte>
+      </Actual>
+      <After>
+        <Byte>74</Byte>
+        <Byte>20</Byte>
+        <Byte>41</Byte>
+        <Byte>B9</Byte>
+        <Byte>01</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Code :mov r13d,[r14+000006E4]</Description>
+      <Address>7FF6E3B08F49</Address>
+      <ModuleName>s2_mp64_ship.exe</ModuleName>
+      <ModuleNameOffset>468F49</ModuleNameOffset>
+      <Before>
+        <Byte>0F</Byte>
+        <Byte>7C</Byte>
+        <Byte>D9</Byte>
+        <Byte>EB</Byte>
+        <Byte>07</Byte>
+      </Before>
+      <Actual>
+        <Byte>45</Byte>
+        <Byte>8B</Byte>
+        <Byte>AE</Byte>
+        <Byte>E4</Byte>
+        <Byte>06</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Actual>
+      <After>
+        <Byte>33</Byte>
+        <Byte>D2</Byte>
+        <Byte>48</Byte>
+        <Byte>8D</Byte>
+        <Byte>4C</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Code :mov eax,[rdi+r14*4+000006E4]</Description>
+      <Address>7FF6E3B01D10</Address>
+      <ModuleName>s2_mp64_ship.exe</ModuleName>
+      <ModuleNameOffset>461D10</ModuleNameOffset>
+      <Before>
+        <Byte>C4</Byte>
+        <Byte>33</Byte>
+        <Byte>C0</Byte>
+        <Byte>EB</Byte>
+        <Byte>08</Byte>
+      </Before>
+      <Actual>
+        <Byte>42</Byte>
+        <Byte>8B</Byte>
+        <Byte>84</Byte>
+        <Byte>B7</Byte>
+        <Byte>E4</Byte>
+        <Byte>06</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Actual>
+      <After>
+        <Byte>48</Byte>
+        <Byte>8B</Byte>
+        <Byte>4C</Byte>
+        <Byte>24</Byte>
+        <Byte>30</Byte>
+      </After>
+    </CodeEntry>
+  </CheatCodes>
+  <UserdefinedSymbols/>
+</CheatTable>

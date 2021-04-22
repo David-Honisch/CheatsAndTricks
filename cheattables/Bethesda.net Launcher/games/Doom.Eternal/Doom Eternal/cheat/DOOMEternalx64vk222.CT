@@ -1,0 +1,714 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="29">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>87467</ID>
+      <Description>"[ gamedate: Mar 13 2020 ]"</Description>
+      <Options moHideChildren="1"/>
+      <LastState Value="" RealAddress="00000000"/>
+      <Color>FF0080</Color>
+      <GroupHeader>1</GroupHeader>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>87481</ID>
+          <Description>"Unrestrict Console Commands/CVars &amp; Bind"</Description>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript Async="1">{$STRICT}
+
+{$lua}
+
+if syntaxcheck then return end
+
+[ENABLE]
+
+function _readInteger( Input )
+  -- thanks, Pox!
+  local Value = readInteger( Input )
+  if Value &lt; 0x80000000 then return Value
+  else return Value - 0x100000000 end
+end
+
+function aobscanex( aob, p, a, n, s, e, pb )
+  local p, a, n, s, e = p or '*X*W', a or fsmNotAligned, n or '0', s or 0x0, e or 0xffffffffffffffff
+  local ms = pb and createMemScan( pb ) or createMemScan()
+  local fl = createFoundList( ms )
+  ms.firstScan( soExactValue, vtByteArray, nil, aob, nil, s, e, p, a, n, true, false, false, false )
+  ms.waitTillDone()
+  fl.initialize()
+  local result = nil
+  if fl ~= nil and fl.getCount() &gt; 0 then
+    result = createStringlist()
+    for i = 1, fl.getCount() do result.add( fl.getAddress( i - 1 ) ) end
+  end
+  fl.destroy()
+  ms.destroy()
+  return result
+end
+
+local gameProcess = "DOOMEternalx64vk.exe"
+local gameModule = getAddress( gameProcess )
+local t = aobscanex( "4C8B0EBA01000000488BCE448BF041FF51??8D", nil, nil, nil, gameModule, gameModule + getModuleSize( gameProcess ) )
+t = tonumber( t[0], 16 ) + 0x3
+unregisterSymbol( "bRestricted_ConsoleType" )
+registerSymbol( "bRestricted_ConsoleType", t, true )
+
+t = aobscanex( "4C8B0FBA01000000488BCF448BF041FF51??4C6BC507", nil, nil, nil, gameModule, gameModule + getModuleSize( gameProcess ) )
+t = tonumber( t[0], 16 ) + 0x3
+unregisterSymbol( "bRestricted_KeyPress" )
+registerSymbol( "bRestricted_KeyPress", t, true )
+
+autoAssemble([[
+  bRestricted_ConsoleType+1:
+  db 00
+  bRestricted_KeyPress+1:
+  db 00
+]])
+
+[DISABLE]
+
+autoAssemble([[
+  bRestricted_ConsoleType+1:
+  db 01
+  bRestricted_KeyPress+1:
+  db 01
+
+  unregistersymbol( bRestricted_KeyPress )
+  unregistersymbol( bRestricted_ConsoleType )
+]])
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>87471</ID>
+          <Description>"Add 'noclip' &amp; 'notarget' Commands"</Description>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript Async="1">define(idCmdSystem_Noclip,DOOMEternalx64vk.exe+2669130)
+define(idCmdSystem_Notarget,DOOMEternalx64vk.exe+2669478)
+
+[ENABLE]
+
+alloc( AddCommands, 0x1000, DOOMEternalx64vk.exe )
+registersymbol( AddCommands )
+CreateThread( AddCommands )
+
+label( idPlayer_Noclip )
+label( @L00000001 )
+label( @L00000002 )
+label( @L00000003 )
+label( @L00000004 )
+label( @L00000005 )
+
+label( szNoclipCmd )
+label( szNoclipDesc )
+label( qwNoclipFunc )
+
+label( idPlayer_Notarget )
+label( @L00000006 )
+label( @L00000007 )
+label( @L00000008 )
+label( @L00000009 )
+label( @L00000010 )
+
+label( szNotargetCmd )
+label( szNotargetDesc )
+label( qwNotargetFunc )
+
+AddCommands:
+sub rsp,38
+lea r9,[szNoclipDesc]                   // "enables no clipping"
+mov dword ptr [rsp+28],200000
+mov r8,[qwNoclipFunc]                   // noclip function
+mov [rsp+20],0
+lea rdx,[szNoclipCmd]                   // "noclip"
+mov rcx,[DOOMEternalx64vk.exe+3B6E028]  // cmdSystem
+mov rax,[rcx]                           // cmdSystem-&gt;cmdSystemLocal
+call qword ptr [rax+18]                 // cmdSystemLocal-&gt;AddCommand
+lea r9,[szNotargetDesc]                 // "disables the player as a target"
+mov dword ptr [rsp+28],200000
+mov r8,[qwNotargetFunc]                 // notarget function
+mov [rsp+20],0
+lea rdx,[szNotargetCmd]                 // "notarget"
+mov rcx,[DOOMEternalx64vk.exe+3B6E028]  // cmdSystem
+mov rax,[rcx]                           // cmdSystem-&gt;cmdSystemLocal
+call qword ptr [rax+18]                 // cmdSystemLocal-&gt;AddCommand
+add rsp,38
+ret
+
+align 10 CC
+
+idPlayer_Noclip:
+
+  mov [rsp+10],rbx
+  mov [rsp+18],rbp
+  push rsi
+  sub rsp,40
+  mov rbx,rcx
+  mov rcx,[DOOMEternalx64vk.exe+6136A10]
+  call DOOMEternalx64vk.exe+B67BF0
+  test rax,rax
+  je short @L00000001
+  mov rdx,[rax]
+  mov rcx,rax
+  call qword ptr [rdx+88]
+  mov esi,eax
+  jmp short @L00000002
+
+@L00000001:
+  xor esi,esi
+
+@L00000002:
+  mov rcx,[DOOMEternalx64vk.exe+6136A10]
+  or ebp,-1
+  mov rax,[rcx]
+  call qword ptr [rax+150]
+  test al,al
+  je short @L00000005
+  mov eax,[rbx]
+  mov [rsp+50],rdi
+  lea rdi,[DOOMEternalx64vk.exe+2584910]
+  cmp eax,1
+  jle short @L00000003
+  mov rcx,[rbx+10]
+  call DOOMEternalx64vk.exe+23E3774
+  mov esi,eax
+
+@L00000003:
+  mov eax,[rbx]
+  cmp eax,02
+  jle short @L00000004
+  mov rdi,[rbx+18]
+  mov rcx,rdi
+  call DOOMEternalx64vk.exe+23E3774
+  mov ebp,eax
+
+@L00000004:
+  mov rdi,[rsp+50]
+
+@L00000005:
+  mov rcx,[DOOMEternalx64vk.exe+6136A10]
+  lea rdx,[rsp+20]
+  mov eax,FFFF
+  mov [rsp+2C],FFFFFFFF
+  mov [rsp+28],ax
+  lea rax,[idCmdSystem_Noclip]
+  mov [rsp+20],rax
+  mov [rsp+30],esi
+  mov byte ptr [rsp+34],0
+  mov [rsp+38],ebp
+  call DOOMEternalx64vk.exe+B0D0E0
+  mov rbx,[rsp+58]
+  mov rbp,[rsp+60]
+  add rsp,40
+  pop rsi
+  ret
+
+align 10 CC
+
+idPlayer_Notarget:
+
+  mov [rsp+10],rbx
+  mov [rsp+18],rbp
+  push rsi
+  sub rsp,40
+  mov rbx,rcx
+  mov rcx,[DOOMEternalx64vk.exe+6136A10]
+  call DOOMEternalx64vk.exe+B67BF0
+  test rax,rax
+  je short @L00000006
+  mov rdx,[rax]
+  mov rcx,rax
+  call qword ptr [rdx+88]
+  mov esi,eax
+  jmp short @L00000007
+
+@L00000006:
+  xor esi,esi
+
+@L00000007:
+  mov rcx,[DOOMEternalx64vk.exe+6136A10]
+  or ebp,-1
+  mov rax,[rcx]
+  call qword ptr [rax+150]
+  test al,al
+  je short @L00000010
+  mov eax,[rbx]
+  mov [rsp+50],rdi
+  lea rdi,[DOOMEternalx64vk.exe+2584910]
+  cmp eax,1
+  jle short @L00000008
+  mov rcx,[rbx+10]
+  call DOOMEternalx64vk.exe+23E3774
+  mov esi,eax
+
+@L00000008:
+  mov eax,[rbx]
+  cmp eax,02
+  jle short @L00000009
+  mov rdi,[rbx+18]
+  mov rcx,rdi
+  call DOOMEternalx64vk.exe+23E3774
+  mov ebp,eax
+
+@L00000009:
+  mov rdi,[rsp+50]
+
+@L00000010:
+  mov rcx,[DOOMEternalx64vk.exe+6136A10]
+  lea rdx,[rsp+20]
+  mov eax,FFFF
+  mov [rsp+2C],FFFFFFFF
+  mov [rsp+28],ax
+  lea rax,[idCmdSystem_Notarget]
+  mov [rsp+20],rax
+  mov [rsp+30],esi
+  mov byte ptr [rsp+34],0
+  mov [rsp+38],ebp
+  call DOOMEternalx64vk.exe+B0D0E0
+  mov rbx,[rsp+58]
+  mov rbp,[rsp+60]
+  add rsp,40
+  pop rsi
+  ret
+
+align 10 CC
+
+szNoclipCmd:
+  db 'noclip',0
+
+align 10 CC
+
+szNoclipDesc:
+  db 'enables no clipping',0
+
+align 10 CC
+
+qwNoclipFunc:
+  dq idPlayer_Noclip
+
+align 10 CC
+
+szNotargetCmd:
+  db 'notarget',0
+
+align 10 CC
+
+szNotargetDesc:
+  db 'disables the player as a target',0
+
+align 10 CC
+
+qwNotargetFunc:
+  dq idPlayer_Notarget
+
+[DISABLE]
+
+unregistersymbol( AddCommands )
+dealloc( AddCommands )
+</AssemblerScript>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>87482</ID>
+      <Description>"[ gamedate: Mar 12 2020 ]"</Description>
+      <Options moHideChildren="1"/>
+      <LastState Value="" RealAddress="00000000"/>
+      <Color>808000</Color>
+      <GroupHeader>1</GroupHeader>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>87483</ID>
+          <Description>"Unrestrict Console Commands/CVars &amp; Bind"</Description>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript Async="1">{$STRICT}
+
+{$lua}
+
+if syntaxcheck then return end
+
+[ENABLE]
+
+function _readInteger( Input )
+  -- thanks, Pox!
+  local Value = readInteger( Input )
+  if Value &lt; 0x80000000 then return Value
+  else return Value - 0x100000000 end
+end
+
+function aobscanex( aob, p, a, n, s, e, pb )
+  local p, a, n, s, e = p or '*X*W', a or fsmNotAligned, n or '0', s or 0x0, e or 0xffffffffffffffff
+  local ms = pb and createMemScan( pb ) or createMemScan()
+  local fl = createFoundList( ms )
+  ms.firstScan( soExactValue, vtByteArray, nil, aob, nil, s, e, p, a, n, true, false, false, false )
+  ms.waitTillDone()
+  fl.initialize()
+  local result = nil
+  if fl ~= nil and fl.getCount() &gt; 0 then
+    result = createStringlist()
+    for i = 1, fl.getCount() do result.add( fl.getAddress( i - 1 ) ) end
+  end
+  fl.destroy()
+  ms.destroy()
+  return result
+end
+
+local gameProcess = "DOOMEternalx64vk.exe"
+local gameModule = getAddress( gameProcess )
+local t = aobscanex( "4C8B0EBA01000000488BCE448BF041FF51??8D", nil, nil, nil, gameModule, gameModule + getModuleSize( gameProcess ) )
+t = tonumber( t[0], 16 ) + 0x3
+unregisterSymbol( "bRestricted_ConsoleType" )
+registerSymbol( "bRestricted_ConsoleType", t, true )
+
+t = aobscanex( "4C8B0FBA01000000488BCF448BF041FF51??4C6BC507", nil, nil, nil, gameModule, gameModule + getModuleSize( gameProcess ) )
+t = tonumber( t[0], 16 ) + 0x3
+unregisterSymbol( "bRestricted_KeyPress" )
+registerSymbol( "bRestricted_KeyPress", t, true )
+
+autoAssemble([[
+  bRestricted_ConsoleType+1:
+  db 00
+  bRestricted_KeyPress+1:
+  db 00
+]])
+
+[DISABLE]
+
+autoAssemble([[
+  bRestricted_ConsoleType+1:
+  db 01
+  bRestricted_KeyPress+1:
+  db 01
+
+  unregistersymbol( bRestricted_KeyPress )
+  unregistersymbol( bRestricted_ConsoleType )
+]])
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>87484</ID>
+          <Description>"Add 'noclip' &amp; 'notarget' Commands"</Description>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript Async="1">define(idCmdSystem_Noclip,DOOMEternalx64vk.exe+2669130)
+define(idCmdSystem_Notarget,DOOMEternalx64vk.exe+2669478)
+
+[ENABLE]
+
+alloc( AddCommands, 0x1000, DOOMEternalx64vk.exe )
+registersymbol( AddCommands )
+CreateThread( AddCommands )
+
+label( idPlayer_Noclip )
+label( @L00000001 )
+label( @L00000002 )
+label( @L00000003 )
+label( @L00000004 )
+label( @L00000005 )
+
+label( szNoclipCmd )
+label( szNoclipDesc )
+label( qwNoclipFunc )
+
+label( idPlayer_Notarget )
+label( @L00000006 )
+label( @L00000007 )
+label( @L00000008 )
+label( @L00000009 )
+label( @L00000010 )
+
+label( szNotargetCmd )
+label( szNotargetDesc )
+label( qwNotargetFunc )
+
+AddCommands:
+sub rsp,38
+lea r9,[szNoclipDesc]                   // "enables no clipping"
+mov dword ptr [rsp+28],200000
+mov r8,[qwNoclipFunc]                   // noclip function
+mov [rsp+20],0
+lea rdx,[szNoclipCmd]                   // "noclip"
+mov rcx,[DOOMEternalx64vk.exe+3B6E028]  // cmdSystem
+mov rax,[rcx]                           // cmdSystem-&gt;cmdSystemLocal
+call qword ptr [rax+18]                 // cmdSystemLocal-&gt;AddCommand
+lea r9,[szNotargetDesc]                 // "disables the player as a target"
+mov dword ptr [rsp+28],200000
+mov r8,[qwNotargetFunc]                 // notarget function
+mov [rsp+20],0
+lea rdx,[szNotargetCmd]                 // "notarget"
+mov rcx,[DOOMEternalx64vk.exe+3B6E028]  // cmdSystem
+mov rax,[rcx]                           // cmdSystem-&gt;cmdSystemLocal
+call qword ptr [rax+18]                 // cmdSystemLocal-&gt;AddCommand
+add rsp,38
+ret
+
+align 10 CC
+
+idPlayer_Noclip:
+
+  mov [rsp+10],rbx
+  mov [rsp+18],rbp
+  push rsi
+  sub rsp,40
+  mov rbx,rcx
+  mov rcx,[DOOMEternalx64vk.exe+6136A10]
+  call DOOMEternalx64vk.exe+B67AD0
+  test rax,rax
+  je short @L00000001
+  mov rdx,[rax]
+  mov rcx,rax
+  call qword ptr [rdx+88]
+  mov esi,eax
+  jmp short @L00000002
+
+@L00000001:
+  xor esi,esi
+
+@L00000002:
+  mov rcx,[DOOMEternalx64vk.exe+6136A10]
+  or ebp,-1
+  mov rax,[rcx]
+  call qword ptr [rax+150]
+  test al,al
+  je short @L00000005
+  mov eax,[rbx]
+  mov [rsp+50],rdi
+  lea rdi,[DOOMEternalx64vk.exe+2584910]
+  cmp eax,1
+  jle short @L00000003
+  mov rcx,[rbx+10]
+  call DOOMEternalx64vk.exe+23E36B4
+  mov esi,eax
+
+@L00000003:
+  mov eax,[rbx]
+  cmp eax,02
+  jle short @L00000004
+  mov rdi,[rbx+18]
+  mov rcx,rdi
+  call DOOMEternalx64vk.exe+23E36B4
+  mov ebp,eax
+
+@L00000004:
+  mov rdi,[rsp+50]
+
+@L00000005:
+  mov rcx,[DOOMEternalx64vk.exe+6136A10]
+  lea rdx,[rsp+20]
+  mov eax,FFFF
+  mov [rsp+2C],FFFFFFFF
+  mov [rsp+28],ax
+  lea rax,[idCmdSystem_Noclip]
+  mov [rsp+20],rax
+  mov [rsp+30],esi
+  mov byte ptr [rsp+34],0
+  mov [rsp+38],ebp
+  call DOOMEternalx64vk.exe+B0CDC0
+  mov rbx,[rsp+58]
+  mov rbp,[rsp+60]
+  add rsp,40
+  pop rsi
+  ret
+
+align 10 CC
+
+idPlayer_Notarget:
+
+  mov [rsp+10],rbx
+  mov [rsp+18],rbp
+  push rsi
+  sub rsp,40
+  mov rbx,rcx
+  mov rcx,[DOOMEternalx64vk.exe+6136A10]
+  call DOOMEternalx64vk.exe+B67AD0
+  test rax,rax
+  je short @L00000006
+  mov rdx,[rax]
+  mov rcx,rax
+  call qword ptr [rdx+88]
+  mov esi,eax
+  jmp short @L00000007
+
+@L00000006:
+  xor esi,esi
+
+@L00000007:
+  mov rcx,[DOOMEternalx64vk.exe+6136A10]
+  or ebp,-1
+  mov rax,[rcx]
+  call qword ptr [rax+150]
+  test al,al
+  je short @L00000010
+  mov eax,[rbx]
+  mov [rsp+50],rdi
+  lea rdi,[DOOMEternalx64vk.exe+2584910]
+  cmp eax,1
+  jle short @L00000008
+  mov rcx,[rbx+10]
+  call DOOMEternalx64vk.exe+23E36B4
+  mov esi,eax
+
+@L00000008:
+  mov eax,[rbx]
+  cmp eax,02
+  jle short @L00000009
+  mov rdi,[rbx+18]
+  mov rcx,rdi
+  call DOOMEternalx64vk.exe+23E36B4
+  mov ebp,eax
+
+@L00000009:
+  mov rdi,[rsp+50]
+
+@L00000010:
+  mov rcx,[DOOMEternalx64vk.exe+6136A10]
+  lea rdx,[rsp+20]
+  mov eax,FFFF
+  mov [rsp+2C],FFFFFFFF
+  mov [rsp+28],ax
+  lea rax,[idCmdSystem_Notarget]
+  mov [rsp+20],rax
+  mov [rsp+30],esi
+  mov byte ptr [rsp+34],0
+  mov [rsp+38],ebp
+  call DOOMEternalx64vk.exe+B0CDC0
+  mov rbx,[rsp+58]
+  mov rbp,[rsp+60]
+  add rsp,40
+  pop rsi
+  ret
+
+align 10 CC
+
+szNoclipCmd:
+  db 'noclip',0
+
+align 10 CC
+
+szNoclipDesc:
+  db 'enables no clipping',0
+
+align 10 CC
+
+qwNoclipFunc:
+  dq idPlayer_Noclip
+
+align 10 CC
+
+szNotargetCmd:
+  db 'notarget',0
+
+align 10 CC
+
+szNotargetDesc:
+  db 'disables the player as a target',0
+
+align 10 CC
+
+qwNotargetFunc:
+  dq idPlayer_Notarget
+
+[DISABLE]
+
+unregistersymbol( AddCommands )
+dealloc( AddCommands )
+</AssemblerScript>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>18</ID>
+      <Description>"[ Debug ]"</Description>
+      <Options moHideChildren="1"/>
+      <LastState Value="" RealAddress="00000000"/>
+      <Color>C0C0C0</Color>
+      <GroupHeader>1</GroupHeader>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>87485</ID>
+      <Description>"No description"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>1F5D8D6B0</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>87486</ID>
+      <Description>"No description"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>206B4EFF4</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>87487</ID>
+      <Description>"No description"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>206B4F010</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>87488</ID>
+      <Description>"ammo"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>14519CE0</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>87489</ID>
+      <Description>"No description"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>11F477A80</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>87490</ID>
+      <Description>"No description"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>11F477EA0</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>87491</ID>
+      <Description>"No description"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>12C5A6220</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>87492</ID>
+      <Description>"No description"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>1F710DED0</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>87493</ID>
+      <Description>"No description"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>1F710E2F4</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>87494</ID>
+      <Description>"No description"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>2080163B8</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>87495</ID>
+      <Description>"No description"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>20D6672B8</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>87496</ID>
+      <Description>"No description"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>20D6673C8</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>87497</ID>
+      <Description>"No description"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>21072CAB8</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>87498</ID>
+      <Description>"No description"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>21072D838</Address>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+</CheatTable>

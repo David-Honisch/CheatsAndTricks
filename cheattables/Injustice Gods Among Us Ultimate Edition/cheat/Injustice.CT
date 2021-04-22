@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="16">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>95</ID>
+      <Description>"Character swap"</Description>
+      <Color>80000008</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[enable]
+aobscanmodule(CharacterReplacement_Aob,Injustice.exe,8B C8 8B 46 08 52)
+registersymbol(CharacterReplacement_Aob)
+
+
+alloc(NewMem,1024)
+label(CharacterReplacement)
+label(CharacterReplacement_HandlePlayer2)
+label(CharacterReplacement_Exit)
+label(CharacterReplacement_Return)
+
+label(ReplacementCharacter1)
+label(ReplacementCharacter2)
+registersymbol(ReplacementCharacter1)
+registersymbol(ReplacementCharacter2)
+
+
+CharacterReplacement_Aob-5:
+jmp CharacterReplacement
+CharacterReplacement_Return:
+
+NewMem:
+CharacterReplacement:
+  push 0               //original code
+  push 0               //original code
+  cmp edx,3
+  je short CharacterReplacement_HandlePlayer2
+    cmp byte [ReplacementCharacter1],' '
+    je short CharacterReplacement_Exit
+      mov ecx, ReplacementCharacter1
+      jmp short CharacterReplacement_Exit
+  CharacterReplacement_HandlePlayer2:
+    cmp byte [ReplacementCharacter2],' '
+    je short CharacterReplacement_Exit
+      mov ecx,ReplacementCharacter2
+      jmp short CharacterReplacement_Exit
+  CharacterReplacement_Exit:
+  push ecx             //original code
+jmp CharacterReplacement_Return
+
+ReplacementCharacter1:
+db 'char_solomongrundy',0
+db 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 //leave that padding
+ReplacementCharacter2:
+db ' ',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+
+
+[disable]
+unregistersymbol(CharacterReplacement_Aob)
+unregistersymbol(ReplacementCharacter1)
+unregistersymbol(ReplacementCharacter2)
+dealloc(NewMem)
+
+CharacterReplacement_Aob-5:
+push 0
+push 0
+push ecx
+
+{
+01BC3A9F     CC             INT3
+01BC3AA0   . A1 ECD85202    MOV EAX,DWORD PTR DS:[252D8EC]
+01BC3AA5   . 8B0D F8D85202  MOV ECX,DWORD PTR DS:[252D8F8]
+01BC3AAB   . 50             PUSH EAX                                          ; /Arg3 =&gt; 00000002
+01BC3AAC   . 51             PUSH ECX                                          ; |Arg2 =&gt; 00000001
+01BC3AAD   . 8B0D CC8F1F04  MOV ECX,DWORD PTR DS:[41F8FCC]                    ; |
+01BC3AB3   . 6A 00          PUSH 0                                            ; |Arg1 = 00000000
+01BC3AB5   . E8 D629C3FF    CALL Injustic.017F6490                            ; \Injustic.00766490
+01BC3ABA   . 85C0           TEST EAX,EAX
+01BC3ABC   . 74 2B          JE SHORT Injustic.01BC3AE9
+01BC3ABE   . 8B15 CC8F1F04  MOV EDX,DWORD PTR DS:[41F8FCC]
+01BC3AC4   . 8B52 4C        MOV EDX,DWORD PTR DS:[EDX+4C]
+01BC3AC7   . 8B4A 08        MOV ECX,DWORD PTR DS:[EDX+8]
+01BC3ACA   . 8B52 04        MOV EDX,DWORD PTR DS:[EDX+4]
+01BC3ACD   . 56             PUSH ESI
+01BC3ACE   . 8B30           MOV ESI,DWORD PTR DS:[EAX]
+01BC3AD0   . 6A FF          PUSH -1
+01BC3AD2   . 6A 00          PUSH 0        &lt;-hook point
+01BC3AD4   . 6A 00          PUSH 0
+01BC3AD6   . 51             PUSH ECX     //ecx=fighter package
+01BC3AD7   . 8BC8           MOV ECX,EAX  &lt;-aob
+01BC3AD9   . 8B46 08        MOV EAX,DWORD PTR DS:[ESI+8]
+01BC3ADC   . 52             PUSH EDX      //edx=2 if we handle player 1, 3 if loading player 2
+01BC3ADD   . FFD0           CALL EAX    //load player 1 and 2
+01BC3ADF   . 8B0D CC8F1F04  MOV ECX,DWORD PTR DS:[41F8FCC]
+01BC3AE5   . 8941 28        MOV DWORD PTR DS:[ECX+28],EAX
+01BC3AE8   . 5E             POP ESI
+01BC3AE9   &gt; C3             RETN
+01BC3AEA     CC             INT3
+}
+</AssemblerScript>
+      <Hotkeys>
+        <Hotkey>
+          <Action>Toggle Activation</Action>
+          <Keys>
+            <Key>112</Key>
+          </Keys>
+          <ID>0</ID>
+        </Hotkey>
+      </Hotkeys>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>96</ID>
+          <Description>"Player 1 character"</Description>
+          <Color>80000008</Color>
+          <VariableType>String</VariableType>
+          <Length>30</Length>
+          <Unicode>0</Unicode>
+          <ZeroTerminate>1</ZeroTerminate>
+          <Address>ReplacementCharacter1</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>97</ID>
+          <Description>"Player 2 character"</Description>
+          <Color>80000008</Color>
+          <VariableType>String</VariableType>
+          <Length>30</Length>
+          <Unicode>0</Unicode>
+          <ZeroTerminate>1</ZeroTerminate>
+          <Address>ReplacementCharacter2</Address>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>98</ID>
+      <Description>"No decreasing combo damage"</Description>
+      <Color>80000008</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[enable]
+aobscanmodule(DecreasingComboDamagePatch,Injustice.exe,F3 0F 10 89 E8 02 00 00 F3 0F 10 45 08)
+registersymbol(DecreasingComboDamagePatch)
+
+DecreasingComboDamagePatch-3:
+ret 4
+
+[disable]
+unregistersymbol(DecreasingComboDamagePatch)
+
+DecreasingComboDamagePatch-3:
+push ebp
+mov ebp,esp
+</AssemblerScript>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols>
+    <SymbolEntry>
+      <Name>CharacterReplacement_Aob</Name>
+      <Address> 01C33AD7</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>ReplacementCharacter1</Name>
+      <Address>0AF1002F</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>ReplacementCharacter2</Name>
+      <Address>0AF1005D</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>DecreasingComboDamagePatch</Name>
+      <Address> 01B888F3</Address>
+    </SymbolEntry>
+  </UserdefinedSymbols>
+</CheatTable>

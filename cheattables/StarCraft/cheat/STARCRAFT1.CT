@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="29">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>0</ID>
+      <Description>"No description"</Description>
+      <LastState Value="400" Activated="1" RealAddress="0068A900"/>
+      <VariableType>4 Bytes</VariableType>
+      <Address>STARCRAFT.EXE+28A900</Address>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+</CheatTable>

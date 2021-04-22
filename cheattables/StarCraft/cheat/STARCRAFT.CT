@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="29">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>42</ID>
+      <Description>"minerals"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"STARCRAFT.EXE"+000F4544</Address>
+      <Offsets>
+        <Offset>198</Offset>
+        <Offset>788</Offset>
+        <Offset>8</Offset>
+        <Offset>778</Offset>
+        <Offset>1C4</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>44</ID>
+      <Description>"Vespene Gas"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"STARCRAFT.EXE"+000C3954</Address>
+      <Offsets>
+        <Offset>1C8</Offset>
+        <Offset>51C</Offset>
+        <Offset>8</Offset>
+        <Offset>A4</Offset>
+        <Offset>8</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>36</ID>
+      <Description>"Minerals"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>STARCRAFT.EXE+FE19C</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>39</ID>
+      <Description>"Minerals"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>STARCRAFT.EXE+FE18C</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>40</ID>
+      <Description>"Zerg Vespene Gas "</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>STARCRAFT.EXE+FE1BC</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>37</ID>
+      <Description>"Vespene Gas"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>STARCRAFT.EXE+FE1CC</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>38</ID>
+      <Description>"No description"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>STARCRAFT.EXE+28B140</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>17</ID>
+      <Description>"Human Minerals"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>STARCRAFT.EXE+17F108</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>18</ID>
+      <Description>"Human Vespene Gas"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>STARCRAFT.EXE+17F138</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>4</ID>
+      <Description>"Protoss Minerals"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>STARCRAFT.EXE+17F0F4</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>7</ID>
+      <Description>"Protoss Vespene Gas"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>STARCRAFT.EXE+17F124</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>13</ID>
+      <Description>"Duran"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>STARCRAFT.EXE+2CAC0C</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>8</ID>
+      <Description>"No description"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>STARCRAFT.EXE+2CA9EC</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>9</ID>
+      <Description>"No description"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>STARCRAFT.EXE+17F104</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>12</ID>
+      <Description>"No description"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>STARCRAFT.EXE+17F134</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>10</ID>
+      <Description>"No description"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>STARCRAFT.EXE+28C230</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>11</ID>
+      <Description>"No description"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>06E28A3C</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>14</ID>
+      <Description>"No description"</Description>
+      <VariableType>Byte</VariableType>
+      <Address>STARCRAFT.EXE+21E9AB</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>15</ID>
+      <Description>"No description"</Description>
+      <VariableType>Byte</VariableType>
+      <Address>STARCRAFT.EXE+17AED0</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>16</ID>
+      <Description>"No description"</Description>
+      <VariableType>Byte</VariableType>
+      <Address>STARCRAFT.EXE+2196FB</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>19</ID>
+      <Description>"Duran Health"</Description>
+      <VariableType>Byte</VariableType>
+      <Address>STARCRAFT.EXE+20B3EB</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>20</ID>
+      <Description>"No description"</Description>
+      <VariableType>Byte</VariableType>
+      <Address>STARCRAFT.EXE+20B351</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>21</ID>
+      <Description>"No description"</Description>
+      <VariableType>Byte</VariableType>
+      <Address>STARCRAFT.EXE+2CA94D</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>22</ID>
+      <Description>"No description"</Description>
+      <VariableType>Byte</VariableType>
+      <Address>STARCRAFT.EXE+12F810</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>23</ID>
+      <Description>"No description"</Description>
+      <VariableType>Byte</VariableType>
+      <Address>STARCRAFT.EXE+218941</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>24</ID>
+      <Description>"No description"</Description>
+      <VariableType>Byte</VariableType>
+      <Address>STARCRAFT.EXE+2182B1</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>25</ID>
+      <Description>"Duran Health"</Description>
+      <VariableType>Byte</VariableType>
+      <Address>STARCRAFT.EXE+20B3EB</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>26</ID>
+      <Description>"Duran Shield"</Description>
+      <VariableType>Byte</VariableType>
+      <Address>STARCRAFT.EXE+20B351</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>27</ID>
+      <Description>"No description"</Description>
+      <VariableType>Byte</VariableType>
+      <Address>072F0A1D</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>28</ID>
+      <Description>"No description"</Description>
+      <VariableType>Byte</VariableType>
+      <Address>072F11F8</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>29</ID>
+      <Description>"No description"</Description>
+      <VariableType>Byte</VariableType>
+      <Address>072F11F9</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>30</ID>
+      <Description>"No description"</Description>
+      <VariableType>Byte</VariableType>
+      <Address>072F1253</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>31</ID>
+      <Description>"No description"</Description>
+      <VariableType>Byte</VariableType>
+      <Address>STARCRAFT.EXE+238CC9</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>32</ID>
+      <Description>"No description"</Description>
+      <VariableType>Byte</VariableType>
+      <Address>STARCRAFT.EXE+28A900</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>33</ID>
+      <Description>"No description"</Description>
+      <VariableType>2 Bytes</VariableType>
+      <Address>STARCRAFT.EXE+28A900</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>34</ID>
+      <Description>"No description"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>STARCRAFT.EXE+28A900</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>35</ID>
+      <Description>"No description"</Description>
+      <VariableType>8 Bytes</VariableType>
+      <Address>STARCRAFT.EXE+28A900</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>41</ID>
+      <Description>"No description"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>STARCRAFT.EXE+FE198</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>43</ID>
+      <Description>"No description"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>STARCRAFT.EXE+FE1C8</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>45</ID>
+      <Description>"No description"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>STARCRAFT.EXE+FE18C</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>46</ID>
+      <Description>"No description"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>STARCRAFT.EXE+FE1BC</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>47</ID>
+      <Description>"No description"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>STARCRAFT.EXE+FE188</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>48</ID>
+      <Description>"No description"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>STARCRAFT.EXE+FE1B8</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>49</ID>
+      <Description>"No description"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>01A3258C</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>50</ID>
+      <Description>"minerals"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>STARCRAFT.EXE+FE19C</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>51</ID>
+      <Description>"No description"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>STARCRAFT.EXE+28B144</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>52</ID>
+      <Description>"protoss minerals campaign"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"STARCRAFT.EXE"+00001F90</Address>
+      <Offsets>
+        <Offset>14</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>53</ID>
+      <Description>"No description"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>STARCRAFT.EXE+FE1CC</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>54</ID>
+      <Description>"No description"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>STARCRAFT.EXE+FE1BC</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>55</ID>
+      <Description>"No description"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>STARCRAFT.EXE+259DE8</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>56</ID>
+      <Description>"No description"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>STARCRAFT.EXE+28B140</Address>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+</CheatTable>

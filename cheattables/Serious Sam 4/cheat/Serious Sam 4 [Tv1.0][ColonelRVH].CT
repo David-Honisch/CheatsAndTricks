@@ -1,0 +1,666 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="31">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>8278</ID>
+      <Description>"--- Serious Sam 4 v555100 | Cheat Engine Table v1.0, [2020-9-25] COLONELRVH ---"</Description>
+      <LastState Value="" RealAddress="00000000"/>
+      <Color>A00000</Color>
+      <GroupHeader>1</GroupHeader>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>8274</ID>
+      <Description>"========== - MAIN CHEATS -                    =========="</Description>
+      <Options moAllowManualCollapseAndExpand="1"/>
+      <LastState Value="" RealAddress="00000000"/>
+      <Color>FF8000</Color>
+      <GroupHeader>1</GroupHeader>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>110</ID>
+          <Description>"[Battle] == Activate: Alt+Home    | Deactivate: Alt+End             =="</Description>
+          <Options moHideChildren="1" moDeactivateChildrenAsWell="1"/>
+          <LastState Value="" Activated="1" RealAddress="00000000"/>
+          <Color>FF8000</Color>
+          <GroupHeader>1</GroupHeader>
+          <Hotkeys>
+            <Hotkey>
+              <Action>Activate</Action>
+              <Keys>
+                <Key>18</Key>
+                <Key>36</Key>
+              </Keys>
+              <ID>0</ID>
+              <ActivateSound>Activate</ActivateSound>
+            </Hotkey>
+          </Hotkeys>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>9207</ID>
+              <Description>"Activate Individual Script by Alt + Numpad (Numerical)"</Description>
+              <LastState Value="" RealAddress="00000000"/>
+              <Color>808000</Color>
+              <GroupHeader>1</GroupHeader>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>9213</ID>
+              <Description>"Unlimited HP"</Description>
+              <Options moHideChildren="1"/>
+              <LastState/>
+              <Color>808000</Color>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>/*===============================
+Cheat Script by ColonelRVH
+
+Please Support my work at:
+  https://www.patreon.com/ColonelRVH
+
+Visit my website at:
+  https://www.thecheatscript.com
+- For latest content, better index &amp; easy to find game cheat that you need.
+
+● You can alter it as your own discretion, but you must keep my credits.
+● Any distributions of my tables &amp; codes are unadvised.
+
+===============================*/
+[ENABLE]
+
+aobscanmodule(Get_Player_HP_AOB,Sam4.exe,44 8B 30 B8 01 00 00 00) // should be unique
+alloc(newmem,$1000,Get_Player_HP_AOB)
+
+label(code)
+label(return)
+
+newmem:
+  mov [rax],#777
+code:
+  mov r14d,[rax]
+  mov eax,00000001
+  jmp return
+
+Get_Player_HP_AOB:
+  jmp newmem
+  nop 3
+return:
+registersymbol(Get_Player_HP_AOB)
+
+[DISABLE]
+
+Get_Player_HP_AOB:
+  db 44 8B 30 B8 01 00 00 00
+
+unregistersymbol(Get_Player_HP_AOB)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: "Sam4.exe"+42B0E1
+
+"Sam4.exe"+42B0AE: 44 3B 46 48                 -  cmp r8d,[rsi+48]
+"Sam4.exe"+42B0B2: 7C 0A                       -  jl Sam4.exe+42B0BE
+"Sam4.exe"+42B0B4: 48 89 8B D8 29 00 00        -  mov [rbx+000029D8],rcx
+"Sam4.exe"+42B0BB: 0F 57 F6                    -  xorps xmm6,xmm6
+"Sam4.exe"+42B0BE: 48 8D 8B 74 05 00 00        -  lea rcx,[rbx+00000574]
+"Sam4.exe"+42B0C5: E8 86 6F 76 00              -  call Sam4.exe+B92050
+"Sam4.exe"+42B0CA: F3 0F 10 46 4C              -  movss xmm0,[rsi+4C]
+"Sam4.exe"+42B0CF: 48 8D 8B 74 05 00 00        -  lea rcx,[rbx+00000574]
+"Sam4.exe"+42B0D6: F3 0F 10 3D 3E 03 12 01     -  movss xmm7,[Sam4.exe+154B41C]
+"Sam4.exe"+42B0DE: 0F 2F C6                    -  comiss xmm0,xmm6
+// ---------- INJECTING HERE ----------
+"Sam4.exe"+42B0E1: 44 8B 30                    -  mov r14d,[rax]
+"Sam4.exe"+42B0E4: B8 01 00 00 00              -  mov eax,00000001
+// ---------- DONE INJECTING  ----------
+"Sam4.exe"+42B0E9: 44 0F 28 D7                 -  movaps xmm10,xmm7
+"Sam4.exe"+42B0ED: 44 0F 43 F0                 -  cmovae r14d,eax
+"Sam4.exe"+42B0F1: E8 5A 6F 76 00              -  call Sam4.exe+B92050
+"Sam4.exe"+42B0F6: 8B 17                       -  mov edx,[rdi]
+"Sam4.exe"+42B0F8: 39 10                       -  cmp [rax],edx
+"Sam4.exe"+42B0FA: 7E 2E                       -  jle Sam4.exe+42B12A
+"Sam4.exe"+42B0FC: 48 8D 8B 74 05 00 00        -  lea rcx,[rbx+00000574]
+"Sam4.exe"+42B103: E8 48 6F 76 00              -  call Sam4.exe+B92050
+"Sam4.exe"+42B108: 44 3B 30                    -  cmp r14d,[rax]
+"Sam4.exe"+42B10B: 7D 1D                       -  jnl Sam4.exe+42B12A
+}
+</AssemblerScript>
+              <Hotkeys>
+                <Hotkey>
+                  <Action>Activate</Action>
+                  <Keys>
+                    <Key>18</Key>
+                    <Key>36</Key>
+                  </Keys>
+                  <ID>0</ID>
+                  <ActivateSound>Activate</ActivateSound>
+                </Hotkey>
+                <Hotkey>
+                  <Action>Deactivate</Action>
+                  <Keys>
+                    <Key>18</Key>
+                    <Key>35</Key>
+                  </Keys>
+                  <ID>1</ID>
+                  <DeactivateSound>Deactivate</DeactivateSound>
+                </Hotkey>
+                <Hotkey>
+                  <Action>Toggle Activation</Action>
+                  <Keys>
+                    <Key>18</Key>
+                    <Key>97</Key>
+                  </Keys>
+                  <ID>2</ID>
+                  <ActivateSound>Activate</ActivateSound>
+                  <DeactivateSound>Deactivate</DeactivateSound>
+                </Hotkey>
+              </Hotkeys>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>9216</ID>
+              <Description>"Unlimited Ammo"</Description>
+              <Options moHideChildren="1"/>
+              <LastState/>
+              <Color>808000</Color>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>/*===============================
+Cheat Script by ColonelRVH
+
+Please Support my work at:
+  https://www.patreon.com/ColonelRVH
+
+Visit my website at:
+  https://www.thecheatscript.com
+- For latest content, better index &amp; easy to find game cheat that you need.
+
+● You can alter it as your own discretion, but you must keep my credits.
+● Any distributions of my tables &amp; codes are unadvised.
+
+===============================*/
+[ENABLE]
+
+aobscanmodule(Get_Ammo_AOB,Sam4.exe,C9 77 00 8B 00 48 83 C4 28) // should be unique
+alloc(newmem,$1000,Get_Ammo_AOB)
+
+label(code)
+label(return)
+
+newmem:
+  mov [rax],#7777
+code:
+  mov eax,[rax]
+  add rsp,28
+  jmp return
+
+Get_Ammo_AOB+03:
+  jmp newmem
+  nop
+return:
+registersymbol(Get_Ammo_AOB)
+
+[DISABLE]
+
+Get_Ammo_AOB+03:
+  db 8B 00 48 83 C4 28
+
+unregistersymbol(Get_Ammo_AOB)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: "Sam4.exe"+41565C
+
+"Sam4.exe"+41563A: 5F                    -  pop rdi
+"Sam4.exe"+41563B: E9 90 FC FF FF        -  jmp Sam4.exe+4152D0
+"Sam4.exe"+415640: 48 83 EC 28           -  sub rsp,28
+"Sam4.exe"+415644: 83 FA 1F              -  cmp edx,1F
+"Sam4.exe"+415647: 77 1A                 -  ja Sam4.exe+415663
+"Sam4.exe"+415649: 48 63 C2              -  movsxd  rax,edx
+"Sam4.exe"+41564C: 48 83 C1 48           -  add rcx,48
+"Sam4.exe"+415650: 48 C1 E0 04           -  shl rax,04
+"Sam4.exe"+415654: 48 03 C8              -  add rcx,rax
+"Sam4.exe"+415657: E8 F4 C9 77 00        -  call Sam4.exe+B92050
+// ---------- INJECTING HERE ----------
+"Sam4.exe"+41565C: 8B 00                 -  mov eax,[rax]
+"Sam4.exe"+41565E: 48 83 C4 28           -  add rsp,28
+// ---------- DONE INJECTING  ----------
+"Sam4.exe"+415662: C3                    -  ret 
+"Sam4.exe"+415663: B8 FF FF FF FF        -  mov eax,FFFFFFFF
+"Sam4.exe"+415668: 48 83 C4 28           -  add rsp,28
+"Sam4.exe"+41566C: C3                    -  ret 
+"Sam4.exe"+41566D: CC                    -  int 3 
+"Sam4.exe"+41566E: CC                    -  int 3 
+"Sam4.exe"+41566F: CC                    -  int 3 
+"Sam4.exe"+415670: 48 89 5C 24 08        -  mov [rsp+08],rbx
+"Sam4.exe"+415675: 57                    -  push rdi
+"Sam4.exe"+415676: 48 83 EC 20           -  sub rsp,20
+}
+</AssemblerScript>
+              <Hotkeys>
+                <Hotkey>
+                  <Action>Activate</Action>
+                  <Keys>
+                    <Key>18</Key>
+                    <Key>36</Key>
+                  </Keys>
+                  <ID>0</ID>
+                  <ActivateSound>Activate</ActivateSound>
+                </Hotkey>
+                <Hotkey>
+                  <Action>Deactivate</Action>
+                  <Keys>
+                    <Key>18</Key>
+                    <Key>35</Key>
+                  </Keys>
+                  <ID>1</ID>
+                  <DeactivateSound>Deactivate</DeactivateSound>
+                </Hotkey>
+                <Hotkey>
+                  <Action>Toggle Activation</Action>
+                  <Keys>
+                    <Key>18</Key>
+                    <Key>98</Key>
+                  </Keys>
+                  <ID>2</ID>
+                  <ActivateSound>Activate</ActivateSound>
+                  <DeactivateSound>Deactivate</DeactivateSound>
+                </Hotkey>
+              </Hotkeys>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>117</ID>
+          <Description>"[Misc.][!]"</Description>
+          <Options moHideChildren="1" moDeactivateChildrenAsWell="1"/>
+          <LastState Value="" RealAddress="00000000"/>
+          <Color>0000FF</Color>
+          <GroupHeader>1</GroupHeader>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>9107</ID>
+              <Description>"Proceed With Cautions! This section is for Advanced User Only"</Description>
+              <Options moHideChildren="1" moDeactivateChildrenAsWell="1"/>
+              <LastState Value="" RealAddress="00000000"/>
+              <Color>0000FF</Color>
+              <GroupHeader>1</GroupHeader>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>8266</ID>
+              <Description>"[Backups][Unused]"</Description>
+              <Options moHideChildren="1"/>
+              <LastState Value="" RealAddress="00000000"/>
+              <Color>C0C0C0</Color>
+              <GroupHeader>1</GroupHeader>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>8435</ID>
+              <Description>"[Obsolete][Buggy]"</Description>
+              <Options moHideChildren="1"/>
+              <LastState Value="" RealAddress="00000000"/>
+              <Color>C0C0C0</Color>
+              <GroupHeader>1</GroupHeader>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>9105</ID>
+          <Description>"&lt;-[HERE] INSTRUCTIONS | Tick the left square □ of this line to view -"</Description>
+          <Options moHideChildren="1"/>
+          <LastState Value="" RealAddress="00000000"/>
+          <Color>008080</Color>
+          <GroupHeader>1</GroupHeader>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>9110</ID>
+              <Description>"- Basic -"</Description>
+              <LastState Value="" RealAddress="00000000"/>
+              <Color>008080</Color>
+              <GroupHeader>1</GroupHeader>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>9121</ID>
+                  <Description>"Choose Yes on the table opening so it can detect the game automatically"</Description>
+                  <LastState Value="" RealAddress="00000000"/>
+                  <Color>008080</Color>
+                  <GroupHeader>1</GroupHeader>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>9111</ID>
+                  <Description>"- To Activate a Cheat"</Description>
+                  <LastState Value="" RealAddress="00000000"/>
+                  <Color>008080</Color>
+                  <GroupHeader>1</GroupHeader>
+                  <CheatEntries>
+                    <CheatEntry>
+                      <ID>9114</ID>
+                      <Description>"1. Follow the [Activate] instructions"</Description>
+                      <LastState Value="" RealAddress="00000000"/>
+                      <Color>008080</Color>
+                      <GroupHeader>1</GroupHeader>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>9113</ID>
+                      <Description>"2. Tick on the square □ next to it"</Description>
+                      <LastState Value="" RealAddress="00000000"/>
+                      <Color>008080</Color>
+                      <GroupHeader>1</GroupHeader>
+                    </CheatEntry>
+                  </CheatEntries>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>9112</ID>
+              <Description>"- Intermediate - "</Description>
+              <LastState Value="" RealAddress="00000000"/>
+              <Color>008080</Color>
+              <GroupHeader>1</GroupHeader>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>9106</ID>
+                  <Description>"- For God Mode &amp; Instant Kill you must change the value to "Enabled" unless there's none"</Description>
+                  <LastState Value="" RealAddress="00000000"/>
+                  <Color>008080</Color>
+                  <GroupHeader>1</GroupHeader>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>9116</ID>
+                  <Description>"- You can find old cheats in [Misc.] for older version, in rare cases"</Description>
+                  <LastState Value="" RealAddress="00000000"/>
+                  <Color>008080</Color>
+                  <GroupHeader>1</GroupHeader>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>9117</ID>
+              <Description>"- Advanced | Master - "</Description>
+              <Options moHideChildren="1"/>
+              <LastState Value="" RealAddress="00000000"/>
+              <Color>008080</Color>
+              <GroupHeader>1</GroupHeader>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>9118</ID>
+                  <Description>"- All my codes are easy to understand and straightforward"</Description>
+                  <LastState Value="" RealAddress="00000000"/>
+                  <Color>008080</Color>
+                  <GroupHeader>1</GroupHeader>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>9119</ID>
+                  <Description>"- You can alter it as your own discretion, but you must keep my credits"</Description>
+                  <LastState Value="" RealAddress="00000000"/>
+                  <Color>008080</Color>
+                  <GroupHeader>1</GroupHeader>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>9120</ID>
+                  <Description>"- Any distributions of my tables &amp; codes are unadvised"</Description>
+                  <LastState Value="" RealAddress="00000000"/>
+                  <Color>008080</Color>
+                  <GroupHeader>1</GroupHeader>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>9115</ID>
+              <Description>"References"</Description>
+              <LastState Value="" RealAddress="00000000"/>
+              <Color>808000</Color>
+              <GroupHeader>1</GroupHeader>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>9082</ID>
+                  <Description>"- [Activate: To Activate this cheat you must do this action first] -"</Description>
+                  <LastState Value="" RealAddress="00000000"/>
+                  <Color>808000</Color>
+                  <GroupHeader>1</GroupHeader>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>9083</ID>
+                  <Description>"- [Update: To Update/Get the cheat's effects you must do this action first] -"</Description>
+                  <LastState Value="" RealAddress="00000000"/>
+                  <Color>808000</Color>
+                  <GroupHeader>1</GroupHeader>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>8265</ID>
+      <Description>"========== - SPECIAL THANKS -               =========="</Description>
+      <LastState Value="" RealAddress="00000000"/>
+      <Color>808000</Color>
+      <GroupHeader>1</GroupHeader>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>9236</ID>
+          <Description>"-------               Last Month Patrons               -------"</Description>
+          <Options moHideChildren="1"/>
+          <LastState Value="" RealAddress="00000000"/>
+          <Color>0066FF</Color>
+          <GroupHeader>1</GroupHeader>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>9248</ID>
+              <Description>"List will be updated every 7th day of the month, or all patrons are charged"</Description>
+              <LastState Value="" RealAddress="00000000"/>
+              <Color>0066FF</Color>
+              <GroupHeader>1</GroupHeader>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>9281</ID>
+              <Description>"Q"</Description>
+              <LastState Value="" RealAddress="00000000"/>
+              <Color>008080</Color>
+              <GroupHeader>1</GroupHeader>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>9226</ID>
+              <Description>"Aaron Pinsky"</Description>
+              <LastState Value="" RealAddress="00000000"/>
+              <Color>808000</Color>
+              <GroupHeader>1</GroupHeader>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>9274</ID>
+              <Description>"Bartek Ratajczak"</Description>
+              <LastState Value="" RealAddress="00000000"/>
+              <Color>808000</Color>
+              <GroupHeader>1</GroupHeader>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>9227</ID>
+              <Description>"Biggus Dickus"</Description>
+              <LastState Value="" RealAddress="00000000"/>
+              <Color>808000</Color>
+              <GroupHeader>1</GroupHeader>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>9230</ID>
+              <Description>"DeKTroN"</Description>
+              <LastState Value="" RealAddress="00000000"/>
+              <Color>808000</Color>
+              <GroupHeader>1</GroupHeader>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>9232</ID>
+              <Description>"Engima42"</Description>
+              <LastState Value="" RealAddress="00000000"/>
+              <Color>808000</Color>
+              <GroupHeader>1</GroupHeader>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>9276</ID>
+              <Description>"James Peterson"</Description>
+              <LastState Value="" RealAddress="00000000"/>
+              <Color>808000</Color>
+              <GroupHeader>1</GroupHeader>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>9278</ID>
+              <Description>"Jason Day"</Description>
+              <LastState Value="" RealAddress="00000000"/>
+              <Color>808000</Color>
+              <GroupHeader>1</GroupHeader>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>9233</ID>
+              <Description>"Korinna Freeman"</Description>
+              <LastState Value="" RealAddress="00000000"/>
+              <Color>808000</Color>
+              <GroupHeader>1</GroupHeader>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>9257</ID>
+              <Description>"Michael Ray"</Description>
+              <LastState Value="" RealAddress="00000000"/>
+              <Color>808000</Color>
+              <GroupHeader>1</GroupHeader>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>9258</ID>
+              <Description>"Morsigni"</Description>
+              <LastState Value="" RealAddress="00000000"/>
+              <Color>808000</Color>
+              <GroupHeader>1</GroupHeader>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>9277</ID>
+              <Description>"Shoduck "</Description>
+              <LastState Value="" RealAddress="00000000"/>
+              <Color>808000</Color>
+              <GroupHeader>1</GroupHeader>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>9282</ID>
+              <Description>"Sidney Pierson"</Description>
+              <LastState Value="" RealAddress="00000000"/>
+              <Color>808000</Color>
+              <GroupHeader>1</GroupHeader>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>9234</ID>
+              <Description>"Terrell Ford"</Description>
+              <LastState Value="" RealAddress="00000000"/>
+              <Color>808000</Color>
+              <GroupHeader>1</GroupHeader>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>9260</ID>
+              <Description>"William Tryon"</Description>
+              <LastState Value="" RealAddress="00000000"/>
+              <Color>808000</Color>
+              <GroupHeader>1</GroupHeader>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>9237</ID>
+              <Description>"... and other great Patrons"</Description>
+              <LastState/>
+              <Color>808000</Color>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>[ENABLE]
+{
+Alex Valderrama
+Andrew Kinney
+Anthony Dai
+Arkace
+Arthur Duval
+Chris
+Connor Gerrard
+Devin Reimers
+doubled
+edgar moreno
+Hackbart
+Isaac Missingham
+Ji Li
+Junesong
+Katie Flaherty
+Lars-Petter Kampen (LP)
+Little Pretty
+Lokote2134
+mark mckay
+Marlon
+Mason Badman
+Nathan Cox
+Sah Dude
+Shay Butler
+Skye 'Panda' Miller
+truong giang do
+Wolfker
+Xerias
+Zeta
+Юрий Золотухин
+}
+[DISABLE]
+
+</AssemblerScript>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>8849</ID>
+      <Description>"========== - CHANGES | NOTES -             =========="</Description>
+      <LastState Value="" RealAddress="00000000"/>
+      <Color>808000</Color>
+      <GroupHeader>1</GroupHeader>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>8908</ID>
+      <Description>"- Please support my work at -"</Description>
+      <LastState Value="" RealAddress="00000000"/>
+      <Color>808000</Color>
+      <GroupHeader>1</GroupHeader>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>8909</ID>
+      <Description>"https://www.patreon.com/ColonelRVH"</Description>
+      <LastState Value="" RealAddress="00000000"/>
+      <Color>808000</Color>
+      <GroupHeader>1</GroupHeader>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols>
+    <SymbolEntry>
+      <Name>BLucre</Name>
+      <Address>015C0010</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>BHP</Name>
+      <Address>015C0000</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>GetHP</Name>
+      <Address>463A7445</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>GetLucre</Name>
+      <Address>463A9B27</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>IgnoreMana</Name>
+      <Address>463C8647</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>BaseGold</Name>
+      <Address>02680000</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>GetGold</Name>
+      <Address>00F6FCC9</Address>
+    </SymbolEntry>
+  </UserdefinedSymbols>
+  <Comments>If you want to support, Please consider become my patron at:
+----------------------
+https://www.patreon.com/ColonelRVH
+----------------------
+It would be a great help for me to cover my living expenses so I can focus on making  &amp; improving cheat for you. 
+----------------------
+© ColonelRVH, 2017
+</Comments>
+  <LuaScript>attachlist=getAutoAttachList()
+stringlist_add(attachlist,"Sam4.exe");
+</LuaScript>
+</CheatTable>

@@ -1,0 +1,1065 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="18">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>39</ID>
+      <Description>"Full Health"</Description>
+      <LastState Activated="1"/>
+      <Color>80000008</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+aobscanmodule(health,Anno2205.exe,FF 50 * 8B 5F 10 48 8D 8D)
+alloc(newmem,$1000,health)
+
+label(code)
+label(return)
+label(health_save)
+
+newmem:
+
+code:
+  mov ebx,r11
+  mov [rdi+10],ebx
+health_save:
+  readmem(health+6,7)
+  jmp return
+
+health+3:
+  jmp code
+  nop
+  nop
+  nop
+  nop
+  nop
+return:
+registersymbol(health)
+registersymbol(health_save)
+
+[DISABLE]
+health+3:
+  db 8B 5F 10
+  readmem(health_save,7)
+unregistersymbol(health)
+unregistersymbol(health_save)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: "Anno2205.exe"+112171F
+
+"Anno2205.exe"+11216FA: 75 0C                 -  jne Anno2205.exe+1121708
+"Anno2205.exe"+11216FC: 48 8B 0B              -  mov rcx,[rbx]
+"Anno2205.exe"+11216FF: 48 39 8D 80 00 00 00  -  cmp [rbp+00000080],rcx
+"Anno2205.exe"+1121706: 74 17                 -  je Anno2205.exe+112171F
+"Anno2205.exe"+1121708: 48 8B 03              -  mov rax,[rbx]
+"Anno2205.exe"+112170B: 48 89 85 80 00 00 00  -  mov [rbp+00000080],rax
+"Anno2205.exe"+1121712: B2 01                 -  mov dl,01
+"Anno2205.exe"+1121714: 48 8D 4D 68           -  lea rcx,[rbp+68]
+"Anno2205.exe"+1121718: 48 8B 45 68           -  mov rax,[rbp+68]
+"Anno2205.exe"+112171C: FF 50 38              -  call qword ptr [rax+38]
+// ---------- INJECTING HERE ----------
+"Anno2205.exe"+112171F: 8B 5F 10              -  mov ebx,[rdi+10]
+"Anno2205.exe"+1121722: 48 8D 8D 88 00 00 00  -  lea rcx,[rbp+00000088]
+// ---------- DONE INJECTING  ----------
+"Anno2205.exe"+1121729: 48 8B 85 88 00 00 00  -  mov rax,[rbp+00000088]
+"Anno2205.exe"+1121730: FF 50 18              -  call qword ptr [rax+18]
+"Anno2205.exe"+1121733: 84 C0                 -  test al,al
+"Anno2205.exe"+1121735: 75 08                 -  jne Anno2205.exe+112173F
+"Anno2205.exe"+1121737: 39 9D A0 00 00 00     -  cmp [rbp+000000A0],ebx
+"Anno2205.exe"+112173D: 74 19                 -  je Anno2205.exe+1121758
+"Anno2205.exe"+112173F: 89 9D A0 00 00 00     -  mov [rbp+000000A0],ebx
+"Anno2205.exe"+1121745: B2 01                 -  mov dl,01
+"Anno2205.exe"+1121747: 48 8D 8D 88 00 00 00  -  lea rcx,[rbp+00000088]
+"Anno2205.exe"+112174E: 48 8B 85 88 00 00 00  -  mov rax,[rbp+00000088]
+}
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>21</ID>
+      <Description>"Build for Free"</Description>
+      <LastState Activated="1"/>
+      <Color>80000008</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+aobscanmodule(build,Anno2205.exe,F2 0F 10 0A F2 0F 58 49 20)
+alloc(newmem,$1000,build)
+
+label(code)
+label(return)
+
+newmem:
+  xorps xmm2,xmm2
+  movsd xmm1,[rdx]
+  comisd xmm1,xmm2
+  ja code
+  xorps xmm1,xmm1
+code:
+  addsd xmm1,[rcx+20]
+  jmp return
+
+build:
+  jmp newmem
+  nop
+  nop
+  nop
+  nop
+return:
+registersymbol(build)
+
+[DISABLE]
+
+build:
+  db F2 0F 10 0A F2 0F 58 49 20
+
+unregistersymbol(build)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: "Anno2205.exe"+A275FE
+
+"Anno2205.exe"+A275F0: C3                       -  ret 
+"Anno2205.exe"+A275F1: CC                       -  int 3 
+"Anno2205.exe"+A275F2: CC                       -  int 3 
+"Anno2205.exe"+A275F3: CC                       -  int 3 
+"Anno2205.exe"+A275F4: CC                       -  int 3 
+"Anno2205.exe"+A275F5: CC                       -  int 3 
+"Anno2205.exe"+A275F6: CC                       -  int 3 
+"Anno2205.exe"+A275F7: CC                       -  int 3 
+"Anno2205.exe"+A275F8: 83 79 08 01              -  cmp dword ptr [rcx+08],01
+"Anno2205.exe"+A275FC: 74 4E                    -  je Anno2205.exe+A2764C
+// ---------- INJECTING HERE ----------
+"Anno2205.exe"+A275FE: F2 0F 10 0A              -  movsd xmm1,[rdx]
+"Anno2205.exe"+A27602: F2 0F 58 49 20           -  addsd xmm1,[rcx+20]
+// ---------- DONE INJECTING  ----------
+"Anno2205.exe"+A27607: F2 0F 11 49 20           -  movsd [rcx+20],xmm1
+"Anno2205.exe"+A2760C: 66 0F 2E 49 18           -  ucomisd xmm1,[rcx+18]
+"Anno2205.exe"+A27611: F2 0F 10 15 D7 2F 37 01  -  movsd xmm2,[Anno2205.exe+1D9A5F0]
+"Anno2205.exe"+A27619: 74 14                    -  je Anno2205.exe+A2762F
+"Anno2205.exe"+A2761B: 0F 28 C1                 -  movaps xmm0,xmm1
+"Anno2205.exe"+A2761E: F2 0F 5C 41 18           -  subsd xmm0,[rcx+18]
+"Anno2205.exe"+A27623: 66 0F 2F C2              -  comisd xmm0,xmm2
+"Anno2205.exe"+A27627: 73 06                    -  jae Anno2205.exe+A2762F
+"Anno2205.exe"+A27629: 48 8B 41 18              -  mov rax,[rcx+18]
+"Anno2205.exe"+A2762D: EB 19                    -  jmp Anno2205.exe+A27648
+}
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>6</ID>
+      <Description>"Ignore Credit Expenses"</Description>
+      <LastState Activated="1"/>
+      <Color>80000008</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+aobscanmodule(credit,Anno2205.exe,10 F2 0F 5C 41 48)
+credit+01:
+  db 90 90 90 90 90
+registersymbol(credit)
+
+[DISABLE]
+credit+01:
+  db F2 0F 5C 41 48
+unregistersymbol(credit)
+
+{
+// ORIGINAL CODE - INJECTION POINT: "Anno2205.exe"+A279AB
+
+"Anno2205.exe"+A27995: CC                       -  int 3 
+"Anno2205.exe"+A27996: CC                       -  int 3 
+"Anno2205.exe"+A27997: CC                       -  int 3 
+"Anno2205.exe"+A27998: CC                       -  int 3 
+"Anno2205.exe"+A27999: CC                       -  int 3 
+"Anno2205.exe"+A2799A: CC                       -  int 3 
+"Anno2205.exe"+A2799B: CC                       -  int 3 
+"Anno2205.exe"+A2799C: F2 0F 10 41 38           -  movsd xmm0,[rcx+38]
+"Anno2205.exe"+A279A1: F2 0F 10 49 20           -  movsd xmm1,[rcx+20]
+"Anno2205.exe"+A279A6: 66 0F 2F 49 10           -  comisd xmm1,[rcx+10]
+// ---------- INJECTING HERE ----------
+"Anno2205.exe"+A279AB: F2 0F 5C 41 48           -  subsd xmm0,[rcx+48]
+// ---------- DONE INJECTING  ----------
+"Anno2205.exe"+A279B0: F2 0F 11 44 24 08        -  movsd [rsp+08],xmm0
+"Anno2205.exe"+A279B6: 48 8B 44 24 08           -  mov rax,[rsp+08]
+"Anno2205.exe"+A279BB: 0F 57 C0                 -  xorps xmm0,xmm0
+"Anno2205.exe"+A279BE: 48 89 41 28              -  mov [rcx+28],rax
+"Anno2205.exe"+A279C2: 48 89 41 30              -  mov [rcx+30],rax
+"Anno2205.exe"+A279C6: 72 0D                    -  jb Anno2205.exe+A279D5
+"Anno2205.exe"+A279C8: 66 0F 2F 41 30           -  comisd xmm0,[rcx+30]
+"Anno2205.exe"+A279CD: 73 06                    -  jae Anno2205.exe+A279D5
+"Anno2205.exe"+A279CF: 48 8B 41 10              -  mov rax,[rcx+10]
+"Anno2205.exe"+A279D3: EB 12                    -  jmp Anno2205.exe+A279E7
+}
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>20</ID>
+      <Description>"Ignore Consumption 1"</Description>
+      <LastState Activated="1"/>
+      <Color>80000008</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+aobscanmodule(workforce,Anno2205.exe,F2 0F 10 00 F2 0F 58 45 40)
+workforce:
+  db 0F 57 C0 90
+registersymbol(workforce)
+
+[DISABLE]
+workforce:
+  db F2 0F 10 00
+unregistersymbol(workforce)
+
+{
+// ORIGINAL CODE - INJECTION POINT: "Anno2205.exe"+A277B3
+
+"Anno2205.exe"+A2778E: 48 8B 79 78              -  mov rdi,[rcx+78]
+"Anno2205.exe"+A27792: 48 8B E9                 -  mov rbp,rcx
+"Anno2205.exe"+A27795: EB 45                    -  jmp Anno2205.exe+A277DC
+"Anno2205.exe"+A27797: 48 8B 33                 -  mov rsi,[rbx]
+"Anno2205.exe"+A2779A: 44 8B 45 0C              -  mov r8d,[rbp+0C]
+"Anno2205.exe"+A2779E: 48 8D 4C 24 40           -  lea rcx,[rsp+40]
+"Anno2205.exe"+A277A3: 48 8B D6                 -  mov rdx,rsi
+"Anno2205.exe"+A277A6: E8 81 14 00 00           -  call Anno2205.exe+A28C2C
+"Anno2205.exe"+A277AB: 48 8D 4C 24 48           -  lea rcx,[rsp+48]
+"Anno2205.exe"+A277B0: 48 8B D6                 -  mov rdx,rsi
+// ---------- INJECTING HERE ----------
+"Anno2205.exe"+A277B3: F2 0F 10 00              -  movsd xmm0,[rax]
+"Anno2205.exe"+A277B7: F2 0F 58 45 40           -  addsd xmm0,[rbp+40]
+// ---------- DONE INJECTING  ----------
+"Anno2205.exe"+A277BC: F2 0F 11 45 40           -  movsd [rbp+40],xmm0
+"Anno2205.exe"+A277C1: 44 8B 45 0C              -  mov r8d,[rbp+0C]
+"Anno2205.exe"+A277C5: E8 6A 15 00 00           -  call Anno2205.exe+A28D34
+"Anno2205.exe"+A277CA: 48 83 C3 08              -  add rbx,08
+"Anno2205.exe"+A277CE: F2 0F 10 45 48           -  movsd xmm0,[rbp+48]
+"Anno2205.exe"+A277D3: F2 0F 58 00              -  addsd xmm0,[rax]
+"Anno2205.exe"+A277D7: F2 0F 11 45 48           -  movsd [rbp+48],xmm0
+"Anno2205.exe"+A277DC: 48 3B DF                 -  cmp rbx,rdi
+"Anno2205.exe"+A277DF: 75 B6                    -  jne Anno2205.exe+A27797
+"Anno2205.exe"+A277E1: 48 8B 5C 24 50           -  mov rbx,[rsp+50]
+}
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>9</ID>
+      <Description>"Ignore Consumption 2"</Description>
+      <LastState Activated="1"/>
+      <Color>80000008</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+aobscanmodule(workforce2,Anno2205.exe,F2 0F 5C 41 48)
+workforce2:
+  db 90 90 90 90 90
+registersymbol(workforce2)
+
+[DISABLE]
+workforce2:
+  db F2 0F 5C 41 48
+unregistersymbol(workforce2)
+
+{
+// ORIGINAL CODE - INJECTION POINT: "Anno2205.exe"+A279FD
+
+"Anno2205.exe"+A279EC: 48 89 41 20              -  mov [rcx+20],rax
+"Anno2205.exe"+A279F0: C3                       -  ret 
+"Anno2205.exe"+A279F1: CC                       -  int 3 
+"Anno2205.exe"+A279F2: CC                       -  int 3 
+"Anno2205.exe"+A279F3: CC                       -  int 3 
+"Anno2205.exe"+A279F4: CC                       -  int 3 
+"Anno2205.exe"+A279F5: CC                       -  int 3 
+"Anno2205.exe"+A279F6: CC                       -  int 3 
+"Anno2205.exe"+A279F7: CC                       -  int 3 
+"Anno2205.exe"+A279F8: F2 0F 10 41 38           -  movsd xmm0,[rcx+38]
+// ---------- INJECTING HERE ----------
+"Anno2205.exe"+A279FD: F2 0F 5C 41 48           -  subsd xmm0,[rcx+48]
+// ---------- DONE INJECTING  ----------
+"Anno2205.exe"+A27A02: F2 0F 11 44 24 08        -  movsd [rsp+08],xmm0
+"Anno2205.exe"+A27A08: 48 8B 44 24 08           -  mov rax,[rsp+08]
+"Anno2205.exe"+A27A0D: 48 89 41 28              -  mov [rcx+28],rax
+"Anno2205.exe"+A27A11: 48 89 41 30              -  mov [rcx+30],rax
+"Anno2205.exe"+A27A15: F2 0F 10 05 D3 2B 37 01  -  movsd xmm0,[Anno2205.exe+1D9A5F0]
+"Anno2205.exe"+A27A1D: 66 0F 2F 41 28           -  comisd xmm0,[rcx+28]
+"Anno2205.exe"+A27A22: 76 05                    -  jna Anno2205.exe+A27A29
+"Anno2205.exe"+A27A24: 48 83 61 30 00           -  and qword ptr [rcx+30],00
+"Anno2205.exe"+A27A29: C3                       -  ret 
+"Anno2205.exe"+A27A2A: CC                       -  int 3 
+}
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>23</ID>
+      <Description>"No Item Usage"</Description>
+      <LastState Activated="0"/>
+      <Color>80000008</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+aobscanmodule(ItemUsage,Anno2205.exe,FF C8 89 43 30 48)
+ItemUsage:
+  db 90 90
+registersymbol(ItemUsage)
+
+[DISABLE]
+ItemUsage:
+  db FF C8
+unregistersymbol(ItemUsage)
+
+{
+// ORIGINAL CODE - INJECTION POINT: "Anno2205.exe"+FE8DC8
+
+"Anno2205.exe"+FE8DA9: 48 85 C0              -  test rax,rax
+"Anno2205.exe"+FE8DAC: 74 12                 -  je Anno2205.exe+FE8DC0
+"Anno2205.exe"+FE8DAE: 48 8B 80 A0 08 00 00  -  mov rax,[rax+000008A0]
+"Anno2205.exe"+FE8DB5: 48 85 C0              -  test rax,rax
+"Anno2205.exe"+FE8DB8: 74 06                 -  je Anno2205.exe+FE8DC0
+"Anno2205.exe"+FE8DBA: 80 78 2C 00           -  cmp byte ptr [rax+2C],00
+"Anno2205.exe"+FE8DBE: 74 0D                 -  je Anno2205.exe+FE8DCD
+"Anno2205.exe"+FE8DC0: 8B 43 30              -  mov eax,[rbx+30]
+"Anno2205.exe"+FE8DC3: 83 F8 01              -  cmp eax,01
+"Anno2205.exe"+FE8DC6: 7C 65                 -  jnge Anno2205.exe+FE8E2D
+// ---------- INJECTING HERE ----------
+"Anno2205.exe"+FE8DC8: FF C8                 -  dec eax
+"Anno2205.exe"+FE8DCA: 89 43 30              -  mov [rbx+30],eax
+// ---------- DONE INJECTING  ----------
+"Anno2205.exe"+FE8DCD: 48 8B 0D 3C 25 E7 00  -  mov rcx,[Anno2205.exe+1E5B310]
+"Anno2205.exe"+FE8DD4: 8B 53 08              -  mov edx,[rbx+08]
+"Anno2205.exe"+FE8DD7: 48 89 7C 24 30        -  mov [rsp+30],rdi
+"Anno2205.exe"+FE8DDC: 48 8B 01              -  mov rax,[rcx]
+"Anno2205.exe"+FE8DDF: 33 FF                 -  xor edi,edi
+"Anno2205.exe"+FE8DE1: FF 50 10              -  call qword ptr [rax+10]
+"Anno2205.exe"+FE8DE4: 48 85 C0              -  test rax,rax
+"Anno2205.exe"+FE8DE7: 74 17                 -  je Anno2205.exe+FE8E00
+"Anno2205.exe"+FE8DE9: 48 8B 88 A0 08 00 00  -  mov rcx,[rax+000008A0]
+"Anno2205.exe"+FE8DF0: 48 85 C9              -  test rcx,rcx
+}
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>27</ID>
+      <Description>"No Fuel Usage"</Description>
+      <LastState Activated="0"/>
+      <Color>80000008</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+aobscanmodule(FuelUsage,Anno2205.exe,2B CF 48 8B 7C 24 30)
+FuelUsage:
+  db 90 90
+registersymbol(FuelUsage)
+
+[DISABLE]
+FuelUsage:
+  db 2B CF
+unregistersymbol(FuelUsage)
+
+{
+// ORIGINAL CODE - INJECTION POINT: "Anno2205.exe"+FE8E0E
+
+"Anno2205.exe"+FE8DE9: 48 8B 88 A0 08 00 00  -  mov rcx,[rax+000008A0]
+"Anno2205.exe"+FE8DF0: 48 85 C9              -  test rcx,rcx
+"Anno2205.exe"+FE8DF3: 74 0B                 -  je Anno2205.exe+FE8E00
+"Anno2205.exe"+FE8DF5: 48 8D 53 38           -  lea rdx,[rbx+38]
+"Anno2205.exe"+FE8DF9: E8 42 3A DC FF        -  call Anno2205.exe+DAC840
+"Anno2205.exe"+FE8DFE: 8B F8                 -  mov edi,eax
+"Anno2205.exe"+FE8E00: 48 8B 05 91 E8 E8 00  -  mov rax,[Anno2205.exe+1E77698]
+"Anno2205.exe"+FE8E07: 8B 48 20              -  mov ecx,[rax+20]
+"Anno2205.exe"+FE8E0A: 3B CF                 -  cmp ecx,edi
+"Anno2205.exe"+FE8E0C: 7C 12                 -  jnge Anno2205.exe+FE8E20
+// ---------- INJECTING HERE ----------
+"Anno2205.exe"+FE8E0E: 2B CF                 -  sub ecx,edi
+"Anno2205.exe"+FE8E10: 48 8B 7C 24 30        -  mov rdi,[rsp+30]
+// ---------- DONE INJECTING  ----------
+"Anno2205.exe"+FE8E15: 89 48 20              -  mov [rax+20],ecx
+"Anno2205.exe"+FE8E18: B0 01                 -  mov al,01
+"Anno2205.exe"+FE8E1A: 48 83 C4 20           -  add rsp,20
+"Anno2205.exe"+FE8E1E: 5B                    -  pop rbx
+"Anno2205.exe"+FE8E1F: C3                    -  ret 
+"Anno2205.exe"+FE8E20: 32 C0                 -  xor al,al
+"Anno2205.exe"+FE8E22: 48 8B 7C 24 30        -  mov rdi,[rsp+30]
+"Anno2205.exe"+FE8E27: 48 83 C4 20           -  add rsp,20
+"Anno2205.exe"+FE8E2B: 5B                    -  pop rbx
+"Anno2205.exe"+FE8E2C: C3                    -  ret 
+}
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>40</ID>
+      <Description>"Always Pick Up Fuel"</Description>
+      <LastState Activated="1"/>
+      <Color>80000008</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+aobscanmodule(fuel_cap,Anno2205.exe,3B C3 48 8B 5C 24 20 0F 94 C0)
+fuel_cap+7:
+  db 31 C0 90
+registersymbol(fuel_cap)
+
+[DISABLE]
+fuel_cap+7:
+  db 0F 94 C0
+unregistersymbol(fuel_cap)
+
+{
+// ORIGINAL CODE - INJECTION POINT: "Anno2205.exe"+1006765
+
+"Anno2205.exe"+100673C: 74 61                 -  je Anno2205.exe+100679F
+"Anno2205.exe"+100673E: 80 78 5C 00           -  cmp byte ptr [rax+5C],00
+"Anno2205.exe"+1006742: 74 5B                 -  je Anno2205.exe+100679F
+"Anno2205.exe"+1006744: 44 8B 40 34           -  mov r8d,[rax+34]
+"Anno2205.exe"+1006748: 41 81 F8 5F 48 0F 00  -  cmp r8d,000F485F
+"Anno2205.exe"+100674F: 75 23                 -  jne Anno2205.exe+1006774
+"Anno2205.exe"+1006751: 48 8B 05 C0 FD E6 00  -  mov rax,[Anno2205.exe+1E76518]
+"Anno2205.exe"+1006758: 48 89 5C 24 20        -  mov [rsp+20],rbx
+"Anno2205.exe"+100675D: 8B 58 20              -  mov ebx,[rax+20]
+"Anno2205.exe"+1006760: E8 5B F0 ED FF        -  call Anno2205.exe+EE57C0
+// ---------- INJECTING HERE ----------
+"Anno2205.exe"+1006765: 3B C3                 -  cmp eax,ebx
+"Anno2205.exe"+1006767: 48 8B 5C 24 20        -  mov rbx,[rsp+20]
+// ---------- DONE INJECTING  ----------
+"Anno2205.exe"+100676C: 0F 94 C0              -  sete al
+"Anno2205.exe"+100676F: 48 83 C4 28           -  add rsp,28
+"Anno2205.exe"+1006773: C3                    -  ret 
+"Anno2205.exe"+1006774: 48 8B 0D 9D FD E6 00  -  mov rcx,[Anno2205.exe+1E76518]
+"Anno2205.exe"+100677B: 48 8B 41 08           -  mov rax,[rcx+08]
+"Anno2205.exe"+100677F: 48 8B 49 10           -  mov rcx,[rcx+10]
+"Anno2205.exe"+1006783: 48 3B C1              -  cmp rax,rcx
+"Anno2205.exe"+1006786: 74 17                 -  je Anno2205.exe+100679F
+"Anno2205.exe"+1006788: 48 8B 10              -  mov rdx,[rax]
+"Anno2205.exe"+100678B: 48 85 D2              -  test rdx,rdx
+}
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>109</ID>
+      <Description>"Always Pick Up Items"</Description>
+      <LastState Activated="1"/>
+      <Color>80000008</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+aobscanmodule(item_cap,Anno2205.exe,30 48 8B 5C 24 30 0F 94 C0)
+item_cap+06:
+  db 31 C0 90
+registersymbol(item_cap)
+
+[DISABLE]
+item_cap+06:
+  db 0F 94 C0
+unregistersymbol(item_cap)
+
+{
+// ORIGINAL CODE - INJECTION POINT: "Anno2205.exe"+FE9374
+
+"Anno2205.exe"+FE9350: 48 85 C0              -  test rax,rax
+"Anno2205.exe"+FE9353: 74 17                 -  je Anno2205.exe+FE936C
+"Anno2205.exe"+FE9355: 48 8B 88 A0 08 00 00  -  mov rcx,[rax+000008A0]
+"Anno2205.exe"+FE935C: 48 85 C9              -  test rcx,rcx
+"Anno2205.exe"+FE935F: 74 0B                 -  je Anno2205.exe+FE936C
+"Anno2205.exe"+FE9361: 48 8D 53 38           -  lea rdx,[rbx+38]
+"Anno2205.exe"+FE9365: E8 A6 33 DC FF        -  call Anno2205.exe+DAC710
+"Anno2205.exe"+FE936A: 8B F8                 -  mov edi,eax
+"Anno2205.exe"+FE936C: 3B 7B 30              -  cmp edi,[rbx+30]
+"Anno2205.exe"+FE936F: 48 8B 5C 24 30        -  mov rbx,[rsp+30]
+// ---------- INJECTING HERE ----------
+"Anno2205.exe"+FE9374: 0F 94 C0              -  sete al
+"Anno2205.exe"+FE9377: 48 83 C4 20           -  add rsp,20
+// ---------- DONE INJECTING  ----------
+"Anno2205.exe"+FE937B: 5F                    -  pop rdi
+"Anno2205.exe"+FE937C: C3                    -  ret 
+"Anno2205.exe"+FE937D: CC                    -  int 3 
+"Anno2205.exe"+FE937E: CC                    -  int 3 
+"Anno2205.exe"+FE937F: CC                    -  int 3 
+"Anno2205.exe"+FE9380: CC                    -  int 3 
+"Anno2205.exe"+FE9381: CC                    -  int 3 
+"Anno2205.exe"+FE9382: CC                    -  int 3 
+"Anno2205.exe"+FE9383: CC                    -  int 3 
+"Anno2205.exe"+FE9384: CC                    -  int 3 
+}
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>4</ID>
+      <Description>"Enable Zoom Ratio Customization"</Description>
+      <Options moHideChildren="1"/>
+      <LastState Activated="0"/>
+      <Color>80000008</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+//code from here to '[DISABLE]' will be used to enable the cheat
+aobscanmodule(resourcesCmp1AOB,Anno2205.exe,CB ** ** ** ** ** 66 44 0F 2E 00 75 31)
+registersymbol(resourcesCmp1AOB)
+aobscanmodule(someRead1AOB,Anno2205.exe,F2 0F 10 49 20 66 0F 2F 49 10)
+registersymbol(someRead1AOB)
+
+///
+
+label(pResources)
+registersymbol(pResources)
+
+///
+
+alloc(newmem,2048,resourcesCmp1AOB+6) //"Anno2205.exe"+A21A0B)
+label(returnhere)
+label(originalcode)
+label(exit)
+
+label(newmem2) //,2048,someRead1AOB) //"Anno2205.exe"+A27DCD)
+label(returnhere2)
+label(originalcode2)
+label(exit2)
+
+///
+
+newmem: //this is allocated memory, you have read,write,execute access
+//place your code here
+cmp dword ptr [rbx+c],#2001001 //$
+jne originalcode
+mov [pResources],rbx
+
+originalcode:
+ucomisd xmm8,[rax]
+
+exit:
+jmp returnhere
+
+///
+
+newmem2:
+cmp r11,40
+jne originalcode2
+cmp dword ptr [rcx+c],#2001001 //$
+jne originalcode2
+mov [pResources],rcx
+
+originalcode2:
+movsd xmm1,[rcx+20]
+
+exit2:
+jmp returnhere2
+
+///
+pResources:
+///
+
+resourcesCmp1AOB+6: //"Anno2205.exe"+A21A0B:
+jmp newmem
+returnhere:
+
+someRead1AOB: //"Anno2205.exe"+A27DCD:
+jmp newmem2
+returnhere2:
+
+
+ 
+ 
+[DISABLE]
+//code from here till the end of the code will be used to disable the cheat
+dealloc(newmem)
+resourcesCmp1AOB+6: //"Anno2205.exe"+A21A0B:
+db 66 44 0F 2E 00
+//Alt: ucomisd xmm8,[rax]
+unregistersymbol(resourcesCmp1AOB)
+someRead1AOB: //"Anno2205.exe"+A27DCD:
+db F2 0F 10 49 20
+//Alt: movsd xmm1,[rcx+20]
+unregistersymbol(someRead1AOB)
+
+unregistersymbol(pResources)
+
+/*
++90
+#2001001
+#2001836
+#6000500
+#6000501
+#6000502
+#6000503
+#6000504
+#6000505
+#6000515
+#6000516
+*/
+</AssemblerScript>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>89</ID>
+          <Description>"Zoom Ratio"</Description>
+          <Options moHideChildren="1"/>
+          <LastState Activated="0"/>
+          <Color>80000008</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+//code from here to '[DISABLE]' will be used to enable the cheat
+aobscanmodule(zoomDistanceReadAOB,Anno2205.exe,F3 0F 10 06 0F 28 D8)
+registersymbol(zoomDistanceReadAOB)
+
+label(fCusZoomRatio)
+registersymbol(fCusZoomRatio)
+
+alloc(newmem,2048,zoomDistanceReadAOB) //"Anno2205.exe"+F6C3FB)
+label(returnhere)
+label(originalcode)
+label(exit)
+
+newmem: //this is allocated memory, you have read,write,execute access
+//place your code here
+movss xmm0,[rsi]//
+mulss xmm0,[fCusZoomRatio]
+
+originalcode:
+//movss xmm0,[rsi]
+movaps xmm3,xmm0
+
+exit:
+jmp returnhere
+
+///
+fCusZoomRatio:
+dd (float)2.0
+///
+
+zoomDistanceReadAOB: //"Anno2205.exe"+F6C3FB:
+jmp newmem
+nop
+nop
+returnhere:
+
+
+ 
+ 
+[DISABLE]
+//code from here till the end of the code will be used to disable the cheat
+dealloc(newmem)
+zoomDistanceReadAOB: //"Anno2205.exe"+F6C3FB:
+db F3 0F 10 06 0F 28 D8
+//Alt: movss xmm0,[rsi]
+//Alt: movaps xmm3,xmm0
+unregistersymbol(zoomDistanceReadAOB)
+
+unregistersymbol(fCusZoomRatio)
+</AssemblerScript>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>90</ID>
+              <Description>"fCusZoomRatio"</Description>
+              <LastState Value="??" Activated="0" RealAddress="00000000"/>
+              <Color>80000008</Color>
+              <VariableType>Float</VariableType>
+              <Address>fCusZoomRatio</Address>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>99</ID>
+          <Description>"[cam pointers]"</Description>
+          <Options moHideChildren="1"/>
+          <LastState Activated="0"/>
+          <Color>80000008</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+//code from here to '[DISABLE]' will be used to enable the cheat
+aobscanmodule(someCamCalAOB,Anno2205.exe,F3 44 0F 10 73 10 F3 44 0F 10 43 18)
+registersymbol(someCamCalAOB)
+
+label(pCamInfo1)
+registersymbol(pCamInfo1)
+
+alloc(newmem,2048,someCamCalAOB) //"Anno2205.exe"+F6D5C9)
+label(returnhere)
+label(originalcode)
+label(exit)
+
+newmem: //this is allocated memory, you have read,write,execute access
+//place your code here
+cmp rdi,r8
+je originalcode
+mov [pCamInfo1],rbx
+
+originalcode:
+movss xmm14,[rbx+10]
+
+exit:
+jmp returnhere
+
+///
+pCamInfo1:
+///
+
+someCamCalAOB: //"Anno2205.exe"+F6D5C9:
+jmp newmem
+nop
+returnhere:
+
+
+
+
+[DISABLE]
+//code from here till the end of the code will be used to disable the cheat
+dealloc(newmem)
+someCamCalAOB: //"Anno2205.exe"+F6D5C9:
+db F3 44 0F 10 73 10
+//Alt: movss xmm14,[rbx+10]
+unregistersymbol(someCamCalAOB)
+
+unregistersymbol(pCamInfo1)
+</AssemblerScript>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>100</ID>
+              <Description>"pCamInfo1"</Description>
+              <LastState Value="??" Activated="0" RealAddress="00000000"/>
+              <ShowAsHex>1</ShowAsHex>
+              <Color>80000008</Color>
+              <VariableType>8 Bytes</VariableType>
+              <Address>pCamInfo1</Address>
+              <Offsets>
+                <Offset>0</Offset>
+              </Offsets>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>101</ID>
+                  <Description>"+10"</Description>
+                  <LastState Value="??" Activated="0" RealAddress="00000010"/>
+                  <Color>80000008</Color>
+                  <VariableType>Float</VariableType>
+                  <Address>+10</Address>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>91</ID>
+          <Description>"[some testing pointers]"</Description>
+          <Options moHideChildren="1"/>
+          <LastState Value="" Activated="0" RealAddress="00000000"/>
+          <Color>80000008</Color>
+          <GroupHeader>1</GroupHeader>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>3</ID>
+              <Description>"$"</Description>
+              <LastState Value="??" Activated="0" RealAddress="00000000"/>
+              <Color>80000008</Color>
+              <VariableType>Double</VariableType>
+              <Address>pResources</Address>
+              <Offsets>
+                <Offset>20</Offset>
+              </Offsets>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>22</ID>
+                  <Description>"ID"</Description>
+                  <LastState Value="??" Activated="0" RealAddress="FFFFFFFFFFFFFFEC"/>
+                  <Color>80000008</Color>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>-14</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>102</ID>
+                  <Description>"Max?"</Description>
+                  <LastState Value="??" Activated="0" RealAddress="FFFFFFFFFFFFFFF0"/>
+                  <Color>80000008</Color>
+                  <VariableType>Double</VariableType>
+                  <Address>-10</Address>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>5</ID>
+              <Description>"Resource 1?"</Description>
+              <LastState Value="??" Activated="0" RealAddress="00000000"/>
+              <Color>80000008</Color>
+              <VariableType>Double</VariableType>
+              <Address>pResources</Address>
+              <Offsets>
+                <Offset>B0</Offset>
+              </Offsets>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>24</ID>
+                  <Description>"ID"</Description>
+                  <LastState Value="??" Activated="0" RealAddress="FFFFFFFFFFFFFFEC"/>
+                  <Color>80000008</Color>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>-14</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>25</ID>
+                  <Description>"Max?"</Description>
+                  <LastState Value="??" Activated="0" RealAddress="FFFFFFFFFFFFFFF0"/>
+                  <Color>80000008</Color>
+                  <VariableType>Double</VariableType>
+                  <Address>-10</Address>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>10</ID>
+              <Description>"Resource 2?"</Description>
+              <LastState Value="??" Activated="0" RealAddress="00000000"/>
+              <Color>80000008</Color>
+              <VariableType>Double</VariableType>
+              <Address>pResources</Address>
+              <Offsets>
+                <Offset>140</Offset>
+              </Offsets>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>26</ID>
+                  <Description>"ID"</Description>
+                  <LastState Value="??" Activated="0" RealAddress="FFFFFFFFFFFFFFEC"/>
+                  <Color>80000008</Color>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>-14</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>103</ID>
+                  <Description>"Max?"</Description>
+                  <LastState Value="??" Activated="0" RealAddress="FFFFFFFFFFFFFFF0"/>
+                  <Color>80000008</Color>
+                  <VariableType>Double</VariableType>
+                  <Address>-10</Address>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>13</ID>
+              <Description>"Resource 3?"</Description>
+              <LastState Value="??" Activated="0" RealAddress="00000000"/>
+              <Color>80000008</Color>
+              <VariableType>Double</VariableType>
+              <Address>pResources</Address>
+              <Offsets>
+                <Offset>1D0</Offset>
+              </Offsets>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>28</ID>
+                  <Description>"ID"</Description>
+                  <LastState Value="??" Activated="0" RealAddress="FFFFFFFFFFFFFFEC"/>
+                  <Color>80000008</Color>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>-14</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>29</ID>
+                  <Description>"Max?"</Description>
+                  <LastState Value="??" Activated="0" RealAddress="FFFFFFFFFFFFFFF0"/>
+                  <Color>80000008</Color>
+                  <VariableType>Double</VariableType>
+                  <Address>-10</Address>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>16</ID>
+              <Description>"Resource 4?"</Description>
+              <LastState Value="??" Activated="0" RealAddress="00000000"/>
+              <Color>80000008</Color>
+              <VariableType>Double</VariableType>
+              <Address>pResources</Address>
+              <Offsets>
+                <Offset>260</Offset>
+              </Offsets>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>31</ID>
+                  <Description>"ID"</Description>
+                  <LastState Value="??" Activated="0" RealAddress="FFFFFFFFFFFFFFEC"/>
+                  <Color>80000008</Color>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>-14</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>30</ID>
+                  <Description>"Max?"</Description>
+                  <LastState Value="??" Activated="0" RealAddress="FFFFFFFFFFFFFFF0"/>
+                  <Color>80000008</Color>
+                  <VariableType>Double</VariableType>
+                  <Address>-10</Address>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>19</ID>
+              <Description>"Resource 5?"</Description>
+              <LastState Value="??" Activated="0" RealAddress="00000000"/>
+              <Color>80000008</Color>
+              <VariableType>Double</VariableType>
+              <Address>pResources</Address>
+              <Offsets>
+                <Offset>2F0</Offset>
+              </Offsets>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>33</ID>
+                  <Description>"ID"</Description>
+                  <LastState Value="??" Activated="0" RealAddress="FFFFFFFFFFFFFFEC"/>
+                  <Color>80000008</Color>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>-14</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>32</ID>
+                  <Description>"Max?"</Description>
+                  <LastState Value="??" Activated="0" RealAddress="FFFFFFFFFFFFFFF0"/>
+                  <Color>80000008</Color>
+                  <VariableType>Double</VariableType>
+                  <Address>-10</Address>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>34</ID>
+              <Description>"Resource 6?"</Description>
+              <LastState Value="??" Activated="0" RealAddress="00000000"/>
+              <Color>80000008</Color>
+              <VariableType>Double</VariableType>
+              <Address>pResources</Address>
+              <Offsets>
+                <Offset>380</Offset>
+              </Offsets>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>35</ID>
+                  <Description>"ID"</Description>
+                  <LastState Value="??" Activated="0" RealAddress="FFFFFFFFFFFFFFEC"/>
+                  <Color>80000008</Color>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>-14</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>36</ID>
+                  <Description>"Max?"</Description>
+                  <LastState Value="??" Activated="0" RealAddress="FFFFFFFFFFFFFFF0"/>
+                  <Color>80000008</Color>
+                  <VariableType>Double</VariableType>
+                  <Address>-10</Address>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>37</ID>
+              <Description>"Resource 7?"</Description>
+              <LastState Value="??" Activated="0" RealAddress="00000000"/>
+              <Color>80000008</Color>
+              <VariableType>Double</VariableType>
+              <Address>pResources</Address>
+              <Offsets>
+                <Offset>410</Offset>
+              </Offsets>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>38</ID>
+                  <Description>"ID"</Description>
+                  <LastState Value="??" Activated="0" RealAddress="FFFFFFFFFFFFFFEC"/>
+                  <Color>80000008</Color>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>-14</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>104</ID>
+                  <Description>"Max?"</Description>
+                  <LastState Value="??" Activated="0" RealAddress="FFFFFFFFFFFFFFF0"/>
+                  <Color>80000008</Color>
+                  <VariableType>Double</VariableType>
+                  <Address>-10</Address>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>105</ID>
+              <Description>"Resource 8?"</Description>
+              <LastState Value="??" Activated="0" RealAddress="00000000"/>
+              <Color>80000008</Color>
+              <VariableType>Double</VariableType>
+              <Address>pResources</Address>
+              <Offsets>
+                <Offset>4A0</Offset>
+              </Offsets>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>41</ID>
+                  <Description>"ID"</Description>
+                  <LastState Value="??" Activated="0" RealAddress="FFFFFFFFFFFFFFEC"/>
+                  <Color>80000008</Color>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>-14</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>42</ID>
+                  <Description>"Max?"</Description>
+                  <LastState Value="??" Activated="0" RealAddress="FFFFFFFFFFFFFFF0"/>
+                  <Color>80000008</Color>
+                  <VariableType>Double</VariableType>
+                  <Address>-10</Address>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>43</ID>
+              <Description>"Resource 9?"</Description>
+              <LastState Value="??" Activated="0" RealAddress="00000000"/>
+              <Color>80000008</Color>
+              <VariableType>Double</VariableType>
+              <Address>pResources</Address>
+              <Offsets>
+                <Offset>530</Offset>
+              </Offsets>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>44</ID>
+                  <Description>"ID"</Description>
+                  <LastState Value="??" Activated="0" RealAddress="FFFFFFFFFFFFFFEC"/>
+                  <Color>80000008</Color>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>-14</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>45</ID>
+                  <Description>"Max?"</Description>
+                  <LastState Value="??" Activated="0" RealAddress="FFFFFFFFFFFFFFF0"/>
+                  <Color>80000008</Color>
+                  <VariableType>Double</VariableType>
+                  <Address>-10</Address>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols>
+    <SymbolEntry>
+      <Name>ItemUsage</Name>
+      <Address>7FF65D1C8B48</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>health</Name>
+      <Address> 7FF65846171C</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>health_save</Name>
+      <Address>7FF6593A0006</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>build</Name>
+      <Address> 7FF657D675FE</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>credit</Name>
+      <Address> 7FF657D679AA</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>workforce</Name>
+      <Address> 7FF657D677B3</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>workforce2</Name>
+      <Address> 7FF657D679FD</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>fuel_cap</Name>
+      <Address> 7FF658346765</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>item_cap</Name>
+      <Address> 7FF65832936E</Address>
+    </SymbolEntry>
+  </UserdefinedSymbols>
+</CheatTable>

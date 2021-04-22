@@ -1,0 +1,784 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="16">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>2</ID>
+      <Description>"CASH"</Description>
+      <Color>80000008</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+alloc(newmem,2048)
+label(returnhere)
+
+newmem:
+mov [ecx+eax+000002D8],#99999
+mov eax,[ecx+eax+000002D8]
+jmp returnhere
+
+"DoubleDragon.exe"+14F1AE:
+jmp newmem
+nop
+nop
+returnhere:
+
+[DISABLE]
+dealloc(newmem)
+"DoubleDragon.exe"+14F1AE:
+mov eax,[ecx+eax+000002D8]
+
+//Alt: db 8B 84 01 D8 02 00 00
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>29</ID>
+      <Description>"MAGIC"</Description>
+      <Color>80000008</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+alloc(newmem,2048)
+label(returnhere)
+
+newmem:
+push edi
+mov edi,[ecx+00001F94]
+mov [ecx+00001F90],edi
+pop edi
+fld dword ptr [ecx+00001F90]
+jmp returnhere
+
+"DoubleDragon.exe"+DD264:
+jmp newmem
+nop
+returnhere:
+
+[DISABLE]
+dealloc(newmem)
+"DoubleDragon.exe"+DD264:
+fld dword ptr [ecx+00001F90]
+
+//Alt: db D9 81 90 1F 00 00
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>16</ID>
+      <Description>"LIVES"</Description>
+      <Color>80000008</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+alloc(newmem,2048)
+label(returnhere)
+
+newmem:
+mov [eax*4+"DoubleDragon.exe"+44E208],#10
+mov eax,[eax*4+"DoubleDragon.exe"+44E208]
+jmp returnhere
+
+"DoubleDragon.exe"+DD5C8:
+jmp newmem
+nop
+nop
+returnhere:
+ 
+[DISABLE]
+dealloc(newmem)
+"DoubleDragon.exe"+DD5C8:
+mov eax,[eax*4+"DoubleDragon.exe"+44E208]
+
+//Alt: db 8B 04 85 08 E2 36 01
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>5</ID>
+      <Description>"INFINITE HEALTH"</Description>
+      <Color>80000008</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+alloc(newmem,2048)
+label(returnhere)
+
+newmem:
+push edi
+mov edi,[ecx+268]
+mov [ecx+264],edi
+pop edi
+fld dword ptr [ecx+00000264]
+jmp returnhere
+
+"DoubleDragon.exe"+1C4C84:
+jmp newmem
+nop
+returnhere:
+ 
+[DISABLE]
+dealloc(newmem)
+"DoubleDragon.exe"+1C4C84:
+fld dword ptr [ecx+00000264]
+
+//Alt: db CC 81 64 02 00 00
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>9</ID>
+      <Description>"INVULNERABILITY"</Description>
+      <Color>80000008</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+alloc(newmem,2048)
+label(returnhere)
+
+newmem:
+mov [esi+29B4],(float)2.0
+fcom dword ptr [esi+000029B4]
+jmp returnhere
+
+"DoubleDragon.exe"+CBA5E:
+jmp newmem
+nop
+returnhere:
+ 
+[DISABLE]
+dealloc(newmem)
+"DoubleDragon.exe"+CBA5E:
+fcom dword ptr [esi+000029B4]
+
+//Alt: db D8 96 B4 29 00 00
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>11</ID>
+      <Description>"ONE-HIT KILLS"</Description>
+      <Color>80000008</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+alloc(newmem,2048)
+label(returnhere)
+
+newmem:
+mov [edi+264],(float)0.0
+fld dword ptr [edi+00000264]
+jmp returnhere
+
+"DoubleDragon.exe"+E953A:
+jmp newmem
+nop
+returnhere:
+
+[DISABLE]
+dealloc(newmem)
+"DoubleDragon.exe"+E953A:
+fld dword ptr [edi+00000264]
+
+//Alt: db D9 87 64 02 00 00
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>18</ID>
+      <Description>"CRYSTALS"</Description>
+      <Color>80000008</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+alloc(newmem,2048)
+label(originalcode)
+label(returnhere)
+
+newmem:
+cmp eax,1730
+je originalcode
+mov [eax+ecx+2E4],#999
+movzx eax,word ptr [eax+ecx+000002E4]
+jmp returnhere
+
+originalcode:
+movzx eax,word ptr [eax+ecx+000002E4]
+jmp returnhere
+
+"DoubleDragon.exe"+9AC7C:
+jmp newmem
+nop
+nop
+nop
+returnhere:
+ 
+[DISABLE]
+dealloc(newmem)
+"DoubleDragon.exe"+9AC7C:
+movzx eax,word ptr [eax+ecx+000002E4]
+
+//Alt: db 0F B7 84 08 E4 02 00 00
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>21</ID>
+      <Description>"MAX STANCES POINTS"</Description>
+      <Color>80000008</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+alloc(newmem,2048)
+label(returnhere)
+
+newmem:
+mov [ecx+eax*4+000002A8],#50
+mov eax,[ecx+eax*4+000002A8]
+jmp returnhere
+
+"DoubleDragon.exe"+14F72C:
+jmp newmem
+nop
+nop
+returnhere:
+
+[DISABLE]
+dealloc(newmem)
+"DoubleDragon.exe"+14F72C:
+mov eax,[ecx+eax*4+000002A8]
+
+//Alt: db 8B 84 81 A8 02 00 00
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>22</ID>
+      <Description>"MAX SOSETSITSU POINTS"</Description>
+      <Color>80000008</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+alloc(newmem,2048)
+label(returnhere)
+
+newmem:
+mov [ecx+eax*4+00000280],#50
+mov eax,[ecx+eax*4+00000280]
+jmp returnhere
+
+"DoubleDragon.exe"+14F51F:
+jmp newmem
+nop
+nop
+returnhere:
+ 
+[DISABLE]
+dealloc(newmem)
+"DoubleDragon.exe"+14F51F:
+mov eax,[ecx+eax*4+00000280]
+
+//Alt: db 8B 84 81 80 02 00 00
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>25</ID>
+      <Description>"STANCES POINTS"</Description>
+      <Color>80000008</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+alloc(newmem,2048)
+label(returnhere)
+
+newmem:
+mov [ecx+eax*4+00000258],#50
+mov eax,[ecx+eax*4+00000258]
+jmp returnhere
+
+"DoubleDragon.exe"+14F62C:
+jmp newmem
+nop
+nop
+returnhere:
+
+[DISABLE]
+dealloc(newmem)
+"DoubleDragon.exe"+14F62C:
+mov eax,[ecx+eax*4+00000258]
+
+//Alt: db 8B 84 81 58 02 00 00
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>27</ID>
+      <Description>"SOSETSITSU POINTS"</Description>
+      <Color>80000008</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+alloc(newmem,2048)
+label(returnhere)
+
+newmem:
+mov [ecx+eax*4+00000230],#50
+mov eax,[ecx+eax*4+00000230]
+jmp returnhere
+
+"DoubleDragon.exe"+14F3FF:
+jmp newmem
+nop
+nop
+returnhere:
+ 
+[DISABLE]
+dealloc(newmem)
+"DoubleDragon.exe"+14F3FF:
+mov eax,[ecx+eax*4+00000230]
+
+//Alt: db 8B 84 81 30 02 00 00
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>5091</ID>
+      <Description>"PLAYER STRUCTURES"</Description>
+      <Options moHideChildren="1" moAllowManualCollapseAndExpand="1"/>
+      <Color>80000008</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+alloc(newmem,2048)
+label(originalcode)
+label(returnhere)
+label(billy)
+label(jimmy)
+label(billystructure)
+label(jimmystructure)
+registersymbol(billystructure)
+registersymbol(jimmystructure)
+
+newmem:
+cmp [esi+64],425F7974
+je billy
+cmp [esi+64],4A5F7974
+je jimmy
+jmp originalcode
+
+billy:
+mov [billystructure],esi
+fcomp dword ptr [esi+0000009C]
+jmp returnhere
+
+jimmy:
+mov [jimmystructure],esi
+fcomp dword ptr [esi+0000009C]
+jmp returnhere
+
+originalcode:
+fcomp dword ptr [esi+0000009C]
+jmp returnhere
+
+billystructure:
+dd 0
+jimmystructure:
+dd 0
+
+"DoubleDragon.exe"+E248B:
+jmp newmem
+nop
+returnhere:
+ 
+[DISABLE]
+dealloc(newmem)
+"DoubleDragon.exe"+E248B:
+fcomp dword ptr [esi+0000009C]
+
+//Alt: db D8 9E 9C 00 00 00
+
+unregistersymbol(billystructure)
+unregistersymbol(jimmystructure)
+</AssemblerScript>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>5106</ID>
+          <Description>"======= BILLY ======="</Description>
+          <Color>80000008</Color>
+          <GroupHeader>1</GroupHeader>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>5092</ID>
+              <Description>"BILLY SIZE - X"</Description>
+              <Color>80000008</Color>
+              <VariableType>Float</VariableType>
+              <Address>billystructure</Address>
+              <Offsets>
+                <Offset>9C</Offset>
+              </Offsets>
+              <Hotkeys>
+                <Hotkey>
+                  <Action>Set Value</Action>
+                  <Keys>
+                    <Key>16</Key>
+                    <Key>107</Key>
+                  </Keys>
+                  <Value>1.4</Value>
+                  <ID>0</ID>
+                </Hotkey>
+                <Hotkey>
+                  <Action>Set Value</Action>
+                  <Keys>
+                    <Key>16</Key>
+                    <Key>109</Key>
+                  </Keys>
+                  <Value>.4</Value>
+                  <ID>1</ID>
+                </Hotkey>
+                <Hotkey>
+                  <Action>Set Value</Action>
+                  <Keys>
+                    <Key>16</Key>
+                    <Key>36</Key>
+                  </Keys>
+                  <Value>1</Value>
+                  <ID>2</ID>
+                </Hotkey>
+              </Hotkeys>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>5094</ID>
+              <Description>"BILLY SIZE - Y"</Description>
+              <Color>80000008</Color>
+              <VariableType>Float</VariableType>
+              <Address>billystructure</Address>
+              <Offsets>
+                <Offset>A0</Offset>
+              </Offsets>
+              <Hotkeys>
+                <Hotkey>
+                  <Action>Set Value</Action>
+                  <Keys>
+                    <Key>16</Key>
+                    <Key>107</Key>
+                  </Keys>
+                  <Value>1.4</Value>
+                  <ID>0</ID>
+                </Hotkey>
+                <Hotkey>
+                  <Action>Set Value</Action>
+                  <Keys>
+                    <Key>16</Key>
+                    <Key>109</Key>
+                  </Keys>
+                  <Value>.4</Value>
+                  <ID>1</ID>
+                </Hotkey>
+                <Hotkey>
+                  <Action>Set Value</Action>
+                  <Keys>
+                    <Key>16</Key>
+                    <Key>36</Key>
+                  </Keys>
+                  <Value>1</Value>
+                  <ID>2</ID>
+                </Hotkey>
+              </Hotkeys>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>5093</ID>
+              <Description>"BILLY SIZE - Z"</Description>
+              <Color>80000008</Color>
+              <VariableType>Float</VariableType>
+              <Address>billystructure</Address>
+              <Offsets>
+                <Offset>A4</Offset>
+              </Offsets>
+              <Hotkeys>
+                <Hotkey>
+                  <Action>Set Value</Action>
+                  <Keys>
+                    <Key>16</Key>
+                    <Key>107</Key>
+                  </Keys>
+                  <Value>1.4</Value>
+                  <ID>0</ID>
+                </Hotkey>
+                <Hotkey>
+                  <Action>Set Value</Action>
+                  <Keys>
+                    <Key>16</Key>
+                    <Key>109</Key>
+                  </Keys>
+                  <Value>.4</Value>
+                  <ID>1</ID>
+                </Hotkey>
+                <Hotkey>
+                  <Action>Set Value</Action>
+                  <Keys>
+                    <Key>16</Key>
+                    <Key>36</Key>
+                  </Keys>
+                  <Value>1</Value>
+                  <ID>2</ID>
+                </Hotkey>
+              </Hotkeys>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>5095</ID>
+              <Description>"BILLY SPEED"</Description>
+              <Color>80000008</Color>
+              <VariableType>Float</VariableType>
+              <Address>billystructure</Address>
+              <Offsets>
+                <Offset>C4</Offset>
+              </Offsets>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>5107</ID>
+          <Description>"======= JIMMY ======="</Description>
+          <Color>80000008</Color>
+          <GroupHeader>1</GroupHeader>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>5102</ID>
+              <Description>"JIMMY SIZE - X"</Description>
+              <Color>80000008</Color>
+              <VariableType>Float</VariableType>
+              <Address>jimmystructure</Address>
+              <Offsets>
+                <Offset>9C</Offset>
+              </Offsets>
+              <Hotkeys>
+                <Hotkey>
+                  <Action>Set Value</Action>
+                  <Keys>
+                    <Key>16</Key>
+                    <Key>107</Key>
+                  </Keys>
+                  <Value>1.4</Value>
+                  <ID>0</ID>
+                </Hotkey>
+                <Hotkey>
+                  <Action>Set Value</Action>
+                  <Keys>
+                    <Key>16</Key>
+                    <Key>109</Key>
+                  </Keys>
+                  <Value>.4</Value>
+                  <ID>1</ID>
+                </Hotkey>
+                <Hotkey>
+                  <Action>Set Value</Action>
+                  <Keys>
+                    <Key>16</Key>
+                    <Key>36</Key>
+                  </Keys>
+                  <Value>1</Value>
+                  <ID>2</ID>
+                </Hotkey>
+              </Hotkeys>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>5103</ID>
+              <Description>"JIMMY SIZE - Y"</Description>
+              <Color>80000008</Color>
+              <VariableType>Float</VariableType>
+              <Address>jimmystructure</Address>
+              <Offsets>
+                <Offset>A0</Offset>
+              </Offsets>
+              <Hotkeys>
+                <Hotkey>
+                  <Action>Set Value</Action>
+                  <Keys>
+                    <Key>16</Key>
+                    <Key>107</Key>
+                  </Keys>
+                  <Value>1.4</Value>
+                  <ID>0</ID>
+                </Hotkey>
+                <Hotkey>
+                  <Action>Set Value</Action>
+                  <Keys>
+                    <Key>16</Key>
+                    <Key>109</Key>
+                  </Keys>
+                  <Value>.4</Value>
+                  <ID>1</ID>
+                </Hotkey>
+                <Hotkey>
+                  <Action>Set Value</Action>
+                  <Keys>
+                    <Key>16</Key>
+                    <Key>36</Key>
+                  </Keys>
+                  <Value>1</Value>
+                  <ID>2</ID>
+                </Hotkey>
+              </Hotkeys>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>5104</ID>
+              <Description>"JIMMY SIZE - Z"</Description>
+              <Color>80000008</Color>
+              <VariableType>Float</VariableType>
+              <Address>jimmystructure</Address>
+              <Offsets>
+                <Offset>A4</Offset>
+              </Offsets>
+              <Hotkeys>
+                <Hotkey>
+                  <Action>Set Value</Action>
+                  <Keys>
+                    <Key>16</Key>
+                    <Key>107</Key>
+                  </Keys>
+                  <Value>1.4</Value>
+                  <ID>0</ID>
+                </Hotkey>
+                <Hotkey>
+                  <Action>Set Value</Action>
+                  <Keys>
+                    <Key>16</Key>
+                    <Key>109</Key>
+                  </Keys>
+                  <Value>.4</Value>
+                  <ID>1</ID>
+                </Hotkey>
+                <Hotkey>
+                  <Action>Set Value</Action>
+                  <Keys>
+                    <Key>16</Key>
+                    <Key>36</Key>
+                  </Keys>
+                  <Value>1</Value>
+                  <ID>2</ID>
+                </Hotkey>
+              </Hotkeys>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>5105</ID>
+              <Description>"JIMMY SPEED"</Description>
+              <Color>80000008</Color>
+              <VariableType>Float</VariableType>
+              <Address>jimmystructure</Address>
+              <Offsets>
+                <Offset>C4</Offset>
+              </Offsets>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>5098</ID>
+      <Description>"INFINITE WEAPON"</Description>
+      <Color>80000008</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+alloc(newmem,2048)
+label(returnhere)
+label(originalcode)
+
+newmem:
+mov [ecx+00001F98],(float)2.0
+jmp originalcode
+
+originalcode:
+fcomp dword ptr [ecx+00001F98]
+jmp returnhere
+
+"DoubleDragon.exe"+108B36:
+jmp newmem
+nop
+returnhere:
+ 
+[DISABLE]
+dealloc(newmem)
+"DoubleDragon.exe"+108B36:
+fcomp dword ptr [ecx+00001F98]
+
+//Alt: db D8 99 98 1F 00 00
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>5108</ID>
+      <Description>"ENEMY STRUCTURE"</Description>
+      <Options moHideChildren="1" moAllowManualCollapseAndExpand="1"/>
+      <Color>80000008</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+alloc(newmem,2048)
+label(returnhere)
+label(originalcode)
+label(speed)
+label(enemyspeed)
+label(enemysize)
+registersymbol(enemysize)
+registersymbol(enemyspeed)
+
+newmem:
+cmp [enemysize],0
+je speed
+push edi
+mov edi,[enemysize]
+mov [esi+9C],edi
+mov [esi+A0],edi
+mov [esi+A4],edi
+pop edi
+jmp speed
+
+speed:
+cmp [enemyspeed],0
+je originalcode
+push edi
+mov edi,[enemyspeed]
+mov [esi+C4],edi
+pop edi
+jmp originalcode
+
+originalcode:
+fcomp dword ptr [esi+0000009C]
+jmp returnhere
+
+enemysize:
+dd 0
+enemyspeed:
+dd 0
+
+"DoubleDragon.exe"+EB1FA:
+jmp newmem
+nop
+returnhere:
+
+[DISABLE]
+dealloc(newmem)
+"DoubleDragon.exe"+EB1FA:
+fcomp dword ptr [esi+0000009C]
+
+//Alt: db D8 9E 9C 00 00 00
+
+unregistersymbol(enemysize)
+unregistersymbol(enemyspeed)
+</AssemblerScript>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>5109</ID>
+          <Description>"ENEMY SIZE MODIFIER"</Description>
+          <Color>80000008</Color>
+          <VariableType>Float</VariableType>
+          <Address>enemysize</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>5110</ID>
+          <Description>"ENEMY SPEED MODIFIER"</Description>
+          <Color>80000008</Color>
+          <VariableType>Float</VariableType>
+          <Address>enemyspeed</Address>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols>
+    <SymbolEntry>
+      <Name>value</Name>
+      <Address>0365002E</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>billystructure</Name>
+      <Address>01F7004C</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>jimmystructure</Name>
+      <Address>01F70050</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>enemysize</Name>
+      <Address>02750057</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>enemyspeed</Name>
+      <Address>0275005B</Address>
+    </SymbolEntry>
+  </UserdefinedSymbols>
+</CheatTable>

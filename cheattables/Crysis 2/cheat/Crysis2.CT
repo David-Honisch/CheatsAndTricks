@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="18">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>0</ID>
+      <Description>"Unlimited Energy"</Description>
+      <LastState Activated="1"/>
+      <Color>80000008</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>//Made by Geri with Cheat Engine 6.0
+//26th March, 2011
+//All rights reserved. You are not allowed to use these scripts to create Your own trainer without my permission.
+//Contact e-mail: trainers4free@gmail.com
+[ENABLE]
+//code from here to '[DISABLE]' will be used to enable the cheat
+alloc(newmem,2048) //2kb should be enough
+label(returnhere)
+label(originalcode)
+label(exit)
+label(label1)
+registersymbol(label1)
+aobscan(aob1,d9 86 c0 00 00 00 8b d8)
+
+newmem: //this is allocated memory, you have read,write,execute access
+mov [esi+000000C0],(float)9999
+
+originalcode:
+fld dword ptr [esi+000000C0]
+
+exit:
+jmp returnhere
+
+aob1:
+label1:
+jmp newmem
+nop
+returnhere:
+
+
+ 
+ 
+[DISABLE]
+//code from here till the end of the code will be used to disable the cheat
+dealloc(newmem)
+label1:
+fld dword ptr [esi+000000C0]
+//Alt: db D9 86 C0 00 00 00
+unregistersymbol(label1)
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>1</ID>
+      <Description>"Unlimited Ammo"</Description>
+      <LastState Activated="1"/>
+      <Color>80000008</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>//Made by Geri with Cheat Engine 6.0
+//26th March, 2011
+//All rights reserved. You are not allowed to use these scripts to create Your own trainer without my permission.
+//Contact e-mail: trainers4free@gmail.com
+[ENABLE]
+//code from here to '[DISABLE]' will be used to enable the cheat
+alloc(newmem,2048) //2kb should be enough
+label(returnhere)
+label(originalcode)
+label(exit)
+label(label2)
+registersymbol(label2)
+aobscan(aob2,8b 40 04 c3 33 c0 c3 b9)
+
+newmem: //this is allocated memory, you have read,write,execute access
+
+originalcode:
+je aob2+4
+mov [eax+04],(int)999
+mov eax,[eax+04]
+
+exit:
+jmp returnhere
+
+aob2-2:
+label2:
+jmp newmem
+returnhere:
+
+
+ 
+ 
+[DISABLE]
+//code from here till the end of the code will be used to disable the cheat
+dealloc(newmem)
+label2:
+db 74 04 8B 40 04
+unregistersymbol(label2)
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>2</ID>
+      <Description>"Unlimited Nano Catalyst"</Description>
+      <LastState Activated="1"/>
+      <Color>80000008</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>//Made by Geri with Cheat Engine 6.0
+//26th March, 2011
+//All rights reserved. You are not allowed to use these scripts to create Your own trainer without my permission.
+//Contact e-mail: trainers4free@gmail.com
+[ENABLE]
+//code from here to '[DISABLE]' will be used to enable the cheat
+alloc(newmem,2048) //2kb should be enough
+label(returnhere)
+label(originalcode)
+label(exit)
+label(label3)
+registersymbol(label3)
+aobscan(aob3,8b 84 81 00 01 00 00)
+
+newmem: //this is allocated memory, you have read,write,execute access
+mov [ecx+eax*4+00000100],(int)999999
+
+originalcode:
+mov eax,[ecx+eax*4+00000100]
+
+exit:
+jmp returnhere
+
+aob3:
+label3:
+jmp newmem
+nop
+nop
+returnhere:
+
+
+ 
+ 
+[DISABLE]
+//code from here till the end of the code will be used to disable the cheat
+dealloc(newmem)
+label3:
+db 8B 84 81 00 01 00 00
+unregistersymbol(label3)
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>3</ID>
+      <Description>"Unlimited Health"</Description>
+      <LastState Activated="1"/>
+      <Color>80000008</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>//Made by Geri with Cheat Engine 6.0
+//26th March, 2011
+//All rights reserved. You are not allowed to use these scripts to create Your own trainer without my permission.
+//Contact e-mail: trainers4free@gmail.com
+[ENABLE]
+//code from here to '[DISABLE]' will be used to enable the cheat
+alloc(newmem,2048) //2kb should be enough
+label(returnhere)
+label(originalcode)
+label(exit)
+label(label4)
+registersymbol(label4)
+aobscan(aob4,56 8b f1 d8 9e 2c 03 00 00 df e0)
+
+newmem: //this is allocated memory, you have read,write,execute access
+mov [esi+0000032C],(float)100000
+
+originalcode:
+fcomp dword ptr [esi+0000032C]
+
+exit:
+jmp returnhere
+
+aob4+3:
+label4:
+jmp newmem
+nop
+returnhere:
+
+
+ 
+ 
+[DISABLE]
+//code from here till the end of the code will be used to disable the cheat
+dealloc(newmem)
+label4:
+fcomp dword ptr [esi+0000032C]
+//Alt: db D8 9E 2C 03 00 00
+unregistersymbol(label4)
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>4</ID>
+      <Description>"Unlimited Health 2"</Description>
+      <LastState Activated="1"/>
+      <Color>80000008</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>//Made by Geri with Cheat Engine 6.0
+//26th March, 2011
+//All rights reserved. You are not allowed to use these scripts to create Your own trainer without my permission.
+//Contact e-mail: trainers4free@gmail.com
+[ENABLE]
+//code from here to '[DISABLE]' will be used to enable the cheat
+alloc(newmem,2048) //2kb should be enough
+label(returnhere)
+label(originalcode)
+label(exit)
+label(label5)
+registersymbol(label5)
+aobscan(aob5,ee d8 96 2c 03 00 00)
+
+newmem: //this is allocated memory, you have read,write,execute access
+mov [esi+0000032C],(float)100000
+
+originalcode:
+fcom dword ptr [esi+0000032C]
+
+exit:
+jmp returnhere
+
+aob5+1:
+label5:
+jmp newmem
+nop
+returnhere:
+
+
+ 
+ 
+[DISABLE]
+//code from here till the end of the code will be used to disable the cheat
+dealloc(newmem)
+label5:
+fcom dword ptr [esi+0000032C]
+//Alt: db D8 96 2C 03 00 00
+unregistersymbol(label5)
+</AssemblerScript>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols>
+    <SymbolEntry>
+      <Name>label1</Name>
+      <Address>0109E9B4</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>label2</Name>
+      <Address>0118D13A</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>label3</Name>
+      <Address>010A0885</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>label4</Name>
+      <Address>0106E0F8</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>label5</Name>
+      <Address>010708F9</Address>
+    </SymbolEntry>
+  </UserdefinedSymbols>
+</CheatTable>

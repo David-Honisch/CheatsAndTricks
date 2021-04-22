@@ -1,0 +1,872 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="29">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>45</ID>
+      <Description>"Unlimited Health"</Description>
+      <LastState Activated="1"/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript Async="1">[ENABLE]
+aobscanmodule(health,DOOMEternalx64vk.exe,F3 0F 10 4C 24 60 8B F8)
+health:
+  db 0F 57 C9 90 90 90
+registersymbol(health)
+
+[DISABLE]
+health:
+  db F3 0F 10 4C 24 60
+unregistersymbol(health)
+
+{
+// ORIGINAL CODE - INJECTION POINT: "DOOMEternalx64vk.exe"+1684CAE
+
+"DOOMEternalx64vk.exe"+1684C82: 33 D2                       -  xor edx,edx
+"DOOMEternalx64vk.exe"+1684C84: 49 8B CE                    -  mov rcx,r14
+"DOOMEternalx64vk.exe"+1684C87: C6 44 24 20 01              -  mov byte ptr [rsp+20],01
+"DOOMEternalx64vk.exe"+1684C8C: FF 50 48                    -  call qword ptr [rax+48]
+"DOOMEternalx64vk.exe"+1684C8F: E9 10 01 00 00              -  jmp DOOMEternalx64vk.exe+1684DA4
+"DOOMEternalx64vk.exe"+1684C94: 48 8B 0D 75 1D AB 04        -  mov rcx,[DOOMEternalx64vk.exe+6136A10]
+"DOOMEternalx64vk.exe"+1684C9B: 48 81 C1 68 ED 1E 00        -  add rcx,001EED68
+"DOOMEternalx64vk.exe"+1684CA2: E8 09 28 04 00              -  call DOOMEternalx64vk.exe+16C74B0
+"DOOMEternalx64vk.exe"+1684CA7: 49 8B 16                    -  mov rdx,[r14]
+"DOOMEternalx64vk.exe"+1684CAA: 4C 8D 4D C0                 -  lea r9,[rbp-40]
+// ---------- INJECTING HERE ----------
+"DOOMEternalx64vk.exe"+1684CAE: F3 0F 10 4C 24 60           -  movss xmm1,[rsp+60]
+// ---------- DONE INJECTING  ----------
+"DOOMEternalx64vk.exe"+1684CB4: 8B F8                       -  mov edi,eax
+"DOOMEternalx64vk.exe"+1684CB6: 48 8D 45 60                 -  lea rax,[rbp+60]
+"DOOMEternalx64vk.exe"+1684CBA: 44 0F B6 C6                 -  movzx r8d,sil
+"DOOMEternalx64vk.exe"+1684CBE: 49 8B CE                    -  mov rcx,r14
+"DOOMEternalx64vk.exe"+1684CC1: 48 89 44 24 20              -  mov [rsp+20],rax
+"DOOMEternalx64vk.exe"+1684CC6: FF 52 10                    -  call qword ptr [rdx+10]
+"DOOMEternalx64vk.exe"+1684CC9: 48 8B 0D 40 1D AB 04        -  mov rcx,[DOOMEternalx64vk.exe+6136A10]
+"DOOMEternalx64vk.exe"+1684CD0: 48 81 C1 68 ED 1E 00        -  add rcx,001EED68
+"DOOMEternalx64vk.exe"+1684CD7: E8 D4 27 04 00              -  call DOOMEternalx64vk.exe+16C74B0
+"DOOMEternalx64vk.exe"+1684CDC: 3B F8                       -  cmp edi,eax
+}
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>12</ID>
+      <Description>"Unlimited Ammo"</Description>
+      <LastState Activated="1"/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript Async="1">[ENABLE]
+{$lua}
+return "aobscanmodule(ammo,"..process..",8B 83 14 01 00 00 85 C0 7E)"
+{$asm}
+alloc(newmem,$1000,ammo)
+
+label(ammoBkp)
+label(return)
+
+newmem:
+  xor esi,esi
+ammoBkp:
+  readmem(ammo,6)
+  jmp return
+
+ammo:
+  jmp newmem
+  nop
+return:
+registersymbol(ammo)
+registersymbol(ammoBkp)
+
+[DISABLE]
+ammo:
+  readmem(ammoBkp,6)
+unregistersymbol(ammo)
+unregistersymbol(ammoBkp)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: "DOOMEternalx64vk.exe"+190B3B7
+
+"DOOMEternalx64vk.exe"+190B397: 74 1A                 -  je DOOMEternalx64vk.exe+190B3B3
+"DOOMEternalx64vk.exe"+190B399: 4C 8B 0F              -  mov r9,[rdi]
+"DOOMEternalx64vk.exe"+190B39C: 44 0F B6 C5           -  movzx r8d,bpl
+"DOOMEternalx64vk.exe"+190B3A0: 8B D6                 -  mov edx,esi
+"DOOMEternalx64vk.exe"+190B3A2: 48 8B CF              -  mov rcx,rdi
+"DOOMEternalx64vk.exe"+190B3A5: 41 FF 91 E0 00 00 00  -  call qword ptr [r9+000000E0]
+"DOOMEternalx64vk.exe"+190B3AC: 8B F0                 -  mov esi,eax
+"DOOMEternalx64vk.exe"+190B3AE: E9 89 00 00 00        -  jmp DOOMEternalx64vk.exe+190B43C
+"DOOMEternalx64vk.exe"+190B3B3: 85 F6                 -  test esi,esi
+"DOOMEternalx64vk.exe"+190B3B5: 79 42                 -  jns DOOMEternalx64vk.exe+190B3F9
+// ---------- INJECTING HERE ----------
+"DOOMEternalx64vk.exe"+190B3B7: 8B 83 14 01 00 00     -  mov eax,[rbx+00000114]
+// ---------- DONE INJECTING  ----------
+"DOOMEternalx64vk.exe"+190B3BD: 85 C0                 -  test eax,eax
+"DOOMEternalx64vk.exe"+190B3BF: 7E 38                 -  jle DOOMEternalx64vk.exe+190B3F9
+"DOOMEternalx64vk.exe"+190B3C1: 8D 14 30              -  lea edx,[rax+rsi]
+"DOOMEternalx64vk.exe"+190B3C4: 44 0F B6 C5           -  movzx r8d,bpl
+"DOOMEternalx64vk.exe"+190B3C8: 48 8B CB              -  mov rcx,rbx
+"DOOMEternalx64vk.exe"+190B3CB: 89 93 14 01 00 00     -  mov [rbx+00000114],edx
+"DOOMEternalx64vk.exe"+190B3D1: E8 3A 01 00 00        -  call DOOMEternalx64vk.exe+190B510
+"DOOMEternalx64vk.exe"+190B3D6: 8B BB 14 01 00 00     -  mov edi,[rbx+00000114]
+"DOOMEternalx64vk.exe"+190B3DC: 8B F0                 -  mov esi,eax
+"DOOMEternalx64vk.exe"+190B3DE: 85 FF                 -  test edi,edi
+}
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>156</ID>
+      <Description>"Unlimited Double Jump"</Description>
+      <LastState Activated="1"/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript Async="1">[ENABLE]
+{$lua}
+return "aobscanmodule(jump,"..process..",FF C0 44 0F 28 ?? ?? ?? ?? ?? ?? 3B)"
+{$asm}
+jump:
+  db 31 C9
+registersymbol(jump)
+
+[DISABLE]
+jump:
+  db FF C0
+unregistersymbol(jump)
+
+{
+// ORIGINAL CODE - INJECTION POINT: "DOOMEternalx64vk.exe"+A58AAE
+
+"DOOMEternalx64vk.exe"+A58A65: F3 44 0F 59 48 08           -  mulss xmm9,[rax+08]
+"DOOMEternalx64vk.exe"+A58A6B: F3 0F 58 83 40 3F 00 00     -  addss xmm0,[rbx+00003F40]
+"DOOMEternalx64vk.exe"+A58A73: F3 0F 58 8B 44 3F 00 00     -  addss xmm1,[rbx+00003F44]
+"DOOMEternalx64vk.exe"+A58A7B: F3 44 0F 58 8B 48 3F 00 00  -  addss xmm9,[rbx+00003F48]
+"DOOMEternalx64vk.exe"+A58A84: F3 0F 11 83 40 3F 00 00     -  movss [rbx+00003F40],xmm0
+"DOOMEternalx64vk.exe"+A58A8C: F3 0F 11 8B 44 3F 00 00     -  movss [rbx+00003F44],xmm1
+"DOOMEternalx64vk.exe"+A58A94: F3 44 0F 11 8B 48 3F 00 00  -  movss [rbx+00003F48],xmm9
+"DOOMEternalx64vk.exe"+A58A9D: 8B 83 80 41 00 00           -  mov eax,[rbx+00004180]
+"DOOMEternalx64vk.exe"+A58AA3: B9 02 00 00 00              -  mov ecx,00000002
+"DOOMEternalx64vk.exe"+A58AA8: 44 0F 28 4C 24 70           -  movaps xmm9,[rsp+70]
+// ---------- INJECTING HERE ----------
+"DOOMEternalx64vk.exe"+A58AAE: FF C0                       -  inc eax
+"DOOMEternalx64vk.exe"+A58AB0: 44 0F 28 84 24 80 00 00 00  -  movaps xmm8,[rsp+00000080]
+// ---------- DONE INJECTING  ----------
+"DOOMEternalx64vk.exe"+A58AB9: 3B C1                       -  cmp eax,ecx
+"DOOMEternalx64vk.exe"+A58ABB: 0F 28 BC 24 90 00 00 00     -  movaps xmm7,[rsp+00000090]
+"DOOMEternalx64vk.exe"+A58AC3: 0F 28 B4 24 A0 00 00 00     -  movaps xmm6,[rsp+000000A0]
+"DOOMEternalx64vk.exe"+A58ACB: 0F 4C C1                    -  cmovl eax,ecx
+"DOOMEternalx64vk.exe"+A58ACE: FF 83 88 41 00 00           -  inc [rbx+00004188]
+"DOOMEternalx64vk.exe"+A58AD4: 89 83 80 41 00 00           -  mov [rbx+00004180],eax
+"DOOMEternalx64vk.exe"+A58ADA: B0 01                       -  mov al,01
+"DOOMEternalx64vk.exe"+A58ADC: C6 83 FC 47 00 00 00        -  mov byte ptr [rbx+000047FC],00
+"DOOMEternalx64vk.exe"+A58AE3: 48 81 C4 B0 00 00 00        -  add rsp,000000B0
+"DOOMEternalx64vk.exe"+A58AEA: 5B                          -  pop rbx
+}
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>178</ID>
+      <Description>"Unlimited Dash"</Description>
+      <LastState Activated="1"/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript Async="1">[ENABLE]
+{$lua}
+return "aobscanmodule(dash,"..process..",48 89 81 ?? ?? ?? ?? C6 41 ?? 01 C3)"
+{$asm}
+dash+0A:
+  db 00
+registersymbol(dash)
+
+[DISABLE]
+dash+0A:
+  db 01
+unregistersymbol(dash)
+
+{
+// ORIGINAL CODE - INJECTION POINT: "DOOMEternalx64vk.exe"+155B741
+
+"DOOMEternalx64vk.exe"+155B729: CC                       -  int 3 
+"DOOMEternalx64vk.exe"+155B72A: CC                       -  int 3 
+"DOOMEternalx64vk.exe"+155B72B: CC                       -  int 3 
+"DOOMEternalx64vk.exe"+155B72C: CC                       -  int 3 
+"DOOMEternalx64vk.exe"+155B72D: CC                       -  int 3 
+"DOOMEternalx64vk.exe"+155B72E: CC                       -  int 3 
+"DOOMEternalx64vk.exe"+155B72F: CC                       -  int 3 
+"DOOMEternalx64vk.exe"+155B730: 48 8B 02                 -  mov rax,[rdx]
+"DOOMEternalx64vk.exe"+155B733: 48 89 81 E0 00 00 00     -  mov [rcx+000000E0],rax
+"DOOMEternalx64vk.exe"+155B73A: 48 89 81 E8 00 00 00     -  mov [rcx+000000E8],rax
+// ---------- INJECTING HERE ----------
+"DOOMEternalx64vk.exe"+155B741: C6 41 7B 01              -  mov byte ptr [rcx+7B],01
+"DOOMEternalx64vk.exe"+155B745: C3                       -  ret 
+// ---------- DONE INJECTING  ----------
+"DOOMEternalx64vk.exe"+155B746: CC                       -  int 3 
+"DOOMEternalx64vk.exe"+155B747: CC                       -  int 3 
+"DOOMEternalx64vk.exe"+155B748: CC                       -  int 3 
+"DOOMEternalx64vk.exe"+155B749: CC                       -  int 3 
+"DOOMEternalx64vk.exe"+155B74A: CC                       -  int 3 
+"DOOMEternalx64vk.exe"+155B74B: CC                       -  int 3 
+"DOOMEternalx64vk.exe"+155B74C: CC                       -  int 3 
+"DOOMEternalx64vk.exe"+155B74D: CC                       -  int 3 
+"DOOMEternalx64vk.exe"+155B74E: CC                       -  int 3 
+"DOOMEternalx64vk.exe"+155B74F: CC                       -  int 3 
+}
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>159</ID>
+      <Description>"No Recoil"</Description>
+      <LastState Activated="1"/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+{$lua}
+return "aobscanmodule(recoil,"..process..",F3 0F 11 ?? ?? ?? ?? ?? ?? 48 8B 05 ?? ?? ?? ?? 83 78 08 00 0F 84)"
+{$asm}
+recoil+13:
+  db 01
+registersymbol(recoil)
+
+[DISABLE]
+recoil+13:
+  db 00
+unregistersymbol(recoil)
+
+{
+// ORIGINAL CODE - INJECTION POINT: "DOOMEternalx64vk.exe"+170093E
+
+"DOOMEternalx64vk.exe"+1700914: 48 85 C0                    -  test rax,rax
+"DOOMEternalx64vk.exe"+1700917: 74 12                       -  je DOOMEternalx64vk.exe+170092B
+"DOOMEternalx64vk.exe"+1700919: 0F 57 C0                    -  xorps xmm0,xmm0
+"DOOMEternalx64vk.exe"+170091C: 41 0F 28 C8                 -  movaps xmm1,xmm8
+"DOOMEternalx64vk.exe"+1700920: F3 48 0F 2A C0              -  cvtsi2ss xmm0,rax
+"DOOMEternalx64vk.exe"+1700925: F3 0F 5E C8                 -  divss xmm1,xmm0
+"DOOMEternalx64vk.exe"+1700929: EB 03                       -  jmp DOOMEternalx64vk.exe+170092E
+"DOOMEternalx64vk.exe"+170092B: 0F 28 CF                    -  movaps xmm1,xmm7
+"DOOMEternalx64vk.exe"+170092E: F3 0F 11 8C 3E 78 65 00 00  -  movss [rsi+rdi+00006578],xmm1
+"DOOMEternalx64vk.exe"+1700937: 48 8B 05 52 53 A7 04        -  mov rax,[DOOMEternalx64vk.exe+6175C90]
+// ---------- INJECTING HERE ----------
+"DOOMEternalx64vk.exe"+170093E: 83 78 08 00                 -  cmp dword ptr [rax+08],00
+"DOOMEternalx64vk.exe"+1700942: 0F 84 08 05 00 00           -  je DOOMEternalx64vk.exe+1700E50
+// ---------- DONE INJECTING  ----------
+"DOOMEternalx64vk.exe"+1700948: 48 8B 05 71 59 AA 04        -  mov rax,[DOOMEternalx64vk.exe+61A62C0]
+"DOOMEternalx64vk.exe"+170094F: 83 78 08 00                 -  cmp dword ptr [rax+08],00
+"DOOMEternalx64vk.exe"+1700953: 0F 84 F7 04 00 00           -  je DOOMEternalx64vk.exe+1700E50
+"DOOMEternalx64vk.exe"+1700959: F6 87 96 66 00 00 04        -  test byte ptr [rdi+00006696],04
+"DOOMEternalx64vk.exe"+1700960: 0F 85 EA 04 00 00           -  jne DOOMEternalx64vk.exe+1700E50
+"DOOMEternalx64vk.exe"+1700966: 49 8B 06                    -  mov rax,[r14]
+"DOOMEternalx64vk.exe"+1700969: 49 8B CE                    -  mov rcx,r14
+"DOOMEternalx64vk.exe"+170096C: FF 90 80 06 00 00           -  call qword ptr [rax+00000680]
+"DOOMEternalx64vk.exe"+1700972: 48 8B F0                    -  mov rsi,rax
+"DOOMEternalx64vk.exe"+1700975: 48 85 C0                    -  test rax,rax
+}
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>161</ID>
+      <Description>"No Spread"</Description>
+      <LastState/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript Async="1">[ENABLE]
+{$lua}
+return "aobscanmodule(spread,"..process..",F3 0F 59 70 0C 0F 28 C6 0F 28 74)"
+{$asm}
+spread:
+  db 0F 57 F6 90 90
+registersymbol(spread)
+
+[DISABLE]
+spread:
+  db F3 0F 59 70 0C
+unregistersymbol(spread)
+
+{
+// ORIGINAL CODE - INJECTION POINT: "DOOMEternalx64vk.exe"+16F6309
+
+"DOOMEternalx64vk.exe"+16F62D5: 48 81 C1 B8 7E 12 00  -  add rcx,00127EB8
+"DOOMEternalx64vk.exe"+16F62DC: 41 B8 01 00 00 00     -  mov r8d,00000001
+"DOOMEternalx64vk.exe"+16F62E2: 0F 28 F0              -  movaps xmm6,xmm0
+"DOOMEternalx64vk.exe"+16F62E5: E8 16 B3 45 FF        -  call DOOMEternalx64vk.exe+B51600
+"DOOMEternalx64vk.exe"+16F62EA: 48 8B 54 24 50        -  mov rdx,[rsp+50]
+"DOOMEternalx64vk.exe"+16F62EF: 48 8D 8F 68 65 00 00  -  lea rcx,[rdi+00006568]
+"DOOMEternalx64vk.exe"+16F62F6: 48 03 CB              -  add rcx,rbx
+"DOOMEternalx64vk.exe"+16F62F9: E8 22 B1 45 FF        -  call DOOMEternalx64vk.exe+B51420
+"DOOMEternalx64vk.exe"+16F62FE: 48 8B 05 0B FC A7 04  -  mov rax,[DOOMEternalx64vk.exe+6175F10]
+"DOOMEternalx64vk.exe"+16F6305: F3 0F 58 F0           -  addss xmm6,xmm0
+// ---------- INJECTING HERE ----------
+"DOOMEternalx64vk.exe"+16F6309: F3 0F 59 70 0C        -  mulss xmm6,[rax+0C]
+// ---------- DONE INJECTING  ----------
+"DOOMEternalx64vk.exe"+16F630E: 0F 28 C6              -  movaps xmm0,xmm6
+"DOOMEternalx64vk.exe"+16F6311: 0F 28 74 24 20        -  movaps xmm6,[rsp+20]
+"DOOMEternalx64vk.exe"+16F6316: 48 8B 5C 24 40        -  mov rbx,[rsp+40]
+"DOOMEternalx64vk.exe"+16F631B: 48 83 C4 30           -  add rsp,30
+"DOOMEternalx64vk.exe"+16F631F: 5F                    -  pop rdi
+"DOOMEternalx64vk.exe"+16F6320: C3                    -  ret 
+"DOOMEternalx64vk.exe"+16F6321: 0F 57 C0              -  xorps xmm0,xmm0
+"DOOMEternalx64vk.exe"+16F6324: 48 8B 5C 24 40        -  mov rbx,[rsp+40]
+"DOOMEternalx64vk.exe"+16F6329: 48 83 C4 30           -  add rsp,30
+"DOOMEternalx64vk.exe"+16F632D: 5F                    -  pop rdi
+}
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>68</ID>
+      <Description>"Unlimited Lives"</Description>
+      <LastState Activated="1"/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript Async="1">[ENABLE]
+{$lua}
+return "aobscanmodule(lives,"..process..",49 8B CE 8D 50 FF FF)"
+{$asm}
+alloc(newmem,$1000,lives)
+
+label(code)
+label(return)
+
+newmem:
+  inc rax
+code:
+  mov rcx,r14
+  lea edx,[rax-01]
+  jmp return
+
+lives:
+  jmp newmem
+  nop
+return:
+registersymbol(lives)
+
+[DISABLE]
+lives:
+  db 49 8B CE 8D 50 FF
+unregistersymbol(lives)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: "DOOMEternalx64vk.exe"+13599DE
+
+"DOOMEternalx64vk.exe"+13599A6: C7 44 24 20 01 00 00 00           -  mov [rsp+20],00000001
+"DOOMEternalx64vk.exe"+13599AE: E8 FD C9 3B 00                    -  call DOOMEternalx64vk.exe+17163B0
+"DOOMEternalx64vk.exe"+13599B3: 41 8B 85 D8 03 00 00              -  mov eax,[r13+000003D8]
+"DOOMEternalx64vk.exe"+13599BA: 49 8B CE                          -  mov rcx,r14
+"DOOMEternalx64vk.exe"+13599BD: 49 8B 1E                          -  mov rbx,[r14]
+"DOOMEternalx64vk.exe"+13599C0: 41 89 86 1C 01 00 00              -  mov [r14+0000011C],eax
+"DOOMEternalx64vk.exe"+13599C7: 41 8B 85 E4 03 00 00              -  mov eax,[r13+000003E4]
+"DOOMEternalx64vk.exe"+13599CE: 41 89 86 10 01 00 00              -  mov [r14+00000110],eax
+"DOOMEternalx64vk.exe"+13599D5: FF 93 D0 00 00 00                 -  call qword ptr [rbx+000000D0]
+"DOOMEternalx64vk.exe"+13599DB: 41 B0 01                          -  mov r8l,01
+// ---------- INJECTING HERE ----------
+"DOOMEternalx64vk.exe"+13599DE: 49 8B CE                          -  mov rcx,r14
+"DOOMEternalx64vk.exe"+13599E1: 8D 50 FF                          -  lea edx,[rax-01]
+// ---------- DONE INJECTING  ----------
+"DOOMEternalx64vk.exe"+13599E4: FF 93 E8 00 00 00                 -  call qword ptr [rbx+000000E8]
+"DOOMEternalx64vk.exe"+13599EA: 49 8B CE                          -  mov rcx,r14
+"DOOMEternalx64vk.exe"+13599ED: E8 4E F4 FF FF                    -  call DOOMEternalx64vk.exe+1358E40
+"DOOMEternalx64vk.exe"+13599F2: 48 8B 0D 5F 96 C7 02              -  mov rcx,[DOOMEternalx64vk.exe+3FD3058]
+"DOOMEternalx64vk.exe"+13599F9: 48 8B 01                          -  mov rax,[rcx]
+"DOOMEternalx64vk.exe"+13599FC: FF 90 88 00 00 00                 -  call qword ptr [rax+00000088]
+"DOOMEternalx64vk.exe"+1359A02: 4D 8D 86 2C 01 00 00              -  lea r8,[r14+0000012C]
+"DOOMEternalx64vk.exe"+1359A09: 48 8B C8                          -  mov rcx,rax
+"DOOMEternalx64vk.exe"+1359A0C: 49 8D 96 28 01 00 00              -  lea rdx,[r14+00000128]
+"DOOMEternalx64vk.exe"+1359A13: 4C 8B 08                          -  mov r9,[rax]
+}
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>80</ID>
+      <Description>"Unlimited Sticky Bombs"</Description>
+      <LastState Activated="1"/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript Async="1">[ENABLE]
+{$lua}
+return "aobscanmodule(stickyBombs,"..process..",F3 0F 10 C8 44 8B C6)"
+{$asm}
+stickyBombs:
+  nop 4
+registersymbol(stickyBombs)
+
+[DISABLE]
+stickyBombs:
+  db F3 0F 10 C8
+unregistersymbol(stickyBombs)
+
+{
+// ORIGINAL CODE - INJECTION POINT: "DOOMEternalx64vk.exe"+194DD2E
+
+"DOOMEternalx64vk.exe"+194DD04: 0F 57 C0                 -  xorps xmm0,xmm0
+"DOOMEternalx64vk.exe"+194DD07: 0F 2F F0                 -  comiss xmm6,xmm0
+"DOOMEternalx64vk.exe"+194DD0A: 0F 86 0A 01 00 00        -  jbe DOOMEternalx64vk.exe+194DE1A
+"DOOMEternalx64vk.exe"+194DD10: F3 0F 58 B7 84 23 00 00  -  addss xmm6,[rdi+00002384]
+"DOOMEternalx64vk.exe"+194DD18: 48 8B 07                 -  mov rax,[rdi]
+"DOOMEternalx64vk.exe"+194DD1B: 48 8D 54 24 78           -  lea rdx,[rsp+78]
+"DOOMEternalx64vk.exe"+194DD20: 0F 57 D2                 -  xorps xmm2,xmm2
+"DOOMEternalx64vk.exe"+194DD23: 48 89 5C 24 60           -  mov [rsp+60],rbx
+"DOOMEternalx64vk.exe"+194DD28: 0F 28 C7                 -  movaps xmm0,xmm7
+"DOOMEternalx64vk.exe"+194DD2B: 0F 57 C9                 -  xorps xmm1,xmm1
+// ---------- INJECTING HERE ----------
+"DOOMEternalx64vk.exe"+194DD2E: F3 0F 10 C8              -  movss xmm1,xmm0
+"DOOMEternalx64vk.exe"+194DD32: 44 8B C6                 -  mov r8d,esi
+// ---------- DONE INJECTING  ----------
+"DOOMEternalx64vk.exe"+194DD35: F3 0F 10 D6              -  movss xmm2,xmm6
+"DOOMEternalx64vk.exe"+194DD39: 48 8B CF                 -  mov rcx,rdi
+"DOOMEternalx64vk.exe"+194DD3C: F3 0F 5D D1              -  minss xmm2,xmm1
+"DOOMEternalx64vk.exe"+194DD40: F3 0F 11 97 84 23 00 00  -  movss [rdi+00002384],xmm2
+"DOOMEternalx64vk.exe"+194DD48: FF 90 70 04 00 00        -  call qword ptr [rax+00000470]
+"DOOMEternalx64vk.exe"+194DD4E: 48 8B 87 90 23 00 00     -  mov rax,[rdi+00002390]
+"DOOMEternalx64vk.exe"+194DD55: 48 8D 54 24 28           -  lea rdx,[rsp+28]
+"DOOMEternalx64vk.exe"+194DD5A: 48 8B 4C 24 78           -  mov rcx,[rsp+78]
+"DOOMEternalx64vk.exe"+194DD5F: 48 8D 5C 24 20           -  lea rbx,[rsp+20]
+"DOOMEternalx64vk.exe"+194DD64: 48 03 C9                 -  add rcx,rcx
+}
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>201</ID>
+      <Description>"Fast Kill Challenges"</Description>
+      <LastState/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript Async="1">[ENABLE]
+{$lua}
+return "aobscanmodule(killChallenge,"..process..",41 01 57 08 C6 44 24 48 01)"
+{$asm}
+killChallenge:
+  db 41 89 5F 08
+registersymbol(killChallenge)
+
+[DISABLE]
+killChallenge:
+  db 41 01 57 08
+unregistersymbol(killChallenge)
+
+{
+// ORIGINAL CODE - INJECTION POINT: "DOOMEternalx64vk.exe"+170A450
+
+"DOOMEternalx64vk.exe"+170A42A: 48 8B 44 24 60        -  mov rax,[rsp+60]
+"DOOMEternalx64vk.exe"+170A42F: 8B 00                 -  mov eax,[rax]
+"DOOMEternalx64vk.exe"+170A431: 41 39 07              -  cmp [r15],eax
+"DOOMEternalx64vk.exe"+170A434: 0F 85 ED 08 00 00     -  jne DOOMEternalx64vk.exe+170AD27
+"DOOMEternalx64vk.exe"+170A43A: 41 80 7E 08 00        -  cmp byte ptr [r14+08],00
+"DOOMEternalx64vk.exe"+170A43F: 75 07                 -  jne DOOMEternalx64vk.exe+170A448
+"DOOMEternalx64vk.exe"+170A441: 41 80 7F 0C 00        -  cmp byte ptr [r15+0C],00
+"DOOMEternalx64vk.exe"+170A446: 74 08                 -  je DOOMEternalx64vk.exe+170A450
+"DOOMEternalx64vk.exe"+170A448: 84 C9                 -  test cl,cl
+"DOOMEternalx64vk.exe"+170A44A: 0F 84 D7 08 00 00     -  je DOOMEternalx64vk.exe+170AD27
+// ---------- INJECTING HERE ----------
+"DOOMEternalx64vk.exe"+170A450: 41 01 57 08           -  add [r15+08],edx
+"DOOMEternalx64vk.exe"+170A454: C6 44 24 48 01        -  mov byte ptr [rsp+48],01
+// ---------- DONE INJECTING  ----------
+"DOOMEternalx64vk.exe"+170A459: 84 C9                 -  test cl,cl
+"DOOMEternalx64vk.exe"+170A45B: 74 16                 -  je DOOMEternalx64vk.exe+170A473
+"DOOMEternalx64vk.exe"+170A45D: 41 80 7E 08 00        -  cmp byte ptr [r14+08],00
+"DOOMEternalx64vk.exe"+170A462: 0F 85 C9 08 00 00     -  jne DOOMEternalx64vk.exe+170AD31
+"DOOMEternalx64vk.exe"+170A468: 41 80 7F 0C 00        -  cmp byte ptr [r15+0C],00
+"DOOMEternalx64vk.exe"+170A46D: 0F 85 BE 08 00 00     -  jne DOOMEternalx64vk.exe+170AD31
+"DOOMEternalx64vk.exe"+170A473: 49 8D 57 04           -  lea rdx,[r15+04]
+"DOOMEternalx64vk.exe"+170A477: 44 88 64 24 20        -  mov [rsp+20],r12l
+"DOOMEternalx64vk.exe"+170A47C: 4C 8B CF              -  mov r9,rdi
+"DOOMEternalx64vk.exe"+170A47F: 4D 8B C7              -  mov r8,r15
+}
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>35</ID>
+      <Description>"Player Pointer"</Description>
+      <Options moHideChildren="1"/>
+      <LastState/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript Async="1">[ENABLE]
+{$lua}
+return "aobscanmodule(player,"..process..",48 8B C8 4C 8B 00 41 FF 90 ?? ?? ?? ?? F3 0F 11 ?? ?? BA)"
+{$asm}
+alloc(newmem,$1000,player)
+
+label(code)
+label(return)
+label(playerPtr)
+
+newmem:
+  mov rcx,playerPtr
+  mov [rcx],rax
+code:
+  mov rcx,rax
+  mov r8,[rax]
+  jmp return
+
+playerPtr:
+  dq 0
+
+player:
+  jmp newmem
+  nop
+return:
+registersymbol(player)
+registersymbol(playerPtr)
+
+[DISABLE]
+player:
+  db 48 8B C8 4C 8B 00
+unregistersymbol(player)
+unregistersymbol(playerPtr)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: "DOOMEternalx64vk.exe"+12CBE6A
+
+"DOOMEternalx64vk.exe"+12CBE36: FF 92 D8 00 00 00     -  call qword ptr [rdx+000000D8]
+"DOOMEternalx64vk.exe"+12CBE3C: F3 0F 11 07           -  movss [rdi],xmm0
+"DOOMEternalx64vk.exe"+12CBE40: BA 01 00 00 00        -  mov edx,00000001
+"DOOMEternalx64vk.exe"+12CBE45: 48 8B 86 20 51 03 00  -  mov rax,[rsi+00035120]
+"DOOMEternalx64vk.exe"+12CBE4C: 48 8D 8E 20 51 03 00  -  lea rcx,[rsi+00035120]
+"DOOMEternalx64vk.exe"+12CBE53: FF 90 A0 00 00 00     -  call qword ptr [rax+000000A0]
+"DOOMEternalx64vk.exe"+12CBE59: F3 0F 11 47 04        -  movss [rdi+04],xmm0
+"DOOMEternalx64vk.exe"+12CBE5E: 48 8B CE              -  mov rcx,rsi
+"DOOMEternalx64vk.exe"+12CBE61: 48 8B 06              -  mov rax,[rsi]
+"DOOMEternalx64vk.exe"+12CBE64: FF 90 40 05 00 00     -  call qword ptr [rax+00000540]
+// ---------- INJECTING HERE ----------
+"DOOMEternalx64vk.exe"+12CBE6A: 48 8B C8              -  mov rcx,rax
+"DOOMEternalx64vk.exe"+12CBE6D: 4C 8B 00              -  mov r8,[rax]
+// ---------- DONE INJECTING  ----------
+"DOOMEternalx64vk.exe"+12CBE70: 41 FF 90 D0 00 00 00  -  call qword ptr [r8+000000D0]
+"DOOMEternalx64vk.exe"+12CBE77: F3 0F 11 47 08        -  movss [rdi+08],xmm0
+"DOOMEternalx64vk.exe"+12CBE7C: BA 01 00 00 00        -  mov edx,00000001
+"DOOMEternalx64vk.exe"+12CBE81: 48 8B 86 20 51 03 00  -  mov rax,[rsi+00035120]
+"DOOMEternalx64vk.exe"+12CBE88: 48 8D 8E 20 51 03 00  -  lea rcx,[rsi+00035120]
+"DOOMEternalx64vk.exe"+12CBE8F: FF 90 98 00 00 00     -  call qword ptr [rax+00000098]
+"DOOMEternalx64vk.exe"+12CBE95: F3 0F 11 47 0C        -  movss [rdi+0C],xmm0
+"DOOMEternalx64vk.exe"+12CBE9A: 48 8B 8E 60 D5 02 00  -  mov rcx,[rsi+0002D560]
+"DOOMEternalx64vk.exe"+12CBEA1: 48 85 C9              -  test rcx,rcx
+"DOOMEternalx64vk.exe"+12CBEA4: 74 12                 -  je DOOMEternalx64vk.exe+12CBEB8
+}
+</AssemblerScript>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>36</ID>
+          <Description>"Health"</Description>
+          <VariableType>Float</VariableType>
+          <Address>playerPtr</Address>
+          <Offsets>
+            <Offset>0*58+1C</Offset>
+          </Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>44</ID>
+          <Description>"Armor"</Description>
+          <VariableType>Float</VariableType>
+          <Address>playerPtr</Address>
+          <Offsets>
+            <Offset>1*58+1C</Offset>
+          </Offsets>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>184</ID>
+      <Description>"Upgrade Pointer"</Description>
+      <Options moHideChildren="1"/>
+      <LastState/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+{$lua}
+return "aobscanmodule(points,"..process..",48 63 C2 8B 84 81 ?? ?? ?? ?? C3 CC CC CC CC CC 48 63 C2)"
+{$asm}
+alloc(newmem,$1000,points)
+
+label(pointsBkp)
+label(pointsPtr)
+label(return)
+
+newmem:
+  push rdx
+  db 48 8D 91
+  readmem(points+6,4)
+  mov rax,pointsPtr
+  mov [rax],rdx
+  pop rdx
+  movsxd rax,edx
+pointsBkp:
+  readmem(points+3,7)
+  //mov eax,[rcx+rax*4+0003B19C]
+  jmp return
+
+pointsPtr:
+  dq 0
+
+points+3:
+  jmp newmem
+  nop 2
+return:
+registersymbol(points)
+registersymbol(pointsBkp)
+registersymbol(pointsPtr)
+
+[DISABLE]
+points+3:
+  readmem(pointsBkp,7)
+unregistersymbol(points)
+unregistersymbol(pointsBkp)
+unregistersymbol(pointsPtr)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: "DOOMEternalx64vk.exe"+16929C3
+
+"DOOMEternalx64vk.exe"+16929B7: C3                       -  ret 
+"DOOMEternalx64vk.exe"+16929B8: CC                       -  int 3 
+"DOOMEternalx64vk.exe"+16929B9: CC                       -  int 3 
+"DOOMEternalx64vk.exe"+16929BA: CC                       -  int 3 
+"DOOMEternalx64vk.exe"+16929BB: CC                       -  int 3 
+"DOOMEternalx64vk.exe"+16929BC: CC                       -  int 3 
+"DOOMEternalx64vk.exe"+16929BD: CC                       -  int 3 
+"DOOMEternalx64vk.exe"+16929BE: CC                       -  int 3 
+"DOOMEternalx64vk.exe"+16929BF: CC                       -  int 3 
+"DOOMEternalx64vk.exe"+16929C0: 48 63 C2                 -  movsxd  rax,edx
+// ---------- INJECTING HERE ----------
+"DOOMEternalx64vk.exe"+16929C3: 8B 84 81 9C B1 03 00     -  mov eax,[rcx+rax*4+0003B19C]
+// ---------- DONE INJECTING  ----------
+"DOOMEternalx64vk.exe"+16929CA: C3                       -  ret 
+"DOOMEternalx64vk.exe"+16929CB: CC                       -  int 3 
+"DOOMEternalx64vk.exe"+16929CC: CC                       -  int 3 
+"DOOMEternalx64vk.exe"+16929CD: CC                       -  int 3 
+"DOOMEternalx64vk.exe"+16929CE: CC                       -  int 3 
+"DOOMEternalx64vk.exe"+16929CF: CC                       -  int 3 
+"DOOMEternalx64vk.exe"+16929D0: 48 63 C2                 -  movsxd  rax,edx
+"DOOMEternalx64vk.exe"+16929D3: 8B 84 81 B4 B1 03 00     -  mov eax,[rcx+rax*4+0003B1B4]
+"DOOMEternalx64vk.exe"+16929DA: C3                       -  ret 
+"DOOMEternalx64vk.exe"+16929DB: CC                       -  int 3 
+}
+</AssemblerScript>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>185</ID>
+          <Description>"Base Address"</Description>
+          <LastState RealAddress="00000000"/>
+          <VariableType>String</VariableType>
+          <Length>0</Length>
+          <Unicode>0</Unicode>
+          <CodePage>0</CodePage>
+          <ZeroTerminate>1</ZeroTerminate>
+          <Address>pointsPtr</Address>
+          <Offsets>
+            <Offset>0</Offset>
+          </Offsets>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>186</ID>
+              <Description>"Weapon Points"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>+0</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>187</ID>
+              <Description>"Points"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>+4</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>190</ID>
+              <Description>"Points"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>+8</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>189</ID>
+              <Description>"Points"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>+C</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>188</ID>
+              <Description>"Sentinel Batteries"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>+10</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>202</ID>
+              <Description>"Empyrean Keys"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>+14</Address>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>13</ID>
+      <Description>"Ignore This"</Description>
+      <Options moHideChildren="1"/>
+      <LastState Value="" RealAddress="00000000"/>
+      <Color>FFFFFF</Color>
+      <GroupHeader>1</GroupHeader>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>10</ID>
+          <Description>"Remove Ammo Indicator"</Description>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript Async="1">[ENABLE]
+{$lua}
+return "aobscanmodule(ammoAlert,"..process..",8B 8A ?? ?? ?? ?? 33 C0 41)"
+{$asm}
+alloc(newmem,$1000,ammoAlert)
+
+label(ammoAlertBkp)
+label(return)
+
+newmem:
+  db 48 8D 82
+  readmem(ammoAlert+2,4)
+  mov ecx,[rax+04]
+  jmp return
+ammoAlertBkp:
+  readmem(ammoAlert,6)
+
+ammoAlert:
+  jmp newmem
+  nop
+return:
+registersymbol(ammoAlert)
+registersymbol(ammoAlertBkp)
+
+[DISABLE]
+ammoAlert:
+  readmem(ammoAlertBkp,6)
+unregistersymbol(ammoAlert)
+unregistersymbol(ammoAlertBkp)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: "DOOMEternalx64vk.exe"+12A0490
+
+"DOOMEternalx64vk.exe"+12A0486: CC                       -  int 3
+"DOOMEternalx64vk.exe"+12A0487: CC                       -  int 3
+"DOOMEternalx64vk.exe"+12A0488: CC                       -  int 3
+"DOOMEternalx64vk.exe"+12A0489: CC                       -  int 3
+"DOOMEternalx64vk.exe"+12A048A: CC                       -  int 3
+"DOOMEternalx64vk.exe"+12A048B: CC                       -  int 3
+"DOOMEternalx64vk.exe"+12A048C: CC                       -  int 3
+"DOOMEternalx64vk.exe"+12A048D: CC                       -  int 3
+"DOOMEternalx64vk.exe"+12A048E: CC                       -  int 3
+"DOOMEternalx64vk.exe"+12A048F: CC                       -  int 3
+// ---------- INJECTING HERE ----------
+"DOOMEternalx64vk.exe"+12A0490: 8B 8A 10 01 00 00        -  mov ecx,[rdx+00000110]
+// ---------- DONE INJECTING  ----------
+"DOOMEternalx64vk.exe"+12A0496: 33 C0                    -  xor eax,eax
+"DOOMEternalx64vk.exe"+12A0498: 41 03 08                 -  add ecx,[r8]
+"DOOMEternalx64vk.exe"+12A049B: 85 C9                    -  test ecx,ecx
+"DOOMEternalx64vk.exe"+12A049D: 0F 4F C1                 -  cmovg eax,ecx
+"DOOMEternalx64vk.exe"+12A04A0: B9 01 00 00 00           -  mov ecx,00000001
+"DOOMEternalx64vk.exe"+12A04A5: 89 82 10 01 00 00        -  mov [rdx+00000110],eax
+"DOOMEternalx64vk.exe"+12A04AB: 41 8B 40 04              -  mov eax,[r8+04]
+"DOOMEternalx64vk.exe"+12A04AF: 85 C0                    -  test eax,eax
+"DOOMEternalx64vk.exe"+12A04B1: 0F 4F C8                 -  cmovg ecx,eax
+"DOOMEternalx64vk.exe"+12A04B4: 89 8A 1C 01 00 00        -  mov [rdx+0000011C],ecx
+}
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>154</ID>
+          <Description>"Double Jump"</Description>
+          <LastState Value="0" RealAddress="7FF7973F57B0"/>
+          <VariableType>4 Bytes</VariableType>
+          <Address>DOOMEternalx64vk.exe+61257B0</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>157</ID>
+          <Description>"Recoil"</Description>
+          <LastState Value="2478591896" RealAddress="7FF797445CA0"/>
+          <VariableType>4 Bytes</VariableType>
+          <Address>DOOMEternalx64vk.exe+6175CA0</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>160</ID>
+          <Description>"Spread"</Description>
+          <LastState Value="4.590513639E-41" RealAddress="7FF797445F24"/>
+          <VariableType>Float</VariableType>
+          <Address>DOOMEternalx64vk.exe+6175F24</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>86</ID>
+          <Description>"Unlimited Micro Missiles"</Description>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+{$lua}
+return "aobscanmodule(microMissiles,"..process..",0F 28 D0 F3 0F 5D 50 28)"
+{$asm}
+microMissiles:
+  db 0F 57 D2
+registersymbol(microMissiles)
+
+[DISABLE]
+microMissiles:
+  db 0F 28 D0
+unregistersymbol(microMissiles)
+
+{
+// ORIGINAL CODE - INJECTION POINT: "DOOMEternalx64vk.exe"+194DC59
+
+"DOOMEternalx64vk.exe"+194DC2E: 8B F2                       -  mov esi,edx
+"DOOMEternalx64vk.exe"+194DC30: 48 8B F9                    -  mov rdi,rcx
+"DOOMEternalx64vk.exe"+194DC33: 83 F8 01                    -  cmp eax,01
+"DOOMEternalx64vk.exe"+194DC36: 0F 87 F9 01 00 00           -  ja DOOMEternalx64vk.exe+194DE35
+"DOOMEternalx64vk.exe"+194DC3C: 48 89 6C 24 68              -  mov [rsp+68],rbp
+"DOOMEternalx64vk.exe"+194DC41: E8 0A 6B FE FF              -  call DOOMEternalx64vk.exe+1934750
+"DOOMEternalx64vk.exe"+194DC46: 48 8B E8                    -  mov rbp,rax
+"DOOMEternalx64vk.exe"+194DC49: 48 8B CF                    -  mov rcx,rdi
+"DOOMEternalx64vk.exe"+194DC4C: F3 0F 10 40 20              -  movss xmm0,[rax+20]
+"DOOMEternalx64vk.exe"+194DC51: F3 0F 58 87 80 23 00 00     -  addss xmm0,[rdi+00002380]
+// ---------- INJECTING HERE ----------
+"DOOMEternalx64vk.exe"+194DC59: 0F 28 D0                    -  movaps xmm2,xmm0
+"DOOMEternalx64vk.exe"+194DC5C: F3 0F 5D 50 28              -  minss xmm2,[rax+28]
+// ---------- DONE INJECTING  ----------
+"DOOMEternalx64vk.exe"+194DC61: 48 8B 07                    -  mov rax,[rdi]
+"DOOMEternalx64vk.exe"+194DC64: F3 0F 11 97 80 23 00 00     -  movss [rdi+00002380],xmm2
+"DOOMEternalx64vk.exe"+194DC6C: FF 90 00 05 00 00           -  call qword ptr [rax+00000500]
+"DOOMEternalx64vk.exe"+194DC72: 84 C0                       -  test al,al
+"DOOMEternalx64vk.exe"+194DC74: 0F 84 AA 01 00 00           -  je DOOMEternalx64vk.exe+194DE24
+"DOOMEternalx64vk.exe"+194DC7A: 48 8B CF                    -  mov rcx,rdi
+"DOOMEternalx64vk.exe"+194DC7D: E8 CE 6A FE FF              -  call DOOMEternalx64vk.exe+1934750
+"DOOMEternalx64vk.exe"+194DC82: 8B 88 80 00 00 00           -  mov ecx,[rax+00000080]
+"DOOMEternalx64vk.exe"+194DC88: 3B 8F D0 19 00 00           -  cmp ecx,[rdi+000019D0]
+"DOOMEternalx64vk.exe"+194DC8E: 74 05                       -  je DOOMEternalx64vk.exe+194DC95
+}
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>198</ID>
+          <Description>"Challenges Injection"</Description>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+aobscanmodule(challenges,DOOMEternalx64vk.exe,8B 44 D0 08 48 8B 5C 24 30)
+registersymbol(challenges)
+
+[DISABLE]
+unregistersymbol(challenges)
+
+{
+// ORIGINAL CODE - INJECTION POINT: "DOOMEternalx64vk.exe"+170624D
+
+"DOOMEternalx64vk.exe"+170622B: 74 20                          -  je DOOMEternalx64vk.exe+170624D
+"DOOMEternalx64vk.exe"+170622D: 83 7C D0 04 05                 -  cmp dword ptr [rax+rdx*8+04],05
+"DOOMEternalx64vk.exe"+1706232: 75 19                          -  jne DOOMEternalx64vk.exe+170624D
+"DOOMEternalx64vk.exe"+1706234: 8B D6                          -  mov edx,esi
+"DOOMEternalx64vk.exe"+1706236: 48 8B CF                       -  mov rcx,rdi
+"DOOMEternalx64vk.exe"+1706239: 48 8B 5C 24 30                 -  mov rbx,[rsp+30]
+"DOOMEternalx64vk.exe"+170623E: 48 8B 74 24 38                 -  mov rsi,[rsp+38]
+"DOOMEternalx64vk.exe"+1706243: 48 83 C4 20                    -  add rsp,20
+"DOOMEternalx64vk.exe"+1706247: 5F                             -  pop rdi
+"DOOMEternalx64vk.exe"+1706248: E9 23 30 84 FF                 -  jmp DOOMEternalx64vk.exe+F49270
+// ---------- INJECTING HERE ----------
+"DOOMEternalx64vk.exe"+170624D: 8B 44 D0 08                    -  mov eax,[rax+rdx*8+08]
+"DOOMEternalx64vk.exe"+1706251: 48 8B 5C 24 30                 -  mov rbx,[rsp+30]
+// ---------- DONE INJECTING  ----------
+"DOOMEternalx64vk.exe"+1706256: 48 8B 74 24 38                 -  mov rsi,[rsp+38]
+"DOOMEternalx64vk.exe"+170625B: 48 83 C4 20                    -  add rsp,20
+"DOOMEternalx64vk.exe"+170625F: 5F                             -  pop rdi
+"DOOMEternalx64vk.exe"+1706260: C3                             -  ret 
+"DOOMEternalx64vk.exe"+1706261: CC                             -  int 3 
+"DOOMEternalx64vk.exe"+1706262: CC                             -  int 3 
+"DOOMEternalx64vk.exe"+1706263: CC                             -  int 3 
+"DOOMEternalx64vk.exe"+1706264: CC                             -  int 3 
+"DOOMEternalx64vk.exe"+1706265: CC                             -  int 3 
+"DOOMEternalx64vk.exe"+1706266: CC                             -  int 3 
+}
+</AssemblerScript>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+</CheatTable>

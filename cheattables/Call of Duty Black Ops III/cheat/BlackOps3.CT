@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="18">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>39</ID>
+      <Description>"No Reload"</Description>
+      <LastState Activated="1"/>
+      <Color>80000008</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+
+aobscanmodule(_NoReload,BlackOps3.exe,41 8B B4 86 84 06 00 00) // should be unique
+alloc(newmem,$1000,BlackOps3.exe)
+
+label(code)
+label(return)
+
+newmem:
+  mov [r14+rax*4+00000684],#1000
+code:
+  mov esi,[r14+rax*4+00000684]
+  jmp return
+
+_NoReload:
+  jmp newmem
+  nop
+  nop
+  nop
+return:
+registersymbol(_NoReload)
+
+[DISABLE]
+
+_NoReload:
+  db 41 8B B4 86 84 06 00 00
+
+unregistersymbol(_NoReload)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: "BlackOps3.exe"+7BCCDC
+
+"BlackOps3.exe"+7BCCC0: 48 39 02                 -  cmp [rdx],rax
+"BlackOps3.exe"+7BCCC3: 74 14                    -  je BlackOps3.exe+7BCCD9
+"BlackOps3.exe"+7BCCC5: 49 FF C0                 -  inc r8
+"BlackOps3.exe"+7BCCC8: 41 FF C1                 -  inc r9d
+"BlackOps3.exe"+7BCCCB: 48 83 C2 30              -  add rdx,30
+"BlackOps3.exe"+7BCCCF: 49 83 F8 0F              -  cmp r8,0F
+"BlackOps3.exe"+7BCCD3: 7C EB                    -  jnge BlackOps3.exe+7BCCC0
+"BlackOps3.exe"+7BCCD5: 8B F5                    -  mov esi,ebp
+"BlackOps3.exe"+7BCCD7: EB 0B                    -  jmp BlackOps3.exe+7BCCE4
+"BlackOps3.exe"+7BCCD9: 49 63 C1                 -  movsxd  rax,r9d
+// ---------- INJECTING HERE ----------
+"BlackOps3.exe"+7BCCDC: 41 8B B4 86 84 06 00 00  -  mov esi,[r14+rax*4+00000684]
+// ---------- DONE INJECTING  ----------
+"BlackOps3.exe"+7BCCE4: BA 02 00 00 00           -  mov edx,00000002
+"BlackOps3.exe"+7BCCE9: 49 8B CE                 -  mov rcx,r14
+"BlackOps3.exe"+7BCCEC: E8 EF F2 FB FF           -  call BlackOps3.exe+77BFE0
+"BlackOps3.exe"+7BCCF1: 84 C0                    -  test al,al
+"BlackOps3.exe"+7BCCF3: 74 36                    -  je BlackOps3.exe+7BCD2B
+"BlackOps3.exe"+7BCCF5: 48 8B CB                 -  mov rcx,rbx
+"BlackOps3.exe"+7BCCF8: E8 F3 F4 FF FF           -  call BlackOps3.exe+7BC1F0
+"BlackOps3.exe"+7BCCFD: 8B D5                    -  mov edx,ebp
+"BlackOps3.exe"+7BCCFF: 48 8B CD                 -  mov rcx,rbp
+"BlackOps3.exe"+7BCD02: 48 39 07                 -  cmp [rdi],rax
+}
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>40</ID>
+      <Description>"Ammo"</Description>
+      <LastState Activated="1"/>
+      <Color>80000008</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+aobscanmodule(_InfinteAmmo,BlackOps3.exe,01 39 8B 01 41 0F 48 C0)
+registersymbol(_InfinteAmmo)
+_InfinteAmmo:
+ db 90 90
+
+[DISABLE]
+_InfinteAmmo:
+  db 01 39
+
+unregistersymbol(_InfinteAmmo)
+
+
+{
+// ORIGINAL CODE - INJECTION POINT: "BlackOps3.exe"+7BB64B
+
+"BlackOps3.exe"+7BB62B: 7C EB                          -  jnge BlackOps3.exe+7BB618
+"BlackOps3.exe"+7BB62D: 48 8B 5C 24 30                 -  mov rbx,[rsp+30]
+"BlackOps3.exe"+7BB632: 48 83 C4 20                    -  add rsp,20
+"BlackOps3.exe"+7BB636: 5F                             -  pop rdi
+"BlackOps3.exe"+7BB637: C3                             -  ret
+"BlackOps3.exe"+7BB638: 49 63 CA                       -  movsxd  rcx,r10d
+"BlackOps3.exe"+7BB63B: 48 81 C1 92 01 00 00           -  add rcx,00000192
+"BlackOps3.exe"+7BB642: 48 8D 0C 8B                    -  lea rcx,[rbx+rcx*4]
+"BlackOps3.exe"+7BB646: 48 85 C9                       -  test rcx,rcx
+"BlackOps3.exe"+7BB649: 74 0A                          -  je BlackOps3.exe+7BB655
+// ---------- INJECTING HERE ----------
+"BlackOps3.exe"+7BB64B: 01 39                          -  add [rcx],edi
+"BlackOps3.exe"+7BB64D: 8B 01                          -  mov eax,[rcx]
+"BlackOps3.exe"+7BB64F: 41 0F 48 C0                    -  cmovs eax,r8d
+// ---------- DONE INJECTING  ----------
+"BlackOps3.exe"+7BB653: 89 01                          -  mov [rcx],eax
+"BlackOps3.exe"+7BB655: 48 8B 5C 24 30                 -  mov rbx,[rsp+30]
+"BlackOps3.exe"+7BB65A: 48 83 C4 20                    -  add rsp,20
+"BlackOps3.exe"+7BB65E: 5F                             -  pop rdi
+"BlackOps3.exe"+7BB65F: C3                             -  ret
+"BlackOps3.exe"+7BB660: 48 83 EC 28                    -  sub rsp,28
+"BlackOps3.exe"+7BB664: E8 97 4C 00 00                 -  call BlackOps3.exe+7C0300
+"BlackOps3.exe"+7BB669: C7 05 29 61 B9 15 01 00 00 00  -  mov [BlackOps3.exe+1635179C],00000001
+"BlackOps3.exe"+7BB673: C7 05 23 81 B9 15 01 00 00 00  -  mov [BlackOps3.exe+163537A0],00000001
+"BlackOps3.exe"+7BB67D: 48 89 05 1C 61 B9 15           -  mov [BlackOps3.exe+163517A0],rax
+}
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>41</ID>
+      <Description>"grenades"</Description>
+      <LastState Activated="1"/>
+      <Color>80000008</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+
+aobscanmodule(_InfiniteGrenades,BlackOps3.exe,8B 10 48 8B 5C 24 30) // should be unique
+alloc(newmem,$1000,BlackOps3.exe)
+
+label(code)
+label(return)
+
+newmem:
+cmp r13,0
+je code
+  mov [rax],4
+
+code:
+  mov edx,[rax]
+  mov rbx,[rsp+30]
+  jmp return
+
+_InfiniteGrenades:
+  jmp newmem
+  nop
+  nop
+return:
+registersymbol(_InfiniteGrenades)
+
+[DISABLE]
+
+_InfiniteGrenades:
+  db 8B 10 48 8B 5C 24 30
+
+unregistersymbol(_InfiniteGrenades)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: "BlackOps3.exe"+7BB5CF
+
+"BlackOps3.exe"+7BB5AD: 49 FF C1                       -  inc r9
+"BlackOps3.exe"+7BB5B0: 41 FF C2                       -  inc r10d
+"BlackOps3.exe"+7BB5B3: 48 83 C2 30                    -  add rdx,30
+"BlackOps3.exe"+7BB5B7: 49 83 F9 0F                    -  cmp r9,0F
+"BlackOps3.exe"+7BB5BB: 7C EB                          -  jnge BlackOps3.exe+7BB5A8
+"BlackOps3.exe"+7BB5BD: 49 8B C3                       -  mov rax,r11
+"BlackOps3.exe"+7BB5C0: EB 0D                          -  jmp BlackOps3.exe+7BB5CF
+"BlackOps3.exe"+7BB5C2: 49 63 C2                       -  movsxd  rax,r10d
+"BlackOps3.exe"+7BB5C5: 48 05 A1 01 00 00              -  add rax,000001A1
+"BlackOps3.exe"+7BB5CB: 48 8D 04 83                    -  lea rax,[rbx+rax*4]
+// ---------- INJECTING HERE ----------
+"BlackOps3.exe"+7BB5CF: 8B 10                          -  mov edx,[rax]
+"BlackOps3.exe"+7BB5D1: 48 8B 5C 24 30                 -  mov rbx,[rsp+30]
+// ---------- DONE INJECTING  ----------
+"BlackOps3.exe"+7BB5D6: 03 D7                          -  add edx,edi
+"BlackOps3.exe"+7BB5D8: 85 D2                          -  test edx,edx
+"BlackOps3.exe"+7BB5DA: 44 0F 4F DA                    -  cmovg r11d,edx
+"BlackOps3.exe"+7BB5DE: 44 89 18                       -  mov [rax],r11d
+"BlackOps3.exe"+7BB5E1: 41 8B C3                       -  mov eax,r11d
+"BlackOps3.exe"+7BB5E4: 48 83 C4 20                    -  add rsp,20
+"BlackOps3.exe"+7BB5E8: 5F                             -  pop rdi
+"BlackOps3.exe"+7BB5E9: C3                             -  ret
+"BlackOps3.exe"+7BB5EA: 4B 45                          -  inc r13
+"BlackOps3.exe"+7BB5EC: 02 77 CC                       -  add dh,[rdi-34]
+}
+
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>42</ID>
+      <Description>"godmode"</Description>
+      <LastState Activated="1"/>
+      <Color>80000008</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+aobscanmodule(_InfiniteHealh,BlackOps3.exe,8B 83 C8 02 00 00 48 8B)
+aobscanmodule(_NoGrenadeDamage,BlackOps3.exe,44 29 A6 C8 02 00 00)
+alloc(newmem,$1000,BlackOps3.exe)
+
+label(code)
+label(return)
+
+newmem:
+  mov [rbx+000002C8],#9999
+code:
+  mov eax,[rbx+000002C8]
+  jmp return
+
+_InfiniteHealh:
+  jmp newmem
+  nop
+return:
+
+_NoGrenadeDamage:
+  db 90 90 90 90 90 90 90
+
+registersymbol(_InfiniteHealh)
+registersymbol(_NoGrenadeDamage)
+
+[DISABLE]
+
+_InfiniteHealh:
+  db 8B 83 C8 02 00 00
+
+_NoGrenadeDamage:
+  db 44 29 A6 C8 02 00 00
+
+unregistersymbol(_InfiniteHealh)
+unregistersymbol(_NoGrenadeDamage)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: "BlackOps3.exe"+2BC174
+
+"BlackOps3.exe"+2BC144: E8 57 EE 0A 00        -  call BlackOps3.exe+36AFA0
+"BlackOps3.exe"+2BC149: 48 8B CB              -  mov rcx,rbx
+"BlackOps3.exe"+2BC14C: E8 2F 63 FC FF        -  call BlackOps3.exe+282480
+"BlackOps3.exe"+2BC151: 8B 05 1D 6F 3E 07     -  mov eax,[BlackOps3.exe+76A3074]
+"BlackOps3.exe"+2BC157: 2B 87 B0 6F 01 00     -  sub eax,[rdi+00016FB0]
+"BlackOps3.exe"+2BC15D: 3D E8 03 00 00        -  cmp eax,000003E8
+"BlackOps3.exe"+2BC162: 7E 09                 -  jle BlackOps3.exe+2BC16D
+"BlackOps3.exe"+2BC164: 81 4B 08 80 00 00 00  -  or [rbx+08],00000080
+"BlackOps3.exe"+2BC16B: EB 07                 -  jmp BlackOps3.exe+2BC174
+"BlackOps3.exe"+2BC16D: 81 63 08 7F FF FF FF  -  and [rbx+08],FFFFFF7F
+// ---------- INJECTING HERE ----------
+"BlackOps3.exe"+2BC174: 8B 83 C8 02 00 00     -  mov eax,[rbx+000002C8]
+// ---------- DONE INJECTING  ----------
+"BlackOps3.exe"+2BC17A: 48 8B CB              -  mov rcx,rbx
+"BlackOps3.exe"+2BC17D: 89 87 68 03 00 00     -  mov [rdi+00000368],eax
+"BlackOps3.exe"+2BC183: E8 A8 EE 02 00        -  call BlackOps3.exe+2EB030
+"BlackOps3.exe"+2BC188: 48 63 8F E0 6B 01 00  -  movsxd  rcx,dword ptr [rdi+00016BE0]
+"BlackOps3.exe"+2BC18F: 48 8D 15 FA 09 3E 07  -  lea rdx,[BlackOps3.exe+769CB90]
+"BlackOps3.exe"+2BC196: 8B 84 8A 74 E2 00 00  -  mov eax,[rdx+rcx*4+0000E274]
+"BlackOps3.exe"+2BC19D: 89 87 24 07 00 00     -  mov [rdi+00000724],eax
+"BlackOps3.exe"+2BC1A3: 8B 84 8A 20 E2 00 00  -  mov eax,[rdx+rcx*4+0000E220]
+"BlackOps3.exe"+2BC1AA: 89 87 20 07 00 00     -  mov [rdi+00000720],eax
+"BlackOps3.exe"+2BC1B0: 8B 84 8A CC E1 00 00  -  mov eax,[rdx+rcx*4+0000E1CC]
+}
+</AssemblerScript>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols>
+    <SymbolEntry>
+      <Name>_NoReload</Name>
+      <Address> 1407BCD9C</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>_InfiniteGrenades</Name>
+      <Address> 1407BB68F</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>_InfinteAmmo</Name>
+      <Address> 1407BB70B</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>_InfiniteHealh</Name>
+      <Address> 1402BC174</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>_NoGrenadeDamage</Name>
+      <Address> 1402D65D6</Address>
+    </SymbolEntry>
+  </UserdefinedSymbols>
+</CheatTable>

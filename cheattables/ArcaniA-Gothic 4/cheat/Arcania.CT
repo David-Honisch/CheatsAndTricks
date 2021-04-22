@@ -1,0 +1,314 @@
+<?xml version="1.0"?>
+<CheatTable CheatEngineTableVersion="12">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>0</ID>
+      <Description>"Arcania Gothic 4 V1.0.0.0 Script"</Description>
+      <Color>80000008</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>{
+===========================================
+ Arcania: Gothic 4
+ Game Version  : 1.0.0.0
+ Script Version: 1.0
+ CE Version    : 5.6
+ GodMode, XP, Stamina, Mana
+ 19-Oct-2010
+===========================================
+}
+
+[ENABLE]
+//=========================================
+// Check if script is compatible to this game version
+// If false the script will not be loaded
+
+assert(Arcania.exe+1c937f,d9 9c 0a fc 00 00 00)
+assert(Arcania.exe+1ca54a,d9 80 98 01 00 00)
+assert(Arcania.exe+70fb3a,8b 80 ac 01 00 00)
+
+//=========================================
+alloc(MyCode,1024)
+//=========================================
+// Declaration section
+label(_GodMode)
+label(_BackGM)
+label(_ExitGM)
+label(_GodM0)
+label(_GodM1)
+label(_GodM2)
+label(_MonXP)
+label(_BackMX)
+label(_ExitMX)
+label(_MonGold)
+label(_BackMG)
+label(_ExitMG)
+label(pHero)
+label(iEnableGM)
+label(iEnableMS)
+label(iEnableMM)
+label(iEnableMX)
+label(iEnableMG)
+label(iMinGold)
+
+registersymbol(MyCode)
+registersymbol(pHero)
+registersymbol(iEnableGM)
+registersymbol(iEnableMX)
+registersymbol(iEnableMS)
+registersymbol(iEnableMM)
+registersymbol(iEnableMG)
+registersymbol(iMinGold)
+
+//=========================================
+MyCode:
+//=========================================
+_GodMode:
+ cmp dword ptr [edx+0000003c],1    // Player´s hero?
+ jne _ExitGM                       // Jump if false
+
+ cmp dword ptr [iEnableGM],0
+ je _GodM0                         // Jump if feature is disabled
+
+ or ecx,ecx                        // HP ?
+ je _GodM2                         // Jump if true
+
+_GodM0:
+ cmp dword ptr [iEnableMS],0
+ je _GodM1                         // Jump if feature is disabled
+ 
+ cmp ecx,0000000c                  // Stamina ?
+ je _GodM2                         // Jump if true
+
+_GodM1:
+ cmp dword ptr [iEnableMM],0
+ je _ExitGM                        // Jump if feature is disabled
+ 
+ cmp ecx,00000018                  // Mana ?
+ jne _ExitGM                       // Jump if false
+
+_GodM2:
+ fstp st(0)                        // Discard value  
+ fld dword ptr [edx+ecx+00000104]  // Get max Value
+
+_ExitGM:
+ fstp dword ptr [edx+ecx+000000fc] // Original code
+ jmp _BackGM                       // Back to main code
+
+//=========================================
+_MonXP:
+ push ecx
+ 
+ mov [pHero],eax                   // Save pointer for debugging
+
+ cmp dword ptr [iEnableMX],0
+ je _ExitMX                        // Jump if feature is disabled
+
+ cmp dword ptr [eax+0000003c],1    // Player´s hero?
+ jne _ExitMX                       // Jump if false
+
+ mov ecx,[eax+000001a0]            // Get XP needed for next level
+ cmp ecx,[eax+00000198]            // Current XP &gt;= XP Needed?
+ jle _ExitMX
+ 
+ mov [eax+00000198],ecx            // Update current XP
+
+_ExitMX:
+ pop ecx
+ fld dword ptr [eax+00000198]      // Original code
+ jmp _BackMX                       // Back to main code
+
+//=========================================
+// Activated in inventory
+_MonGold:
+ pushfd
+ push ecx
+ 
+ cmp dword ptr [iEnableMG],0
+ je _ExitMG                        // Jump if feature is disabled
+
+ cmp dword ptr [eax+0000003c],1    // Player´s hero?
+ jne _ExitMG                       // Jump if false
+
+ mov ecx,[iMinGold]                // Get minimum gold
+ cmp ecx,[eax+000001ac]            // Current gold &gt;= minimum
+ jle _ExitMG
+ 
+ mov [eax+000001ac],ecx            // Make Current gold = minimum
+
+_ExitMG:
+ pop ecx
+ popfd
+ 
+ mov eax,[eax+000001ac]            // Original code
+ jmp _BackMG                       // Back to main code
+
+//=========================================
+// Variables
+pHero:
+ dd 0
+iEnableGM:
+ dd 1
+iEnableMX:
+ dd 1
+iEnableMS:
+ dd 1
+iEnableMM:
+ dd 1
+iEnableMG:
+ dd 1
+iMinGold:
+ dd #10000
+
+//=========================================
+// Hacking Points
+Arcania.exe+1c937f:
+ jmp _GodMode
+ nop
+ nop
+_BackGM:
+
+Arcania.exe+1ca54a:
+ jmp _MonXP
+ nop
+_BackMX:
+
+Arcania.exe+70fb3a:
+ jmp _MonGold
+ nop
+_BackMG:
+
+//=========================================
+// Original Codes
+[DISABLE]
+Arcania.exe+1c937f:
+ fstp dword ptr [edx+ecx+000000fc]
+
+Arcania.exe+1ca54a:
+ fld dword ptr [eax+00000198]
+
+Arcania.exe+70fb3a:
+ mov eax,[eax+000001ac]
+ 
+unregistersymbol(MyCode)
+unregistersymbol(pHero)
+unregistersymbol(iEnableGM)
+unregistersymbol(iEnableMX)
+unregistersymbol(iEnableMS)
+unregistersymbol(iEnableMM)
+unregistersymbol(iEnableMG)
+unregistersymbol(iMinGold)
+
+dealloc(MyCode)
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>1</ID>
+      <Description>"Enable/Disable God Mode"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>iEnableGM</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>2</ID>
+      <Description>"Enable/Disable Quick Level Up"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>iEnableMX</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>3</ID>
+      <Description>"Enable/Disable Full Stamina"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>iEnableMS</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>4</ID>
+      <Description>"Enable/Disable Full Mana"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>iEnableMM</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>5</ID>
+      <Description>"Enable/Disable Minimum Gold"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>iEnableMG</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>6</ID>
+      <Description>"Minimum Gold Value"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>iMinGold</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>7</ID>
+      <Description>"HeroÂ´s Skill Points"</Description>
+      <Color>80000008</Color>
+      <VariableType>Float</VariableType>
+      <Address>pHero</Address>
+      <Offsets>
+        <Offset>174</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>8</ID>
+      <Description>"Magic Scrolls"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>076715CC</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>9</ID>
+      <Description>"Magic Scrolls"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>0B654384</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>10</ID>
+      <Description>"Crossbow Bolts"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>0BADEC70</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>11</ID>
+      <Description>"Beißende Kälte"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>0B569D74</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>12</ID>
+      <Description>"Feuerpfeil"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>0B56C114</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>13</ID>
+      <Description>"Schinden"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>0A6927DC</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>14</ID>
+      <Description>"No description"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>0757FAAC</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>15</ID>
+      <Description>"No description"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>0B5698C4</Address>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+</CheatTable>

@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="29">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>11</ID>
+      <Description>"pointerscan result"</Description>
+      <LastState Value="100" RealAddress="200CB0238"/>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"DOOMEternalx64vk.exe"+04B8D358</Address>
+      <Offsets>
+        <Offset>828</Offset>
+        <Offset>30</Offset>
+        <Offset>70</Offset>
+        <Offset>30</Offset>
+        <Offset>180</Offset>
+        <Offset>210</Offset>
+        <Offset>100</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>13</ID>
+      <Description>"pointerscan result"</Description>
+      <LastState Value="100" RealAddress="203C1D158"/>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"DOOMEternalx64vk.exe"+005115EC</Address>
+      <Offsets>
+        <Offset>B8</Offset>
+        <Offset>1E0</Offset>
+        <Offset>70</Offset>
+        <Offset>170</Offset>
+        <Offset>70</Offset>
+        <Offset>120</Offset>
+        <Offset>268</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>14</ID>
+      <Description>"pointerscan result"</Description>
+      <LastState Value="100" RealAddress="203C1D158"/>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"DOOMEternalx64vk.exe"+005115EC</Address>
+      <Offsets>
+        <Offset>B8</Offset>
+        <Offset>1E0</Offset>
+        <Offset>70</Offset>
+        <Offset>170</Offset>
+        <Offset>70</Offset>
+        <Offset>120</Offset>
+        <Offset>768</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>0</ID>
+      <Description>"No description"</Description>
+      <LastState Value="100" RealAddress="11AD2C718"/>
+      <VariableType>Float</VariableType>
+      <Address>11AD2C718</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>1</ID>
+      <Description>"No description"</Description>
+      <LastState Value="100" RealAddress="11F477A68"/>
+      <VariableType>Float</VariableType>
+      <Address>11F477A68</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>2</ID>
+      <Description>"No description"</Description>
+      <LastState Value="100" RealAddress="11F477E88"/>
+      <VariableType>Float</VariableType>
+      <Address>11F477E88</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>3</ID>
+      <Description>"No description"</Description>
+      <LastState Value="100" RealAddress="200CB0238"/>
+      <VariableType>4 Bytes</VariableType>
+      <Address>200CB0238</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>4</ID>
+      <Description>"No description"</Description>
+      <LastState Value="100" RealAddress="203C1D158"/>
+      <VariableType>4 Bytes</VariableType>
+      <Address>203C1D158</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>5</ID>
+      <Description>"No description"</Description>
+      <LastState Value="100" RealAddress="20E61C20C"/>
+      <VariableType>Float</VariableType>
+      <Address>20E61C20C</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>6</ID>
+      <Description>"No description"</Description>
+      <LastState Value="100" RealAddress="20E61C210"/>
+      <VariableType>Float</VariableType>
+      <Address>20E61C210</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>7</ID>
+      <Description>"No description"</Description>
+      <LastState Value="100" RealAddress="210A1ECD8"/>
+      <VariableType>Float</VariableType>
+      <Address>210A1ECD8</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>8</ID>
+      <Description>"No description"</Description>
+      <LastState Value="100" RealAddress="210A4F14C"/>
+      <VariableType>Float</VariableType>
+      <Address>210A4F14C</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>9</ID>
+      <Description>"No description"</Description>
+      <LastState Value="100" RealAddress="210A4F298"/>
+      <VariableType>Float</VariableType>
+      <Address>210A4F298</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>10</ID>
+      <Description>"No description"</Description>
+      <LastState Value="100" RealAddress="210A55248"/>
+      <VariableType>Float</VariableType>
+      <Address>210A55248</Address>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+</CheatTable>

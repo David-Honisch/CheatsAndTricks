@@ -1,0 +1,86 @@
+<?xml version="1.0"?>
+<CheatTable CheatEngineTableVersion="11">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>23</ID>
+      <Description>"Health"</Description>
+      <Color>80000008</Color>
+      <VariableType>Float</VariableType>
+      <Address>"dxhr.exe"+0172F4A8</Address>
+      <Offsets>
+        <Offset>5C</Offset>
+        <Offset>64</Offset>
+        <Offset>14</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>24</ID>
+      <Description>"Energy"</Description>
+      <Color>80000008</Color>
+      <VariableType>Float</VariableType>
+      <Address>"dxhr.exe"+0172F4A8</Address>
+      <Offsets>
+        <Offset>274</Offset>
+        <Offset>14</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>25</ID>
+      <Description>"Stamina"</Description>
+      <Color>80000008</Color>
+      <VariableType>Float</VariableType>
+      <Address>"dxhr.exe"+0172F4A8</Address>
+      <Offsets>
+        <Offset>374</Offset>
+        <Offset>44</Offset>
+        <Offset>14</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>28</ID>
+      <Description>"Praxis"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"dxhr.exe"+0172F4A8</Address>
+      <Offsets>
+        <Offset>140</Offset>
+        <Offset>14</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>26</ID>
+      <Description>"Overall Experience"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"dxhr.exe"+0172F4A8</Address>
+      <Offsets>
+        <Offset>13C</Offset>
+        <Offset>14</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>27</ID>
+      <Description>"Experience to next Praxis"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"dxhr.exe"+0172F4A8</Address>
+      <Offsets>
+        <Offset>138</Offset>
+        <Offset>14</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>29</ID>
+      <Description>"Credits"</Description>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"dxhr.exe"+0172F4A8</Address>
+      <Offsets>
+        <Offset>60</Offset>
+        <Offset>60</Offset>
+        <Offset>14</Offset>
+      </Offsets>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+</CheatTable>

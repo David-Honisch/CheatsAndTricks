@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="18">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>4</ID>
+      <Description>"Unlimited Ammo"</Description>
+      <LastState Value="0" Activated="0" RealAddress="38646EE0"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"moh.exe"+015A9BA8</Address>
+      <Offsets>
+        <Offset>2E0</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>32</ID>
+      <Description>"No description"</Description>
+      <LastState Value="18" Activated="1" RealAddress="33899BD0"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>33899BD0</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>6</ID>
+      <Description>"No Reload / Unlimited Ammo"</Description>
+      <LastState Value="950881664" Activated="0" RealAddress="3D3A1910"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"moh.exe"+015AD244</Address>
+      <Offsets>
+        <Offset>330</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>25</ID>
+      <Description>"MG Unlimited Ammo"</Description>
+      <LastState Value="??" Activated="0" RealAddress="0CE85730"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"moh.exe"+00DBEA48</Address>
+      <Offsets>
+        <Offset>434</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>26</ID>
+      <Description>"No description"</Description>
+      <LastState Value="82" Activated="0" RealAddress="331487D0"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>331487D0</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>27</ID>
+      <Description>"No description"</Description>
+      <LastState Value="0" Activated="0" RealAddress="3AC4E330"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>3AC4E330</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>33</ID>
+      <Description>"No description"</Description>
+      <LastState Value="0" Activated="0" RealAddress="3AC4C730"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>3AC4C730</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>34</ID>
+      <Description>"pointerscan result"</Description>
+      <LastState Value="20" Activated="0" RealAddress="3A1CFF30"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"moh.exe"+015B117C</Address>
+      <Offsets>
+        <Offset>330</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>10</ID>
+      <Description>"ammo"</Description>
+      <LastState Value="0" Activated="0" RealAddress="096E1F30"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>096E1F30</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>12</ID>
+      <Description>"Ammo Pointer (working)"</Description>
+      <LastState Value="0" Activated="0" RealAddress="3C9F6D30"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"moh.exe"+015B2A60</Address>
+      <Offsets>
+        <Offset>330</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>11</ID>
+      <Description>"Ammo Pointer(working)"</Description>
+      <LastState Value="9" Activated="0" RealAddress="1130D030"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"moh.exe"+015A9650</Address>
+      <Offsets>
+        <Offset>330</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>16</ID>
+      <Description>"pointerscan result"</Description>
+      <LastState Value="83886853" Activated="0" RealAddress="387FE6B0"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"moh.exe"+015AA598</Address>
+      <Offsets>
+        <Offset>330</Offset>
+        <Offset>28</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>17</ID>
+      <Description>"No description"</Description>
+      <LastState Value="204560908" Activated="0" RealAddress="3F3719D0"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>3F3719D0</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>18</ID>
+      <Description>"No description"</Description>
+      <LastState Value="827601972" Activated="0" RealAddress="44CFE330"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>44CFE330</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>19</ID>
+      <Description>"pointerscan result"</Description>
+      <LastState Value="827601972" Activated="0" RealAddress="44CFE330"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"moh.exe"+01025280</Address>
+      <Offsets>
+        <Offset>2C8</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>20</ID>
+      <Description>"pointerscan result"</Description>
+      <LastState Value="827601972" Activated="0" RealAddress="44CFE330"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"moh.exe"+0135BA30</Address>
+      <Offsets>
+        <Offset>330</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>21</ID>
+      <Description>"pointerscan result"</Description>
+      <LastState Value="1695172033" Activated="0" RealAddress="3C9F5D30"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"moh.exe"+015AFA40</Address>
+      <Offsets>
+        <Offset>330</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>22</ID>
+      <Description>"pointerscan result"</Description>
+      <LastState Value="1695172033" Activated="0" RealAddress="3C9F5D30"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"moh.exe"+015B2A50</Address>
+      <Offsets>
+        <Offset>330</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>23</ID>
+      <Description>"No description"</Description>
+      <LastState Value="??" Activated="0" RealAddress="0CE85730"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>0CE85730</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>24</ID>
+      <Description>"No description"</Description>
+      <LastState Value="1116306256" Activated="0" RealAddress="3EFE91D0"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>3EFE91D0</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>35</ID>
+      <Description>"pointerscan result"</Description>
+      <LastState Value="4259909" Activated="0" RealAddress="093D5970"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"moh.exe"+015B69AC</Address>
+      <Offsets>
+        <Offset>330</Offset>
+        <Offset>28</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>36</ID>
+      <Description>"pointerscan result"</Description>
+      <LastState Value="0" Activated="0" RealAddress="11184930"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"moh.exe"+015AF99C</Address>
+      <Offsets>
+        <Offset>330</Offset>
+        <Offset>28</Offset>
+        <Offset>14</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>37</ID>
+      <Description>"pointerscan result"</Description>
+      <LastState Value="3251109888" Activated="0" RealAddress="190AC330"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"moh.exe"+015B75AC</Address>
+      <Offsets>
+        <Offset>330</Offset>
+        <Offset>28</Offset>
+        <Offset>14</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>38</ID>
+      <Description>"No description"</Description>
+      <LastState Value="18" Activated="0" RealAddress="33899BD0"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>33899BD0</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>39</ID>
+      <Description>"No description"</Description>
+      <LastState Value="??" Activated="1" RealAddress="03567330"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>03567330</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>40</ID>
+      <Description>"No description"</Description>
+      <LastState Value="18" Activated="1" RealAddress="33899BD0"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>33899BD0</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>41</ID>
+      <Description>"No description"</Description>
+      <LastState Value="20" Activated="0" RealAddress="3C9B5730"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>3C9B5730</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>42</ID>
+      <Description>"No description"</Description>
+      <LastState Value="20" Activated="0" RealAddress="3CBD37D0"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>3CBD37D0</Address>
+    </CheatEntry>
+  </CheatEntries>
+  <CheatCodes>
+    <CodeEntry>
+      <Description>Code :mov [edx],ecx _Reload</Description>
+      <Address>00720F52</Address>
+      <ModuleName>moh.exe</ModuleName>
+      <ModuleNameOffset>320F52</ModuleNameOffset>
+      <Before>
+        <Byte>08</Byte>
+        <Byte>8B</Byte>
+        <Byte>54</Byte>
+        <Byte>24</Byte>
+        <Byte>04</Byte>
+      </Before>
+      <Actual>
+        <Byte>89</Byte>
+        <Byte>0A</Byte>
+      </Actual>
+      <After>
+        <Byte>C2</Byte>
+        <Byte>14</Byte>
+        <Byte>00</Byte>
+        <Byte>8B</Byte>
+        <Byte>49</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Code :mov [ecx],eax _Ammo</Description>
+      <Address>0076EA74</Address>
+      <ModuleName>moh.exe</ModuleName>
+      <ModuleNameOffset>36EA74</ModuleNameOffset>
+      <Before>
+        <Byte>0C</Byte>
+        <Byte>8B</Byte>
+        <Byte>4C</Byte>
+        <Byte>24</Byte>
+        <Byte>10</Byte>
+      </Before>
+      <Actual>
+        <Byte>89</Byte>
+        <Byte>01</Byte>
+      </Actual>
+      <After>
+        <Byte>83</Byte>
+        <Byte>C4</Byte>
+        <Byte>08</Byte>
+        <Byte>C2</Byte>
+        <Byte>08</Byte>
+      </After>
+    </CodeEntry>
+  </CheatCodes>
+  <UserdefinedSymbols/>
+</CheatTable>

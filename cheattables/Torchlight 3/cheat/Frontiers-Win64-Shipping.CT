@@ -1,0 +1,976 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="31">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>87445</ID>
+      <Description>"Created by Idlehands88"</Description>
+      <Options moHideChildren="1"/>
+      <LastState Value="" Activated="1" RealAddress="00000000"/>
+      <Color>FF8000</Color>
+      <GroupHeader>1</GroupHeader>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>98</ID>
+          <Description>"Player Stats"</Description>
+          <Options moHideChildren="1"/>
+          <LastState Value="" RealAddress="00000000"/>
+          <Color>808000</Color>
+          <GroupHeader>1</GroupHeader>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>9</ID>
+              <Description>"Get Offset (Toggle)"</Description>
+              <LastState/>
+              <Color>804000</Color>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{ Game   : Frontiers-Win64-Shipping.exe
+  Version: 
+  Date   : 2020-10-06
+  Author : Idlehands88
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+aobscanmodule(INJECT_Player,Frontiers-Win64-Shipping.exe,F3 0F 10 00 48 8B 5C 24 08 C3 CC CC CC CC CC CC CC CC CC CC 40) // should be unique
+alloc(newmem,$1000,"Frontiers-Win64-Shipping.exe"+892E5C)
+alloc(newmem2,$1000,150000000)
+
+registersymbol(p_player)
+label(p_player)
+label(code)
+label(return)
+
+newmem:
+
+code:
+  mov [p_player],rax
+  movss xmm0,[rax]
+  mov rbx,[rsp+08]
+  jmp return
+
+p_player:
+dq
+150000000:
+dq p_player
+
+INJECT_Player:
+  jmp newmem
+  nop 4
+return:
+registersymbol(INJECT_Player)
+
+[DISABLE]
+
+INJECT_Player:
+  db F3 0F 10 00 48 8B 5C 24 08
+
+unregistersymbol(p_player)
+unregistersymbol(INJECT_Player)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: "Frontiers-Win64-Shipping.exe"+892E5C
+
+"Frontiers-Win64-Shipping.exe"+892E3E: 75 03                    -  jne Frontiers-Win64-Shipping.exe+892E43
+"Frontiers-Win64-Shipping.exe"+892E40: 48 8B CB                 -  mov rcx,rbx
+"Frontiers-Win64-Shipping.exe"+892E43: 48 85 C9                 -  test rcx,rcx
+"Frontiers-Win64-Shipping.exe"+892E46: 48 8D 41 08              -  lea rax,[rcx+08]
+"Frontiers-Win64-Shipping.exe"+892E4A: 48 0F 44 C3              -  cmove rax,rbx
+"Frontiers-Win64-Shipping.exe"+892E4E: 48 85 C0                 -  test rax,rax
+"Frontiers-Win64-Shipping.exe"+892E51: 75 09                    -  jne Frontiers-Win64-Shipping.exe+892E5C
+"Frontiers-Win64-Shipping.exe"+892E53: 0F 57 C0                 -  xorps xmm0,xmm0
+"Frontiers-Win64-Shipping.exe"+892E56: 48 8B 5C 24 08           -  mov rbx,[rsp+08]
+"Frontiers-Win64-Shipping.exe"+892E5B: C3                       -  ret 
+// ---------- INJECTING HERE ----------
+"Frontiers-Win64-Shipping.exe"+892E5C: F3 0F 10 00              -  movss xmm0,[rax]
+"Frontiers-Win64-Shipping.exe"+892E60: 48 8B 5C 24 08           -  mov rbx,[rsp+08]
+// ---------- DONE INJECTING  ----------
+"Frontiers-Win64-Shipping.exe"+892E65: C3                       -  ret 
+"Frontiers-Win64-Shipping.exe"+892E66: CC                       -  int 3 
+"Frontiers-Win64-Shipping.exe"+892E67: CC                       -  int 3 
+"Frontiers-Win64-Shipping.exe"+892E68: CC                       -  int 3 
+"Frontiers-Win64-Shipping.exe"+892E69: CC                       -  int 3 
+"Frontiers-Win64-Shipping.exe"+892E6A: CC                       -  int 3 
+"Frontiers-Win64-Shipping.exe"+892E6B: CC                       -  int 3 
+"Frontiers-Win64-Shipping.exe"+892E6C: CC                       -  int 3 
+"Frontiers-Win64-Shipping.exe"+892E6D: CC                       -  int 3 
+"Frontiers-Win64-Shipping.exe"+892E6E: CC                       -  int 3 
+}
+</AssemblerScript>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>183</ID>
+                  <Description>"Stat Offset"</Description>
+                  <LastState Value="000002ACDF076498" RealAddress="7FF7604E0021"/>
+                  <ShowAsHex>1</ShowAsHex>
+                  <VariableType>8 Bytes</VariableType>
+                  <Address>150000000</Address>
+                  <Offsets>
+                    <Offset>0</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>185</ID>
+                  <Description>"Gold"</Description>
+                  <LastState Value="50000000" RealAddress="2ACDF076498"/>
+                  <VariableType>Float</VariableType>
+                  <Address>150000000</Address>
+                  <Offsets>
+                    <Offset>0</Offset>
+                    <Offset>0</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>16</ID>
+                  <Description>"Player Level"</Description>
+                  <LastState Value="60" RealAddress="2ACDF076138"/>
+                  <VariableType>Float</VariableType>
+                  <Address>150000000</Address>
+                  <Offsets>
+                    <Offset>-360</Offset>
+                    <Offset>0</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>11</ID>
+                  <Description>"Skill Points"</Description>
+                  <LastState Value="9935" RealAddress="2ACDF076330"/>
+                  <VariableType>Float</VariableType>
+                  <Address>150000000</Address>
+                  <Offsets>
+                    <Offset>-168</Offset>
+                    <Offset>0</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>12</ID>
+                  <Description>"Max Health"</Description>
+                  <LastState Value="500000" RealAddress="2ACDF076120"/>
+                  <VariableType>Float</VariableType>
+                  <Address>150000000</Address>
+                  <Offsets>
+                    <Offset>-378</Offset>
+                    <Offset>0</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>13</ID>
+                  <Description>"Max Ammo"</Description>
+                  <LastState Value="100000" RealAddress="2ACDF0761F8"/>
+                  <VariableType>Float</VariableType>
+                  <Address>150000000</Address>
+                  <Offsets>
+                    <Offset>-2A0</Offset>
+                    <Offset>0</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>87450</ID>
+                  <Description>"Ammo Per Second"</Description>
+                  <LastState Value="100" RealAddress="2ACDF076228"/>
+                  <VariableType>Float</VariableType>
+                  <Address>150000000</Address>
+                  <Offsets>
+                    <Offset>-270</Offset>
+                    <Offset>0</Offset>
+                  </Offsets>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>100</ID>
+          <Description>"Highlight Item Edit"</Description>
+          <Options moHideChildren="1"/>
+          <LastState/>
+          <Color>808000</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{ Game   : Frontiers-Win64-Shipping.exe
+  Version: 
+  Date   : 2020-10-06
+  Author : Idlehands88
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+aobscanmodule(INJECT_EditItemHighlight,Frontiers-Win64-Shipping.exe,8B 11 48 8D 8D 90 02 00 00) // should be unique
+alloc(newmem,$1000,"Frontiers-Win64-Shipping.exe"+9EFDF7)
+alloc(newmem2,$3000,1100000000)
+
+registersymbol(p_editequip)
+label(p_editequip)
+label(code)
+label(return)
+
+newmem:
+
+code:
+  mov [p_editequip],rcx
+  mov edx,[rcx]
+  lea rcx,[rbp+00000290]
+  jmp return
+
+p_editequip:
+dq
+
+INJECT_EditItemHighlight:
+  jmp newmem
+  nop 4
+return:
+registersymbol(INJECT_EditItemHighlight)
+
+[DISABLE]
+
+unregistersymbol(p_editequip)
+INJECT_EditItemHighlight:
+  db 8B 11 48 8D 8D 90 02 00 00
+
+unregistersymbol(INJECT_EditItemHighlight)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: "Frontiers-Win64-Shipping.exe"+9EFDF7
+
+"Frontiers-Win64-Shipping.exe"+9EFDC6: E8 D5 8B FE FF              -  call Frontiers-Win64-Shipping.exe+9D89A0
+"Frontiers-Win64-Shipping.exe"+9EFDCB: 48 8B 55 60                 -  mov rdx,[rbp+60]
+"Frontiers-Win64-Shipping.exe"+9EFDCF: 49 8D 85 A4 00 00 00        -  lea rax,[r13+000000A4]
+"Frontiers-Win64-Shipping.exe"+9EFDD6: 0F 57 C0                    -  xorps xmm0,xmm0
+"Frontiers-Win64-Shipping.exe"+9EFDD9: 4C 8D 8D 08 01 00 00        -  lea r9,[rbp+00000108]
+"Frontiers-Win64-Shipping.exe"+9EFDE0: F3 0F 7F 85 08 01 00 00     -  movdqu [rbp+00000108],xmm0
+"Frontiers-Win64-Shipping.exe"+9EFDE8: 80 7A 1C 00                 -  cmp byte ptr [rdx+1C],00
+"Frontiers-Win64-Shipping.exe"+9EFDEC: 48 8D 4A 18                 -  lea rcx,[rdx+18]
+"Frontiers-Win64-Shipping.exe"+9EFDF0: 48 0F 44 C8                 -  cmove rcx,rax
+"Frontiers-Win64-Shipping.exe"+9EFDF4: 45 33 C0                    -  xor r8d,r8d
+// ---------- INJECTING HERE ----------
+"Frontiers-Win64-Shipping.exe"+9EFDF7: 8B 11                       -  mov edx,[rcx]
+"Frontiers-Win64-Shipping.exe"+9EFDF9: 48 8D 8D 90 02 00 00        -  lea rcx,[rbp+00000290]
+// ---------- DONE INJECTING  ----------
+"Frontiers-Win64-Shipping.exe"+9EFE00: E8 6B AD 15 00              -  call Frontiers-Win64-Shipping.exe+B4AB70
+"Frontiers-Win64-Shipping.exe"+9EFE05: 48 8B 97 10 07 00 00        -  mov rdx,[rdi+00000710]
+"Frontiers-Win64-Shipping.exe"+9EFE0C: 48 8B 08                    -  mov rcx,[rax]
+"Frontiers-Win64-Shipping.exe"+9EFE0F: 48 89 8F 10 07 00 00        -  mov [rdi+00000710],rcx
+"Frontiers-Win64-Shipping.exe"+9EFE16: 48 89 10                    -  mov [rax],rdx
+"Frontiers-Win64-Shipping.exe"+9EFE19: 48 8B 48 08                 -  mov rcx,[rax+08]
+"Frontiers-Win64-Shipping.exe"+9EFE1D: 48 8B 97 18 07 00 00        -  mov rdx,[rdi+00000718]
+"Frontiers-Win64-Shipping.exe"+9EFE24: 48 89 8F 18 07 00 00        -  mov [rdi+00000718],rcx
+"Frontiers-Win64-Shipping.exe"+9EFE2B: 48 8D 8D 90 02 00 00        -  lea rcx,[rbp+00000290]
+"Frontiers-Win64-Shipping.exe"+9EFE32: 48 89 50 08                 -  mov [rax+08],rdx
+}
+</AssemblerScript>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>101</ID>
+              <Description>"BASE"</Description>
+              <LastState Value="" RealAddress="2AD0D76A0E8"/>
+              <ShowAsHex>1</ShowAsHex>
+              <Color>FF0000</Color>
+              <VariableType>Array of byte</VariableType>
+              <ByteLength>0</ByteLength>
+              <Address>p_editequip</Address>
+              <Offsets>
+                <Offset>-A4</Offset>
+              </Offsets>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>102</ID>
+                  <Description>"Quantity"</Description>
+                  <LastState Value="3269375858" RealAddress="2AD0D76A18C"/>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>p_editequip</Address>
+                  <Offsets>
+                    <Offset>0</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>103</ID>
+                  <Description>"Level"</Description>
+                  <LastState Value="-145.3488922" RealAddress="2AD0D76A190"/>
+                  <VariableType>Float</VariableType>
+                  <Address>p_editequip</Address>
+                  <Offsets>
+                    <Offset>4</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>104</ID>
+                  <Description>"Item ID"</Description>
+                  <LastState Value="49933" RealAddress="2AD0D76A196"/>
+                  <VariableType>2 Bytes</VariableType>
+                  <Address>p_editequip</Address>
+                  <Offsets>
+                    <Offset>A</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>87449</ID>
+                  <Description>"Dye ID"</Description>
+                  <LastState Value="57709" RealAddress="2AD0D76A194"/>
+                  <VariableType>2 Bytes</VariableType>
+                  <Address>p_editequip</Address>
+                  <Offsets>
+                    <Offset>8</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>105</ID>
+                  <Description>"Base Weapon Damage"</Description>
+                  <VariableType>Float</VariableType>
+                  <Address>p_editequip</Address>
+                  <Offsets>
+                    <Offset>8</Offset>
+                    <Offset>-74</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>87446</ID>
+                  <Description>"Is Equipped"</Description>
+                  <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0:No
+1:Yes
+</DropDownList>
+                  <LastState Value="122211" RealAddress="2AD0D76A178"/>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>p_editequip</Address>
+                  <Offsets>
+                    <Offset>-14</Offset>
+                  </Offsets>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>106</ID>
+              <Description>"STATS"</Description>
+              <Options moHideChildren="1"/>
+              <LastState Value="" RealAddress="00000000"/>
+              <Color>808000</Color>
+              <GroupHeader>1</GroupHeader>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>107</ID>
+                  <Description>"Empty Offset"</Description>
+                  <LastState Value="" RealAddress="1100000000"/>
+                  <Color>FF0000</Color>
+                  <VariableType>Array of byte</VariableType>
+                  <ByteLength>0</ByteLength>
+                  <Address>1100000000</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>108</ID>
+                  <Description>"Stats Offset"</Description>
+                  <LastState Value="4426C5684426C568" RealAddress="2AD0D76A168"/>
+                  <ShowAsHex>1</ShowAsHex>
+                  <Color>FF0000</Color>
+                  <VariableType>8 Bytes</VariableType>
+                  <Address>p_editequip</Address>
+                  <Offsets>
+                    <Offset>-24</Offset>
+                  </Offsets>
+                  <CheatEntries>
+                    <CheatEntry>
+                      <ID>109</ID>
+                      <Description>"Number of Stats"</Description>
+                      <LastState Value="122083" RealAddress="2AD0D76A170"/>
+                      <VariableType>4 Bytes</VariableType>
+                      <Address>p_editequip</Address>
+                      <Offsets>
+                        <Offset>-1C</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>110</ID>
+                      <Description>"Max Number of Stats"</Description>
+                      <LastState Value="122147" RealAddress="2AD0D76A174"/>
+                      <VariableType>4 Bytes</VariableType>
+                      <Address>p_editequip</Address>
+                      <Offsets>
+                        <Offset>-18</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                  </CheatEntries>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>111</ID>
+                  <Description>"Stat ID 1"</Description>
+                  <DropDownList DisplayValueAsItem="1">0003B36A:Enchantment Slot
+</DropDownList>
+                  <ShowAsHex>1</ShowAsHex>
+                  <Color>408000</Color>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>p_editequip</Address>
+                  <Offsets>
+                    <Offset>0</Offset>
+                    <Offset>-24</Offset>
+                  </Offsets>
+                  <CheatEntries>
+                    <CheatEntry>
+                      <ID>112</ID>
+                      <Description>"Stat Multiplier 1"</Description>
+                      <VariableType>Float</VariableType>
+                      <Address>p_editequip</Address>
+                      <Offsets>
+                        <Offset>8</Offset>
+                        <Offset>-24</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>113</ID>
+                      <Description>"Is Enchantment Slotted"</Description>
+                      <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0:False
+1:True
+</DropDownList>
+                      <VariableType>Byte</VariableType>
+                      <Address>p_editequip</Address>
+                      <Offsets>
+                        <Offset>C</Offset>
+                        <Offset>-24</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                  </CheatEntries>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>180</ID>
+                  <Description>"Stat ID 2"</Description>
+                  <DropDownList DisplayValueAsItem="1">0003B36A:Enchantment Slot
+</DropDownList>
+                  <ShowAsHex>1</ShowAsHex>
+                  <Color>408000</Color>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>p_editequip</Address>
+                  <Offsets>
+                    <Offset>10</Offset>
+                    <Offset>-24</Offset>
+                  </Offsets>
+                  <CheatEntries>
+                    <CheatEntry>
+                      <ID>181</ID>
+                      <Description>"Stat Multiplier 2"</Description>
+                      <VariableType>Float</VariableType>
+                      <Address>p_editequip</Address>
+                      <Offsets>
+                        <Offset>18</Offset>
+                        <Offset>-24</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>182</ID>
+                      <Description>"Is Enchantment Slotted"</Description>
+                      <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0:False
+1:True
+</DropDownList>
+                      <VariableType>Byte</VariableType>
+                      <Address>p_editequip</Address>
+                      <Offsets>
+                        <Offset>1C</Offset>
+                        <Offset>-24</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                  </CheatEntries>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>177</ID>
+                  <Description>"Stat ID 3"</Description>
+                  <DropDownList DisplayValueAsItem="1">0003B36A:Enchantment Slot
+</DropDownList>
+                  <ShowAsHex>1</ShowAsHex>
+                  <Color>408000</Color>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>p_editequip</Address>
+                  <Offsets>
+                    <Offset>20</Offset>
+                    <Offset>-24</Offset>
+                  </Offsets>
+                  <CheatEntries>
+                    <CheatEntry>
+                      <ID>178</ID>
+                      <Description>"Stat Multiplier 3"</Description>
+                      <VariableType>Float</VariableType>
+                      <Address>p_editequip</Address>
+                      <Offsets>
+                        <Offset>28</Offset>
+                        <Offset>-24</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>179</ID>
+                      <Description>"Is Enchantment Slotted"</Description>
+                      <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0:False
+1:True
+</DropDownList>
+                      <VariableType>Byte</VariableType>
+                      <Address>p_editequip</Address>
+                      <Offsets>
+                        <Offset>2C</Offset>
+                        <Offset>-24</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                  </CheatEntries>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>174</ID>
+                  <Description>"Stat ID 4"</Description>
+                  <DropDownList DisplayValueAsItem="1">0003B36A:Enchantment Slot
+</DropDownList>
+                  <ShowAsHex>1</ShowAsHex>
+                  <Color>408000</Color>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>p_editequip</Address>
+                  <Offsets>
+                    <Offset>30</Offset>
+                    <Offset>-24</Offset>
+                  </Offsets>
+                  <CheatEntries>
+                    <CheatEntry>
+                      <ID>175</ID>
+                      <Description>"Stat Multiplier 4"</Description>
+                      <VariableType>Float</VariableType>
+                      <Address>p_editequip</Address>
+                      <Offsets>
+                        <Offset>38</Offset>
+                        <Offset>-24</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>176</ID>
+                      <Description>"Is Enchantment Slotted"</Description>
+                      <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0:False
+1:True
+</DropDownList>
+                      <VariableType>Byte</VariableType>
+                      <Address>p_editequip</Address>
+                      <Offsets>
+                        <Offset>3C</Offset>
+                        <Offset>-24</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                  </CheatEntries>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>171</ID>
+                  <Description>"Stat ID 5"</Description>
+                  <DropDownList DisplayValueAsItem="1">0003B36A:Enchantment Slot
+</DropDownList>
+                  <ShowAsHex>1</ShowAsHex>
+                  <Color>408000</Color>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>p_editequip</Address>
+                  <Offsets>
+                    <Offset>40</Offset>
+                    <Offset>-24</Offset>
+                  </Offsets>
+                  <CheatEntries>
+                    <CheatEntry>
+                      <ID>172</ID>
+                      <Description>"Stat Multiplier 5"</Description>
+                      <VariableType>Float</VariableType>
+                      <Address>p_editequip</Address>
+                      <Offsets>
+                        <Offset>48</Offset>
+                        <Offset>-24</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>173</ID>
+                      <Description>"Is Enchantment Slotted"</Description>
+                      <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0:False
+1:True
+</DropDownList>
+                      <VariableType>Byte</VariableType>
+                      <Address>p_editequip</Address>
+                      <Offsets>
+                        <Offset>4C</Offset>
+                        <Offset>-24</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                  </CheatEntries>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>168</ID>
+                  <Description>"Stat ID 6"</Description>
+                  <DropDownList DisplayValueAsItem="1">0003B36A:Enchantment Slot
+</DropDownList>
+                  <ShowAsHex>1</ShowAsHex>
+                  <Color>408000</Color>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>p_editequip</Address>
+                  <Offsets>
+                    <Offset>50</Offset>
+                    <Offset>-24</Offset>
+                  </Offsets>
+                  <CheatEntries>
+                    <CheatEntry>
+                      <ID>169</ID>
+                      <Description>"Stat Multiplier 6"</Description>
+                      <VariableType>Float</VariableType>
+                      <Address>p_editequip</Address>
+                      <Offsets>
+                        <Offset>58</Offset>
+                        <Offset>-24</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>170</ID>
+                      <Description>"Is Enchantment Slotted"</Description>
+                      <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0:False
+1:True
+</DropDownList>
+                      <VariableType>Byte</VariableType>
+                      <Address>p_editequip</Address>
+                      <Offsets>
+                        <Offset>5C</Offset>
+                        <Offset>-24</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                  </CheatEntries>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>165</ID>
+                  <Description>"Stat ID 7"</Description>
+                  <DropDownList DisplayValueAsItem="1">0003B36A:Enchantment Slot
+</DropDownList>
+                  <ShowAsHex>1</ShowAsHex>
+                  <Color>408000</Color>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>p_editequip</Address>
+                  <Offsets>
+                    <Offset>60</Offset>
+                    <Offset>-24</Offset>
+                  </Offsets>
+                  <CheatEntries>
+                    <CheatEntry>
+                      <ID>166</ID>
+                      <Description>"Stat Multiplier 7"</Description>
+                      <VariableType>Float</VariableType>
+                      <Address>p_editequip</Address>
+                      <Offsets>
+                        <Offset>68</Offset>
+                        <Offset>-24</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>167</ID>
+                      <Description>"Is Enchantment Slotted"</Description>
+                      <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0:False
+1:True
+</DropDownList>
+                      <VariableType>Byte</VariableType>
+                      <Address>p_editequip</Address>
+                      <Offsets>
+                        <Offset>6C</Offset>
+                        <Offset>-24</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                  </CheatEntries>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>162</ID>
+                  <Description>"Stat ID 8"</Description>
+                  <DropDownList DisplayValueAsItem="1">0003B36A:Enchantment Slot
+</DropDownList>
+                  <ShowAsHex>1</ShowAsHex>
+                  <Color>408000</Color>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>p_editequip</Address>
+                  <Offsets>
+                    <Offset>70</Offset>
+                    <Offset>-24</Offset>
+                  </Offsets>
+                  <CheatEntries>
+                    <CheatEntry>
+                      <ID>163</ID>
+                      <Description>"Stat Multiplier 8"</Description>
+                      <VariableType>Float</VariableType>
+                      <Address>p_editequip</Address>
+                      <Offsets>
+                        <Offset>78</Offset>
+                        <Offset>-24</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>164</ID>
+                      <Description>"Is Enchantment Slotted"</Description>
+                      <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0:False
+1:True
+</DropDownList>
+                      <VariableType>Byte</VariableType>
+                      <Address>p_editequip</Address>
+                      <Offsets>
+                        <Offset>7C</Offset>
+                        <Offset>-24</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                  </CheatEntries>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>159</ID>
+                  <Description>"Stat ID 9"</Description>
+                  <DropDownList DisplayValueAsItem="1">0003B36A:Enchantment Slot
+</DropDownList>
+                  <ShowAsHex>1</ShowAsHex>
+                  <Color>408000</Color>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>p_editequip</Address>
+                  <Offsets>
+                    <Offset>80</Offset>
+                    <Offset>-24</Offset>
+                  </Offsets>
+                  <CheatEntries>
+                    <CheatEntry>
+                      <ID>160</ID>
+                      <Description>"Stat Multiplier 9"</Description>
+                      <VariableType>Float</VariableType>
+                      <Address>p_editequip</Address>
+                      <Offsets>
+                        <Offset>88</Offset>
+                        <Offset>-24</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>161</ID>
+                      <Description>"Is Enchantment Slotted"</Description>
+                      <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0:False
+1:True
+</DropDownList>
+                      <VariableType>Byte</VariableType>
+                      <Address>p_editequip</Address>
+                      <Offsets>
+                        <Offset>8C</Offset>
+                        <Offset>-24</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                  </CheatEntries>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>156</ID>
+                  <Description>"Stat ID 10"</Description>
+                  <DropDownList DisplayValueAsItem="1">0003B36A:Enchantment Slot
+</DropDownList>
+                  <ShowAsHex>1</ShowAsHex>
+                  <Color>408000</Color>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>p_editequip</Address>
+                  <Offsets>
+                    <Offset>90</Offset>
+                    <Offset>-24</Offset>
+                  </Offsets>
+                  <CheatEntries>
+                    <CheatEntry>
+                      <ID>157</ID>
+                      <Description>"Stat Multiplier 10"</Description>
+                      <VariableType>Float</VariableType>
+                      <Address>p_editequip</Address>
+                      <Offsets>
+                        <Offset>98</Offset>
+                        <Offset>-24</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>158</ID>
+                      <Description>"Is Enchantment Slotted"</Description>
+                      <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0:False
+1:True
+</DropDownList>
+                      <VariableType>Byte</VariableType>
+                      <Address>p_editequip</Address>
+                      <Offsets>
+                        <Offset>9C</Offset>
+                        <Offset>-24</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                  </CheatEntries>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>141</ID>
+              <Description>"MISC STATS"</Description>
+              <Options moHideChildren="1"/>
+              <LastState Value="" RealAddress="00000000"/>
+              <Color>808000</Color>
+              <GroupHeader>1</GroupHeader>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>142</ID>
+                  <Description>"Empty Offset"</Description>
+                  <LastState Value="" RealAddress="1100001000"/>
+                  <Color>FF0000</Color>
+                  <VariableType>Array of byte</VariableType>
+                  <ByteLength>0</ByteLength>
+                  <Address>1100001000</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>143</ID>
+                  <Description>"Misc Stats Offset"</Description>
+                  <LastState Value="0001DC670001DC23" RealAddress="2AD0D76A108"/>
+                  <ShowAsHex>1</ShowAsHex>
+                  <Color>FF0000</Color>
+                  <VariableType>8 Bytes</VariableType>
+                  <Address>p_editequip</Address>
+                  <Offsets>
+                    <Offset>-84</Offset>
+                  </Offsets>
+                  <CheatEntries>
+                    <CheatEntry>
+                      <ID>144</ID>
+                      <Description>"Number of Misc Stats"</Description>
+                      <LastState Value="3271772610" RealAddress="2AD0D76A110"/>
+                      <VariableType>4 Bytes</VariableType>
+                      <Address>p_editequip</Address>
+                      <Offsets>
+                        <Offset>-7C</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>145</ID>
+                      <Description>"Max Number of Misc Stats"</Description>
+                      <LastState Value="3271772610" RealAddress="2AD0D76A114"/>
+                      <VariableType>4 Bytes</VariableType>
+                      <Address>p_editequip</Address>
+                      <Offsets>
+                        <Offset>-78</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                  </CheatEntries>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>146</ID>
+                  <Description>"Misc Stat ID 1"</Description>
+                  <DropDownList DisplayValueAsItem="1">21571:Lifebound
+</DropDownList>
+                  <ShowAsHex>1</ShowAsHex>
+                  <Color>408000</Color>
+                  <VariableType>2 Bytes</VariableType>
+                  <Address>p_editequip</Address>
+                  <Offsets>
+                    <Offset>5</Offset>
+                    <Offset>-84</Offset>
+                  </Offsets>
+                  <CheatEntries>
+                    <CheatEntry>
+                      <ID>147</ID>
+                      <Description>"Misc Stat Multiplier 1"</Description>
+                      <VariableType>Float</VariableType>
+                      <Address>p_editequip</Address>
+                      <Offsets>
+                        <Offset>8</Offset>
+                        <Offset>-84</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                  </CheatEntries>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>148</ID>
+                  <Description>"Misc Stat ID 2"</Description>
+                  <DropDownList DisplayValueAsItem="1">21571:Lifebound
+</DropDownList>
+                  <ShowAsHex>1</ShowAsHex>
+                  <Color>408000</Color>
+                  <VariableType>2 Bytes</VariableType>
+                  <Address>p_editequip</Address>
+                  <Offsets>
+                    <Offset>15</Offset>
+                    <Offset>-84</Offset>
+                  </Offsets>
+                  <CheatEntries>
+                    <CheatEntry>
+                      <ID>149</ID>
+                      <Description>"Misc Stat Multiplier 2"</Description>
+                      <VariableType>Float</VariableType>
+                      <Address>p_editequip</Address>
+                      <Offsets>
+                        <Offset>18</Offset>
+                        <Offset>-84</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                  </CheatEntries>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>150</ID>
+                  <Description>"Misc Stat ID 3"</Description>
+                  <DropDownList DisplayValueAsItem="1">21571:Lifebound
+</DropDownList>
+                  <ShowAsHex>1</ShowAsHex>
+                  <Color>408000</Color>
+                  <VariableType>2 Bytes</VariableType>
+                  <Address>p_editequip</Address>
+                  <Offsets>
+                    <Offset>25</Offset>
+                    <Offset>-84</Offset>
+                  </Offsets>
+                  <CheatEntries>
+                    <CheatEntry>
+                      <ID>151</ID>
+                      <Description>"Misc Stat Multiplier 3"</Description>
+                      <VariableType>Float</VariableType>
+                      <Address>p_editequip</Address>
+                      <Offsets>
+                        <Offset>28</Offset>
+                        <Offset>-84</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                  </CheatEntries>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>152</ID>
+                  <Description>"Misc Stat ID 4"</Description>
+                  <DropDownList DisplayValueAsItem="1">21571:Lifebound
+</DropDownList>
+                  <ShowAsHex>1</ShowAsHex>
+                  <Color>408000</Color>
+                  <VariableType>2 Bytes</VariableType>
+                  <Address>p_editequip</Address>
+                  <Offsets>
+                    <Offset>35</Offset>
+                    <Offset>-84</Offset>
+                  </Offsets>
+                  <CheatEntries>
+                    <CheatEntry>
+                      <ID>153</ID>
+                      <Description>"Misc Stat Multiplier 4"</Description>
+                      <VariableType>Float</VariableType>
+                      <Address>p_editequip</Address>
+                      <Offsets>
+                        <Offset>38</Offset>
+                        <Offset>-84</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                  </CheatEntries>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>154</ID>
+                  <Description>"Misc Stat ID 5"</Description>
+                  <DropDownList DisplayValueAsItem="1">21571:Lifebound
+</DropDownList>
+                  <ShowAsHex>1</ShowAsHex>
+                  <Color>408000</Color>
+                  <VariableType>2 Bytes</VariableType>
+                  <Address>p_editequip</Address>
+                  <Offsets>
+                    <Offset>45</Offset>
+                    <Offset>-84</Offset>
+                  </Offsets>
+                  <CheatEntries>
+                    <CheatEntry>
+                      <ID>155</ID>
+                      <Description>"Misc Stat Multiplier 5"</Description>
+                      <VariableType>Float</VariableType>
+                      <Address>p_editequip</Address>
+                      <Offsets>
+                        <Offset>48</Offset>
+                        <Offset>-84</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                  </CheatEntries>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+</CheatTable>

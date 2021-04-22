@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="29">
+  <Files>
+    <Sam4.exe Encoding="Ascii85">g.q.%.xG^I8HxYkLl0DqRtX6-@wdH?T4{YH9ubF-q,7NLfh4qPfBnuQc5D.62rAFRGvoQbv3otZx;[%PKhA$GH@V[xY@ylh:S6bL)os_#cOR$Hd5-enN7_($bSm7Hm?b7I.$kuvi/wyYw4RB??(,PgSrL!,yz$y_UDs+DfH8{/X+P.Yv9!drG8MHc9=R(ZNI;Kq[rpP*AH=;vPQ^vCH.y_T^7uEf%W!ZwRj)r5Hp4,*yyL:IbASzN*?9Ue9CA1m2ljk.z?RcZcqO9AbI(1Pu*NpFaeSy*iGLs*l*(d04()vuaTz6fnyW[MLD^u5CW)MLxf(KnyM28#o6Qgh;4lN@ZR9.vIEJWQ[(;X/PRr@u-xk?Z;$7FhT54HTZ[j{LDB{,IaE@$FGXaY+5bi^^E[@k))Osbpf)EuOm8JxB;2hsI#p}NwLpX!hf+CYA%4jOL2geJR6VFmtr1qaIwdXp1?EuJk^r[3Qwb8D*krd%Q,ve8A(m.[BbKFRpz!qi,?6__xT=}mMY,^N}B@pCK.s/+$Jt!iw!$*=:ur?ikxjo$IHApaQX1qpK)lG/)_LzXifD}};04)vvA]s*SBM0q{/UpY#har]wlvajZ8]7!VeH?V-s5QxfnzJjQj9Y9:M2U7A+peNwr3GW#h9,zyg;3^dAgRV-izm7fo}=g{Cn_1T-/cw$t)76A0=eVOsc(}kU@z4Z3sF@c3*Z$R:dku0WE..0^,L9?z^8x61F.Hu*amPK1CQ:%.6cy@UYAN!0/!6H-AWYB8gbC+C@kh(D8Nt69(h5If.A5nE487+O8Met6C:O_H9?pp-LEo,JwaS.(jj?v/mv2I?7{VnuGOoRSUlq0I-!R9JVbLb@HsMY1MQho4q6+W*QnceXz8uEHLRb0KC7qSezoMYLESs.FTOTsChfgBv#A#,N%emfZnQg1(o6JpzVv*Q@:7_dl6P8^Ti$Wq.Az=E.,pnnZ@x*F]z4bcJ)XRJqD9*4Q5XBpwCX,h1)T#:ckm02iZaqua@*W</Sam4.exe>
+  </Files>
+  <CheatEntries>
+    <CheatEntry>
+      <ID>1</ID>
+      <Description>"Serious Sam 4 (GOG)"</Description>
+      <Options moHideChildren="1" moDeactivateChildrenAsWell="1"/>
+      <LastState/>
+      <Color>FF0000</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>{$lua}
+mono_initialize()
+LaunchMonoDataCollector()
+if syntaxcheck then return end
+I2CETableCEA.autoAssembleFile('Sam4.exe',memrec)
+[ENABLE]
+if(getCEVersion() &lt; 7.1) then
+  ShowMessage('Sorry, this table is designed for CE 7.1')
+  if process == "Sam4.exe" then
+    if readInteger(process) then
+      mono_initialize()
+      LaunchMonoDataCollector()
+    end
+  elseif process == nil then
+      attachlist=getAutoAttachList()
+      stringlist_add(attachlist,"Sam4.exe");
+    else
+      local msg = 'No game process detected.'
+      print(msg)
+      error(msg)
+    end
+  return
+end
+{$asm}
+[DISABLE]
+</AssemblerScript>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>27</ID>
+          <Description>"God Mode"</Description>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+tqiwur:
+dd 1
+ 
+[DISABLE]
+tqiwur:
+dd 0
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>29</ID>
+          <Description>"Weak Enemy"</Description>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+tqwrc:
+dd 1
+ 
+[DISABLE]
+tqwrc:
+dd 0
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>32</ID>
+          <Description>"No Reload"</Description>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+tqqda:
+dd 1
+ 
+[DISABLE]
+tqqda:
+dd 0
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>4</ID>
+          <Description>"Inf. Ammo"</Description>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+thasd:
+dd 1
+ 
+[DISABLE]
+thasd:
+dd 0
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>35</ID>
+          <Description>"Inf. Gadgets"</Description>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+aoiklz:
+db 90 90
+[DISABLE]
+aoiklz:
+readmem(resiklz,6)
+</AssemblerScript>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>0</ID>
+      <Description>"Table isn't working?"</Description>
+      <LastState/>
+      <Color>0000FF</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[enable]
+{$LUA}
+getMainForm().CommentButton.doClick()
+{$ASM}
+[disable]
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>36</ID>
+      <Description>"No description"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>12951252C</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>37</ID>
+      <Description>"No description"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>1A4075BA0</Address>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+  <Comments>Possibilities:
+- You're not using Cheat Engine 7.1 (download latest version).
+- You're missing I2CETableCEA.lua (read the guide below).
+- The table doesnt work in your game version (Steam,GOG,etc).
+- Game updates to new patch and the table is no longer working.
+Guide:
+- If this first time running my table, you must install "I2CETableCEA.lua" file.
+- Download I2CETableCEA: https://bit.ly/32eZW6U
+- Copy and paste the I2CETableCEA.lua to autorun directory or C:\Cheat Engine 7.1\autorun
+Credit: TheyCallMeTim13
+</Comments>
+  <LuaScript>attachlist=getAutoAttachList()
+stringlist_add(attachlist,"Sam4.exe")
+</LuaScript>
+</CheatTable>

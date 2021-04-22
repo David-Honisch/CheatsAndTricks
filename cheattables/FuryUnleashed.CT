@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="29">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>13</ID>
+      <Description>"No description"</Description>
+      <LastState Value="100" Activated="1" RealAddress="1B7F3C24"/>
+      <VariableType>4 Bytes</VariableType>
+      <Address>1B7F3C24</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>0</ID>
+      <Description>"No description"</Description>
+      <LastState Value="-35689.42188" RealAddress="2FE2305C"/>
+      <VariableType>Float</VariableType>
+      <Address>2FE2305C</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>1</ID>
+      <Description>"No description"</Description>
+      <LastState Value="-1.832246098E26" RealAddress="2FE23064"/>
+      <VariableType>Float</VariableType>
+      <Address>2FE23064</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>2</ID>
+      <Description>"pointerscan result"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"UnityPlayer.dll"+009CF574</Address>
+      <Offsets>
+        <Offset>DD4</Offset>
+        <Offset>E0</Offset>
+        <Offset>274</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>3</ID>
+      <Description>"pointerscan result"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"UnityPlayer.dll"+00A10994</Address>
+      <Offsets>
+        <Offset>DD4</Offset>
+        <Offset>E0</Offset>
+        <Offset>368</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>4</ID>
+      <Description>"No description"</Description>
+      <LastState Value="0" RealAddress="1BC1A250"/>
+      <VariableType>4 Bytes</VariableType>
+      <Address>1BC1A250</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>5</ID>
+      <Description>"No description"</Description>
+      <LastState Value="0" RealAddress="1BC1A254"/>
+      <VariableType>Float</VariableType>
+      <Address>1BC1A254</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>6</ID>
+      <Description>"No description"</Description>
+      <LastState Value="143" RealAddress="297D8EA8"/>
+      <VariableType>4 Bytes</VariableType>
+      <Address>297D8EA8</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>7</ID>
+      <Description>"No description"</Description>
+      <LastState Value="100" RealAddress="1B7F3C24"/>
+      <VariableType>4 Bytes</VariableType>
+      <Address>1B7F3C24</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>8</ID>
+      <Description>"No description"</Description>
+      <LastState Value="99" RealAddress="1F4FCAD8"/>
+      <VariableType>Float</VariableType>
+      <Address>1F4FCAD8</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>9</ID>
+      <Description>"No description"</Description>
+      <LastState Value="99" RealAddress="1F4FCAE4"/>
+      <VariableType>Float</VariableType>
+      <Address>1F4FCAE4</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>10</ID>
+      <Description>"pointerscan result"</Description>
+      <LastState Value="1120272384" RealAddress="1F4FCAE4"/>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"UnityPlayer.dll"+0109AC5C</Address>
+      <Offsets>
+        <Offset>848</Offset>
+        <Offset>18</Offset>
+        <Offset>140</Offset>
+        <Offset>1C0</Offset>
+        <Offset>F0</Offset>
+        <Offset>EC</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>11</ID>
+      <Description>"pointerscan result"</Description>
+      <LastState Value="1120272384" RealAddress="1F4FCAE4"/>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"UnityPlayer.dll"+0109AC5C</Address>
+      <Offsets>
+        <Offset>848</Offset>
+        <Offset>18</Offset>
+        <Offset>140</Offset>
+        <Offset>1C0</Offset>
+        <Offset>F0</Offset>
+        <Offset>F4</Offset>
+        <Offset>11C</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>12</ID>
+      <Description>"pointerscan result"</Description>
+      <LastState Value="1120272384" RealAddress="1F4FCAE4"/>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"UnityPlayer.dll"+00DC8394</Address>
+      <Offsets>
+        <Offset>848</Offset>
+        <Offset>18</Offset>
+        <Offset>140</Offset>
+        <Offset>1C0</Offset>
+        <Offset>28</Offset>
+        <Offset>8</Offset>
+      </Offsets>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+</CheatTable>

@@ -1,0 +1,190 @@
+<?xml version="1.0"?>
+<CheatTable CheatEngineTableVersion="12">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>0</ID>
+      <Description>"Health"</Description>
+      <Color>80000008</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+ aobscan(_faddress,d9xxxx8bxxxx8bxxxxd9xxxxxxd9xxxx83xxxxd9xxxxxxxxxxxxxxxxxxxxe8)
+ alloc(_newmem,2048)
+ label(_returnhere)
+ label(_originalcode)
+ label(_player)
+
+_newmem:
+ push eax
+ mov eax,[SWTFU2.exe+0104C210]
+ mov eax,[eax+4a0]
+ mov eax,[eax+14]
+ mov [_player],eax
+ pop eax
+ cmp esi,[_player]
+ jne short _originalcode
+ push ecx
+ mov ecx,[esi+18]
+ mov [esi+0c],ecx
+ pop ecx
+_originalcode:
+ fld dword ptr [esi+0c]
+ mov edi,[ebp+08]
+ jmp _returnhere
+
+_player:
+ dd 0
+
+_faddress:    // 00971390 = AK::Monitor::PostString+32FCE0
+ jmp _newmem
+ nop
+_returnhere:
+
+[DISABLE]
+ aobscan(_faddress,908bxxxxd9xxxxxxd9xxxx83xxxxd9xxxxxxxxxxxxxxxxxxxxe8)
+
+_faddress-5:
+ fld dword ptr [esi+0c]
+ mov edi,[ebp+08]
+
+ dealloc(_newmem)
+//Alt: db D9 46 0C 8B 7D 08
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>1</ID>
+      <Description>"Energy"</Description>
+      <Color>80000008</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+ aobscan(_faddress,d9xxxxxxc2xxxxxxxxxxxxxx8bxxxx33xxxx85xx76xx8bxxxx8bxxxxxx39)
+ alloc(_newmem,2048)
+ label(_returnhere)
+ label(_originalcode)
+ label(_player)
+
+_newmem:
+ push eax
+ mov eax,[SWTFU2.exe+0104C210]
+ mov eax,[eax+4a0]
+ mov eax,[eax+14]
+ mov [_player],eax
+ pop eax
+ cmp ecx,[_player]
+ jne short _originalcode
+ push ebx
+ mov ebx,[ecx+0a0]
+ mov [ecx+94],ebx
+ pop ebx
+_originalcode:
+ fld dword ptr [ecx+0c]
+ pop esi
+ ret 0004
+ //jmp _returnhere
+
+_player:
+ dd 0
+
+_faddress:    // 00970364 = AK::Monitor::PostString+32ECB4
+ jmp _newmem
+ nop
+ nop
+_returnhere:
+
+[DISABLE]
+ aobscan(_faddress,9090xxxxxxxxxx8bxxxx33xxxx85xx76xx8bxxxx8bxxxxxx39)
+
+_faddress-5:
+ fld dword ptr [ecx+0c]
+ pop esi
+ ret 0004
+
+ dealloc(_newmem)
+//Alt: db D9 41 0C 5E C2 04 00
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>2</ID>
+      <Description>"Infinite Fury"</Description>
+      <Color>80000008</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+ aobscan(_faddress,d9xxxxd9xxxxxxe8xxxxxxxx83xxxxffxxd9xxxxd9xxxxf3xxxxxxxxd9)
+ alloc(_newmem,2048)
+ label(_returnhere)
+ label(_originalcode)
+ label(_player)
+
+_newmem:
+ push eax
+ mov eax,[SWTFU2.exe+0104C210]
+ mov eax,[eax+4a0]
+ mov eax,[eax+14]
+ mov [_player],eax
+ pop eax
+ cmp esi,[_player]
+ jne short _originalcode
+ push ecx
+ mov ecx,[esi+128]
+ mov [esi+11c],ecx
+ pop ecx
+_originalcode:
+ fld dword ptr [esi+0c]
+ fstp dword ptr [esp]
+ jmp _returnhere
+
+_player:
+ dd 0
+
+_faddress:    // 009713A7 = AK::Monitor::PostString+32FCF7
+ jmp _newmem
+ nop
+_returnhere:
+
+[DISABLE]
+ aobscan(_faddress,90xxe8xxxxxxxx83xxxxffxxd9xxxxd9xxxxf3xxxxxxxxd9)
+
+_faddress-5:
+ fld dword ptr [esi+0c]
+ fstp dword ptr [esp]
+
+ dealloc(_newmem)
+//Alt: db D9 46 0C D9 1C 24
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>3</ID>
+      <Description>"Free Skills Upgrade"</Description>
+      <Color>80000008</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+ aobscan(_faddress,8bxxxxxxxxxxc2xxxx8bxxebxxxxxx8bxxxxc2xxxxxxxxxxxxxxxxxxxxxxxx8b)
+ alloc(_newmem,2048)
+ label(_returnhere)
+ label(_originalcode)
+
+_newmem:
+ mov [eax+14],0
+_originalcode:
+ mov eax,[eax+14]
+ pop edi
+ pop esi
+ jmp _returnhere
+
+_faddress:    // 0098F371 = AK::Monitor::PostString+34DCC1
+ jmp _newmem
+_returnhere:
+
+[DISABLE]
+ aobscan(_faddress,xxc2xxxx8bxxebxxxxxx8bxxxxc2xxxxxxxxxxxxxxxxxxxxxxxx8b)
+
+_faddress-5:
+ mov eax,[eax+14]
+ pop edi
+ pop esi
+
+ dealloc(_newmem)
+</AssemblerScript>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+</CheatTable>

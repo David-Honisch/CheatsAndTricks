@@ -1,0 +1,121 @@
+<?xml version="1.0"?>
+<CheatTable CheatEngineTableVersion="11">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>67</ID>
+      <Description>"ADD 100 Crystals inf Caddoc"</Description>
+      <Color>80000008</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>{Hunted: The Demon's Forge}
+//Fecha 8/6/2011
+{Cheat engine v.6}
+// EspaÃ±ol y English
+// Creador del scripts por Delta10FY
+// Este scripts o trainer no se pueden manipular sin permiso,para trainer o otros usos.
+// Todo los derechos reservados.
+{Hunted: The Demon's Forge}
+// Date 8/6/2011
+//Cheat engine v.6 {}
+// Spanish InglÃ©s
+// Creator of scripting Delta10FY
+// This scripts or trainer can not be manipulated without permission, trainer or other uses.
+// All rights reserved.
+[ENABLE]
+//code from here to '[DISABLE]' will be used to enable the cheat
+alloc(newmem,2048) //2kb should be enough
+label(returnhere)
+label(originalcode)
+label(exit)
+label(oblabel)
+registersymbol(oblabel)
+aobscan(objaob,01 81 DC 01 00 00)
+
+newmem: //this is allocated memory, you have read,write,execute access
+//place your code here
+mov [ecx+000001DC],000001f0
+originalcode:
+add [ecx+000001DC],eax
+
+exit:
+jmp returnhere
+
+objaob:
+oblabel:
+jmp newmem
+nop
+returnhere:
+
+
+ 
+ 
+[DISABLE]
+//code from here till the end of the code will be used to disable the cheat
+dealloc(newmem)
+oblabel:
+db 01 81 DC 01 00 00
+unregistersymbol(oblabel)
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>68</ID>
+      <Description>"ADD 100 Crystals inf E´lara"</Description>
+      <Color>80000008</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>{Hunted: The Demon's Forge}
+//Fecha 7/6/2011
+{Cheat engine v.6}
+// EspaÃ±ol y English
+// Creador del scripts por Delta10FY
+// Este scripts o trainer no se pueden manipular sin permiso,para trainer o otros usos.
+// Todo los derechos reservados.
+{Hunted: The Demon's Forge}
+// Date 7/6/2011
+//Cheat engine v.6 {}
+// Spanish InglÃ©s
+// Creator of scripting Delta10FY
+// This scripts or trainer can not be manipulated without permission, trainer or other uses.
+// All rights reserved.
+[ENABLE]
+//code from here to '[DISABLE]' will be used to enable the cheat
+alloc(newmem,2048) //2kb should be enough
+label(returnhere)
+label(originalcode)
+label(exit)
+label(ob2label)
+registersymbol(ob2label)
+aobscan(ob2jaob,01 81 E0 01 00 00)
+
+newmem: //this is allocated memory, you have read,write,execute access
+//place your code here
+mov [ecx+000001E0],000001f0
+originalcode:
+add [ecx+000001E0],eax
+
+exit:
+jmp returnhere
+
+ob2jaob:
+ob2label:
+jmp newmem
+nop
+returnhere:
+
+
+ 
+ 
+[DISABLE]
+//code from here till the end of the code will be used to disable the cheat
+dealloc(newmem)
+ob2label:
+db 01 81 E0 01 00 00
+unregistersymbol(ob2label)
+</AssemblerScript>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+  <Comments>1) Activar truco comprar o aumentar armas (parece no pasar nada,desactivar truco)
+2) Comprar algo y se activara 99 cristales
+1) On or increase trick buy weapons (nothing seems to stand still, turn off trick)
+2) Buy something and 99 crystals activated
+</Comments>
+</CheatTable>

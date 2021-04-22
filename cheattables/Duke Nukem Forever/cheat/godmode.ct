@@ -1,0 +1,33 @@
+[ENABLE]
+//code from here to '[DISABLE]' will be used to enable the cheat
+alloc(newmem,2048) //2kb should be enough
+label(returnhere)
+label(originalcode)
+label(exit)
+
+newmem: //this is allocated memory, you have read,write,execute access
+//place your code here
+
+push edx
+mov edx,[eax+a1c]
+mov [eax+a18],edx
+pop edx
+
+originalcode:
+fld dword ptr [eax+00000A18]
+
+exit:
+jmp returnhere
+
+ADukeHUD::DrawEgoHud+664:
+jmp newmem
+nop
+returnhere:
+ 
+ 
+[DISABLE]
+//code from here till the end of the code will be used to disable the cheat
+dealloc(newmem)
+ADukeHUD::DrawEgoHud+664:
+fld dword ptr [eax+00000A18]
+//Alt: db D9 80 18 0A 00 00 

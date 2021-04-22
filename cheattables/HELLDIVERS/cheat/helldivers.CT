@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="18">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>11</ID>
+      <Description>"Activate Scripts"</Description>
+      <Options moHideChildren="1"/>
+      <LastState Activated="1"/>
+      <Color>80000008</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+alloc(newmem,$1000,lua_gettop)
+alloc(lua_command,$1000)
+registersymbol(lua_command)
+
+label(return)
+label(state)
+label(top)
+label(execute)
+label(balance)
+label(lua_gettop_bkp)
+label(lua_go)
+
+newmem:
+lua_gettop_bkp:
+  readmem(lua_gettop+4,8)
+  cmp byte ptr [lua_go],1
+  je execute
+  ret
+
+execute:
+  mov byte ptr [lua_go],0
+  mov [state],rcx
+  mov [top],rax
+
+  lea rsp,[rsp-28]
+
+  mov rdx,lua_command
+  mov rbx,rcx
+  call luaL_loadstring
+  test eax,eax
+  jnz balance
+
+  mov rcx,[state]
+  mov rbx,rcx
+  mov r9d,0
+  mov r8d,-1
+  mov edx,0
+  call lua_pcall
+
+balance:
+  mov rdx,[top]
+  mov rcx,[state]
+  mov rax,rcx
+  call lua_settop
+  mov rax,[top]
+
+  lea rsp,[rsp+28]
+  ret
+
+lua_go:
+  db 0
+
+state:
+  dq 0
+
+top:
+  dq 0
+
+lua_gettop+4:
+  jmp lua_gettop_bkp
+  nop
+  nop
+  nop
+return:
+registersymbol(lua_gettop_bkp)
+registersymbol(lua_go)
+
+[DISABLE]
+lua_gettop+4:
+  readmem(lua_gettop_bkp,8)
+unregistersymbol(lua_gettop_bkp)
+unregistersymbol(lua_go)
+dealloc(newmem)
+
+unregistersymbol(lua_command)
+dealloc(lua_command)
+
+{
+"lua5.1-64.dll"+12D0: 48 8B 41 10           -  mov rax,[rcx+10]
+// ---------- INJECTING HERE ----------
+"lua5.1-64.dll"+12D4: 48 2B 41 18           -  sub rax,[rcx+18]
+"lua5.1-64.dll"+12D8: 48 C1 F8 04           -  sar rax,04
+// ---------- DONE INJECTING  ----------
+"lua5.1-64.dll"+12DC: C3                    -  ret 
+"lua5.1-64.dll"+12DD: CC                    -  int 3 
+"lua5.1-64.dll"+12DE: CC                    -  int 3 
+"lua5.1-64.dll"+12DF: CC                    -  int 3 
+"lua5.1-64.dll"+12E0: 48 89 5C 24 08        -  mov [rsp+08],rbx
+"lua5.1-64.dll"+12E5: 57                    -  push rdi
+"lua5.1-64.dll"+12E6: 48 83 EC 20           -  sub rsp,20
+"lua5.1-64.dll"+12EA: 48 63 FA              -  movsxd  rdi,edx
+"lua5.1-64.dll"+12ED: 48 8B D9              -  mov rbx,rcx
+"lua5.1-64.dll"+12F0: E8 5B AC 01 00        -  call lua5.1-64.dll+1BF50
+}
+</AssemblerScript>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>12</ID>
+          <Description>"Set Earned Research Points to 999"</Description>
+          <LastState Activated="0"/>
+          <Color>80000008</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+lua_command:
+db 'SaveManager._primary_system._system._data.user[SaveManager._primary_system._latest_user].research_samples=9990;',0
+lua_go:
+db 1
+[DISABLE]
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>13</ID>
+          <Description>"Set Experience to 7,094,381 (takes effect after mission)"</Description>
+          <LastState Activated="0"/>
+          <Color>80000008</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+lua_command:
+db 'SaveManager._primary_system._system._data.user[SaveManager._primary_system._latest_user].player_xp=7094381;',0
+lua_go:
+db 1
+[DISABLE]
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>18</ID>
+          <Description>"Set Unlimited Ammo [Hotkey: F5] (activate while on mission)"</Description>
+          <LastState Activated="0"/>
+          <Color>80000008</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+lua_command:
+db 'local t=Boot.state_machine.state.hint_manager.mission_manager.entity_manager.component_manager.components[1].creation_context.hud.hud_info[1].current_weapon_vars.state;t.magazine_capacity=999999;t.weapon_info.magazine_capacity=999999;',0
+lua_go:
+db 1
+[DISABLE]
+lua_command:
+db 'local t=Boot.state_machine.state.hint_manager.mission_manager.entity_manager.component_manager.components[1].creation_context.hud.hud_info[1].current_weapon_vars.state;t.magazine_capacity=999999;t.weapon_info.magazine_capacity=999999;',0
+lua_go:
+db 1
+</AssemblerScript>
+          <Hotkeys>
+            <Hotkey>
+              <Action>Toggle Activation</Action>
+              <Keys>
+                <Key>116</Key>
+              </Keys>
+              <ID>0</ID>
+            </Hotkey>
+          </Hotkeys>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>20</ID>
+          <Description>"Set Unlimited Armor [Hotkey: F6] (activate while on mission)"</Description>
+          <LastState Activated="1"/>
+          <Color>80000008</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+lua_command:
+db 'local t=Boot.state_machine.state.hint_manager.mission_manager.entity_manager.component_manager.components[1].creation_context.hud.hud_info[1].health_state;t.armor_max=999999;t.armor_min=999999;',0
+lua_go:
+db 1
+[DISABLE]
+lua_command:
+db 'local t=Boot.state_machine.state.hint_manager.mission_manager.entity_manager.component_manager.components[1].creation_context.hud.hud_info[1].health_state;t.armor_max=999999;t.armor_min=999999;',0
+lua_go:
+db 1
+</AssemblerScript>
+          <Hotkeys>
+            <Hotkey>
+              <Action>Toggle Activation</Action>
+              <Keys>
+                <Key>117</Key>
+              </Keys>
+              <ID>0</ID>
+            </Hotkey>
+          </Hotkeys>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>19</ID>
+          <Description>"Set One-Hit Kill [Hotkey: F7] (activate while on mission)"</Description>
+          <LastState Activated="0"/>
+          <Color>80000008</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+lua_command:
+db 'Boot.state_machine.state.hint_manager.mission_manager.entity_manager.component_manager.components[1].creation_context.hud.hud_info[1].current_weapon_vars.state.weapon_info.power=999999;',0
+lua_go:
+db 1
+[DISABLE]
+lua_command:
+db 'Boot.state_machine.state.hint_manager.mission_manager.entity_manager.component_manager.components[1].creation_context.hud.hud_info[1].current_weapon_vars.state.weapon_info.power=999999;',0
+lua_go:
+db 1
+</AssemblerScript>
+          <Hotkeys>
+            <Hotkey>
+              <Action>Toggle Activation</Action>
+              <Keys>
+                <Key>118</Key>
+              </Keys>
+              <ID>0</ID>
+            </Hotkey>
+          </Hotkeys>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols>
+    <SymbolEntry>
+      <Name>ammo</Name>
+      <Address>1401B6C71</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>lua_gettop_bkp</Name>
+      <Address>13FFF0000</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>lua_go</Name>
+      <Address>13FFF0090</Address>
+    </SymbolEntry>
+  </UserdefinedSymbols>
+</CheatTable>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="18">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>13</ID>
+      <Description>"No description"</Description>
+      <LastState Value="7" Activated="1" RealAddress="09C35AF4"/>
+      <Color>80000008</Color>
+      <VariableType>Byte</VariableType>
+      <Address>09C35AF4</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>14</ID>
+      <Description>"No description"</Description>
+      <LastState Value="7" Activated="1" RealAddress="09C35AF4"/>
+      <Color>80000008</Color>
+      <VariableType>2 Bytes</VariableType>
+      <Address>09C35AF4</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>15</ID>
+      <Description>"No description"</Description>
+      <LastState Value="7" Activated="1" RealAddress="09C35AF4"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>09C35AF4</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>16</ID>
+      <Description>"No description"</Description>
+      <LastState Value="7" Activated="1" RealAddress="0E19E498"/>
+      <Color>80000008</Color>
+      <VariableType>Byte</VariableType>
+      <Address>0E19E498</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>17</ID>
+      <Description>"No description"</Description>
+      <LastState Value="7" Activated="1" RealAddress="0E19E498"/>
+      <Color>80000008</Color>
+      <VariableType>2 Bytes</VariableType>
+      <Address>0E19E498</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>18</ID>
+      <Description>"No description"</Description>
+      <LastState Value="7" Activated="1" RealAddress="0E19E498"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>0E19E498</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>19</ID>
+      <Description>"No description"</Description>
+      <LastState Value="7" Activated="1" RealAddress="0E19E498"/>
+      <Color>80000008</Color>
+      <VariableType>8 Bytes</VariableType>
+      <Address>0E19E498</Address>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+</CheatTable>

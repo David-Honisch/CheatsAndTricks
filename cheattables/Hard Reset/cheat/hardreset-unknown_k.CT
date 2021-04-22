@@ -1,0 +1,196 @@
+<?xml version="1.0"?>
+<CheatTable CheatEngineTableVersion="12">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>11</ID>
+      <Description>"Activate"</Description>
+      <Color>80000008</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+alloc(newmem,1024)
+label(returnhere)
+label(exit)
+
+globalalloc(t_GodMode,4)
+globalalloc(t_InfShield,4)
+globalalloc(t_InfAmmo,4)
+globalalloc(t_MaxLvl,4)
+label(GodMode)
+label(InfShield)
+label(InfAmmo1)
+label(InfAmmo2)
+label(MaxLvl)
+
+t_GodMode:
+dd 0
+t_InfShield:
+dd 0
+t_InfAmmo:
+dd 0
+t_MaxLvl:
+dd 0
+
+newmem:
+mov [eax+04],edx
+
+GodMode:
+cmp [t_GodMode],1
+jne InfShield
+cmp esi,05000004
+jne InfShield
+
+push esi
+mov esi,[eax+0C]
+cmp [esi+1C],00005048 //"HP"
+pop esi
+jne InfShield
+cmp [eax+14],05000004
+jne InfShield
+cmp [eax+1C],08000010
+jne InfShield
+cmp [eax+28],05000004
+jne InfShield
+cmp [eax+38],00000000
+jne InfShield
+mov [eax+04],(float)999.0
+
+InfShield:
+cmp [t_InfShield],1
+jne InfAmmo1
+cmp esi,05000004
+jne InfAmmo1
+push esi
+mov esi,[eax+0C]
+cmp [esi+1C],00005053 //"SP"
+pop esi
+jne InfAmmo1
+mov [eax+04],(float)999.0
+
+InfAmmo1:
+cmp [t_InfAmmo],1
+jne MaxLvl
+cmp esi,05000004
+jne InfAmmo2
+push esi
+mov esi,[eax+0C]
+cmp [esi+1C],00315045 //"EP1"
+pop esi
+jne InfAmmo2
+mov [eax+04],(float)999.0
+
+InfAmmo2:
+cmp esi,05000004
+jne MaxLvl
+push esi
+mov esi,[eax+0C]
+cmp [esi+1C],00325045 //"EP2"
+pop esi
+jne MaxLvl
+mov [eax+04],(float)999.0
+
+MaxLvl:
+cmp [t_MaxLvl],1
+jne exit
+cmp esi,05000004
+jne exit
+push esi
+mov esi,[eax+0C]
+cmp [esi+1C],00005058 //"XP"
+pop esi
+jne exit
+mov [eax+04],(float)9999999.0
+
+exit:
+mov edx,[ebx]
+jmp returnhere
+
+"hardreset.exe"+13234A:
+jmp newmem
+returnhere:
+
+[DISABLE]
+"hardreset.exe"+13234A:
+mov [eax+04],edx
+mov edx,[ebx]
+dealloc(newmem)
+
+</AssemblerScript>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>12</ID>
+          <Description>"God Mode"</Description>
+          <Color>80000008</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+t_GodMode:
+dd 1
+
+[DISABLE]
+t_GodMode:
+dd 0
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>13</ID>
+          <Description>"Inf. Shield"</Description>
+          <Color>80000008</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+t_InfShield:
+dd 1
+
+[DISABLE]
+t_InfShield:
+dd 0
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>14</ID>
+          <Description>"Inf. Ammo"</Description>
+          <Color>80000008</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+t_InfAmmo:
+dd 1
+
+[DISABLE]
+t_InfAmmo:
+dd 0
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>15</ID>
+          <Description>"Instant Max Level"</Description>
+          <Color>80000008</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+t_MaxLvl:
+dd 1
+
+[DISABLE]
+t_MaxLvl:
+dd 0
+</AssemblerScript>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols>
+    <SymbolEntry>
+      <Name>t_GodMode</Name>
+      <Address>049A0000</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>t_InfShield</Name>
+      <Address>049B0000</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>t_InfAmmo</Name>
+      <Address>049C0000</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>t_MaxLvl</Name>
+      <Address>049D0000</Address>
+    </SymbolEntry>
+  </UserdefinedSymbols>
+</CheatTable>
