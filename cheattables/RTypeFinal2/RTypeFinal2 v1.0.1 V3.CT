@@ -1,0 +1,914 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="34">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>185</ID>
+      <Description>"──────────────────────────────     S   C   R   I   P   T   S    ──────────────────────────────────────"</Description>
+      <Options moHideChildren="1"/>
+      <LastState Value="" RealAddress="00000000"/>
+      <Color>400080</Color>
+      <GroupHeader>1</GroupHeader>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>6</ID>
+          <Description>"Infinite Lives (Numpad 0)"</Description>
+          <LastState/>
+          <Color>0000FF</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{ Game   : RTypeFinal2-Win64-Shipping.exe
+  Version: v1.0.1
+  Date   : 2021-05-02
+  Author : ndck76
+}
+
+[ENABLE]
+
+aobscanmodule(lives,RTypeFinal2-Win64-Shipping.exe,89 91 FC 01 00 00) // should be unique
+alloc(newmem,$1000,lives)
+
+label(code)
+label(return)
+
+newmem:
+
+code:
+  mov [rcx+000001FC],(int)9
+  jmp return
+
+lives:
+  jmp newmem
+  nop
+return:
+registersymbol(lives)
+
+[DISABLE]
+
+lives:
+  db 89 91 FC 01 00 00
+
+unregistersymbol(lives)
+dealloc(newmem)
+
+</AssemblerScript>
+          <Hotkeys>
+            <Hotkey>
+              <Action>Toggle Activation</Action>
+              <Keys>
+                <Key>96</Key>
+              </Keys>
+              <ID>0</ID>
+              <ActivateSound TTS="EN">Infinite Lives Activated</ActivateSound>
+              <DeactivateSound TTS="EN">Infinite Lives Deactivated</DeactivateSound>
+            </Hotkey>
+          </Hotkeys>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>7</ID>
+          <Description>"Freeze Lives Option 1 (Numpad 1) {This is made for non DLC Included}"</Description>
+          <LastState/>
+          <Color>0000FF</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{ Game   : RTypeFinal2-Win64-Shipping.exe
+  Version: v1.0.1
+  Date   : 2021-05-02
+  Author : ndck76
+}
+
+[ENABLE]
+
+aobscanmodule(lives,RTypeFinal2-Win64-Shipping.exe,E8 F7 57 C0 FF) // should be unique
+registersymbol(lives)
+
+lives:
+  db 90 90 90 90 90
+
+[DISABLE]
+
+lives:
+  db E8 F7 57 C0 FF
+
+unregistersymbol(lives)
+
+</AssemblerScript>
+          <Hotkeys>
+            <Hotkey>
+              <Action>Toggle Activation</Action>
+              <Keys>
+                <Key>97</Key>
+              </Keys>
+              <ID>0</ID>
+              <ActivateSound TTS="EN">Freeze Lives Option 1 Activated</ActivateSound>
+              <DeactivateSound TTS="EN">Freeze Lives Option 1 Deactivated</DeactivateSound>
+            </Hotkey>
+          </Hotkeys>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>187</ID>
+          <Description>"Freeze Lives Option 2 (Numpad 2) {This is made for DLC Included}"</Description>
+          <LastState/>
+          <Color>0000FF</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{ Game   : RTypeFinal2-Win64-Shipping.exe
+  Version: v1.0.1
+  Date   : 2021-05-02
+  Author : ndck76
+}
+
+[ENABLE]
+
+aobscanmodule(freezehp,RTypeFinal2-Win64-Shipping.exe,E8 17 5E BF FF) // should be unique
+registersymbol(freezehp)
+
+freezehp:
+  db 90 90 90 90 90
+
+[DISABLE]
+
+freezehp:
+  db E8 17 5E BF FF
+
+unregistersymbol(freezehp)
+
+</AssemblerScript>
+          <Hotkeys>
+            <Hotkey>
+              <Action>Toggle Activation</Action>
+              <Keys>
+                <Key>98</Key>
+              </Keys>
+              <ID>0</ID>
+              <ActivateSound TTS="EN">Freeze Lives Option 2 Activated</ActivateSound>
+              <DeactivateSound TTS="EN">Freeze Lives Option 2 Deactivated</DeactivateSound>
+            </Hotkey>
+          </Hotkeys>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>33</ID>
+          <Description>"Instant Beam Charge (Numpad 3) {100 Default}"</Description>
+          <LastState/>
+          <Color>FF0000</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{ Game   : RTypeFinal2-Win64-Shipping.exe
+  Version: v1.0.1
+  Date   : 2021-05-02
+  Author : ndck76
+}
+
+[ENABLE]
+
+aobscanmodule(beam,RTypeFinal2-Win64-Shipping.exe,F3 0F 11 B7 3C 04 00 00) // should be unique
+alloc(newmem,$1000,beam)
+
+label(code)
+label(return)
+
+newmem:
+
+code:
+  mov [rdi+0000043C],(float)100
+  jmp return
+
+beam:
+  jmp newmem
+  nop 3
+return:
+registersymbol(beam)
+
+[DISABLE]
+
+beam:
+  db F3 0F 11 B7 3C 04 00 00
+
+unregistersymbol(beam)
+dealloc(newmem)
+
+</AssemblerScript>
+          <Hotkeys>
+            <Hotkey>
+              <Action>Toggle Activation</Action>
+              <Keys>
+                <Key>99</Key>
+              </Keys>
+              <ID>0</ID>
+              <ActivateSound TTS="EN">Instant Beam Charge Activated</ActivateSound>
+              <DeactivateSound TTS="EN">Instant Beam Charge Deactivated</DeactivateSound>
+            </Hotkey>
+          </Hotkeys>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>42</ID>
+          <Description>"Instant Max DOSE/Special Gauge (Numpad 4)"</Description>
+          <LastState/>
+          <Color>FF00FF</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{ Game   : RTypeFinal2-Win64-Shipping.exe
+  Version: v1.0.1
+  Date   : 2021-05-02
+  Author : ndck76
+}
+
+[ENABLE]
+
+aobscanmodule(dose,RTypeFinal2-Win64-Shipping.exe,F3 0F 11 87 54 07 00 00) // should be unique
+alloc(newmem,$1000,dose)
+
+label(code)
+label(return)
+
+newmem:
+
+code:
+  mov [rdi+00000754],(float)999999
+  jmp return
+
+dose:
+  jmp newmem
+  nop 3
+return:
+registersymbol(dose)
+
+[DISABLE]
+
+dose:
+  db F3 0F 11 87 54 07 00 00
+
+unregistersymbol(dose)
+dealloc(newmem)
+
+</AssemblerScript>
+          <Hotkeys>
+            <Hotkey>
+              <Action>Toggle Activation</Action>
+              <Keys>
+                <Key>100</Key>
+              </Keys>
+              <ID>0</ID>
+              <ActivateSound TTS="EN">Instant Max Special Gauge Activated</ActivateSound>
+              <DeactivateSound TTS="EN">Instant Max Special Gauge Deactivated</DeactivateSound>
+            </Hotkey>
+          </Hotkeys>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>43</ID>
+          <Description>"Infinite DOSE/Special Gauge Usage (Numpad 5)"</Description>
+          <LastState/>
+          <Color>FF00FF</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{ Game   : RTypeFinal2-Win64-Shipping.exe
+  Version: v1.0.1
+  Date   : 2021-05-02
+  Author : ndck76
+}
+
+[ENABLE]
+
+aobscanmodule(dose,RTypeFinal2-Win64-Shipping.exe,F3 0F 11 B3 54 07 00 00) // should be unique
+alloc(newmem,$1000,dose)
+
+label(code)
+label(return)
+
+newmem:
+
+code:
+  mov [rbx+00000754],(float)999999
+  jmp return
+
+dose:
+  jmp newmem
+  nop 3
+return:
+registersymbol(dose)
+
+[DISABLE]
+
+dose:
+  db F3 0F 11 B3 54 07 00 00
+
+unregistersymbol(dose)
+dealloc(newmem)
+
+</AssemblerScript>
+          <Hotkeys>
+            <Hotkey>
+              <Action>Toggle Activation</Action>
+              <Keys>
+                <Key>101</Key>
+              </Keys>
+              <ID>0</ID>
+              <ActivateSound TTS="EN">Infinite Special Gauge Usage Activated</ActivateSound>
+              <DeactivateSound TTS="EN">Infinite Special Gauge Usage Deactivated</DeactivateSound>
+            </Hotkey>
+          </Hotkeys>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>3</ID>
+          <Description>"Max Score (Numpad 6)"</Description>
+          <LastState/>
+          <Color>008080</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{ Game   : RTypeFinal2-Win64-Shipping.exe
+  Version: v1.0.1
+  Date   : 2021-05-02
+  Author : ndck76
+}
+
+[ENABLE]
+
+aobscanmodule(points,RTypeFinal2-Win64-Shipping.exe,89 87 04 02 00 00 48) // should be unique
+alloc(newmem,$1000,points)
+
+label(code)
+label(return)
+
+newmem:
+
+code:
+  mov [rdi+00000204],(int)999999999
+  jmp return
+
+points:
+  jmp newmem
+  nop
+return:
+registersymbol(points)
+
+[DISABLE]
+
+points:
+  db 89 87 04 02 00 00
+
+unregistersymbol(points)
+dealloc(newmem)
+
+</AssemblerScript>
+          <Hotkeys>
+            <Hotkey>
+              <Action>Toggle Activation</Action>
+              <Keys>
+                <Key>102</Key>
+              </Keys>
+              <ID>0</ID>
+              <ActivateSound TTS="EN">Max Score Activated</ActivateSound>
+              <DeactivateSound TTS="EN">Max Score Deactivated</DeactivateSound>
+            </Hotkey>
+          </Hotkeys>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>9</ID>
+          <Description>"Infinite Continues (Numpad 7)"</Description>
+          <LastState/>
+          <Color>800080</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{ Game   : RTypeFinal2-Win64-Shipping.exe
+  Version: v1.0.1
+  Date   : 2021-05-02
+  Author : ndck76
+}
+
+[ENABLE]
+
+aobscanmodule(continues,RTypeFinal2-Win64-Shipping.exe,89 81 0C 02 00 00 C3) // should be unique
+alloc(newmem,$1000,continues)
+
+label(code)
+label(return)
+
+newmem:
+
+code:
+  mov [rcx+0000020C],(int)99
+  jmp return
+
+continues:
+  jmp newmem
+  nop
+return:
+registersymbol(continues)
+
+[DISABLE]
+
+continues:
+  db 89 81 0C 02 00 00
+
+unregistersymbol(continues)
+dealloc(newmem)
+
+</AssemblerScript>
+          <Hotkeys>
+            <Hotkey>
+              <Action>Toggle Activation</Action>
+              <Keys>
+                <Key>103</Key>
+              </Keys>
+              <ID>0</ID>
+              <ActivateSound TTS="EN">Infinite Continues Activated</ActivateSound>
+              <DeactivateSound TTS="EN">Infinite Continues Deactivated</DeactivateSound>
+            </Hotkey>
+          </Hotkeys>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>22</ID>
+          <Description>"Shop"</Description>
+          <LastState Value="" RealAddress="00000000"/>
+          <Color>800000</Color>
+          <GroupHeader>1</GroupHeader>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>12</ID>
+              <Description>"1 Billion Credits (Numpad 8) {Purchase anything}"</Description>
+              <LastState/>
+              <Color>800000</Color>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{ Game   : RTypeFinal2-Win64-Shipping.exe
+  Version: v1.0.1
+  Date   : 2021-05-02
+  Author : ndck76
+}
+
+[ENABLE]
+
+aobscanmodule(credits,RTypeFinal2-Win64-Shipping.exe,89 41 34 B0 01 C3 32) // should be unique
+alloc(newmem,$1000,credits)
+
+label(code)
+label(return)
+
+newmem:
+
+code:
+  mov [rcx+34],(int)99999999
+  mov al,01
+  jmp return
+
+credits:
+  jmp newmem
+return:
+registersymbol(credits)
+
+[DISABLE]
+
+credits:
+  db 89 41 34 B0 01
+
+unregistersymbol(credits)
+dealloc(newmem)
+
+</AssemblerScript>
+              <Hotkeys>
+                <Hotkey>
+                  <Action>Toggle Activation</Action>
+                  <Keys>
+                    <Key>104</Key>
+                  </Keys>
+                  <ID>0</ID>
+                  <ActivateSound TTS="EN">1 Billion Credits Activated</ActivateSound>
+                  <DeactivateSound TTS="EN">1 Billion Credits Deactivated</DeactivateSound>
+                </Hotkey>
+              </Hotkeys>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>15</ID>
+              <Description>"1 Billion Etherium, Solonium &amp; Bydogen (Numpad 9)"</Description>
+              <LastState/>
+              <Color>800000</Color>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{ Game   : RTypeFinal2-Win64-Shipping.exe
+  Version: v1.0.1
+  Date   : 2021-05-02
+  Author : ndck76
+}
+
+[ENABLE]
+
+aobscanmodule(ether,RTypeFinal2-Win64-Shipping.exe,43 89 04 13 4D 8B 49 40) // should be unique
+alloc(newmem,$1000,ether)
+
+label(code)
+label(return)
+
+newmem:
+
+code:
+  mov [r11+r10],(int)999999999
+  mov r9,[r9+40]
+  jmp return
+
+ether:
+  jmp newmem
+  nop 3
+return:
+registersymbol(ether)
+
+[DISABLE]
+
+ether:
+  db 43 89 04 13 4D 8B 49 40
+
+unregistersymbol(ether)
+dealloc(newmem)
+
+</AssemblerScript>
+              <Hotkeys>
+                <Hotkey>
+                  <Action>Toggle Activation</Action>
+                  <Keys>
+                    <Key>105</Key>
+                  </Keys>
+                  <ID>0</ID>
+                  <ActivateSound TTS="EN">1 Billion Etherium, Solonium &amp; Bydogen Activated</ActivateSound>
+                  <DeactivateSound TTS="EN">1 Billion Etherium, Solonium &amp; Bydogen Deactivated</DeactivateSound>
+                </Hotkey>
+              </Hotkeys>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>126</ID>
+          <Description>"Speed Hack"</Description>
+          <LastState Value="" RealAddress="00000000"/>
+          <Color>008000</Color>
+          <GroupHeader>1</GroupHeader>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>129</ID>
+              <Description>"Half Speed (Numpad .)"</Description>
+              <LastState/>
+              <Color>008000</Color>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>[ENABLE]
+
+luacall(speedhack_setSpeed(0.50))
+
+[DISABLE]
+
+luacall(speedhack_setSpeed(1))
+</AssemblerScript>
+              <Hotkeys>
+                <Hotkey>
+                  <Action>Toggle Activation</Action>
+                  <Keys>
+                    <Key>110</Key>
+                  </Keys>
+                  <ID>0</ID>
+                  <ActivateSound TTS="EN">Half Speed Activated</ActivateSound>
+                  <DeactivateSound TTS="EN">Return to Normal Speed </DeactivateSound>
+                </Hotkey>
+              </Hotkeys>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>190</ID>
+          <Description>"FlyBy"</Description>
+          <LastState Value="" RealAddress="00000000"/>
+          <Color>808080</Color>
+          <GroupHeader>1</GroupHeader>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>189</ID>
+              <Description>"FlyBy (Page Up) (Non DLC Version)"</Description>
+              <LastState/>
+              <Color>808080</Color>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{ Game   : RTypeFinal2-Win64-Shipping.exe
+  Version: v1.0.1
+  Date   : 2021-05-02
+  Author : ndck76
+}
+
+[ENABLE]
+
+aobscanmodule(flyby2,RTypeFinal2-Win64-Shipping.exe,E8 F0 0F C1 FF) // should be unique
+registersymbol(flyby2)
+
+flyby2:
+  db 90 90 90 90 90
+
+[DISABLE]
+
+flyby2:
+  db E8 F0 0F C1 FF
+
+unregistersymbol(flyby2)
+
+</AssemblerScript>
+              <Hotkeys>
+                <Hotkey>
+                  <Action>Toggle Activation</Action>
+                  <Keys>
+                    <Key>33</Key>
+                  </Keys>
+                  <ID>0</ID>
+                  <ActivateSound TTS="EN">FlyBy Mode Activated</ActivateSound>
+                  <DeactivateSound TTS="EN">FlyBy Mode Deactivated</DeactivateSound>
+                </Hotkey>
+              </Hotkeys>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>188</ID>
+              <Description>"FlyBy (Page Down) (DLC Version)"</Description>
+              <LastState/>
+              <Color>808080</Color>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{ Game   : RTypeFinal2-Win64-Shipping.exe
+  Version: v1.0.1
+  Date   : 2021-05-02
+  Author : ndck76
+}
+
+[ENABLE]
+
+aobscanmodule(flyby,RTypeFinal2-Win64-Shipping.exe,E8 F0 17 C0 FF) // should be unique
+registersymbol(flyby)
+
+flyby:
+  db 90 90 90 90 90
+
+[DISABLE]
+
+flyby:
+  db E8 F0 17 C0 FF
+
+unregistersymbol(flyby)
+
+</AssemblerScript>
+              <Hotkeys>
+                <Hotkey>
+                  <Action>Toggle Activation</Action>
+                  <Keys>
+                    <Key>34</Key>
+                  </Keys>
+                  <ID>0</ID>
+                  <ActivateSound TTS="EN">FlyBy Mode Activated</ActivateSound>
+                  <DeactivateSound TTS="EN">FlyBy Mode Deactivated</DeactivateSound>
+                </Hotkey>
+              </Hotkeys>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>191</ID>
+          <Description>"Instant Beam Charge Editor (End) Key"</Description>
+          <LastState/>
+          <Color>FF0000</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{ Game   : RTypeFinal2-Win64-Shipping.exe
+  Version: v1.0.1
+  Date   : 2021-05-02
+  Author : ndck76
+}
+
+[ENABLE]
+
+aobscanmodule(beam,RTypeFinal2-Win64-Shipping.exe,F3 0F 11 B7 3C 04 00 00) // should be unique
+alloc(newmem,$1000,beam)
+
+alloc(data,8)
+registersymbol(data)
+
+label(code)
+label(return)
+
+newmem:
+
+code:
+  mov [data],rdi
+  movss [rdi+0000043C],xmm6
+  jmp return
+
+beam:
+  jmp newmem
+  nop 3
+return:
+registersymbol(beam)
+
+[DISABLE]
+
+beam:
+  db F3 0F 11 B7 3C 04 00 00
+
+unregistersymbol(beam)
+unregistersymbol(data)
+dealloc(newmem)
+dealloc(data)
+</AssemblerScript>
+          <Hotkeys>
+            <Hotkey>
+              <Action>Toggle Activation</Action>
+              <Keys>
+                <Key>35</Key>
+              </Keys>
+              <ID>0</ID>
+              <ActivateSound TTS="EN">Instant Beam Charge Editor Activated</ActivateSound>
+              <DeactivateSound TTS="EN">Instant Beam Charge Editor Deactivated</DeactivateSound>
+            </Hotkey>
+          </Hotkeys>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>192</ID>
+              <Description>"Charge Value"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <Color>FF0000</Color>
+              <VariableType>Float</VariableType>
+              <Address>data</Address>
+              <Offsets>
+                <Offset>43c</Offset>
+              </Offsets>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>156</ID>
+      <Description>"────────────────────────────    Created    By   N D C K 7 6    ───────────────────────────────────"</Description>
+      <Options moHideChildren="1"/>
+      <LastState Value="" RealAddress="00000000"/>
+      <Color>008080</Color>
+      <GroupHeader>1</GroupHeader>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>158</ID>
+          <Description>"MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM"</Description>
+          <LastState Value="" RealAddress="00000000"/>
+          <Color>408080</Color>
+          <GroupHeader>1</GroupHeader>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>159</ID>
+          <Description>"MMMMMMMMMMMMMMMMMMMMMMMMNNMMMMMMMMMMMMMMMMMMMMMMMM"</Description>
+          <LastState Value="" RealAddress="00000000"/>
+          <Color>408080</Color>
+          <GroupHeader>1</GroupHeader>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>160</ID>
+          <Description>"  MMMMMMMMMMMMMMMMMMMMMMNN++NNMMMMMMMMMMMMMMMMMMMMMM"</Description>
+          <LastState Value="" RealAddress="00000000"/>
+          <Color>408080</Color>
+          <GroupHeader>1</GroupHeader>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>161</ID>
+          <Description>"   MMMMMMMMMMMMMMMMMMMMMMNy++yNMMMMMMMMMMMMMMMMMMMMMM"</Description>
+          <LastState Value="" RealAddress="00000000"/>
+          <Color>408080</Color>
+          <GroupHeader>1</GroupHeader>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>162</ID>
+          <Description>"    MMMMMMMMMMMMMMMMMMMMMNhoddohNMMMMMMMMMMMMMMMMMMMMM"</Description>
+          <LastState Value="" RealAddress="00000000"/>
+          <Color>408080</Color>
+          <GroupHeader>1</GroupHeader>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>163</ID>
+          <Description>"     MMMMMMMMMMMMMMMMMMMMNd+hddh+dNMMMMMMMMMMMMMMMMMMMM"</Description>
+          <LastState Value="" RealAddress="00000000"/>
+          <Color>408080</Color>
+          <GroupHeader>1</GroupHeader>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>164</ID>
+          <Description>"      MMMMMMMMMMMMMMMMMMNNmshmyymhsmNNMMMMMMMMMMMMMMMMMM"</Description>
+          <LastState Value="" RealAddress="00000000"/>
+          <Color>408080</Color>
+          <GroupHeader>1</GroupHeader>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>165</ID>
+          <Description>"       MMMMMMMMMMMMMMMMMNNNddmhyyhmddNNNMMMMMMMMMMMMMMMMM"</Description>
+          <LastState Value="" RealAddress="00000000"/>
+          <Color>408080</Color>
+          <GroupHeader>1</GroupHeader>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>166</ID>
+          <Description>"          MMMMMMMMMMMMMMMMmNmNds/-::-/sdNmNmMMMMMMMMMMMMMMMM"</Description>
+          <LastState Value="" RealAddress="00000000"/>
+          <Color>408080</Color>
+          <GroupHeader>1</GroupHeader>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>167</ID>
+          <Description>"           MMMMMMMMMMMMNMMmdhNy-+ysmmsy+-yNhdmMMNMMMMMMMMMMMM"</Description>
+          <LastState Value="" RealAddress="00000000"/>
+          <Color>408080</Color>
+          <GroupHeader>1</GroupHeader>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>168</ID>
+          <Description>"             MMMMMMMMMMMMNNNmmNd:shhyyyyhhs:dNmmNNNMMMMMMMMMMMM"</Description>
+          <LastState Value="" RealAddress="00000000"/>
+          <Color>408080</Color>
+          <GroupHeader>1</GroupHeader>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>169</ID>
+          <Description>"       MMMMMMMMMMMMMNNmmNshmMmhyyhmMmhsNmmNNMMMMMMMMMMMMM"</Description>
+          <LastState Value="" RealAddress="00000000"/>
+          <Color>408080</Color>
+          <GroupHeader>1</GroupHeader>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>170</ID>
+          <Description>"        MMMMMMMMNMMMNNNmmsydmhmmNNmmhmdysmmNNNMMMNMMMMMMMM"</Description>
+          <LastState Value="" RealAddress="00000000"/>
+          <Color>408080</Color>
+          <GroupHeader>1</GroupHeader>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>171</ID>
+          <Description>"                   MMMMMMNNdNNNmmhyhsdNm..hood..mNhsdyhmmNNNdNNMMMMMM"</Description>
+          <LastState Value="" RealAddress="00000000"/>
+          <Color>408080</Color>
+          <GroupHeader>1</GroupHeader>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>172</ID>
+          <Description>"                      MMMMMMNNh:/++//sdhNmmdhhyyhhdmmNhds//++/:hNNMMMMMM"</Description>
+          <LastState Value="" RealAddress="00000000"/>
+          <Color>408080</Color>
+          <GroupHeader>1</GroupHeader>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>173</ID>
+          <Description>"                        MMMMMMNmds.`.:yhdMNdhhosmmsohhdNMdhy:.`.sdmNMMMMMM"</Description>
+          <LastState Value="" RealAddress="00000000"/>
+          <Color>408080</Color>
+          <GroupHeader>1</GroupHeader>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>174</ID>
+          <Description>"                  MMMMMMMNmh:-/:sdmNMNNdo+oo+odNNMNmds:/-:hmNMMMMMMM"</Description>
+          <LastState Value="" RealAddress="00000000"/>
+          <Color>408080</Color>
+          <GroupHeader>1</GroupHeader>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>175</ID>
+          <Description>"            MMMNMMNNNmmo-omNmhdNNmmdhhdmmNNdhmNmo-ommNNNMMNMMM"</Description>
+          <LastState Value="" RealAddress="00000000"/>
+          <Color>408080</Color>
+          <GroupHeader>1</GroupHeader>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>176</ID>
+          <Description>"               MMMMNNNNNmNNy+sNmdyhmmhhddhhmmhydmNs+yNNmNNNNNMMMM"</Description>
+          <LastState Value="" RealAddress="00000000"/>
+          <Color>408080</Color>
+          <GroupHeader>1</GroupHeader>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>177</ID>
+          <Description>"              MMMMMMNNddmNNdyhNMMNdddhhhhdddNMMNhyhNNmddNNMMMMMM"</Description>
+          <LastState Value="" RealAddress="00000000"/>
+          <Color>408080</Color>
+          <GroupHeader>1</GroupHeader>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>178</ID>
+          <Description>"        MMMMMMMMmdyydmMNNNNNNMNmddmNMNNNNNNMmdyydmMMMMMMMM"</Description>
+          <LastState Value="" RealAddress="00000000"/>
+          <Color>408080</Color>
+          <GroupHeader>1</GroupHeader>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>179</ID>
+          <Description>"           MMMMMMMMMMNNdyyyhddmNmmddddmmNmdddyyydNNMMMMMMMMMM"</Description>
+          <LastState Value="" RealAddress="00000000"/>
+          <Color>408080</Color>
+          <GroupHeader>1</GroupHeader>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>180</ID>
+          <Description>"         MMMMMMMMMMMMMMNNmddhhhhhyyhhhhhddmNNMMMMMMMMMMMMMM"</Description>
+          <LastState Value="" RealAddress="00000000"/>
+          <Color>408080</Color>
+          <GroupHeader>1</GroupHeader>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>181</ID>
+          <Description>" MMMMMMMMMMMMMMMMMMMMMNNNNNNNNMMMMMMMMMMMMMMMMMMMMM"</Description>
+          <LastState Value="" RealAddress="00000000"/>
+          <Color>408080</Color>
+          <GroupHeader>1</GroupHeader>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>182</ID>
+          <Description>"MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM"</Description>
+          <LastState Value="" RealAddress="00000000"/>
+          <Color>408080</Color>
+          <GroupHeader>1</GroupHeader>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+  <Signature>
+    <SignedHash HashSize="132">090J1?)4HUcneS7:FjFHSc6$dEfYcGz32m#Dvi8*z8n!szj:-(H:Gzzj*+3xA6PJ#6LE=)Bkq}@iHsw69y0)1h[*y5N[@$Re3Bo1ja2{8RB7T$8^uZz%h,QQeL+bmKN^{{Y,bT79,wkz(7*1x?kRl=;Gy/ol(S]5W5eDf</SignedHash>
+    <PublicKey Size="1714">5C8xGQ*y;zWn;@=c[2/iLrXU^i}s?vMMG0HLI3}(0B2$))Q?JH-IFHS3U_E-B,b=Spo::fSV%yc6W{,apec9X?F]@lbmge,-u6q;K1c+3^%vNtkurgQI5,n^qW%GlpC1*QxK6DcOa@HC@BO-mby.e2+Cv%l0kc2+M,FfbTs+2k[]*d5#UHqd#e#JHW/NtXTEuh:C.Kif9XvsN1Azqq0RPzk.Q-o2cxh$.07+$I00.m800.mQ0RsR5000010000Q0R.d70001P0000R0R.d70001X0000e0RsR5000020000n0RjLL0001f0000o0RjLN0001x0000J0s^a6000010001KhXeot0001[000000000.000010000.000010000%Lqt/$Wgt.=X:7[3R%vB-05UK#F+-0YIx.aJF*%tcIXW.f00RJ!k@%q(0000uGynhspacK]0000y00003pacK]0000K000000000000030zyJ^l02BZ]0_6lb0uccN5dr[)0E7Sn0RaI40RjO50RjR70s^pD0_EjA1[T5H1qTKP2L{cR1[%iY2=z*Z2nGiV4GIbi3:9nn2MG:j4h#/q3:9kb0_NsD0_W;J1PBrg3Jekw5*u+.5*u+.5*u+.5*u+.5*u+.5*u+.5*u+.5*u+.5*u+.5*u+.5*u+.5*u+._HJ?*000360RaF20000000000009C92M7rO3J=GR0t5sF0_NsE00000000330_W(I2LK2W5)yI(Au$RfK@0M978e;MGedEa0RRI50RR910000000000000651OX8M0s.a71Oos700000000010ssRM5,MXJL4hJ,?c-HX3/CiG0ucid06ze$S$Xu.%kQpBE#7d3WTsGXwWSR@s@VqsNzmYdh:E8]P^Dk]xh^aec7Tn)4kB)4oE9j4B3AC=T=[k_Nu8;b(}D3GL_?UwV2d%1Eu]v[w3L9bf#B:E?rPR3!74ZrS:D$ZDSQqm*1E4@95iNGs.8AcOz2B}s{C-BUYsx:4i;$s3+-QH1s=si]NPvZJOykPRv;7*)uU76YAR.FYB4g1]JAn{dfkYGdy={/nCJuFs0Z,W2M=[%M)xL)2_cc0bY6U9[mgez@o:UpS=RUOr+oYIsE$Om$:Rr37:nh3dLaRCCC9nPXl+Ckpe0%!+m7li)eXmv;tMv^/naZ7g^lHwb{Cs(z[l:hVX(jIT.)^E-8vJhMu,c,yC?)DRnL)tj$M5:b:[.23g)T;PG*I{HiEa3h=)TxsFgh2#w]%7t3*fN3LAF}R8+s(,I+Z/=jc-0X/VM;RzA/#49]*wDw@ow/]Vj+Uoc@wb5A31Lyd*}CB%=H8vVR?#%j8iwKu@Yrjyg1wNekc:nEh?v9a/F4_ENNmesO)Z)U?n8Jq,;bj70.4C@i{qS{=HA!/xOJ9Gr.,r}5F);E%Ly7@Mf=XgXFC4!w!CKRjizo[Po!X=zP9.e,QZV_4Hw4=s=A2^64jh3[VKZMAuz%AYeGeuxOm-=?t=yQ)mrmQmYQ{s#cOTSC$f4#2Vyzgf1bl2w*-yhtnS-hx2T3HmL@F(k@7NU%vPHJfz6+twT?_NC?-wI+c1fm:+3nZj?DL-sVJkc(c7e/fFUkbX4-cYwTSc-zmwMf+gH7%K-ITsHV2(NqXC0[D@R7mbd)TXp[(h$=+qrhV]nX]qvPbR(t:8$wGiK8,8t@yfFvk;!5=%bWh[4_PT02sptAYe^lM}9^ZHdValyua3;rMi+]%F3jm*S60NaN=WjrZKI!Pbp;7wMjdYN;7x7,p*w=;N^3Qro2q1rh%P6!bU@W@2TTFP!NncE.BINi}CgCf[H#h3eb5S]_FFVE$@GoKIDp.+A*qx0wMH)1Iqvn017;Z18:.{yr*#1eC.G[jMC9M^NYYI;(oUl.+[ttj.916F%PH@r/QdZ9aMYZa}$RJx2tZt=bo.b!3Z01Z7ev[%2YflCqgmGQkJ5nD3W]UesDs6_Jj590001awr]$=4QYE6Or5g1?lb:P.S}/q#[x$,/Z1Jzq?7W,vh}#;%:{#yDkrE#@#{%0YjRa^(zU4fC3Z7HDo#.40qpyZa8)MtO4_T)TD6rzVcZAz6i?4t]9Ue2+%SD22Hl3XYuEcp@2?M_ur1YwC%A_?9e12Ss2YWSz,@J{naB</PublicKey>
+  </Signature>
+</CheatTable>
