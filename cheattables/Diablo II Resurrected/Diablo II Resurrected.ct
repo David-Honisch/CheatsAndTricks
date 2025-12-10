@@ -1,0 +1,1437 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="29">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>92</ID>
+      <Description>"Cheats"</Description>
+      <LastState Value="" RealAddress="00000000"/>
+      <GroupHeader>1</GroupHeader>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>91</ID>
+          <Description>"No stamina Drain"</Description>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[enable]
+//00627030:
+//ret 0010
+00580C4C:
+db eb
+
+[disable]
+//00627030:
+//db 55 8B EC
+00580C4C:
+db 74
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>106</ID>
+          <Description>"GodMode (not done)"</Description>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[enable]
+//00548760: // image??
+//ret 0004
+
+
+//006250B0: // 1 value make you run slow
+//ret 0010
+006270B0: // godmode // 1 hit KO ??? (many callers)
+ret 0010
+[disable]
+</AssemblerScript>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>93</ID>
+      <Description>"GamePlay"</Description>
+      <Options moHideChildren="1"/>
+      <LastState Value="" Activated="1" RealAddress="00000000"/>
+      <GroupHeader>1</GroupHeader>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>6</ID>
+          <Description>"Resolution Hook"</Description>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript Async="1">[enable]
+alloc(ScreenSizeHook, 128)
+
+alloc(myhook, 128)
+label(myhookret)
+alloc(myhook2, 128)
+label(myhookret2)
+alloc(widthX, 4)
+alloc(widthY, 4)
+alloc(ScreenwidthX, 4)
+alloc(ScreenwidthY, 4)
+registersymbol(ScreenwidthX)
+registersymbol(ScreenwidthY)
+
+{
+allowed resolutions??? else crash, probably scale thingy
+640x480
+800x600
+1344x700 &lt;&lt; widescreen cant choose normally and objects is disformed
+}
+
+// Game resolution
+widthX:
+dd #1344
+
+widthY:
+dd #700
+
+
+// Game screen size
+ScreenwidthX:
+dd #1600//#1600 #1280
+
+ScreenwidthY:
+dd #900//#900 #720
+
+
+myhook:
+mov eax, [widthX]
+mov ecx, [widthY]
+mov [0071146C], eax // opcode
+mov [00711470], ecx // opcode +4
+
+mov esi, 2 // always show "new stat and skill button"
+jmp myhookret
+
+0044BA7C-6: // Game Size
+db 01 00 00 00 90 90 90 90 90 90 90 90
+jmp myhook
+myhookret:
+
+/////////////////////////////////////////////////////////////
+
+
+myhook2:
+mov edi, [widthX]
+mov esi, [widthY]
+jmp myhookret2
+
+
+006C7B32: // something
+jmp myhook2
+myhookret2:
+db EB 22 // jmp over "settings"
+
+///////////////////////////////////////////////////////////
+
+006C82D9:
+mov ecx, [widthX]
+mov [0098A16C], ecx // opcode
+db 90 90 90 90 90
+
+
+
+//////////////////////////////////////////////////////////
+
+ScreenSizeHook:
+mov ecx, [ScreenwidthX]
+mov eax,[ebp+0C]
+mov [eax], ecx
+
+mov eax, [ScreenwidthY]
+mov ecx,[ebp+10]
+mov [ecx], eax
+pop ebp
+ret 000C
+
+004F5576: // screen size hook
+jmp ScreenSizeHook
+
+
+
+
+
+
+
+
+
+
+[disable]
+dealloc(ScreenSizeHook)
+dealloc(myhook)
+dealloc(myhook2)
+dealloc(widthX)
+dealloc(widthY)
+dealloc(ScreenwidthX)
+dealloc(ScreenwidthY)
+unregistersymbol(ScreenwidthX)
+unregistersymbol(ScreenwidthY)
+
+0044BA7C-6:
+db 00 00 00 00 EB 05 A1 6C 14 71 00 8B 0D 70 14 71 00
+
+006C7B32:
+db 74 1D 83 F8 03 74 0C
+
+006C82D9:
+db 74 1B 83 F9 03 74 0B C7 05 6C A1 98 00 20 03 00 00
+
+004F5576:
+db 83 F8 03 77 49
+</AssemblerScript>
+          <Hotkeys>
+            <Hotkey>
+              <Action>Toggle Activation</Action>
+              <Keys>
+                <Key>113</Key>
+              </Keys>
+              <ID>0</ID>
+            </Hotkey>
+          </Hotkeys>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>14</ID>
+              <Description>"ScreenwidthX"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>ScreenwidthX</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>15</ID>
+              <Description>"ScreenwidthY"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>ScreenwidthY</Address>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>11</ID>
+          <Description>"Potion Position"</Description>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[enable]
+alloc(potionhook, 128)
+alloc(PotionX, 4)
+alloc(PotionY, 4)
+registersymbol(PotionX)
+registersymbol(PotionY)
+
+alloc(origedi, 4)
+
+alloc(newmem,128)
+alloc(orig, 4)
+label(newmemret)
+
+
+alloc(left, 4)
+alloc(right, 4)
+alloc(top, 4)
+alloc(bottom, 4)
+registersymbol(left)
+registersymbol(right)
+registersymbol(top)
+registersymbol(bottom)
+// #273 x #98 for #1344x#700
+
+
+PotionX:
+dd #273
+
+PotionY:
+dd #98
+
+
+
+
+
+//////////////////////////////////////////////////////////////////////////// potion image
+potionhook:
+mov [origedi], edi
+
+mov edx,[eax]
+mov ecx,[ebp+10]
+
+mov edi, [PotionX]
+add edx, edi
+
+mov [ecx],edx  // potion and text X?
+
+///////////////////////////////////////////////////////////////
+
+mov edx,[eax+04]
+
+mov edi, [PotionX]
+add edx, edi
+
+mov [ecx+04],edx // no clue should be text but isent
+//////////////////////////////////////////////////////////////
+
+mov edx,[eax+08]
+
+mov edi, [PotionY]
+add edx, edi
+
+mov [ecx+08],edx // Potion Y
+
+//////////////////////////////////////////////////////////////
+
+mov eax,[eax+0C]
+
+mov edi, [PotionY]
+add eax, edi
+
+mov [ecx+0C],eax // Text Y
+
+mov edi, [origedi]
+//////////////////////////////////////////////////////////////
+pop ebp
+ret 0010
+
+00660D6B:
+jmp potionhook
+
+
+
+
+////////////////////////////////////////////////////////////// box popup
+
+newmem:
+lea eax,[ebp+eax-00000100] // opcode
+
+
+mov [orig], ecx
+
+mov ecx, [PotionX] // left
+add [eax], ecx
+
+mov ecx, [eax] // del
+mov [left], ecx // del
+
+mov ecx, [PotionY] // top
+add [eax+08], ecx
+
+mov ecx, [eax+8] // del
+mov [top], ecx // del
+
+mov ecx, [PotionX]
+add [ebp-000000CC], ecx // right
+
+mov ecx, [ebp-000000CC] // del
+mov [right], ecx // del
+
+mov ecx, [PotionY]
+add [ebp-000000C4], ecx // bottom
+
+mov ecx, [ebp-000000C4] // del
+mov [bottom], ecx // del
+
+mov ecx, [orig]
+
+jmp newmemret
+
+
+00498E03:
+jmp newmem
+newmemret:
+cmp esi,[eax] // replace cmp
+db 90 90 90 90 90 90 90
+
+[disable]
+dealloc(potionhook, 128)
+dealloc(PotionX, 4)
+dealloc(PotionY, 4)
+unregistersymbol(PotionX)
+unregistersymbol(PotionY)
+
+00660D6B:
+db 8B 10 8B 4D 10
+
+dealloc(newmem)
+
+00498E03:
+db 3B B4 05 00 FF FF FF 8D 84 05 00 FF FF FF
+</AssemblerScript>
+          <Hotkeys>
+            <Hotkey>
+              <Action>Toggle Activation</Action>
+              <Keys>
+                <Key>113</Key>
+              </Keys>
+              <ID>0</ID>
+            </Hotkey>
+          </Hotkeys>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>12</ID>
+              <Description>"PotionX"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>PotionX</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>13</ID>
+              <Description>"PotionY"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>PotionY</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>60</ID>
+              <Description>"left"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>left</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>61</ID>
+              <Description>"right"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>right</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>62</ID>
+              <Description>"top"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>top</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>63</ID>
+              <Description>"bottom"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>bottom</Address>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>19</ID>
+          <Description>"Chest and inventory pos fix"</Description>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[enable]
+alloc(myhook, 128)
+label(myhookret)
+alloc(PosX, 4)
+alloc(PosY, 4)
+registersymbol(PosX)
+registersymbol(PosY)
+
+PosX:
+dd #623//623
+
+PosY:
+dd #-160
+
+myhook:
+//mov ebx, [PosX]
+//mov [007A2858],ebx
+mov [007A2858],00000050
+
+mov ebx, [PosY]
+mov [007A285C],ebx
+
+xor ebx, ebx
+
+jmp myhookret
+
+
+
+
+00456F00:
+jmp myhook
+myhookret:
+db 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90
+
+[disable]
+
+00456F00:
+db 75 16 C7 05 58 28 7A 00 50 00 00 00 C7 05 5C 28 7A 00 C4 FF FF FF
+
+</AssemblerScript>
+          <Hotkeys>
+            <Hotkey>
+              <Action>Toggle Activation</Action>
+              <Keys>
+                <Key>113</Key>
+              </Keys>
+              <ID>0</ID>
+            </Hotkey>
+          </Hotkeys>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>20</ID>
+              <Description>"PosX"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>PosX</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>21</ID>
+              <Description>"PosY"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>PosY</Address>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>44</ID>
+          <Description>"Set New X"</Description>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[enable]
+alloc(NewX, 4)
+registersymbol(NewX)
+alloc(NewY, 4)
+registersymbol(NewY)
+
+NewX:
+dd #623
+
+NewY:
+dd #-60
+
+
+0048F402: // inventory
+sub edx,[NewX]
+
+0048F441: // inventory
+sub ecx,[NewX]
+
+0048F475: // inventory
+sub eax,[NewX]
+
+0048F4AC: // inventory
+sub edx,[NewX]
+
+0048FF6B: // inventory
+sub ecx,[NewX]
+
+0048DFC1: // inventory
+sub esi,[NewX]
+
+0048E03D: // inventory
+sub esi,[NewX]
+
+
+0048E0CB: // inventory
+sub esi, [NewX]
+
+0048E00F: // inventory
+sub esi, [NewX]
+
+00486E15: // inventory
+sub eax, [NewX]
+
+00486DD2: // inventory
+sub eax, [NewX]
+
+004881BB:
+sub eax, [NewX]
+
+00486F28:
+sub eax, [NewX]
+
+
+
+//////////////////////////////////////// quest
+
+004A39D7:
+sub ecx, [NewY]
+
+004A3AAA:
+sub ecx, [NewY]
+
+004A3A69:
+sub edx, [NewY]
+
+004A3C7D:
+sub ecx, [NewY]
+
+004A3C09:
+sub eax, [NewY]
+
+004A3D22:
+add edi, [NewY]
+
+004A399F:
+sub ecx, [NewY]
+
+004A3E9C:
+add edi, [NewY]
+
+004A42B7:
+add edi, [NewY]
+
+004A1361:
+sub eax, [NewY]
+
+//////////////////////////////////////// waypoints
+0049CC16:
+sub eax, [NewY]
+
+0049CC5F:
+sub ecx, [NewY]
+
+0049CD3C:
+sub eax, [NewY]
+
+0049CD6D:
+sub ecx, [NewY]
+
+0049CCEA:
+sub edx, [NewY]
+
+0049CE5B:
+sub ecx, [NewY]
+
+0049CE80:
+sub edx, [NewY]
+
+0049CB15:
+add eax,[NewY]
+
+0049D1A7:
+add edi,[NewY]
+
+0049D050:
+add edi,[NewY]
+
+0049CDD8:
+mov ecx,[NewY]
+
+0049CE20:
+sub eax,[NewY]
+
+
+
+//////////////////////////////////////// "hired"
+
+0048A864:
+sub eax, [NewY]
+0048A8F4:
+sub ebx, [NewY]
+0048AA34:
+sub eax, [NewY]
+
+// skill tree
+
+004AAB17:
+sub edx, [NewX]
+
+004AAB5B:
+sub ecx, [NewX]
+
+004AAB90:
+sub eax, [NewX]
+
+004AABC8:
+sub edx, [NewX]
+
+004AAC11:
+sub ecx, [NewX]
+
+004AAC48:
+sub ecx, [NewX]
+
+004AAC7E:
+sub ecx, [NewX]
+
+004AACAF:
+sub eax, [NewX]
+
+004AACF0:
+sub ecx, [NewX]
+
+004AAD24:
+sub ecx, [NewX]
+
+004AAD58:
+sub ecx, [NewX]
+
+004AAAAE :
+sub eax, [NewX]
+
+004AC2AE :
+sub edx, [NewX]
+
+004ABFDC :
+sub edi, [NewX]
+
+004ABFF4 :
+sub edi, [NewX]
+
+004AC00C :
+sub edi, [NewX]
+
+004AB58F :
+sub eax, [NewX]
+
+004AB754 :
+sub eax, [NewX]
+
+004AB77D :
+sub esi, [NewX]
+
+004AB347 :
+sub eax, [NewX]
+
+/////////////////////////////////////////////////////////////// skillpoints
+
+
+004AB860 :
+sub ecx, [NewX]
+004AB98F :
+sub ecx, [NewX]
+//004ABAB5 :
+//sub eax, [NewX]
+//004ABAE8 : // cant click skill??
+//sub eax, [NewX]
+//004AAA6E : // cant click skill??
+//sub eax, [NewX]
+//004AAA59 : // cant click skill??
+//sub eax, [NewX]
+//004AAA83 : // cant click skill??
+//sub eax, [NewX]
+
+
+004AB489 :
+sub ecx, [NewX]
+004AB4E5 :
+sub ecx, [NewX]
+004AB643 :
+sub esi, [NewX]
+004AB4B9 :
+sub ecx, [NewX]
+004AB511 :
+sub ecx, [NewX]
+004ABA73 :
+sub eax, [NewX]
+004AB6A1 :
+sub esi, [NewX]
+004ABCD3 :
+sub eax, [NewX]
+004ABD20 :
+sub eax, [NewX]
+004ABCEA :
+sub eax, [NewX]
+004ABA94:
+sub eax,[NewX] // no clue
+
+
+//
+004ABAB5:
+sub eax,[NewX]// click close
+
+004AC541: // 0 skillpoint
+sub eax,[NewX]
+
+004A77A5:
+mov eax, [NewX]
+
+
+004ABAE8:
+sub eax,[NewX] // cant click without it
+
+004AAA59:
+sub eax,[NewX] // left row
+
+004AAA6E :
+sub eax,[NewX] // middle row
+
+004AAA83:
+sub eax,[NewX] // right row
+
+004ABD64:
+mov eax,[NewX] // mouse up (press skillpoint)
+
+004A76D5: // X num 2 if 2 window open
+mov eax,[NewX]
+
+004A7939: // X num 2 if 2 window open
+mov eax,[NewX]
+
+
+///////////////////////////////////
+
+004AAD99:
+sub ecx, [NewX]
+
+[disable]
+dealloc(NewX, 4)
+unregistersymbol(NewX)
+
+
+004ABAE8:
+sub eax,[007A2858]
+
+004AAA59:
+sub eax,[007A2858]
+
+004AAA6E :
+sub eax,[007A2858]
+
+004AAA83:
+sub eax,[007A2858]
+</AssemblerScript>
+          <Hotkeys>
+            <Hotkey>
+              <Action>Toggle Activation</Action>
+              <Keys>
+                <Key>113</Key>
+              </Keys>
+              <ID>0</ID>
+            </Hotkey>
+          </Hotkeys>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>45</ID>
+              <Description>"NewX"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>NewX</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>47</ID>
+              <Description>"NewY"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>NewY</Address>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>81</ID>
+          <Description>"Screen live objects"</Description>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[enable]
+alloc(nosize2, 128)
+
+0045AFC5: // char and chest X
+db 90 90 90 90 90 90
+
+0045B05E:// idk
+db 90 90 90 90 90 90
+
+004F52A0:
+mov ecx, 0
+mov [007C8CC4], ecx
+ret
+
+nosize2:
+mov eax, 0
+mov [007A5214], eax
+ret
+
+0045AEC8:
+call nosize2
+
+0045AEDD:
+call nosize2
+
+0045AEE4:
+call nosize2
+
+
+
+0045AF30:
+db 90 90
+0045AF4B:
+db 90 90
+
+[disable]
+
+0045AFC5:
+sub eax,[007A5214]
+
+0045B05E:
+sub eax,[007A5214]
+
+004F52A0:
+mov [007C8CC4],ecx
+ret
+
+0045AEC8:
+mov [007A5214],eax
+
+0045AEDD:
+mov [007A5214],eax
+
+0045AEE4:
+mov eax,[007A5214]
+
+0045AF30:
+sub ecx,edx
+0045AF4B:
+add ecx,edx
+</AssemblerScript>
+          <Hotkeys>
+            <Hotkey>
+              <Action>Toggle Activation</Action>
+              <Keys>
+                <Key>113</Key>
+              </Keys>
+              <ID>0</ID>
+            </Hotkey>
+          </Hotkeys>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>89</ID>
+          <Description>"Screen background"</Description>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[enable]
+alloc(myhook, 128)
+label(myhookret)
+
+myhook:
+mov ebp,esp
+
+mov [ecx+04], 0		//336	-336	0
+mov [ecx+08], 0		//0	0	0
+mov [ecx+0C], 540	//1680	1008	1344
+mov [ecx+10], 294	//660	660	660
+
+
+mov eax,[ecx+04]
+
+jmp myhookret
+
+00476071:
+jmp myhook
+myhookret:
+
+
+[disable]
+00476071:
+mov ebp,esp
+mov eax,[ecx+04]
+</AssemblerScript>
+          <Hotkeys>
+            <Hotkey>
+              <Action>Toggle Activation</Action>
+              <Keys>
+                <Key>113</Key>
+              </Keys>
+              <ID>0</ID>
+            </Hotkey>
+          </Hotkeys>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>90</ID>
+          <Description>"Screen background"</Description>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[enable]
+// check 00499465 - 83 F8 02              - cmp eax,02 { 2 }
+
+// hook pos 0045AE90
+
+{00470F2F:
+db 31 C0 90 90 90
+004734A0:
+db 31 C0 90 90 90
+00454F3C:
+db 31 C0 90 90 90
+00452D26:
+db 31 C0 90 90 90
+
+004DF52F:
+db 31 C0 90 90 90
+004DEF87:
+db 31 C0 90 90 90
+
+00459465: // minimap?
+db 31 C0 90 90 90
+00456F9B: // minimap?
+db 31 C0 90 90 90
+
+0044C1AA: // right click
+db 31 C0 90 90 90
+0044C1CD: // right cick
+db 31 C0 90 90 90
+0044C207: // right cick
+db 31 C0 90 90 90
+
+0049946A: // inventory frfame
+db 31 C0 90 90 90
+00499474: // inventory frfame
+db 31 C0 90 90 90
+0049948D: // inventory frame
+db 31 C0 90 90 90
+00499483: // inventory frame
+db 31 C0 90 90 90
+
+//}
+
+00476175: // background
+xor eax, eax
+db 90 90 90
+
+004DEAC6: // &lt;&lt; background
+xor eax, eax
+db 90 90 90
+
+004DE76C: // &lt;&lt;&lt; background
+xor eax, eax
+db 90 90 90
+
+004DF1FF: /// &lt;&lt; background
+xor eax, eax
+db 90 90 90
+
+0044CAE8: // &lt;&lt; black screen removal
+xor eax, eax
+db 90 90 90
+
+00459719: // minimap
+xor eax, eax
+db 90 90 90
+
+00466887: // Right Side of left box (bea ble to click mobs
+db 31 C0 90 90 90
+
+00467134: // Right Side of left box (bea ble to click mobs
+db 31 C0 90 90 90
+
+00468770: // mouse jump left and right
+ret
+
+
+
+[disable]
+
+00470F2F:
+call 0045AE90
+004DEAC6:
+call 0045AE90
+004734A0:
+call 0045AE90
+00454F3C:
+call 0045AE90
+00452D26:
+call 0045AE90
+0049946A:
+call 0045AE90
+00499474:
+call 0045AE90
+00499483:
+call 0045AE90
+0049948D:
+call 0045AE90
+00467134:
+call 0045AE90
+00476175:
+call 0045AE90
+0044CAE8:
+call 0045AE90
+004DE76C:
+call 0045AE90
+004DF52F:
+call 0045AE90
+004DEF87:
+call 0045AE90
+004DF1FF:
+call 0045AE90
+00466887:
+call 0045AE90
+0044C1AA:
+call 0045AE90
+0044C1CD:
+call 0045AE90
+0044C207:
+call 0045AE90
+00459719:
+call 0045AE90
+00459465:
+call 0045AE90
+00456F9B:
+call 0045AE90
+
+
+00468770:
+push ebp
+</AssemblerScript>
+          <Hotkeys>
+            <Hotkey>
+              <Action>Toggle Activation</Action>
+              <Keys>
+                <Key>113</Key>
+              </Keys>
+              <ID>0</ID>
+            </Hotkey>
+          </Hotkeys>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>28</ID>
+          <Description>"Screen Size Only"</Description>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[enable]
+alloc(ScreenSizeHook, 128)
+alloc(ScreenwidthX, 4)
+alloc(ScreenwidthY, 4)
+registersymbol(ScreenwidthX)
+registersymbol(ScreenwidthY)
+
+// Game screen size
+ScreenwidthX:
+dd #1600
+
+ScreenwidthY:
+dd #900
+
+
+//////////////////////////////////////////////////////////
+
+ScreenSizeHook:
+mov ecx, [ScreenwidthX]
+mov eax,[ebp+0C]
+mov [eax], ecx
+
+mov eax, [ScreenwidthY]
+mov ecx,[ebp+10]
+mov [ecx], eax
+pop ebp
+ret 000C
+
+004F5576: // screen size hook
+jmp ScreenSizeHook
+
+
+
+
+
+
+
+
+
+
+[disable]
+dealloc(ScreenSizeHook)
+dealloc(ScreenwidthX)
+dealloc(ScreenwidthY)
+unregistersymbol(ScreenwidthX)
+unregistersymbol(ScreenwidthY)
+
+004F5576:
+db 83 F8 03 77 49
+</AssemblerScript>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>29</ID>
+              <Description>"ScreenwidthX"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>ScreenwidthX</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>30</ID>
+              <Description>"ScreenwidthY"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>ScreenwidthY</Address>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+  <DisassemblerComments>
+    <DisassemblerComment>
+      <Address>"Game.exe"+55F20</Address>
+      <Comment>push ebp
+</Comment>
+    </DisassemblerComment>
+    <DisassemblerComment>
+      <Address>"Game.exe"+55F21</Address>
+      <Comment>mov ebp,esp
+</Comment>
+    </DisassemblerComment>
+    <DisassemblerComment>
+      <Address>"Game.exe"+56073</Address>
+      <Comment>ja 004562A0
+</Comment>
+    </DisassemblerComment>
+    <DisassemblerComment>
+      <Address>"Game.exe"+56080</Address>
+      <Comment>jmp dword ptr [eax*4+004562BC]
+</Comment>
+    </DisassemblerComment>
+    <DisassemblerComment>
+      <Address>"Game.exe"+5613B</Address>
+      <Comment>je 00456181
+</Comment>
+    </DisassemblerComment>
+    <DisassemblerComment>
+      <Address>"Game.exe"+56F99</Address>
+      <Comment>je 00456FAA
+</Comment>
+    </DisassemblerComment>
+    <DisassemblerComment>
+      <Address>"Game.exe"+56FA3</Address>
+      <Comment>je 00456FAA
+</Comment>
+    </DisassemblerComment>
+    <DisassemblerComment>
+      <Address>"Game.exe"+5AEA0</Address>
+      <Comment>push esi
+</Comment>
+    </DisassemblerComment>
+    <DisassemblerComment>
+      <Address>"Game.exe"+5AEA8</Address>
+      <Comment>jmp dword ptr [esi*4+0045AF7C]
+</Comment>
+    </DisassemblerComment>
+    <DisassemblerComment>
+      <Address>"Game.exe"+5AF0A</Address>
+      <Comment>ja 0045AF29
+</Comment>
+    </DisassemblerComment>
+    <DisassemblerComment>
+      <Address>"Game.exe"+5AFF0</Address>
+      <Comment>push ebp
+</Comment>
+    </DisassemblerComment>
+    <DisassemblerComment>
+      <Address>"Game.exe"+5B440</Address>
+      <Comment>push ebp
+</Comment>
+    </DisassemblerComment>
+    <DisassemblerComment>
+      <Address>"Game.exe"+5B44E</Address>
+      <Comment>mov [007A5204],FFFFFF60
+</Comment>
+    </DisassemblerComment>
+    <DisassemblerComment>
+      <Address>"Game.exe"+5B458</Address>
+      <Comment>jne 0045B470
+</Comment>
+    </DisassemblerComment>
+    <DisassemblerComment>
+      <Address>"Game.exe"+835B0</Address>
+      <Comment>push ebp
+</Comment>
+    </DisassemblerComment>
+    <DisassemblerComment>
+      <Address>"Game.exe"+838FA</Address>
+      <Comment>je 00483958
+</Comment>
+    </DisassemblerComment>
+    <DisassemblerComment>
+      <Address>"Game.exe"+8DD90</Address>
+      <Comment>push ebp
+</Comment>
+    </DisassemblerComment>
+    <DisassemblerComment>
+      <Address>"Game.exe"+8DD91</Address>
+      <Comment>mov ebp,esp
+</Comment>
+    </DisassemblerComment>
+    <DisassemblerComment>
+      <Address>"Game.exe"+8DFEA</Address>
+      <Comment>jl 0048E037
+</Comment>
+    </DisassemblerComment>
+    <DisassemblerComment>
+      <Address>"Game.exe"+8EE98</Address>
+      <Comment>jl 0048F3E1
+</Comment>
+    </DisassemblerComment>
+    <DisassemblerComment>
+      <Address>"Game.exe"+8F348</Address>
+      <Comment>???
+</Comment>
+    </DisassemblerComment>
+    <DisassemblerComment>
+      <Address>"Game.exe"+96DD0</Address>
+      <Comment>push ebp
+</Comment>
+    </DisassemblerComment>
+    <DisassemblerComment>
+      <Address>"Game.exe"+96ED8</Address>
+      <Comment>mov [edi+007BEF38],ecx
+</Comment>
+    </DisassemblerComment>
+    <DisassemblerComment>
+      <Address>"Game.exe"+96EDE</Address>
+      <Comment>mov [edi+007BEF30],esi
+</Comment>
+    </DisassemblerComment>
+    <DisassemblerComment>
+      <Address>"Game.exe"+96F80</Address>
+      <Comment>push ebp
+</Comment>
+    </DisassemblerComment>
+    <DisassemblerComment>
+      <Address>"Game.exe"+9882E</Address>
+      <Comment>jl 00498842
+</Comment>
+    </DisassemblerComment>
+    <DisassemblerComment>
+      <Address>"Game.exe"+98E19</Address>
+      <Comment>jg 00498E73
+</Comment>
+    </DisassemblerComment>
+    <DisassemblerComment>
+      <Address>"Game.exe"+98E26</Address>
+      <Comment>jg 00498E73
+</Comment>
+    </DisassemblerComment>
+    <DisassemblerComment>
+      <Address>"Game.exe"+ABA4E</Address>
+      <Comment>mov eax,[00711470]
+</Comment>
+    </DisassemblerComment>
+    <DisassemblerComment>
+      <Address>"Game.exe"+ABB5E</Address>
+      <Comment>most jmp here
+</Comment>
+    </DisassemblerComment>
+    <DisassemblerComment>
+      <Address>"Game.exe"+ABB70</Address>
+      <Comment>some here
+</Comment>
+    </DisassemblerComment>
+    <DisassemblerComment>
+      <Address>"Game.exe"+ABB79</Address>
+      <Comment>mouse down
+</Comment>
+    </DisassemblerComment>
+    <DisassemblerComment>
+      <Address>"Game.exe"+ABB94</Address>
+      <Comment>UP skill
+</Comment>
+    </DisassemblerComment>
+    <DisassemblerComment>
+      <Address>"Game.exe"+ABBC1</Address>
+      <Comment>mov esi,[ebp+08]
+</Comment>
+    </DisassemblerComment>
+    <DisassemblerComment>
+      <Address>"Game.exe"+ABBDC</Address>
+      <Comment>push 00
+</Comment>
+    </DisassemblerComment>
+    <DisassemblerComment>
+      <Address>"Game.exe"+ABBDE</Address>
+      <Comment>push 00
+</Comment>
+    </DisassemblerComment>
+    <DisassemblerComment>
+      <Address>"Game.exe"+ABBF6</Address>
+      <Comment>push esi
+</Comment>
+    </DisassemblerComment>
+    <DisassemblerComment>
+      <Address>"Game.exe"+ABBF7</Address>
+      <Comment>call 00420290
+</Comment>
+    </DisassemblerComment>
+    <DisassemblerComment>
+      <Address>"Game.exe"+ABD70</Address>
+      <Comment>jng 004ABF03
+</Comment>
+    </DisassemblerComment>
+    <DisassemblerComment>
+      <Address>"Game.exe"+ABDE9</Address>
+      <Comment>mouse up?
+</Comment>
+    </DisassemblerComment>
+    <DisassemblerComment>
+      <Address>"Game.exe"+DE4E1</Address>
+      <Comment>some background stuff
+</Comment>
+    </DisassemblerComment>
+    <DisassemblerComment>
+      <Address>"Game.exe"+DE730</Address>
+      <Comment>push ebp
+</Comment>
+    </DisassemblerComment>
+    <DisassemblerComment>
+      <Address>"Game.exe"+DE731</Address>
+      <Comment>mov ebp, esp
+</Comment>
+    </DisassemblerComment>
+    <DisassemblerComment>
+      <Address>"Game.exe"+DE776</Address>
+      <Comment>some background stuff
+</Comment>
+    </DisassemblerComment>
+    <DisassemblerComment>
+      <Address>"Game.exe"+1FFD40</Address>
+      <Comment>ret 0010
+</Comment>
+    </DisassemblerComment>
+    <DisassemblerComment>
+      <Address>"Game.exe"+224F60</Address>
+      <Comment>push ebp
+</Comment>
+    </DisassemblerComment>
+    <DisassemblerComment>
+      <Address>"Game.exe"+224F61</Address>
+      <Comment>mov ebp,esp
+</Comment>
+    </DisassemblerComment>
+    <DisassemblerComment>
+      <Address>"Game.exe"+224F9A</Address>
+      <Comment>mov eax,[eax+04]
+</Comment>
+    </DisassemblerComment>
+    <DisassemblerComment>
+      <Address>"Game.exe"+2250B0</Address>
+      <Comment>push ebp
+</Comment>
+    </DisassemblerComment>
+    <DisassemblerComment>
+      <Address>"Game.exe"+2250B1</Address>
+      <Comment>mov ebp,esp
+</Comment>
+    </DisassemblerComment>
+    <DisassemblerComment>
+      <Address>"Game.exe"+225101</Address>
+      <Comment>jne 00625119
+</Comment>
+    </DisassemblerComment>
+    <DisassemblerComment>
+      <Address>"Game.exe"+227030</Address>
+      <Comment>push ebp
+</Comment>
+    </DisassemblerComment>
+    <DisassemblerComment>
+      <Address>"Game.exe"+227031</Address>
+      <Comment>mov ebp,esp
+</Comment>
+    </DisassemblerComment>
+    <DisassemblerComment>
+      <Address>"Game.exe"+2270B0</Address>
+      <Comment>push ebp
+</Comment>
+    </DisassemblerComment>
+    <DisassemblerComment>
+      <Address>"Game.exe"+2270B1</Address>
+      <Comment>mov ebp,esp
+</Comment>
+    </DisassemblerComment>
+    <DisassemblerComment>
+      <Address>"Game.exe"+2270B9</Address>
+      <Comment>jne 006270C2
+</Comment>
+    </DisassemblerComment>
+    <DisassemblerComment>
+      <Address>"Game.exe"+22710F</Address>
+      <Comment>jne 00627120
+</Comment>
+    </DisassemblerComment>
+    <DisassemblerComment>
+      <Address>"Game.exe"+260D10</Address>
+      <Comment>push ebp
+</Comment>
+    </DisassemblerComment>
+    <DisassemblerComment>
+      <Address>"Game.exe"+260D11</Address>
+      <Comment>mov ebp,esp
+</Comment>
+    </DisassemblerComment>
+    <DisassemblerComment>
+      <Address>"Game.exe"+260D2B</Address>
+      <Comment>x position
+</Comment>
+    </DisassemblerComment>
+    <DisassemblerComment>
+      <Address>"Game.exe"+260D35</Address>
+      <Comment>mov [ecx+04],edx
+</Comment>
+    </DisassemblerComment>
+  </DisassemblerComments>
+</CheatTable>

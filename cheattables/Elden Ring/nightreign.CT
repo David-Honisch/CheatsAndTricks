@@ -1,0 +1,542 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="46">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>50</ID>
+      <Description>"auto attach game"</Description>
+      <Options moHideChildren="1" moDeactivateChildrenAsWell="1"/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+{$lua}
+if getProcessIDFromProcessName("nightreign.exe") ~= nil then
+  openProcess("nightreign.exe")
+  print("Attached to nightreign.exe successfully.\nCreated by Matthew80, enjoy!")
+else
+  showMessage("nightreign.exe not found. Please make sure the game is running.")
+end
+{$asm}
+
+[DISABLE]
+
+
+
+</AssemblerScript>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>38</ID>
+          <Description>"base stats"</Description>
+          <Options moDeactivateChildrenAsWell="1"/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{ Game   : nightreign.exe
+  Version: 
+  Date   : 2025-05-31
+  Author : Matthew80
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+aobscanmodule(health,nightreign.exe,8B 81 4C 01 00 00 C3 48 8B) // should be unique
+alloc(newmem,$1000,health)
+
+label(code)
+label(return)
+label(stat)
+
+newmem:
+  cmp [rcx+1C],0
+  jne @f
+  mov [stat],rcx
+code:
+  mov eax,[rcx+0000014C]
+  jmp return
+  stat:
+  dd 0
+
+health:
+  jmp newmem
+  nop
+return:
+registersymbol(health stat)
+
+[DISABLE]
+
+health:
+  db 8B 81 4C 01 00 00
+
+unregistersymbol(health stat)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: nightreign.exe+412E40
+
+nightreign.exe+412E1E: 48 8B 5C 24 40     - mov rbx,[rsp+40]
+nightreign.exe+412E23: 48 8B 6C 24 50     - mov rbp,[rsp+50]
+nightreign.exe+412E28: 48 8B 74 24 58     - mov rsi,[rsp+58]
+nightreign.exe+412E2D: 0F 28 74 24 20     - movaps xmm6,[rsp+20]
+nightreign.exe+412E32: 48 83 C4 30        - add rsp,30
+nightreign.exe+412E36: 5F                 - pop rdi
+nightreign.exe+412E37: C3                 - ret 
+nightreign.exe+412E38: 4D B1 64           - mov r9b,64
+nightreign.exe+412E3B: 48 00 00           - add [rax],al
+nightreign.exe+412E3E: 00 00              - add [rax],al
+// ---------- INJECTING HERE ----------
+nightreign.exe+412E40: 8B 81 4C 01 00 00  - mov eax,[rcx+0000014C]
+// ---------- DONE INJECTING  ----------
+nightreign.exe+412E46: C3                 - ret 
+nightreign.exe+412E47: 48 8B 4D DF        - mov rcx,[rbp-21]
+nightreign.exe+412E4B: E9 54 73 4C 02     - jmp nightreign.exe+28DA1A4
+nightreign.exe+412E50: 8B 81 58 01 00 00  - mov eax,[rcx+00000158]
+nightreign.exe+412E56: C3                 - ret 
+nightreign.exe+412E57: 48 8B 4D 50        - mov rcx,[rbp+50]
+nightreign.exe+412E5B: E9 A9 8A 68 02     - jmp nightreign.exe+2A9B909
+nightreign.exe+412E60: 8B 81 64 01 00 00  - mov eax,[rcx+00000164]
+nightreign.exe+412E66: C3                 - ret 
+nightreign.exe+412E67: 48 8D 4D 38        - lea rcx,[rbp+38]
+}
+</AssemblerScript>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>39</ID>
+              <Description>"cur health"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>4 Bytes</VariableType>
+              <Address>stat</Address>
+              <Offsets>
+                <Offset>140</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>62</ID>
+              <Description>"max health"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>4 Bytes</VariableType>
+              <Address>stat</Address>
+              <Offsets>
+                <Offset>14c</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>48</ID>
+              <Description>"--------------------------------------------- ----------------------------------------------"</Description>
+              <GroupHeader>1</GroupHeader>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>40</ID>
+              <Description>"cur fp"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>4 Bytes</VariableType>
+              <Address>stat</Address>
+              <Offsets>
+                <Offset>150</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>47</ID>
+              <Description>"max fp"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>4 Bytes</VariableType>
+              <Address>stat</Address>
+              <Offsets>
+                <Offset>158</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>49</ID>
+              <Description>"--------------------------------------------- ----------------------------------------------"</Description>
+              <GroupHeader>1</GroupHeader>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>41</ID>
+              <Description>"cur stamina"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>4 Bytes</VariableType>
+              <Address>stat</Address>
+              <Offsets>
+                <Offset>15C</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>46</ID>
+              <Description>"max stamina"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>4 Bytes</VariableType>
+              <Address>stat</Address>
+              <Offsets>
+                <Offset>164</Offset>
+              </Offsets>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>44</ID>
+          <Description>"resources"</Description>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{ Game   : nightreign.exe
+  Version: 
+  Date   : 2025-05-31
+  Author : Matthew80
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+aobscanmodule(resource,nightreign.exe,41 3B 45 6C 0F 9E C0) // should be unique
+alloc(newmem,$1000,resource)
+
+label(code)
+label(return)
+label(loot)
+
+newmem:
+
+code:
+  mov [loot],r13
+  cmp eax,[r13+6C]
+  setle al
+  jmp return
+  loot:
+  dd 0
+
+resource:
+  jmp newmem
+  nop 2
+return:
+registersymbol(resource loot)
+
+[DISABLE]
+
+resource:
+  db 41 3B 45 6C 0F 9E C0
+
+unregistersymbol(resource loot)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: nightreign.exe+793AF8
+
+nightreign.exe+793ADF: 48 85 C9              - test rcx,rcx
+nightreign.exe+793AE2: 74 06                 - je nightreign.exe+793AEA
+nightreign.exe+793AE4: 0F B7 41 6E           - movzx eax,word ptr [rcx+6E]
+nightreign.exe+793AE8: EB 02                 - jmp nightreign.exe+793AEC
+nightreign.exe+793AEA: 33 C0                 - xor eax,eax
+nightreign.exe+793AEC: 98                    - cwde 
+nightreign.exe+793AED: 3B D8                 - cmp ebx,eax
+nightreign.exe+793AEF: 7F 10                 - jg nightreign.exe+793B01
+nightreign.exe+793AF1: 8B CB                 - mov ecx,ebx
+nightreign.exe+793AF3: E8 A8 1B F0 FF        - call nightreign.exe+6956A0
+// ---------- INJECTING HERE ----------
+nightreign.exe+793AF8: 41 3B 45 6C           - cmp eax,[r13+6C]
+// ---------- DONE INJECTING  ----------
+nightreign.exe+793AFC: 0F 9E C0              - setle al
+nightreign.exe+793AFF: EB 02                 - jmp nightreign.exe+793B03
+nightreign.exe+793B01: 32 C0                 - xor al,al
+nightreign.exe+793B03: 88 87 8F 00 00 00     - mov [rdi+0000008F],al
+nightreign.exe+793B09: E8 32 69 A6 FF        - call nightreign.exe+1FA440
+nightreign.exe+793B0E: 84 C0                 - test al,al
+nightreign.exe+793B10: 75 32                 - jne nightreign.exe+793B44
+nightreign.exe+793B12: 44 88 B7 46 12 00 00  - mov [rdi+00001246],r14b
+nightreign.exe+793B19: C6 87 4E 12 00 00 01  - mov byte ptr [rdi+0000124E],01
+nightreign.exe+793B20: BA B5 25 00 00        - mov edx,000025B5
+}
+</AssemblerScript>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>68</ID>
+              <Description>"rune"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>4 Bytes</VariableType>
+              <Address>loot</Address>
+              <Offsets>
+                <Offset>6C</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>69</ID>
+              <Description>"murk"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>4 Bytes</VariableType>
+              <Address>loot</Address>
+              <Offsets>
+                <Offset>D0</Offset>
+              </Offsets>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>59</ID>
+          <Description>"infinite item"</Description>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{ Game   : nightreign.exe
+  Version: 
+  Date   : 2025-05-31
+  Author : Matthew80
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+aobscanmodule(item,nightreign.exe,89 51 08 C3 48 8B C6) // should be unique
+alloc(newmem,$1000,item)
+
+label(code)
+label(return)
+
+newmem:
+
+code:
+  mov edx,#99
+  mov [rcx+08],edx
+  ret 
+  mov rax,rsi
+  jmp return
+
+item:
+  jmp newmem
+  nop 2
+return:
+registersymbol(item)
+
+[DISABLE]
+
+item:
+  db 89 51 08 C3 48 8B C6
+
+unregistersymbol(item)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: nightreign.exe+720BB0
+
+nightreign.exe+720B94: 5F                 - pop rdi
+nightreign.exe+720B95: C3                 - ret 
+nightreign.exe+720B96: 32 C0              - xor al,al
+nightreign.exe+720B98: 48 8B 5C 24 50     - mov rbx,[rsp+50]
+nightreign.exe+720B9D: 48 83 C4 40        - add rsp,40
+nightreign.exe+720BA1: 5F                 - pop rdi
+nightreign.exe+720BA2: C3                 - ret 
+nightreign.exe+720BA3: 84 C0              - test al,al
+nightreign.exe+720BA5: 0F 84 30 86 DC 01  - je nightreign.exe+24E91DB
+nightreign.exe+720BAB: E9 F4 85 DC 01     - jmp nightreign.exe+24E91A4
+// ---------- INJECTING HERE ----------
+nightreign.exe+720BB0: 89 51 08           - mov [rcx+08],edx
+// ---------- DONE INJECTING  ----------
+nightreign.exe+720BB3: C3                 - ret 
+nightreign.exe+720BB4: 48 8B C6           - mov rax,rsi
+nightreign.exe+720BB7: 48 C1 E8 3F        - shr rax,3F
+nightreign.exe+720BBB: E9 28 29 D4 01     - jmp nightreign.AkTlsSetValue+9B28
+nightreign.exe+720BC0: 39 51 08           - cmp [rcx+08],edx
+nightreign.exe+720BC3: 89 51 08           - mov [rcx+08],edx
+nightreign.exe+720BC6: 73 04              - jae nightreign.exe+720BCC
+nightreign.exe+720BC8: 44 89 41 0C        - mov [rcx+0C],r8d
+nightreign.exe+720BCC: C3                 - ret 
+nightreign.exe+720BCD: 90                 - nop 
+}
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>61</ID>
+          <Description>"one hit kill"</Description>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{ Game   : nightreign.exe
+  Version: 
+  Date   : 2025-05-31
+  Author : Matthew80
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+aobscanmodule(ohk,nightreign.exe,8B 81 40 01 00 00 89 47) // should be unique
+alloc(newmem,$1000,ohk)
+
+label(code)
+label(return)
+
+newmem:
+
+code:
+  mov [rcx+00000140],0
+  mov eax,[rcx+00000140]
+  jmp return
+
+ohk:
+  jmp newmem
+  nop
+return:
+registersymbol(ohk)
+
+[DISABLE]
+
+ohk:
+  db 8B 81 40 01 00 00
+
+unregistersymbol(ohk)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: nightreign.exe+790A84
+
+nightreign.exe+790A55: 41 0F B6 44 24 20     - movzx eax,byte ptr [r12+20]
+nightreign.exe+790A5B: 88 47 E2              - mov [rdi-1E],al
+nightreign.exe+790A5E: 49 8B 04 24           - mov rax,[r12]
+nightreign.exe+790A62: 48 89 47 E8           - mov [rdi-18],rax
+nightreign.exe+790A66: F3 41 0F 2C 44 24 10  - cvttss2si eax,[r12+10]
+nightreign.exe+790A6D: 89 47 F0              - mov [rdi-10],eax
+nightreign.exe+790A70: F3 41 0F 2C 44 24 14  - cvttss2si eax,[r12+14]
+nightreign.exe+790A77: 89 47 F4              - mov [rdi-0C],eax
+nightreign.exe+790A7A: 49 8B 87 B8 01 00 00  - mov rax,[r15+000001B8]
+nightreign.exe+790A81: 48 8B 08              - mov rcx,[rax]
+// ---------- INJECTING HERE ----------
+nightreign.exe+790A84: 8B 81 40 01 00 00     - mov eax,[rcx+00000140]
+// ---------- DONE INJECTING  ----------
+nightreign.exe+790A8A: 89 47 F8              - mov [rdi-08],eax
+nightreign.exe+790A8D: 49 8B 87 B8 01 00 00  - mov rax,[r15+000001B8]
+nightreign.exe+790A94: 48 8B 18              - mov rbx,[rax]
+nightreign.exe+790A97: 48 8B CB              - mov rcx,rbx
+nightreign.exe+790A9A: E8 A1 24 C8 FF        - call nightreign.exe+412F40
+nightreign.exe+790A9F: 2B 83 44 01 00 00     - sub eax,[rbx+00000144]
+nightreign.exe+790AA5: 89 07                 - mov [rdi],eax
+nightreign.exe+790AA7: 49 8B 87 B8 01 00 00  - mov rax,[r15+000001B8]
+nightreign.exe+790AAE: 48 8B 08              - mov rcx,[rax]
+nightreign.exe+790AB1: E8 8A 24 C8 FF        - call nightreign.exe+412F40
+}
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>67</ID>
+          <Description>"stealth mode"</Description>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{ Game   : nightreign.exe
+  Version:
+  Date   : 2025-05-31
+  Author : Matthew80
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+aobscanmodule(stealth,nightreign.exe,74 0C C6 81 D4 00 00 00 00) // should be unique
+stealth:
+  db 75 0C
+
+registersymbol(stealth)
+
+[DISABLE]
+
+stealth:
+  db 74 0C
+
+unregistersymbol(stealth)
+
+{
+// ORIGINAL CODE - INJECTION POINT: nightreign.exe+2EFE62
+
+nightreign.exe+2EFE32: 57                          - push rdi
+nightreign.exe+2EFE33: 48 8D 6C 24 B1              - lea rbp,[rsp-4F]
+nightreign.exe+2EFE38: 48 81 EC D8 00 00 00        - sub rsp,000000D8
+nightreign.exe+2EFE3F: 0F 29 BC 24 90 00 00 00     - movaps [rsp+00000090],xmm7
+nightreign.exe+2EFE47: 48 8B 05 5A 3B 6F 03        - mov rax,[nightreign.exe+39E39A8]
+nightreign.exe+2EFE4E: 48 33 C4                    - xor rax,rsp
+nightreign.exe+2EFE51: 48 89 45 E7                 - mov [rbp-19],rax
+nightreign.exe+2EFE55: 80 B9 D4 00 00 00 00        - cmp byte ptr [rcx+000000D4],00
+nightreign.exe+2EFE5C: 0F 28 F9                    - movaps xmm7,xmm1
+nightreign.exe+2EFE5F: 48 8B F9                    - mov rdi,rcx
+// ---------- INJECTING HERE ----------
+nightreign.exe+2EFE62: 74 0C                       - je nightreign.exe+2EFE70
+// ---------- DONE INJECTING  ----------
+nightreign.exe+2EFE64: C6 81 D4 00 00 00 00        - mov byte ptr [rcx+000000D4],00
+nightreign.exe+2EFE6B: E9 34 06 00 00              - jmp nightreign.exe+2F04A4
+nightreign.exe+2EFE70: 80 B9 D1 00 00 00 00        - cmp byte ptr [rcx+000000D1],00
+nightreign.exe+2EFE77: 48 89 B4 24 D0 00 00 00     - mov [rsp+000000D0],rsi
+nightreign.exe+2EFE7F: 4C 89 A4 24 C8 00 00 00     - mov [rsp+000000C8],r12
+nightreign.exe+2EFE87: 44 0F 29 84 24 80 00 00 00  - movaps [rsp+00000080],xmm8
+nightreign.exe+2EFE90: 74 06                       - je nightreign.exe+2EFE98
+nightreign.exe+2EFE92: 48 8B 01                    - mov rax,[rcx]
+nightreign.exe+2EFE95: FF 50 18                    - call qword ptr [rax+18]
+nightreign.exe+2EFE98: 80 BF D2 00 00 00 00        - cmp byte ptr [rdi+000000D2],00
+}
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>66</ID>
+          <Description>"skill cooldown"</Description>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{ Game   : nightreign.exe
+  Version: 
+  Date   : 2025-05-31
+  Author : Matthew80
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+aobscanmodule(skill,nightreign.exe,F3 0F 58 77 24 0F) // should be unique
+alloc(newmem,$1000,skill)
+
+label(code)
+label(return)
+
+newmem:
+  xorps xmm0,xmm0
+  movss [rdi+28],xmm0
+  addss xmm6,xmm0
+  jmp return
+
+code:
+  addss xmm6,[rdi+24]
+  jmp return
+
+skill:
+  jmp newmem
+return:
+registersymbol(skill)
+
+[DISABLE]
+
+skill:
+  db F3 0F 58 77 24
+
+unregistersymbol(skill)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: nightreign.exe+46CBD8
+
+nightreign.exe+46CBB4: 48 8B CF           - mov rcx,rdi
+nightreign.exe+46CBB7: E8 B4 01 00 00     - call nightreign.exe+46CD70
+nightreign.exe+46CBBC: C6 47 31 00        - mov byte ptr [rdi+31],00
+nightreign.exe+46CBC0: 0F 28 74 24 30     - movaps xmm6,[rsp+30]
+nightreign.exe+46CBC5: 48 83 C4 40        - add rsp,40
+nightreign.exe+46CBC9: 5F                 - pop rdi
+nightreign.exe+46CBCA: C3                 - ret 
+nightreign.exe+46CBCB: 0F B6 47 20        - movzx eax,byte ptr [rdi+20]
+nightreign.exe+46CBCF: 41 3A C0           - cmp al,r8b
+nightreign.exe+46CBD2: 0F 8D D6 FE FF FF  - jnl nightreign.exe+46CAAE
+// ---------- INJECTING HERE ----------
+nightreign.exe+46CBD8: F3 0F 58 77 24     - addss xmm6,[rdi+24]
+// ---------- DONE INJECTING  ----------
+nightreign.exe+46CBDD: 0F 2F F1           - comiss xmm6,xmm1
+nightreign.exe+46CBE0: F3 0F 11 77 24     - movss [rdi+24],xmm6
+nightreign.exe+46CBE5: 0F 82 DD FE FF FF  - jb nightreign.exe+46CAC8
+nightreign.exe+46CBEB: 0F 1F 44 00 00     - nop dword ptr [rax+rax+00]
+nightreign.exe+46CBF0: F3 0F 5C F1        - subss xmm6,xmm1
+nightreign.exe+46CBF4: FE C0              - inc al
+nightreign.exe+46CBF6: 48 8B CF           - mov rcx,rdi
+nightreign.exe+46CBF9: 88 47 20           - mov [rdi+20],al
+nightreign.exe+46CBFC: F3 0F 11 77 24     - movss [rdi+24],xmm6
+nightreign.exe+46CC01: E8 BA 00 00 00     - call nightreign.exe+46CCC0
+}
+</AssemblerScript>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+</CheatTable>
