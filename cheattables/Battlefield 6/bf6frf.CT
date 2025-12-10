@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="45">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>17</ID>
+      <Description>"Super Accuracy"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+
+aobscanmodule(inject,bf6.exe,48 8B E8 90 25 FF FF) // should be unique
+alloc(newmem,$1000)
+
+label(code)
+label(return)
+
+newmem:
+code:
+  mov rdx,[rdi]
+  call qword ptr [rdx]
+  jmp return
+
+
+inject:
+  jmp far newmem
+return:
+registersymbol(inject)
+
+[DISABLE]
+
+inject:
+  db 48 8B E8 90 25 FF FF
+
+dealloc(newmem)
+
+</AssemblerScript>
+      <Hotkeys>
+        <Hotkey>
+          <Action>Toggle Activation</Action>
+          <Keys>
+            <Key>102</Key>
+          </Keys>
+          <ID>0</ID>
+        </Hotkey>
+      </Hotkeys>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>16273</ID>
+      <Description>"LC"</Description>
+      <Color>0000FF</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>{$LUA}
+  if syntaxcheck then return end
+  [ENABLE]
+
+--Updated table! (Start)
+    --messageDialog('Enable Dark Mode?', mtInformation,mbYes,mbNo)
+    if messageDialog("Updated table with more cheats available!\r\n\r\nYou will need to login to https://www.letztechance.org to get more cheats and the latest updated tables\r\n\r\nThanks", mtConfirmation, mbYes, mbNo) ==mrYes then
+       shellExecute("https://www.letztechance.org")
+    else
+    end
+--Updated table! (End)
+  [DISABLE]
+
+</AssemblerScript>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+  <LuaScript>--Updated table! (Start)
+    --messageDialog('Enable Dark Mode?', mtInformation,mbYes,mbNo)
+    if messageDialog("Updated table with more cheats available!\r\n\r\nYou will need Mod Engine to get more cheats and the new updated table\r\n\r\nDownload Mod Engine?", mtConfirmation, mbYes, mbNo) ==mrYes then
+       shellExecute("https://modengine.net/threads/3852/")
+    else
+    end
+--Updated table! (End)
+
+
+
+</LuaScript>
+</CheatTable>
