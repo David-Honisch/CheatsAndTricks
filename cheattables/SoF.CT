@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="42">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>32</ID>
+      <Description>"Soldier of Fortune"</Description>
+      <Color>6B6B6B</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+{$lua}
+OpenProcess("SoF.exe")
+{$asm}
+[DISABLE]
+</AssemblerScript>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>123</ID>
+          <Description>"Player   [Armor]"</Description>
+          <Color>C08000</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+aobscanmodule(protection,player.dll,8B 81 58 01 00 00 C3)
+alloc(newmem,$100)
+label(code)
+label(return)
+registersymbol(protection)
+newmem:
+  mov [ecx+158],(int)1000
+code:
+  mov eax,[ecx+158]
+  jmp return
+protection:
+  jmp newmem
+  nop
+return:
+[DISABLE]
+dealloc(newmem)
+unregistersymbol(protection)
+protection:
+  db 8B 81 58 01 00 00
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>104</ID>
+          <Description>"Player   [Health]"</Description>
+          <Color>0000FF</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+aobscanmodule(health,gamex86.dll,8B 88 EC 02 00 00 85 C9 8D)
+alloc(newmem,$100)
+label(code)
+label(return)
+registersymbol(health)
+newmem:
+  mov [eax+2EC],(int)1000
+code:
+  mov ecx,[eax+2EC]
+  jmp return
+health:
+  jmp newmem
+  nop
+return:
+[DISABLE]
+dealloc(newmem)
+unregistersymbol(health)
+health:
+  db 8B 88 EC 02 00 00
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>102</ID>
+          <Description>"Player   [Inventory]   Ammo/Gas   [Reload Off]"</Description>
+          <Color>800000</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+{$lua}
+local pReloadOn = getAddressList().getMemoryRecordByDescription("Player   [Inventory]   Ammo/Gas   [Reload On]")
+if (pReloadOn.Active) then
+ pReloadOn.Active = false
+end
+{$asm}
+aobscanmodule(ammo_off,player.dll,66 8B 14 86 66 89 51 74)
+aobscanmodule(ammo_on,player.dll,8B 84 81 1C 01 00 00)
+alloc(newmem_x,$100)
+alloc(newmem_y,$100)
+label(code_x)
+label(code_y)
+label(return_x)
+label(return_y)
+registersymbol(ammo_off)
+registersymbol(ammo_on)
+newmem_x:
+  mov [esi+eax*4],(int)10
+code_x:
+  mov dx,[esi+eax*4]
+  mov [ecx+74],dx
+  jmp return_x
+ammo_off:
+  jmp newmem_x
+  nop 3
+return_x:
+newmem_y:
+  mov [ecx+eax*4+11C],(int)1000
+code_y:
+  mov eax,[ecx+eax*4+11C]
+  jmp return_y
+ammo_on:
+  jmp newmem_y
+  nop 2
+return_y:
+[DISABLE]
+dealloc(newmem_x)
+dealloc(newmem_y)
+unregistersymbol(ammo_off)
+unregistersymbol(ammo_on)
+ammo_off:
+  db 66 8B 14 86 66 89 51 74
+ammo_on:
+  db 8B 84 81 1C 01 00 00
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>66</ID>
+          <Description>"Player   [Inventory]   Ammo/Gas   [Reload On]"</Description>
+          <Color>800000</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+{$lua}
+local pReloadOff = getAddressList().getMemoryRecordByDescription("Player   [Inventory]   Ammo/Gas   [Reload Off]")
+if (pReloadOff.Active) then
+ pReloadOff.Active = false
+end
+{$asm}
+aobscanmodule(ammo_on,player.dll,8B 84 81 1C 01 00 00)
+alloc(newmem_y,$100)
+label(code_y)
+label(return_y)
+registersymbol(ammo_on)
+newmem_y:
+  mov [ecx+eax*4+11C],(int)1000
+code_y:
+  mov eax,[ecx+eax*4+11C]
+  jmp return_y
+ammo_on:
+  jmp newmem_y
+  nop 2
+return_y:
+[DISABLE]
+dealloc(newmem_y)
+unregistersymbol(ammo_on)
+ammo_on:
+  db 8B 84 81 1C 01 00 00
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>144</ID>
+          <Description>"Player   [Inventory]   Items   [C4 Explosive/Claymore Mines/Flashbang/Hand Grenades/MedKit/Nightvision]"</Description>
+          <Color>8000FF</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+aobscanmodule(items,player.dll,8B 84 08 B0 01 00 00)
+alloc(newmem,$100)
+label(code)
+label(return)
+registersymbol(items)
+newmem:
+  mov [eax+ecx+1B0],(int)10
+code:
+  mov eax,[eax+ecx+1B0]
+  jmp return
+items:
+  jmp newmem
+  nop 2
+return:
+[DISABLE]
+dealloc(newmem)
+unregistersymbol(items)
+items:
+  db 8B 84 08 B0 01 00 00
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>145</ID>
+          <Description>"Player   [Status]   Saves Left"</Description>
+          <Color>004000</Color>
+          <VariableType>2 Bytes</VariableType>
+          <Address>gamex86.dll+15D1C4</Address>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+</CheatTable>

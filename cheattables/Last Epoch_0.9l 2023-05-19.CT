@@ -1,0 +1,3635 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="45">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>59</ID>
+      <Description>"Enable 2023-05-19 ( will auto attach if the game is running )"</Description>
+      <Options moHideChildren="1" moDeactivateChildrenAsWell="1"/>
+      <Color>4080FF</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>{
+Original Author : gideon25
+Updated and Added functionality by: PhCCRQQsd6Bi
+Updated and Added functionality by: Messy ( aka SinGul4ritY )
+Author : Messy ( aka SinGul4ritY )
+         2023-05-19 - added a lot of optNZ params for NewZone Generated Entities
+         2023-05-16 - added: optNoUnSummon
+         2023-05-08 - added: "hk: isLoading"
+                    - added: noUnSummon
+         2023-05-04 - added: optBaseUseSpeedMulti
+         2023-05-02 - re-added CE version check ( cleared too much last time )
+                    - added options for Force Item Type to Drop
+         2023-04-08 - added better functions for handling things
+         2023-04-07 - added support for item level 102
+         2023-03-22 - fixed size of optXpGain
+                    - added optMasteryPoints
+         2023-03-21 - fixed optLegendaryPotential
+                    - added optXpGain
+         2023-03-15 - fixed size of optMaxPassivePoints
+         2023-03-14 - Added options for:
+                      - Max Passive Points
+                      - Max Skill Points
+                      - Added option to skip modifying Legendary Potential
+                      - added editable Drop Rate
+         2023-03-10 - update for 0.9
+         2021-01-08 - checking of default DropDown values
+                    - change and restore windows caption
+                    - verbose enabling Default Cheats
+         2021-01-06 - Added Default Cheats Toggle
+                    - More globals declared here so they can be modified by "Default Cheats Toggle"
+                    - using $MODULE_NAME for all aobscans
+                    - added CompactmMode taken from user Betcha
+         2021-01-02 - Added CE Version Check
+                    - Disable sorting by name. Taken from tfigment Wasteland 3 table
+         2020-11-07 - Added Globals
+Author:  Toga
+         2022-03-28 - added optForgePotential and optLegendaryPotentional
+}
+[ENABLE]
+{$LUA}
+if syntaxcheck then return end
+if getCEVersion() &lt; 7.2 then
+   showMessage('Cheat Engine 7.2+ Required')
+   error('Cheat Engine 7.2+ needed')
+end
+OpenProcess("Last Epoch.exe")
+if process and readInteger(process) ~= 0 then
+    --mono_initialize()
+    --LaunchMonoDataCollector()
+else
+    local msg = 'No process detected.'
+    print(msg)
+    error(msg)
+end
+AddressList.Component[1].OnSectionClick=nil -- disable sorting by name. Taken from tfigment Wasteland 3 table
+-- Globals
+DEV_MODE=false
+if DEV_MODE ~= true then
+   COMPACT_MODE=true
+else
+   COMPACT_MODE=false
+end
+MODULE_NAME="GameAssembly.dll"              -- for AOBSCAN((), because $process = Last Epoch.exe
+MAX_PLAYER_LEVEL=102			            -- Max supported player lvl
+MAX_IDOL_SLOTS=20
+MAX_SKILL_SLOTS=5
+MAX_EQUIPMENT_SLOTS=11
+MAX_GAME_MASTERY_POINTS=113
+MAX_GAME_SKILL_POINTS=20
+MAX_RARITY=9
+MAX_CARFTING_TIER=6
+MAX_ITEM_TYPE=34
+IS_PLAYER_ACTOR=1                           -- was 1 before 0.8 now it can be 2 also
+IS_PLAYER_ACTOR_2=2
+END_OF_LIST="-EOL-"
+HooksON = { -- must be in "special" order
+         "hk: Player",
+         "hk: Minions",
+         "hk: Player Speed",
+         "hk: isLoading"
+}
+HooksOFF = { -- must be in "special" order
+         "hk: Minions",
+         "hk: Player",
+         "hk: isLoading",
+         "hk: Player Speed"
+}
+DevMode = {
+         "God Mode",
+         "Player Minions Undamageable",
+         "Infinite Mana",
+         "No Cool Down ( works but not visible in GUI )",
+         "Base Use Speed Multiplier ( Casting )",
+         "Higher Drop Amount of Enemies Killed",
+         "Fog of War Reveal ( for new zones )",
+         "Waypoint travel unlock"
+}
+-- cycleFullCompact() taken from user Betcha https:
+function cycleFullCompact(sender,force) local state = not(compactmenuitem.Caption == 'Compact View Mode'); if force~=nil then state = not force end; compactmenuitem.Caption = state and 'Compact View Mode' or 'Full View Mode'; getMainForm().Splitter1.Visible = state; getMainForm().Panel4.Visible    = state; getMainForm().Panel5.Visible    = state; end; function addCompactMenu() if compactmenualreadyexists then return end; local parent = getMainForm().Menu.Items; compactmenuitem = createMenuItem(parent); parent.add(compactmenuitem); compactmenuitem.Caption = 'Compact View Mode'; compactmenuitem.OnClick = cycleFullCompact; compactmenualreadyexists = 'yes'; end; addCompactMenu();
+cycleFullCompact(nil,COMPACT_MODE)
+function TurnHckOnOff(CheatName, OnOff)
+  local al=getAddressList()
+  if not al or al==0 or al == nil then return nil end
+  al.getMemoryRecordByDescription(CheatName).Active = OnOff
+end
+function HckON(CheatName)
+  TurnHckOnOff(CheatName, true)
+end
+function HckONverbose(CheatName)
+  --SetCaption(string.format("Enabling: %s", CheatName))
+  HckON(CheatName)
+end
+function HckOFF(CheatName)
+  TurnHckOnOff(CheatName, false)
+end
+function CheckMinMax(Var, Min, Max)
+  if Var ~= nil or Var ~=0 then
+     local val = readBytes(Var, 1)
+     --printf("var = %s %d %d %d", Var, val, Min, Max)
+     if val &lt; Min or val &gt; Max then
+        writeBytes(Var, Min)
+     end
+  end
+end
+function HandleHacks(HackList, OnOff)
+  for i = 1, #HackList do
+      if HackList[i] ~= END_OF_LIST then
+          TurnHckOnOff(HackList[i], OnOff)
+      end
+  end
+end
+function Defaults()
+  CheckMinMax("optRarity", 0, MAX_RARITY)
+  CheckMinMax("optRollRarity", 0, MAX_RARITY)
+  CheckMinMax("optUseTier", 0, MAX_CARFTING_TIER)
+  CheckMinMax("optRollRarityCycleThrough", 0, 1)
+  CheckMinMax("optMakeStable", 0, 1)
+  CheckMinMax("optAlwaysDropThisItemType", 0, MAX_ITEM_TYPE)
+end
+local function DarkModeFake()
+    if DEV_MODE ~= true then
+    	GetAddressList().Control[0].BackgroundColor=0x202020
+       	AddressList.CheckboxColor=0xFFFFFF
+        for i = 0, AddressList.count - 1 do
+            local al = AddressList[i]
+            al.color = (al.color == clBlack) and clWhite or al.color
+            if al.color == 0xffffffff80000008 then
+           	   al.color = clWhite
+           	end
+        end
+    end
+end
+DarkModeFake()
+HandleHacks(HooksON, true)
+if DEV_MODE == true then
+   HandleHacks(DevMode, true)
+   writeFloat("optPlayerSpeed", 0)
+   writeFloat("optBaseUseSpeedMulti", 4.5)
+   mono_initialize()
+   LaunchMonoDataCollector()
+end
+{$ASM}
+alloc(globalsMem,$1024,$MODULE_NAME)
+label(optMakeStable)
+registersymbol(optMakeStable)
+label(optUseTier)
+registersymbol(optUseTier)
+label(optGold)
+registersymbol(optGold)
+label(optRollRarity)
+registersymbol(optRollRarity)
+label(optRollRarityCycleThrough)
+registersymbol(optRollRarityCycleThrough)
+label(optAlwaysDropThisItemType)
+registersymbol(optAlwaysDropThisItemType)
+label(optIncommingDamageMult)
+registersymbol(optIncommingDamageMult)
+label(optForgePotential)
+registersymbol(optForgePotential)
+label(optLegendaryPotential)
+registersymbol(optLegendaryPotential)
+label(optMaxPassivePoints)
+registersymbol(optMaxPassivePoints)
+label(optMaxSkillPoints)
+registersymbol(optMaxSkillPoints)
+label(optSkipLegendaryPotential)
+registersymbol(optSkipLegendaryPotential)
+label(optCritChange)
+registersymbol(optCritChange)
+label(optCritMultiplier)
+registersymbol(optCritMultiplier)
+label(optAdditionalLeech)
+registersymbol(optAdditionalLeech)
+label(optDamageModifier)
+registersymbol(optDamageModifier)
+label(optAddedDamageScaling)
+registersymbol(optAddedDamageScaling)
+{
+label(optFreezeRate)
+registersymbol(optFreezeRate)
+label(optIncreasedStunChance)
+registersymbol(optIncreasedStunChance)
+label(optIncreasedStunDuration)
+registersymbol(optIncreasedStunDuration)
+}
+label(optDropAmount)
+registersymbol(optDropAmount)
+label(optXpGain)
+registersymbol(optXpGain)
+label(optMasteryPoints)
+registersymbol(optMasteryPoints)
+label(optBaseType)
+registersymbol(optBaseType)
+label(optSockets)
+registersymbol(optSockets)
+label(optForceExahlted)
+registersymbol(optForceExahlted)
+label(optRarityGroup)
+registersymbol(optRarityGroup)
+label(optBaseUseSpeedMulti)
+registersymbol(optBaseUseSpeedMulti)
+label(optCompanions)
+registersymbol(optCompanions)
+label(optNoUnSummon)
+registersymbol(optNoUnSummon)
+label(noUnSummon)
+registersymbol(noUnSummon)
+label(optNZnumberToSpawn)
+label(optNZpercentVariance)
+label(optNZcommonWeighting)
+label(optNZmagicWeighting)
+label(optNZrareWeighting)
+label(optNZuniqueWeighting)
+label(optNZenableAutoCombat)
+label(optNZnoAutoCombatOnEmerge)
+label(optNZincreasedItemDropRate)
+label(optNZincreasedItemDropAmount)
+label(optNZnoItemDrops)
+label(optNZincreasedGoldDropRate)
+label(optNZrareItemGuarantee)
+label(optNZnoWandering)
+registersymbol(optNZnumberToSpawn)
+registersymbol(optNZpercentVariance)
+registersymbol(optNZcommonWeighting)
+registersymbol(optNZmagicWeighting)
+registersymbol(optNZrareWeighting)
+registersymbol(optNZuniqueWeighting)
+registersymbol(optNZenableAutoCombat)
+registersymbol(optNZnoAutoCombatOnEmerge)
+registersymbol(optNZincreasedItemDropRate)
+registersymbol(optNZincreasedItemDropAmount)
+registersymbol(optNZnoItemDrops)
+registersymbol(optNZincreasedGoldDropRate)
+registersymbol(optNZrareItemGuarantee)
+registersymbol(optNZnoWandering)
+globalsMem:
+align 10 CC
+optGold:
+  dd    #1000000
+align 10 CC
+optMakeStable:
+  db    0
+align 10 CC
+optUseTier:
+  db    4
+align 10 CC
+optRollRarity:
+  db    0
+align 10 CC
+optRollRarityCycleThrough:
+  db    1
+align 10 CC
+optAlwaysDropThisItemType:
+  db    0
+  dq    0
+align 10 CC
+optIncommingDamageMult:
+  dd    (float)1.0
+align 10 CC
+optForgePotential:
+  db    #255
+align 10 CC
+optLegendaryPotential:
+  db    #255
+align 10 CC
+optMaxPassivePoints:
+  dd    #20
+align 10 CC
+optMaxSkillPoints:
+  db    #255
+align 10 CC
+optSkipLegendaryPotential:
+  db    0
+ALIGN 10 CC
+optDamageModifier:
+  dd   (float)200.0
+ALIGN 10 CC
+optAddedDamageScaling:
+  dd   (float)500.0
+ALIGN 10 CC
+optCritChange:
+  dd   (float)100.0
+ALIGN 10 CC
+optCritMultiplier:
+  dd   (float)9999999.0
+ALIGN 10 CC
+optAdditionalLeech:
+  dd   (float)9999999.0
+{
+ALIGN 10 CC
+optFreezeRate:
+  dd   (float)200.0
+ALIGN 10 CC
+optIncreasedStunChance:
+  dd   (float)100.0
+ALIGN 10 CC
+optIncreasedStunDuration:
+  dd   (float)200.0
+}
+ALIGN 10 CC
+optDropAmount:
+  dd (float)3.5
+align 10 CC
+optXpGain:
+  dq  2
+align 10 CC
+optMasteryPoints:
+  dw  MAX_GAME_MASTERY_POINTS
+ALIGN 10 CC
+optForceExahlted:
+  dd  0
+ALIGN 10 CC
+optSockets:
+  dd  4
+ALIGN 10 CC
+optBaseType:
+  dd  0
+ALIGN 10 CC
+optRarityGroup:
+  dd  0
+ALIGN 10 cc
+optBaseUseSpeedMulti:
+  dd (float)3.5
+ALIGN 10 cc
+optCompanions:
+  dd  #20
+ALIGN 10 cc
+noUnSummon:
+  dd  0
+ALIGN 10 cc
+optNoUnSummon:
+  dd  0
+ALIGN 10 CC
+optNZnumberToSpawn:
+  dq   (float)3.0
+ALIGN 10 CC
+optNZpercentVariance:
+  dq   (float)0.5
+ALIGN 10 CC
+optNZcommonWeighting:
+  dq   (float)0.1
+ALIGN 10 CC
+optNZmagicWeighting:
+  dq   (float)2.0
+ALIGN 10 CC
+optNZrareWeighting:
+  dq   (float)100.0
+ALIGN 10 CC
+optNZuniqueWeighting:
+  dq   (float)100.0
+ALIGN 10 CC
+optNZenableAutoCombat:
+  db	0
+ALIGN 10 CC
+optNZnoAutoCombatOnEmerge:
+  db	0
+ALIGN 10 CC
+optNZincreasedItemDropRate:
+  dq   (float)10.0
+ALIGN 10 CC
+optNZincreasedItemDropAmount:
+  dq   (float)1.5
+ALIGN 10 CC
+optNZnoItemDrops:
+  db	0
+ALIGN 10 CC
+optNZincreasedGoldDropRate:
+  dq   (float)0.0
+ALIGN 10 CC
+optNZrareItemGuarantee:
+  dw	#9999
+ALIGN 10 CC
+optNZnoWandering:
+  db	0
+[DISABLE]
+{$LUA}
+if DEV_MODE == true then
+   writeFloat("optPlayerSpeed", 0)
+   HandleHacks(DevMode, false)
+end
+HandleHacks(HooksOFF, false)
+cycleFullCompact(nil,false)
+{$ASM}
+unregisterSymbol(*)
+dealloc(*)
+</AssemblerScript>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>415</ID>
+          <Description>"&gt; Damage"</Description>
+          <Options moDeactivateChildrenAsWell="1"/>
+          <Color>FFFF00</Color>
+          <GroupHeader>1</GroupHeader>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>50</ID>
+              <Description>"God Mode"</Description>
+              <Options moActivateChildrenAsWell="1" moDeactivateChildrenAsWell="1"/>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>[ENABLE]
+optGod:
+db 1
+[DISABLE]
+optGod:
+db 0
+</AssemblerScript>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>87</ID>
+                  <Description>"Player Minions Undamageable"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>{ Game   : Last Epoch.exe
+  Version:
+  Date   : 2023-03-15
+  Author : Messy ( aka SinGul4ritY )
+           2023-03-17 - changed to
+                         to fix possible crashing
+           2023-03-16 - fixed minions undamageable
+                      - fixed a little bug in the code
+}
+[ENABLE]
+optMinion:
+db 1
+[DISABLE]
+optMinion:
+db 0
+</AssemblerScript>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>398</ID>
+              <Description>"Auto Kill"</Description>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{ Game   : Last Epoch.exe
+  Version:
+  Date   : 2023-03-23
+  Author : Messy ( aka SinGul4ritY )
+}
+[ENABLE]
+define(BAD_PTR, 7FFFFFFF)
+aobscanmodule(hkUHSHTSR,$MODULE_NAME,83xxxxxxxxxxxx75xxf3xxxxxxxxxxxxxx0f2exxxxxxxxxx7axx74)
+alloc(hkUHSHTSRbkp,64,hkUHSHTSR)
+registersymbol(hkUHSHTSR)
+registersymbol(hkUHSHTSRbkp)
+hkUHSHTSRbkp:
+  readmem(hkUHSHTSR, 64)
+hkUHSHTSR:
+  cmp  rcx, BAD_PTR
+  jle  @F
+  cmp  BYTE PTR [rcx+028], 0
+  je   @F
+  mov  DWORD PTR [rcx+020], 1
+  mov  [rcx+024], (float)0.0
+@@:
+  ret
+[DISABLE]
+hkUHSHTSR:
+  readmem(hkUHSHTSRbkp, 64)
+dealloc(*)
+unregistersymbol(*)
+</AssemblerScript>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>400</ID>
+                  <Description>"note: ONLY for New Zones ( also won't work for some mobs that will spawn later )"</Description>
+                  <Color>FF8000</Color>
+                  <GroupHeader>1</GroupHeader>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>359</ID>
+              <Description>"Damage Modifier for Player &amp; Pets"</Description>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{ Game   : Last Epoch.exe
+  Version:
+  Date   : 2023-03-12
+  Author : Messy ( aka SinGul4ritY )
+           2023-04-04 - Only for Player + Minions
+}
+[ENABLE]
+define(BAD_PTR, 7FFFFFFF)
+{$LUA}
+if syntaxcheck then return end
+HckON('God Mode')
+HckON('Player Minions Undamageable')
+{$ASM}
+aobscanmodule(hkDEOH,$MODULE_NAME,48xxxxxxxx48xxxxxxxxxx48xxxxxx80xxxxxxxxxxxx48xxxx75xx8bxxxxxxxxxxe8xxxxxxxxc6xxxxxxxxxxxx48xxxxxxxxxxxx48xxxxe8xxxxxxxx48xxxx48xxxxxxxxxxxx48xxxxxxxxxxxxe8xxxxxxxx48xxxxxxxxxxxx48xxxxxxxxxxxxf6xxxxxxxxxxxx74xx83xxxxxxxxxxxx75xxe8xxxxxxxx33xx48xxxxe8xxxxxxxx84xx0f84)
+alloc(newmem,256,hkDEOH)
+label(hkDEOHbkp)
+label(return)
+label(SetDamage)
+label(CleanUp)
+label(isPlayerOrMinion)
+registersymbol(hkDEOH)
+registersymbol(hkDEOHbkp)
+newmem:
+  cmp  rcx, BAD_PTR
+  jle  hkDEOHbkp
+  push rbx
+  mov  rbx, [rbx+0178]
+  cmp  rbx, [PlayerActor]
+  je   CleanUp
+  mov  rbx, [rcx+038]
+  test rbx, rbx
+  je   isPlayerOrMinion
+  mov  rbx, [rbx+018]
+  cmp  rbx, BAD_PTR
+  jle  CleanUp
+  cmp  BYTE PTR [rbx+0185], 0
+  jne  isPlayerOrMinion
+  cmp  BYTE PTR [rbx+0209], 0
+  jne  CleanUp
+isPlayerOrMinion:
+  mov  rbx, [rcx+018]
+  cmp  rbx, BAD_PTR
+  jle  @F
+  call SetDamage
+@@:
+  mov  rbx, [rcx+020]
+  cmp  rbx, BAD_PTR
+  jle  @F
+  push eax
+  mov  eax, [optAddedDamageScaling]
+  mov  [rbx+038], eax
+  pop  eax
+  call SetDamage
+@@:
+  push eax
+  mov  eax, [optDamageModifier]
+  mov  [rcx+02C], eax
+  pop  eax
+CleanUp:
+  pop  rbx
+hkDEOHbkp:
+  readmem(hkDEOH,5)
+  jmp return
+ALIGN 10 CC
+SetDamage:
+  push eax
+  mov  BYTE PTR [rbx+020], 1
+  mov  eax, [optCritChange]
+  mov  [rbx+018], eax
+  mov  eax, [optCritMultiplier]
+  mov  [rbx+01C], eax
+  mov  eax, [optAdditionalLeech]
+  mov  [rbx+03C], eax
+{
+  mov  rax, [optFreezeRate]
+  mov  [rbx+040], rax
+  mov  rax, [optIncreasedStunChance]
+  mov  [rbx+034], rax
+  mov  rax, [optIncreasedStunDuration]
+  mov  [rbx+038], rax
+}
+  pop  eax
+  ret
+hkDEOH:
+  jmp newmem
+return:
+[DISABLE]
+hkDEOH:
+  readmem(hkDEOHbkp,5)
+unregistersymbol(*)
+dealloc(*)
+</AssemblerScript>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>363</ID>
+                  <Description>"Damage Modifier"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <Color>C0C0C0</Color>
+                  <VariableType>Float</VariableType>
+                  <Address>optDamageModifier</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>370</ID>
+                  <Description>"Added Damage Scaling"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <Color>C0C0C0</Color>
+                  <VariableType>Float</VariableType>
+                  <Address>optAddedDamageScaling</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>364</ID>
+                  <Description>"Crit Change"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <Color>C0C0C0</Color>
+                  <VariableType>Float</VariableType>
+                  <Address>optCritChange</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>368</ID>
+                  <Description>"Crit Multiplier"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <Color>C0C0C0</Color>
+                  <VariableType>Float</VariableType>
+                  <Address>optCritMultiplier</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>367</ID>
+                  <Description>"Additional lLeech"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <Color>C0C0C0</Color>
+                  <VariableType>Float</VariableType>
+                  <Address>optAdditionalLeech</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>385</ID>
+                  <Description>"note: Known Issue: shared damage atm"</Description>
+                  <Color>FF8000</Color>
+                  <GroupHeader>1</GroupHeader>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>354</ID>
+              <Description>"Incoming Damage Reduction"</Description>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{
+Incoming damage mult
+Author : ExVault
+Author : Messy ( aka SinGul4ritY )
+         2023-03-12 - changed to readmem()
+         2022-08-07 - updated to 0.8.5f
+         2021-09-10 - Changed ExVault's Incoming damage mult Multiplier to input field
+}
+[ENABLE]
+aobscanmodule(HpDamageAob,$MODULE_NAME,F3xxxxxxF3xxxxxxxx0F57xx0F28xxxxxx0F28xxxxxx48xxxxxxxxxx48)
+alloc(HpDamageMem,256,HpDamageAob)
+label(HpDamageRet)
+label(HpDamageAobBkp)
+label(optIncommingDamageMult)
+registersymbol(optIncommingDamageMult)
+registersymbol(HpDamageAob)
+registersymbol(HpDamageAobBkp)
+HpDamageMem:
+  push  rax
+  mov   rax,[rbx+18]
+  cmp   byte ptr [rax+017D],0
+  je    skip
+  mulss xmm6,[optIncommingDamageMult]
+skip:
+  pop   rax
+HpDamageAobBkp:
+  readmem(HpDamageAob, 9)
+  jmp   HpDamageRet
+ALIGN 10 cc
+optIncommingDamageMult:
+  dd (float)1.0
+HpDamageAob:
+  jmp   HpDamageMem
+  nop 4
+HpDamageRet:
+[DISABLE]
+HpDamageAob:
+  readmem(HpDamageAobBkp, 9)
+unregistersymbol(HpDamageAob)
+unregistersymbol(HpDamageAobBkp)
+unregistersymbol(optIncommingDamageMult)
+dealloc(HpDamageMem)
+</AssemblerScript>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>355</ID>
+                  <Description>"Incoming Player Damage Reduction"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <Color>C0C0C0</Color>
+                  <VariableType>Float</VariableType>
+                  <Address>optIncommingDamageMult</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>356</ID>
+                  <Description>"note: 1.0 normal, 0.25 or something is damage reduction"</Description>
+                  <Color>FF8000</Color>
+                  <GroupHeader>1</GroupHeader>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>418</ID>
+          <Description>"&gt; Player Stats"</Description>
+          <Options moDeactivateChildrenAsWell="1"/>
+          <Color>FFFF00</Color>
+          <GroupHeader>1</GroupHeader>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>47</ID>
+              <Description>"Infinite Mana"</Description>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>[ENABLE]
+optMana:
+db 1
+[DISABLE]
+optMana:
+db 0
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>281</ID>
+              <Description>"No Cool Down ( works but not visible in GUI )"</Description>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{ Game   : Last Epoch.exe
+  Version:
+  Date   : 2020-09-24
+  Author : moo
+Author : gideon25 or PhCCRQQsd6Bi
+Author : Messy ( aka SinGul4ritY )
+         2021-01-03 - updated to readmem()
+         2020-12-04 - Updated to 0.8
+}
+[ENABLE]
+aobscanmodule(hkCast,$MODULE_NAME,0f28xxxxxx48xxxxxxxx48xxxxxxxx48xxxxxxxx48xxxxxxxx48xxxxxx41xxxx32)
+alloc(newmem,64,hkCast)
+registersymbol(hkCast)
+alloc(orgchkCast,5,hkCast)
+registersymbol(orgchkCast)
+label(return)
+orgchkCast:
+  readmem(hkCast, 5)
+newmem:
+  xor   al, al
+  xorps xmm6,xmm6
+  jmp return
+hkCast:
+  jmp newmem
+return:
+[DISABLE]
+hkCast:
+  readmem(orgchkCast, 5)
+dealloc(newmem)
+dealloc(orgchkCast)
+unregistersymbol(hkCast)
+unregistersymbol(orgchkCast)
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>21</ID>
+              <Description>"Movement speed Multiplier (Set then take boots off/on. 1 = 100% increase)"</Description>
+              <VariableType>Float</VariableType>
+              <Address>optPlayerSpeed</Address>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>348</ID>
+                  <Description>"note: Reset to 0 before entering a new game"</Description>
+                  <Color>FF8000</Color>
+                  <GroupHeader>1</GroupHeader>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>471</ID>
+              <Description>"Base Use Speed Multiplier ( Casting )"</Description>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{ Game   : Last Epoch.exe
+  Version:
+  Date   : 2023-05-04
+  Author : Messy ( aka SinGul4ritY )
+}
+[ENABLE]
+aobscanmodule(UAPgBUSM,$MODULE_NAME,f3xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx8bxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx48xxxxxxxxxx48xxxxxx0f29)
+alloc(memUAPgBUSM,256,UAPgBUSM)
+alloc(UAPgBUSMbkp,8,UAPgBUSM)
+label(retUAPgBUSM)
+registersymbol(UAPgBUSM)
+registersymbol(UAPgBUSMbkp)
+UAPgBUSMbkp:
+  readmem(UAPgBUSM, 8)
+memUAPgBUSM:
+  movss xmm0, [optBaseUseSpeedMulti]
+  jmp retUAPgBUSM
+UAPgBUSM:
+  jmp memUAPgBUSM
+  nop 3
+retUAPgBUSM:
+[DISABLE]
+UAPgBUSM:
+  readmem(UAPgBUSMbkp, 8)
+unregistersymbol(*)
+dealloc(*)
+</AssemblerScript>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>472</ID>
+                  <Description>"# Multiplier ( game default 1.1 )"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <Color>C0C0C0</Color>
+                  <VariableType>Float</VariableType>
+                  <Address>optBaseUseSpeedMulti</Address>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>316</ID>
+              <Description>"Attack Rate ( Melee only not Casting )"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <Color>C0C0C0</Color>
+              <VariableType>Float</VariableType>
+              <Address>PlayerActor</Address>
+              <Offsets>
+                <Offset>10c</Offset>
+                <Offset>48</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>514</ID>
+              <Description>"&gt; Companions / Minions"</Description>
+              <Options moHideChildren="1" moActivateChildrenAsWell="1" moDeactivateChildrenAsWell="1"/>
+              <Color>FFFF00</Color>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{ Game   : Last Epoch.exe
+  Version:
+  Date   : 2023-05-05
+  Author : Messy ( aka SinGul4ritY )
+           2023-05-16 - added: optNoUnSommon
+           2023-05-08 - checking for scene loading/changing
+                        ** not working **
+                      - added some more checks for diff minions/companions
+}
+define(BAD_PTR, 7FFFFFFF)
+[ENABLE]
+aobscanmodule(hkSdus,$MODULE_NAME,44xxxxxxxx88xxxxxx48xxxxxxxxxxxxxx41xx41xx48xxxxxx48)
+alloc(memhkSdus,64,hkSdus)
+aobscanmodule(hkSTuAM,$MODULE_NAME,45xxxx45xxxx33xxe8xxxxxxxx48xxxxxx83)
+alloc(memhkSTuAM,48,hkSTuAM)
+alloc(SetFlag,48,hkSTuAM)
+aobscanmodule(hkSTuEC,$MODULE_NAME,45xxxx45xxxx33xx48xxxxe8xxxxxxxx83)
+alloc(memhkSTuEC,48,hkSTuEC)
+aobscanmodule(hkSTuEG,$MODULE_NAME,45xxxx45xxxx33xx48xxxxe8xxxxxxxxffxx83xxxx7cxx48xxxxxxxx48xxxxxxxx48xxxxxx41xxxxxxxxe8xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx48xxxxxxxx48xxxxxxxx48)
+alloc(memhkSTuEG,48,hkSTuEG)
+aobscanmodule(hkSTuEMi,$MODULE_NAME,45xxxx45xxxx33xx48xxxxe8xxxxxxxxffxx83xxxx7cxx48xxxxxxxx48xxxxxxxx48xxxxxxxx48xxxxxxxx48)
+alloc(memhkSTuEMi,48,hkSTuEMi)
+aobscanmodule(hkSTuESM,$MODULE_NAME,45xxxx45xxxx33xx48xxxxe8xxxxxxxxffxx83xxxx7cxx48xxxxxxxx48xxxxxxxx48xxxxxx41xxxxxxxxe8xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx40 )
+alloc(memhkSTuESM,48,hkSTuESM)
+aobscanmodule(hkSTuES,$MODULE_NAME,45xxxx45xxxx33xx48xxxxe8xxxxxxxxffxx83xxxx7cxx48xxxxxxxx48xxxxxxxx48xxxxxx41xxxxxxxxe8xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx48xxxxxxxx48xxxxxxxxxx48 )
+alloc(memhkSTuES,48,hkSTuES)
+aobscanmodule(hkSTuEW,$MODULE_NAME,45xxxx45xxxx33xx48xxxxe8xxxxxxxxffxx83xxxx7cxx48xxxxxxxx48xxxxxxxx48xxxxxxxx48xxxxxxxxxxe8 )
+alloc(memhkSTuEW,48,hkSTuEW)
+aobscanmodule(hkSTuIW,$MODULE_NAME,45xxxx45xxxx33xx48xxxxe8xxxxxxxxebxxc7 )
+alloc(memhkSTuIW,48,hkSTuIW)
+aobscanmodule(hkUsu,$MODULE_NAME,45xxxx45xxxx48xxxxe8xxxxxxxx45xxxx33xx48xxxxe8xxxxxxxxf3)
+alloc(memhkUsu,48,hkUsu)
+label(hkSdusbkp)
+label(rethkSdus)
+label(NoSkip)
+label(Skip)
+label(hkSTuAMbkp)
+label(rethkSTuAM)
+label(hkSTuECbkp)
+label(rethkSTuEC)
+label(hkSTuEGbkp)
+label(rethkSTuEG)
+label(hkSTuEMibkp)
+label(rethkSTuEMi)
+label(hkSTuESMbkp)
+label(rethkSTuESM)
+label(hkSTuESbkp)
+label(rethkSTuES)
+label(hkSTuEWbkp)
+label(rethkSTuEW)
+label(hkSTuIWbkp)
+label(rethkSTuIW)
+label(hkUsubkp)
+label(rethkUsu)
+registersymbol(hkSdus)
+registersymbol(hkSdusbkp)
+registersymbol(hkSTuAM)
+registersymbol(hkSTuAMbkp)
+registersymbol(hkSTuEC)
+registersymbol(hkSTuECbkp)
+registersymbol(hkSTuEG)
+registersymbol(hkSTuEGbkp)
+registersymbol(hkSTuEMi)
+registersymbol(hkSTuEMibkp)
+registersymbol(hkSTuESM)
+registersymbol(hkSTuESMbkp)
+registersymbol(hkSTuES)
+registersymbol(hkSTuESbkp)
+registersymbol(hkSTuEW)
+registersymbol(hkSTuEWbkp)
+registersymbol(hkSTuIW)
+registersymbol(hkSTuIWbkp)
+registersymbol(hkUsu)
+registersymbol(hkUsubkp)
+memhkSdus:
+  push rax
+  push rdx
+  xor  al, al
+  cmp  [optNoUnSummon], al
+  je   Skip
+  mov  ah, [noUnSummon]
+  mov  [noUnSummon], al
+  cmp  [isLoading], al
+  jne  Skip
+  mov  rdx, [rcx+040]
+  cmp  rdx, BAD_PTR
+  jle  Skip
+  mov  rdx, [rdx+050]
+  cmp  [rdx+020A], al
+  jne  Skip
+  cmp  [rdx+0209], al
+  je   NoSkip
+NoSkip:
+  pop  rdx
+  pop  rax
+  ret
+Skip:
+  pop  rdx
+  pop  rax
+hkSdusbkp:
+  readmem(hkSdus, 5)
+  jmp rethkSdus
+hkSdus:
+  jmp memhkSdus
+rethkSdus:
+SetFlag:
+  mov  BYTE PTR [noUnSummon], 1
+  ret
+ResetFlag:
+  mov  BYTE PTR [noUnSummon], 0
+  ret
+memhkSTuAM:
+  call SetFlag
+hkSTuAMbkp:
+  readmem(hkSTuAM, 6)
+  jmp rethkSTuAM
+hkSTuAM:
+  jmp memhkSTuAM
+  nop
+rethkSTuAM:
+memhkSTuEC:
+  call SetFlag
+hkSTuECbkp:
+  readmem(hkSTuEC, 6)
+  jmp rethkSTuEC
+hkSTuEC:
+  jmp memhkSTuEC
+  nop
+rethkSTuEC:
+memhkSTuEG:
+  call SetFlag
+hkSTuEGbkp:
+  readmem(hkSTuEG, 6)
+  jmp rethkSTuEG
+hkSTuEG:
+  jmp memhkSTuEG
+  nop
+rethkSTuEG:
+memhkSTuEMi:
+  call SetFlag
+hkSTuEMibkp:
+  readmem(hkSTuEMi, 6)
+  jmp rethkSTuEMi
+hkSTuEMi:
+  jmp memhkSTuEMi
+  nop
+rethkSTuEMi:
+memhkSTuESM:
+  call SetFlag
+hkSTuESMbkp:
+  readmem(hkSTuESM, 6)
+  jmp rethkSTuESM
+hkSTuESM:
+  jmp memhkSTuESM
+  nop
+rethkSTuESM:
+memhkSTuES:
+  call SetFlag
+hkSTuESbkp:
+  readmem(hkSTuES, 6)
+  jmp rethkSTuES
+hkSTuES:
+  jmp memhkSTuES
+  nop
+rethkSTuES:
+memhkSTuEW:
+  call SetFlag
+hkSTuEWbkp:
+  readmem(hkSTuEW, 6)
+  jmp rethkSTuEW
+hkSTuEW:
+  jmp memhkSTuEW
+  nop
+rethkSTuEW:
+memhkSTuIW:
+  call SetFlag
+hkSTuIWbkp:
+  readmem(hkSTuIW, 6)
+  jmp rethkSTuIW
+hkSTuIW:
+  jmp memhkSTuIW
+  nop
+rethkSTuIW:
+memhkUsu:
+  call ResetFlag
+hkUsubkp:
+  readmem(hkUsu, 6)
+  jmp rethkUsu
+hkUsu:
+  jmp memhkUsu
+  nop
+rethkUsu:
+[DISABLE]
+hkSdus:
+  readmem(hkSdusbkp, 5)
+hkSTuAM:
+  readmem(hkSTuAMbkp, 6)
+hkSTuEC:
+  readmem(hkSTuECbkp, 6)
+hkSTuEG:
+  readmem(hkSTuEGbkp, 6)
+hkSTuEMi:
+  readmem(hkSTuEMibkp, 6)
+hkSTuESM:
+  readmem(hkSTuESMbkp, 6)
+hkSTuES:
+  readmem(hkSTuESbkp, 6)
+hkSTuEW:
+  readmem(hkSTuEWbkp, 6)
+hkSTuIW:
+  readmem(hkSTuIWbkp, 6)
+hkUsu:
+  readmem(hkUsubkp, 6)
+unregistersymbol(*)
+dealloc(*)
+</AssemblerScript>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>516</ID>
+                  <Description>"Summons will NOT be Unsummoned ( Max #100 )"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+optNoUnSummon:
+db 1
+[DISABLE]
+optNoUnSummon:
+db 0
+</AssemblerScript>
+                  <Hotkeys>
+                    <Hotkey>
+                      <Action>Toggle Activation</Action>
+                      <Keys>
+                        <Key>110</Key>
+                      </Keys>
+                      <ID>0</ID>
+                      <ActivateSound>Activate</ActivateSound>
+                      <DeactivateSound>Deactivate</DeactivateSound>
+                    </Hotkey>
+                  </Hotkeys>
+                  <CheatEntries>
+                    <CheatEntry>
+                      <ID>494</ID>
+                      <Description>"Minions / Companions / when using Portal or Waypoints"</Description>
+                      <Color>FF8000</Color>
+                      <GroupHeader>1</GroupHeader>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>495</ID>
+                      <Description>"Best to Turn if Off after a certain number or when travelling "</Description>
+                      <Color>4080FF</Color>
+                      <GroupHeader>1</GroupHeader>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>517</ID>
+                      <Description>"Hotkey: &lt;NUMPAD&gt;."</Description>
+                      <Color>4080FF</Color>
+                      <GroupHeader>1</GroupHeader>
+                    </CheatEntry>
+                  </CheatEntries>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>484</ID>
+                  <Description>"Maximum Companions"</Description>
+                  <Options moActivateChildrenAsWell="1" moDeactivateChildrenAsWell="1"/>
+                  <GroupHeader>1</GroupHeader>
+                  <CheatEntries>
+                    <CheatEntry>
+                      <ID>475</ID>
+                      <Description>"Other Companions"</Description>
+                      <VariableType>Auto Assembler Script</VariableType>
+                      <AssemblerScript>{ Game   : Last Epoch.exe
+  Version:
+  Date   : 2023-05-04
+  Author : Messy ( aka SinGul4ritY )
+}
+[ENABLE]
+aobscanmodule(SgMCs,$MODULE_NAME,40xx48xxxxxx80xxxxxxxxxxxx48xxxx0f29xxxxxx75xx8bxxxxxxxxxxe8xxxxxxxxc6xxxxxxxxxxxxf3xxxxxxxxxxxxxx0f57xx48)
+alloc(SgMCsbkp,48,SgMCs)
+registersymbol(SgMCs)
+registersymbol(SgMCsbkp)
+SgMCsbkp:
+  readmem(SgMCs,48)
+SgMCs:
+  movzx   rax,  [optCompanions]
+  ret
+[DISABLE]
+SgMCs:
+  readmem(SgMCsbkp,48)
+unregistersymbol(*)
+dealloc(*)
+</AssemblerScript>
+                      <CheatEntries>
+                        <CheatEntry>
+                          <ID>478</ID>
+                          <Description>"# Number"</Description>
+                          <ShowAsSigned>0</ShowAsSigned>
+                          <Color>C0C0C0</Color>
+                          <VariableType>Byte</VariableType>
+                          <Address>optCompanions</Address>
+                        </CheatEntry>
+                      </CheatEntries>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>483</ID>
+                      <Description>"Wolfs"</Description>
+                      <VariableType>Auto Assembler Script</VariableType>
+                      <AssemblerScript>{ Game   : Last Epoch.exe
+  Version:
+  Date   : 2023-05-05
+  Author : Messy ( aka SinGul4ritY )
+}
+[ENABLE]
+{$LUA}
+if syntaxcheck then return end
+HckON('Other Companions')
+{$ASM}
+aobscanmodule(SWMgM,$MODULE_NAME,40xx48xxxxxx80xxxxxxxxxxxx48xxxx75xx8BxxxxxxxxxxE8xxxxxxxxC6xxxxxxxxxxxx48xxxxxx48xxxx74xx4Cxxxxxxxxxxxx48xxxx41xxxxxxxxxxxxxx38xxxxxxxxxx72xx48xxxxxxxxxxxx4Cxxxxxxxx75xx80xxxxxxxxxxxxB8xxxxxxxx75xx8Bxxxxxxxxxx48xxxxxxxxxx  )
+alloc(SWMgMbkp,64,SWMgM)
+registersymbol(SWMgM)
+registersymbol(SWMgMbkp)
+SWMgMbkp:
+  readmem(SWMgM, 64)
+SWMgM:
+  xor   al, al
+  mov   [rcx+0091], al
+  movzx eax, [optCompanions]
+  mov   [rcx+008C], eax
+  ret
+[DISABLE]
+SWMgM:
+  readmem(SWMgMbkp, 64)
+unregistersymbol(*)
+dealloc(*)
+</AssemblerScript>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>485</ID>
+                      <Description>"Spriggan ( Max 2 )"</Description>
+                      <VariableType>Auto Assembler Script</VariableType>
+                      <AssemblerScript>{ Game   : Last Epoch.exe
+  Version:
+  Date   : 2023-05-05
+  Author : Messy ( aka SinGul4ritY )
+}
+[ENABLE]
+aobscanmodule(SSMgM,$MODULE_NAME,40 53 48 83 ?? ?? 80 ?? ?? ?? ?? ?? ?? 48 8B ?? 75 ?? 8B ?? ?? ?? ?? ?? E8 ?? ?? ?? ?? C6 ?? ?? ?? ?? ?? ?? 48 8B ?? ?? 48 85 ?? 74 ?? 4C ?? ?? ?? ?? ?? ?? 48 8B ?? 41 0F ?? ?? ?? ?? ?? ?? 38 ?? ?? ?? ?? ?? 72 ?? 44 8B ?? 48 8B ?? ?? ?? ?? ?? 4E ?? ?? ?? ?? 75 ?? 33 ?? B2 ?? 84 ?? 48 0F ?? ?? 8B ?? ?? ?? ?? ?? FF)
+alloc(SSMgMbkp,16,SSMgM)
+registersymbol(SSMgM)
+registersymbol(SSMgMbkp)
+SSMgMbkp:
+   readmem(SSMgM,16)
+SSMgM:
+   mov  eax, 2
+   ret
+[DISABLE]
+SSMgM:
+     readmem(SSMgMbkp,16)
+unregistersymbol(*)
+dealloc(*)
+</AssemblerScript>
+                    </CheatEntry>
+                  </CheatEntries>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>416</ID>
+          <Description>"&gt; Drops"</Description>
+          <Options moDeactivateChildrenAsWell="1"/>
+          <Color>FFFF00</Color>
+          <GroupHeader>1</GroupHeader>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>215</ID>
+              <Description>"Higher Drop Amount of Enemies Killed"</Description>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{ Game   : Last Epoch.exe
+  Version:
+  Date   : 2020-12-11
+  Author : Messy ( aka SinGul4ritY )
+           2023-03-14 - changed to editable option
+           2021-01-03 - changed to readmem()
+           2020-12-16 - updated to beta 0.8d
+}
+[ENABLE]
+aobscanmodule(hkIDgEBIDRate,$MODULE_NAME,F3 0F ? ? ? ? ? ? 66 0F ? ? 0F 5B ? 0F 2F ? 73 ? F3 0F ? ? F3 0F ? ? ? ? ? ? F3 0F ? ? ? ? ? ? C3 F3 0F ? ? ? ? ? ? C3 CC)
+alloc(newmem,64,hkIDgEBIDRate)
+registersymbol(hkIDgEBIDRate)
+alloc(orgchkIDgEBIDRate, 5, hkIDgEBIDRate)
+registersymbol(orgchkIDgEBIDRate)
+label(return)
+orgchkIDgEBIDRate:
+  readmem(hkIDgEBIDRate, 5)
+newmem:
+  movss xmm0, [optDropAmount]
+  ret
+hkIDgEBIDRate:
+  jmp newmem
+return:
+[DISABLE]
+hkIDgEBIDRate:
+  readmem(orgchkIDgEBIDRate, 5)
+dealloc(newmem)
+dealloc(orgchkIDgEBIDRate)
+unregistersymbol(hkIDgEBIDRate)
+unregistersymbol(orgchkIDgEBIDRate)
+</AssemblerScript>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>384</ID>
+                  <Description>"# Amount Multiplier ?"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <Color>C0C0C0</Color>
+                  <VariableType>Float</VariableType>
+                  <Address>optDropAmount</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>216</ID>
+                  <Description>"note: Only triggers when loading char/zone (experimental)"</Description>
+                  <Color>FF8000</Color>
+                  <GroupHeader>1</GroupHeader>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>452</ID>
+              <Description>"Force Item Type to Drop"</Description>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{ Game   : Last Epoch.exe
+  Version:
+  Date   : 2023-05-02
+  Author : Messy6666 ( aka SinGul4ritY )
+           * thanks to "moo ( PhCCRQQsd6Bi )" for providing info
+}
+[ENABLE]
+aobscanmodule(hkGIiRID,$MODULE_NAME,8Bxxxxxxxxxxxx89xxxxxx8Bxxxxxxxxxxxx89xxxxxx8Bxxxxxxxxxxxx89xxxxxx8Bxxxxxxxxxxxx89xxxxxx8Bxxxxxxxxxxxx89xxxxxxE8xxxxxxxx4Cxxxxxxxx48xxxxxxxx )
+alloc(memhkGIiRID,128,hkGIiRID)
+label(hkGIiRIDbkp)
+label(rethkGIiRID)
+registersymbol(hkGIiRID)
+registersymbol(hkGIiRIDbkp)
+memhkGIiRID:
+  mov eax, [optBaseType]
+  mov [rsp+000000C8], eax
+  mov eax, [optSockets]
+  mov [rsp+000000E0], eax
+  movzx ebx, BYTE PTR [optForceExahlted]
+  mov [rsp+000000F0], bl
+hkGIiRIDbkp:
+  readmem(hkGIiRID, 7)
+  jmp rethkGIiRID
+hkGIiRID:
+  jmp memhkGIiRID
+  nop 2
+rethkGIiRID:
+[DISABLE]
+hkGIiRID:
+  readmem(hkGIiRIDbkp, 7)
+unregistersymbol(*)
+dealloc(*)
+</AssemblerScript>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>457</ID>
+                  <Description>"Item Type"</Description>
+                  <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0:Helmet
+1:Body Armor
+2:Belt
+3:Boots
+4:Gloves
+5:One Handed Axe
+6:One Handed Dagger
+7:One Handed Mace
+8:One Handed Sceptre
+9:One Handed Sword
+10:Wand
+11:One Handed Fist
+12:Two Handed Axe
+13:Two Handed Mace
+14:Two Handed Polearm
+15:Two Handed Staff
+16:Two Handed Sword
+17:Quiver
+18:Shield
+19:Catalyst
+20:Amulet
+21:Ring
+22:Relic
+23:Bow
+24:Crossbow
+25:Idol Small Eterran (1x1)
+26:Idol Small Lagon (1x1)
+27:Idol Humble Eterran (2x1)
+28:Idol Stout Lagonian (1x2)
+29:Idol Grand Solar (3x1)
+30:Idol Large Rahyeh (1x3)
+31:Idol Ornate solar (4x1)
+32:Idol Huge Rahyeh (1x4)
+33:Idol Adorned Rahyeh (2x2)
+34:Blessing
+</DropDownList>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <Color>C0C0C0</Color>
+                  <VariableType>2 Bytes</VariableType>
+                  <Address>optBaseType</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>454</ID>
+                  <Description>"Force Exalted"</Description>
+                  <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0:no
+1:yes
+</DropDownList>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <Color>C0C0C0</Color>
+                  <VariableType>Byte</VariableType>
+                  <Address>optForceExahlted</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>455</ID>
+                  <Description>"# Sockets ( not implemented yet ? )"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <Color>C0C0C0</Color>
+                  <VariableType>2 Bytes</VariableType>
+                  <Address>optSockets</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>456</ID>
+                  <Description>"Rarity Group ( DOES NOT WQRK ATM )"</Description>
+                  <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0:Normal
+1:Magic
+2:Rare
+3:Unique
+4:Set
+5:Exalted
+6:Exalted with Affixes
+</DropDownList>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <Color>8D8D8D</Color>
+                  <VariableType>2 Bytes</VariableType>
+                  <Address>optRarityGroup</Address>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>386</ID>
+              <Description>"Pickup Range (GroundItems but NOT gold, potions, books)"</Description>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{ Game   : Last Epoch.exe
+  Version:
+  Date   : 2023-03-23
+  Author : moo ( PhCCRQQsd6Bi )
+}
+[ENABLE]
+aobscanmodule(hkGILCI,$MODULE_NAME,77xx33xx48xxxxe8xxxxxxxx0f28xxxxxxxxxxxx0f28)
+alloc(hkGILCIbkp,2,hkGILCI)
+registersymbol(hkGILCI)
+registersymbol(hkGILCIbkp)
+hkGILCIbkp:
+  readmem(hkGILCI, 2)
+hkGILCI:
+  db  90 90
+[DISABLE]
+hkGILCI:
+  readmem(hkGILCIbkp, 2)
+unregistersymbol(*)
+dealloc(*)
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>388</ID>
+              <Description>"Vacuum crafting mats range (Will Suck the entire map. Had some long freezes in campaign, game comes back no crash)"</Description>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{ Game   : Last Epoch.exe
+  Version:
+  Date   : 2023-03-24
+  Author : moo ( PhCCRQQsd6Bi )
+}
+[ENABLE]
+aobscanmodule(hkGIvNCM,$MODULE_NAME,74xx48xxxx0f84xxxxxxxx48xxxxxxxxxxxx48xxxx0f84xxxxxxxxf2)
+alloc(hkGIvNCMbkp,2,hkGIvNCM)
+registersymbol(hkGIvNCM)
+registersymbol(hkGIvNCMbkp)
+hkGIvNCMbkp:
+  readmem(hkGIvNCM, 2)
+hkGIvNCM:
+  db  90 90
+[DISABLE]
+hkGIvNCM:
+  readmem(hkGIvNCMbkp, 2)
+unregistersymbol(*)
+dealloc(*)
+</AssemblerScript>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>419</ID>
+          <Description>"&gt; Items"</Description>
+          <Options moDeactivateChildrenAsWell="1"/>
+          <Color>FFFF00</Color>
+          <GroupHeader>1</GroupHeader>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>301</ID>
+              <Description>"Select Item Roll Rarity"</Description>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{ Game   : Last Epoch.exe
+  Version: 1.0
+  Date   : 2020-12-11
+  Author : Messy ( aka SinGul4ritY )
+  Select Rarity To Roll
+           2023-03-10 - 0.9 update
+           2021-12-11 - enabled Legendaries
+           2021-01-08 - fixed a bug
+           2021-01-06 - Option to cycle through the higher rarities
+                      - moved options to Globals
+  0:random
+  7:Uniques
+  8:SETS
+  9:9 &lt;LEGENDARY?&gt; NOT Supported
+  1:1 experimental
+  2:2 experimental
+  3:3 experimental
+  4:4 experimental
+  5:5 experimental
+  6:6 experimental
+}
+[ENABLE]
+define(RANDOM, 0)
+define(UNIQUE, 7)
+define(SET, 8)
+define(LEGENDARY, 9)
+define(SKIP, FE)
+define(EOL, FF)
+define(INIT, 50)
+aobscanmodule(hkGIRRarity,$MODULE_NAME,0f28xxxxxx48xxxxxxxx0f28xxxxxx44xxxxxxxxxx44)
+alloc(newmem,256,hkGIRRarity)
+registersymbol(hkGIRRarity)
+label(orgchkGIRRarity)
+registersymbol(orgchkGIRRarity)
+label(GetRollRarity)
+label(return)
+label(CleanUp)
+label(RarityIdx)
+label(Rarities)
+label(NextRarity)
+label(NoInit)
+newmem:
+    call GetRollRarity
+    mov al, byte ptr [optRollRarityToUse]
+orgchkGIRRarity:
+	readmem(hkGIRRarity, 5)
+	jmp return
+GetRollRarity:
+    push rax
+    push rdx
+    push rcx
+    mov  al, byte ptr [optRollRarity]
+    cmp  byte ptr [optRollRarityCycleThrough], 0
+    je   CleanUp
+    lea   rdx, [Rarities]
+    movzx ecx, byte ptr [RarityIdx]
+    cmp   cl, INIT
+    jb    NoInit
+    movzx ecx, byte ptr [optRollRarity]
+    cmp   cl, MAX_RARITY
+    jbe   @F
+    mov   cl, MAX_RARITY
+    mov   byte ptr [optRollRarity], cl
+NoInit:
+NextRarity:
+        mov   al, byte ptr [rdx+ecx]
+        cmp   al, EOL
+        jne   @F
+        mov   cl, byte ptr [optRollRarity]
+        jmp   short NextRarity
+@@:
+        inc   cl
+        cmp   al, SKIP
+        je    short NextRarity
+    mov  byte ptr [RarityIdx], cl
+CleanUp:
+    mov  byte ptr [optRollRarityToUse], al
+    pop  rcx
+    pop  rdx
+    pop  rax
+    ret
+align 10 CC
+optRollRarityToUse:
+    db    INIT
+align 10 CC
+RarityIdx:
+    db    0
+align 10 CC
+Rarities:
+    db   RANDOM
+    db   SKIP
+    db   SKIP
+    db   SKIP
+    db   SKIP
+    db   SKIP
+    db   SKIP
+    db   UNIQUE
+    db   SET
+    db   EOL
+hkGIRRarity:
+	jmp newmem
+return:
+[DISABLE]
+hkGIRRarity:
+	readmem(orgchkGIRRarity, 5)
+dealloc(newmem)
+unregistersymbol(hkGIRRarity)
+unregistersymbol(orgchkGIRRarity)
+</AssemblerScript>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>302</ID>
+                  <Description>"Rarity of Items Rolled"</Description>
+                  <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">7:Uniques
+8:SETS
+1:1 experimental
+2:2 experimental
+3:3 experimental
+4:4 experimental
+5:5 experimental
+6:6 experimental
+0:random
+</DropDownList>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <Color>C0C0C0</Color>
+                  <VariableType>Byte</VariableType>
+                  <Address>optRollRarity</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>303</ID>
+                  <Description>"Cycle through the higher rarities"</Description>
+                  <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0:no
+1:yes
+</DropDownList>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <Color>C0C0C0</Color>
+                  <VariableType>Byte</VariableType>
+                  <Address>optRollRarityCycleThrough</Address>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>236</ID>
+              <Description>"Max Rolls for ( check to enable all ):"</Description>
+              <Options moActivateChildrenAsWell="1" moDeactivateChildrenAsWell="1"/>
+              <GroupHeader>1</GroupHeader>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>232</ID>
+                  <Description>"Max Unique, Sets and Implicit Rolls"</Description>
+                  <Color>C0C0C0</Color>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>{ Game   : Last Epoch.exe
+  Version: 1.0
+  Date   : 2020-12-13
+  Author : Messy ( aka SinGul4ritY )
+  Max Unique, Sets and Implicit Rolls
+}
+[ENABLE]
+aobscanmodule(hkIDrURolls,$MODULE_NAME,88xxxxxx48xxxxxx48xxxx48xxxx74xxebxx48xxxxxxxx48xxxxxxxx48xxxxxxxxxxe8xxxxxxxxxxe8xxxxxxxx48xxxx33xxe8xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx48xxxxxxxx48)
+aobscanmodule(hkIDrIRolls,$MODULE_NAME,88xxxxxx48xxxxxx48xxxx48xxxx74xxebxx48xxxxxxxx48xxxxxxxx48xxxxxxxxxxe8xxxxxxxxxxe8xxxxxxxx48xxxx33xxe8xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx48xxxxxxxxxx48xxxxxx80xxxxxxxxxxxx48xxxx75xx8bxxxxxxxxxxe8xxxxxxxxc6xxxxxxxxxxxx48xxxxxx33xx48xxxxxxxx8bxx48xxxx74xx48xxxx0f1fxx3bxxxx7dxx48xxxxxxxxxxxxf6xxxxxxxxxxxx74xx83xxxxxxxxxxxx75xxe8xxxxxxxx33xxe8xxxxxxxx48xxxx74xx3bxxxx73xx48xxxxffxx8bxx88xxxxxx48xxxxxx48xxxx48xxxx74xxebxx48xxxxxxxx48xxxxxxxx48xxxxxxxxxxe8xxxxxxxxxxe8xxxxxxxx48xxxx33xxe8xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx48)
+alloc(newmemhkIDrURolls,32,hkIDrURolls)
+alloc(newmemhkIDrIRolls,32,hkIDrIRolls)
+label(orgchkIDrIRolls)
+label(returnhkIDrIRolls)
+registersymbol(hkIDrIRolls)
+registersymbol(orgchkIDrIRolls)
+label(orgchkIDrURolls)
+label(returnhkIDrURolls)
+registersymbol(hkIDrURolls)
+registersymbol(orgchkIDrURolls)
+newmemhkIDrURolls:
+    mov al, #255
+orgchkIDrURolls:
+    readmem(hkIDrURolls, 8)
+	jmp returnhkIDrURolls
+hkIDrURolls:
+	jmp newmemhkIDrURolls
+	db 90 90 90
+returnhkIDrURolls:
+newmemhkIDrIRolls:
+    mov al, #255
+orgchkIDrIRolls:
+    readmem(hkIDrIRolls, 8)
+	jmp returnhkIDrIRolls
+hkIDrIRolls:
+	jmp newmemhkIDrIRolls
+	db 90 90 90
+returnhkIDrIRolls:
+[DISABLE]
+hkIDrURolls:
+	readmem(orgchkIDrURolls, 8)
+hkIDrIRolls:
+    readmem(orgchkIDrIRolls, 8)
+dealloc(newmemhkIDrURolls)
+dealloc(newmemhkIDrIRolls)
+unregistersymbol(hkIDrIRolls)
+unregistersymbol(orgchkIDrIRolls)
+unregistersymbol(hkIDrURolls)
+unregistersymbol(orgchkIDrURolls)
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>73</ID>
+                  <Description>"Max Affix Rolls for others"</Description>
+                  <Color>C0C0C0</Color>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>{
+Author : gideon25 or PhCCRQQsd6Bi
+Author : Messy ( aka SinGul4ritY )
+         2021-03-28 - Update for 0.81e
+         2020-12-06 - Updated to CE 7.2 + readmem()
+}
+[ENABLE]
+aobscanmodule(hkIRAffix,$MODULE_NAME,0fb6xxxxffxx88xxxxxx41xxxxxx48xxxxxx49xxxxxx8bxx48xxxx48xxxx0f85xxxxxxxxe9xxxxxxxx8b)
+alloc(newmem,64,hkIRAffix)
+label(return)
+registersymbol(hkIRAffix)
+label(orgchkIRAffix)
+registersymbol(orgchkIRAffix)
+newmem:
+  mov byte ptr [rax+13], #255
+orgchkIRAffix:
+  readmem(hkIRAffix, 6)
+  jmp return
+hkIRAffix:
+  jmp newmem
+  nop
+return:
+[DISABLE]
+hkIRAffix:
+  readmem(orgchkIRAffix, 6)
+dealloc(newmem)
+unregistersymbol(hkIRAffix)
+unregistersymbol(orgchkIRAffix)
+</AssemblerScript>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>335</ID>
+              <Description>"Max Item Tier ( Select from Dropdown )"</Description>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{ Game   : Last Epoch.exe
+  Version:
+  Date   : 2020-09-23
+  Author : moo
+Author : gideon25 or PhCCRQQsd6Bi
+Author : Messy ( aka SinGul4ritY )
+         2023-03-14 - Added option to skip modifying Legendary Potential
+         2021-01-07 - moved options to globals
+         2020-12-14 - Skip Itemtypes #101 - # 105 ( shards,run,key ... )
+         2020-11-05 - Tier # selectable from dropdown (incl Purple's) for crafting/shopping/gambling
+                       0:Tier 5
+                       3:Tier 4
+                       4:Tier 5
+                       5:Tier 6 purple
+                       6:Tier 7 Purple
+         2020-10-29 - Changed Max Tier to 7 ( Purple )
+                    - instability byte ptr [rbx+018], reset to 0
+                    - isFractured byte ptr [rbx+019]
+Author:  Toga
+         2022-03-28 - added optForgePotential and optLegendaryPotentional ( credit to: SinGul4ritY )
+}
+[ENABLE]
+aobscanmodule(hkIRTier,$MODULE_NAME,0fb6xxxx88xxxxxx48xxxx0f84xxxxxxxx3bxxxx72xx33xxe8xxxxxxxx48xxxxxx4a)
+alloc(newmem,256,hkIRTier)
+registersymbol(hkIRTier)
+label(return)
+label(orgchkIRTier)
+registersymbol(orgchkIRTier)
+{
+registersymbol(optMakeStable)
+alloc(optMakeStable,1)
+registersymbol(optUseTier)
+alloc(optUseTier,1)
+}
+{registersymbol(optRemoveLevelRequirement)
+alloc(optRemoveLevelRequirement,1)
+registersymbol(optRemoveClassRequirement)
+alloc(optRemoveClassRequirement,1)}
+newmem:
+  mov  al, [rbx+01A]
+  cmp  al, #101
+  jl   @F
+  cmp  al, #105
+  jng   orgchkIRTier
+@@:
+  cmp  al, #25
+  jl   @F
+  cmp  al, #33
+  jng  orgchkIRTier
+@@:
+  mov aL, byte ptr [optUseTier]
+  cmp al, 0
+  jne @F
+  mov al, 4
+  mov byte ptr [optUseTier], al
+@@:
+{  mov byte ptr [rcx+12],#4
+  cmp byte ptr [optUseTier], 3
+  jl  @F
+  jne  @F
+  mov byte ptr [rcx+12],#6
+}
+  cmp al, 3
+  jl  @F
+  cmp al, 6
+  jg  @F
+  mov byte ptr [rcx+12], al
+@@:
+  mov al, [optForgePotential]
+  mov byte ptr [rbx+018], al
+  cmp  BYTE PTR [optSkipLegendaryPotential], 0
+  jne  @F
+  mov al, [optLegendaryPotential]
+  mov byte ptr [rbx+019], aL
+@@:
+{  cmp byte ptr [optMakeStable], 0
+  je @F
+  mov byte ptr [rbx+018], 0
+}
+orgchkIRTier:
+  readmem(hkIRTier, 8)
+  jmp return
+hkIRTier:
+  jmp newmem
+  nop 3
+return:
+[DISABLE]
+hkIRTier:
+  readmem(orgchkIRTier, 8)
+unregistersymbol(hkIRTier)
+unregistersymbol(orgchkIRTier)
+dealloc(newmem)
+</AssemblerScript>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>337</ID>
+                  <Description>"Tier (incl Purple's) for crafting/shopping/gambling"</Description>
+                  <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0:Tier 5
+3:Tier 4
+4:Tier 5
+5:Tier 6 purple
+6:Tier 7 Purple
+</DropDownList>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <Color>C0C0C0</Color>
+                  <VariableType>Byte</VariableType>
+                  <Address>optUseTier</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>341</ID>
+                  <Description>"Forge Potential"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <Color>C0C0C0</Color>
+                  <VariableType>Byte</VariableType>
+                  <Address>optForgePotential</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>342</ID>
+                  <Description>"Legendary Potential"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <Color>C0C0C0</Color>
+                  <VariableType>Byte</VariableType>
+                  <Address>optLegendaryPotential</Address>
+                  <CheatEntries>
+                    <CheatEntry>
+                      <ID>379</ID>
+                      <Description>"Don't Modify Legendary Potential"</Description>
+                      <VariableType>Auto Assembler Script</VariableType>
+                      <AssemblerScript>[ENABLE]
+optLegendaryPotential:
+db 1
+[DISABLE]
+optLegendaryPotential:
+db 0
+</AssemblerScript>
+                    </CheatEntry>
+                  </CheatEntries>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>340</ID>
+                  <Description>"note: enable the cheat en leave to menu to refresh shopping list"</Description>
+                  <Color>FF8000</Color>
+                  <GroupHeader>1</GroupHeader>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>414</ID>
+          <Description>"&gt; Unlocks &amp; Points"</Description>
+          <Options moDeactivateChildrenAsWell="1"/>
+          <Color>FFFF00</Color>
+          <GroupHeader>1</GroupHeader>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>103</ID>
+              <Description>"Unlock All Idols  ( works but not visible in GUI )"</Description>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{
+  Messy ( aka SinGul4ritY ) - Set the unlocked idol slots to MAX
+  [pIdols] is filled by hk: Player
+}
+[ENABLE]
+{$LUA}
+if syntaxcheck then return end
+local add = readPointer(pIdols)
+if add ~= nil or add ~=0 then
+     writeBytes('[pIdols]',MAX_IDOL_SLOTS)
+end
+{$ASM}
+[DISABLE]
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>41</ID>
+              <Description>"Unlock Skill Slots"</Description>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{
+Author : gideon25 or PhCCRQQsd6Bi
+Author : Messy ( aka SinGul4ritY )
+         2020-12-06 - Updated to CE 7.2 + readmem()
+}
+[ENABLE]
+aobscanmodule(hkNumSlots,$MODULE_NAME,38xxxx76xx80xxxx73)
+alloc(newmem,64,hkNumSlots)
+label(return)
+registersymbol(hkNumSlots)
+label(orgchkNumSlots)
+registersymbol(orgchkNumSlots)
+newmem:
+  mov [rsi+20],MAX_SKILL_SLOTS
+orgchkNumSlots:
+  readmem(hkNumSlots, 5)
+  jmp return
+hkNumSlots:
+  jmp newmem
+return:
+[DISABLE]
+hkNumSlots:
+  readmem(orgchkNumSlots, 5)
+dealloc(newmem)
+unregistersymbol(hkNumSlots)
+unregistersymbol(orgchkNumSlots)
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>88</ID>
+              <Description>"Max Passive Points"</Description>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{
+    Author : floob
+    Author : Messy ( aka SinGul4ritY )
+             2023-03-14 - changed value to editable option
+}
+[ENABLE]
+aobscanmodule(hkPTData,$MODULE_NAME,89xxxx48xxxxxx48xxxx0f84xxxxxxxx4cxxxxxxxxxxxx48xxxxxxe8xxxxxxxx0f10xxxx0f11xxxxf2xxxxxxxxf2xxxxxxxx0f1fxxxx66xxxxxxxxxxxxxxxx48xxxxxxxxxxxx48xxxxxxe8xxxxxxxx84xx74xx48xxxxxx48)
+alloc(newmem,$1000,hkPTData)
+registersymbol(hkPTData)
+label(orgchkPTData)
+registersymbol(orgchkPTData)
+label(return)
+newmem:
+  mov  ebx, [optMaxPassivePoints]
+orgchkPTData:
+  mov [rbp+60],ebx
+  mov rdx,[rdi+20]
+  jmp return
+hkPTData:
+  jmp newmem
+  nop 2
+return:
+[DISABLE]
+hkPTData:
+  readmem(orgchkPTData, 7)
+unregistersymbol(hkPTData)
+unregistersymbol(orgchkPTData)
+dealloc(newmem)
+</AssemblerScript>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>378</ID>
+                  <Description>"# Passive Points"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <Color>C0C0C0</Color>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>optMaxPassivePoints</Address>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>314</ID>
+              <Description>"Max Skill Points"</Description>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{
+    Author : floob
+    Author : Messy ( aka SinGul4ritY )
+             2023-03-14 - changed value to editable option
+             2022-08-07 - Fixed and updated to 0.8.5f
+}
+[ENABLE]
+aobscanmodule(hkPTDatab,$MODULE_NAME,0fb6xxxx03xxxxxxxxxxxxxx40xxxxxx48xxxxxx48)
+alloc(newmem,$1000,hkPTDatab)
+registersymbol(hkPTDatab)
+label(orgchkPTDatab)
+registersymbol(orgchkPTDatab)
+label(return)
+newmem:
+  push eax
+  mov  al, [optMaxSkillPoints]
+  mov  [rcx+3c], al
+  pop  eax
+orgchkPTDatab:
+  readmem(hkPTDatab, 6)
+  jmp return
+hkPTDatab:
+  jmp newmem
+  nop
+return:
+[DISABLE]
+hkPTDatab:
+  readmem(orgchkPTDatab, 6)
+unregistersymbol(hkPTDatab)
+unregistersymbol(orgchkPTDatab)
+dealloc(newmem)
+</AssemblerScript>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>377</ID>
+                  <Description>"# Skill Points"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <Color>C0C0C0</Color>
+                  <VariableType>Byte</VariableType>
+                  <Address>optMaxSkillPoints</Address>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>431</ID>
+              <Description>"Unlock Masteries Early"</Description>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{ Game   : Last Epoch.exe
+  Version: 1.0
+  Date   : 2020-12-09
+  Author : Messy ( aka SinGul4ritY )
+           2023-04-05 - change to
+           2023-04-04 - update for 0.9G+
+}
+[ENABLE]
+aobscanmodule(hkNDmRWdBM,$MODULE_NAME,48xxxxxxxx48xxxxxxxxxx48xxxxxx80xxxxxxxxxxxx49xxxx48xxxx75xx8bxxxxxxxxxxe8xxxxxxxxc6xxxxxxxxxxxx0fb6)
+aobscanmodule(hkTUMoPTO,$MODULE_NAME,44xxxxxxxx45xxxx48xxxxxxe8xxxxxxxx48xxxxxxxxxxxxf6)
+aobscanmodule(hkPFgLlTD,$MODULE_NAME,48xxxxxxxxxxe8xxxxxxxxxxxxxxxx40xx48xxxxxx80xxxxxxxxxxxx75xx8bxxxxxxxxxxe8xxxxxxxxc6xxxxxxxxxxxx48xxxxxxxxxxxxf6xxxxxxxxxxxx74xx83xxxxxxxxxxxx75xx48xxxxe8xxxxxxxx48xxxxxxxxxxxx48xxxxxxxxxxxx48xxxxxxxxxxxxf6xxxxxxxxxxxx48xxxxxx74xx83xxxxxxxxxxxx75xxe8xxxxxxxx33xx48xxxxe8xxxxxxxx84xx0f85xxxxxxxx48xxxxxxxxxxxxf6xxxxxxxxxxxx74xx83xxxxxxxxxxxx75xxe8xxxxxxxx33xxe8xxxxxxxx48xxxxxxxxxxxx48xxxxf6xxxxxxxxxxxx74xx83xxxxxxxxxxxx75xxe8xxxxxxxx33xx48xxxxe8xxxxxxxx84xx74xx48xxxxxxxxxxxxf6xxxxxxxxxxxx74xx83xxxxxxxxxxxx75xxe8xxxxxxxx33xxe8xxxxxxxx48xxxx74xx48xxxxxxxxxxxx48xxxxe8xxxxxxxx48xxxxxxxxxxxx48xxxx48xxxxxxxxxxxx48xxxxxx48xxxxe8xxxxxxxx48xxxxxxxxxxxxf6xxxxxxxxxxxx74xx83xxxxxxxxxxxx75xx48xxxxe8xxxxxxxx48xxxxxxxxxxxx48xxxxxxxxxxxx48xxxxxx48xxxxxxxxxxe8xxxxxxxxxxxxxxxx40xx41)
+alloc(hkNDmRWdBMbkp,3,hkNDmRWdBM)
+alloc(newmem_hkTUMoPTO,64,hkTUMoPTO)
+alloc(newmemhkPFgLlTD,64,hkPFgLlTD)
+alloc(optMastery,1)
+label(return_hkTUMoPTO)
+label(hkTUMoPTObkp)
+label(hkPFgLlTDbkp)
+label(returnhkPFgLlTD)
+registersymbol(optMastery)
+registersymbol(hkNDmRWdBM)
+registersymbol(hkNDmRWdBMbkp)
+registersymbol(hkTUMoPTO)
+registersymbol(hkTUMoPTObkp)
+registersymbol(hkPFgLlTD)
+registersymbol(hkPFgLlTDbkp)
+hkNDmRWdBMbkp:
+    readmem(hkNDmRWdBM, 3)
+hkNDmRWdBM:
+	mov al, 01
+    ret
+newmem_hkTUMoPTO:
+    push eax
+    mov al, byte ptr [optMastery]
+    mov byte ptr [rbx+38], al
+    pop eax
+hkTUMoPTObkp:
+    readmem(hkTUMoPTO,5)
+	jmp return_hkTUMoPTO
+hkTUMoPTO:
+	jmp newmem_hkTUMoPTO
+return_hkTUMoPTO:
+newmemhkPFgLlTD:
+    push ebx
+    mov  bl, byte ptr [optMastery]
+    mov  byte ptr [rax+038], bl
+    pop  ebx
+hkPFgLlTDbkp:
+    readmem(hkPFgLlTD, 5)
+    jmp returnhkPFgLlTD
+hkPFgLlTD:
+    jmp newmemhkPFgLlTD
+returnhkPFgLlTD:
+[DISABLE]
+hkNDmRWdBM:
+	readmem(hkNDmRWdBMbkp,3)
+hkTUMoPTO:
+    readmem(hkTUMoPTObkp,5)
+hkPFgLlTD:
+    readmem(hkPFgLlTDbkp,5)
+dealloc(*)
+unregistersymbol(*)
+</AssemblerScript>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>432</ID>
+                  <Description>"Mastery Choosen"</Description>
+                  <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0:none
+1:Mastery 1
+2:Mastery 2
+3:Mastery 3
+</DropDownList>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <Color>C0C0C0</Color>
+                  <VariableType>Byte</VariableType>
+                  <Address>optMastery</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>433</ID>
+                  <Description>"note: BACKUP YOUR SAVE FIRST !!! use at OWN RISK"</Description>
+                  <Color>0000FF</Color>
+                  <GroupHeader>1</GroupHeader>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>45</ID>
+              <Description>"Mastery Points"</Description>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{
+Author : gideon25 or PhCCRQQsd6Bi
+Author : Messy ( aka SinGul4ritY )
+         2022-03-22 - fix for 0.9f
+                    -  changed to editable # points
+         2022-08-07 - updated to 0.8.5f
+         2020-12-06 - Updated to CE 7.2 + readmem()
+}
+[ENABLE]
+aobscanmodule(hkMaster,$MODULE_NAME,48xxxx48xxxxxxxxxxxx48xxxxffxxxxxxxxxx48xxxx0f84xxxxxxxx0fb7)
+alloc(newmem,64,hkMaster)
+registersymbol(hkMaster)
+label(return)
+label(orgchkMaster)
+registersymbol(orgchkMaster)
+newmem:
+  mov  edx, [optMasteryPoints]
+  mov  [rsi+28], edx
+orgchkMaster:
+  readmem(hkMaster,10)
+  jmp  return
+hkMaster:
+  jmp newmem
+  nop 5
+return:
+[DISABLE]
+hkMaster:
+  readmem(orgchkMaster,10)
+dealloc(*)
+unregistersymbol(*)
+</AssemblerScript>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>394</ID>
+                  <Description>"# Total Points"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <Color>C0C0C0</Color>
+                  <VariableType>2 Bytes</VariableType>
+                  <Address>optMasteryPoints</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>395</ID>
+                  <Description>"note: Unspend = Total Points - Spend Points"</Description>
+                  <Color>FF8000</Color>
+                  <GroupHeader>1</GroupHeader>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>417</ID>
+          <Description>"&gt; Equipment"</Description>
+          <Options moDeactivateChildrenAsWell="1"/>
+          <Color>FFFF00</Color>
+          <GroupHeader>1</GroupHeader>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>308</ID>
+              <Description>"Always Full Set Bonuses"</Description>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{ Game   : Last Epoch.exe
+  Version:
+  Date   : 2020-10-28
+  Author : Messy ( aka SinGul4ritY )
+           2022-08-07 - updated to 0.8.5f
+           2021-09-09 - update for 0.8.3c
+}
+[ENABLE]
+aobscanmodule(hkEISCount,$MODULE_NAME,8bxx48xxxxxx48xxxxxxxxxxxx48xxxxxx41xx41xx41xxxxxxxxe8xxxxxxxxxxe8xxxxxxxxxxe8xxxxxxxxxx33xxe8)
+alloc(newmem,64,hkEISCount)
+registersymbol(hkEISCount)
+label(return)
+label(orgchkEISCount)
+registersymbol(orgchkEISCount)
+newmem:
+  mov edi, MAX_EQUIPMENT_SLOTS
+orgchkEISCount:
+  readmem(hkEISCount,6)
+  jmp return
+hkEISCount:
+  jmp newmem
+  nop
+return:
+[DISABLE]
+hkEISCount:
+  readmem(orgchkEISCount,6)
+dealloc(newmem)
+unregistersymbol(hkEISCount)
+unregistersymbol(orgchkEISCount)
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>149</ID>
+              <Description>"Disable Restrictions"</Description>
+              <Options moActivateChildrenAsWell="1" moDeactivateChildrenAsWell="1"/>
+              <GroupHeader>1</GroupHeader>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>292</ID>
+                  <Description>"Equip Items of Any Level ( max supported level = 102 )"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>{ Game   : Last Epoch.exe
+  Version:
+  Date   : 2020-11-04
+  Author : Messy6666 ( aka SinGul4ritY )
+           2023-03-14 - fixed bug
+           2023-03-10 - 0.9 update
+           2022-08-07 - updated to 0.8.5f
+           2021-01-03 updated to readmem()
+           2020-11-05 Level returned changed to [Max Supported Level] (from #255)
+                      this will fix loading chars from menu
+}
+[ENABLE]
+aobscanmodule(hkCDTgLevel,$MODULE_NAME,48xxxxxx48xxxx75xxb8xxxxxxxxxx8bxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx48xxxxxx48)
+registersymbol(hkCDTgLevel)
+alloc(orgchkCDTgLevel, 6, hkCDTgLevel)
+registersymbol(orgchkCDTgLevel)
+orgchkCDTgLevel:
+  readmem(hkCDTgLevel, 6)
+hkCDTgLevel:
+  db B8 MAX_PLAYER_LEVEL 00 00 00 C3
+[DISABLE]
+hkCDTgLevel:
+  readmem(orgchkCDTgLevel, 6)
+dealloc(orgchkCDTgLevel)
+unregistersymbol(hkCDTgLevel)
+unregistersymbol(orgchkCDTgLevel)
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>143</ID>
+                  <Description>"Equip Items of Any Class"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>{ Game   : Last Epoch.exe
+  Version:
+  Date   : 2020-11-04
+  Author : Messy ( aka SinGul4ritY )
+           2021-03-28 - updateed to 0.81e
+           2021-01-03 - updated to readmem()
+}
+[ENABLE]
+define(RETURN_TRUE,B0 01 C3)
+aobscanmodule(hkLcFRents,$MODULE_NAME,85xx74xx45xxxx74xx41xxxxxx74xx41xxxxxx74xx41xxxxxx74xx41xxxxxx75)
+aobscanmodule(hkULeFSRment,$MODULE_NAME,48xxxxxx83xxxx74xx85xx75xx48xxxx74)
+aobscanmodule(hkILcCEquip,$MODULE_NAME,44xxxxxxxx44xxxxxxxx89xxxxxxxxxxxxxx41xx41xx41xx41xx48xxxxxxxxxxxx48xxxxxxxx45xxxx48)
+registersymbol(hkLcFRents)
+registersymbol(hkULeFSRment)
+registersymbol(hkILcCEquip)
+alloc(orgchkLcFRents, 3, hkLcFRents)
+alloc(orgchkULeFSRment, 3, hkULeFSRment)
+alloc(orgchkILcCEquip, 3, hkILcCEquip)
+registersymbol(orgchkLcFRents)
+registersymbol(orgchkULeFSRment)
+registersymbol(orgchkILcCEquip)
+orgchkLcFRents:
+  readmem(hkLcFRents, 3)
+orgchkULeFSRment:
+  readmem(hkULeFSRment, 3)
+orgchkILcCEquip:
+  readmem(hkILcCEquip, 3)
+hkLcFRents:
+  db RETURN_TRUE
+hkULeFSRment:
+  db RETURN_TRUE
+hkILcCEquip:
+  db RETURN_TRUE
+[DISABLE]
+hkLcFRents:
+  readmem(orgchkLcFRents, 3)
+hkULeFSRment:
+  readmem(orgchkULeFSRment, 3)
+hkILcCEquip:
+  readmem(orgchkILcCEquip, 3)
+dealloc(orgchkLcFRents)
+dealloc(orgchkULeFSRment)
+dealloc(orgchkILcCEquip)
+unregistersymbol(hkLcFRents)
+unregistersymbol(hkULeFSRment)
+unregistersymbol(hkILcCEquip)
+unregistersymbol(orgchkLcFRents)
+unregistersymbol(orgchkULeFSRment)
+unregistersymbol(orgchkILcCEquip)
+</AssemblerScript>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>392</ID>
+          <Description>"&gt; Leveling"</Description>
+          <Color>FFFF00</Color>
+          <GroupHeader>1</GroupHeader>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>304</ID>
+              <Description>"Level UP after Next Kill"</Description>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{ Game   : Last Epoch.exe
+  Version:
+  Date   : 2020-12-05
+  Author : Messy6666 ( aka SinGul4ritY )
+           2023-03-10 - 0.9 update
+           2021-03-27 - update for 0.81d
+           2020-12-22 - changed to readmem()
+}
+[ENABLE]
+{$LUA}
+if syntaxcheck then return end
+--HckOFF('Level UP after Next Kill')
+HckOFF('XP Multiplier')
+{$ASM}
+aobscanmodule(hkETGExp,$MODULE_NAME,48xxxx7cxx40xxxx45xxxx40)
+alloc(orgchkETGExp,5,hkETGExp)
+registersymbol(hkETGExp)
+registersymbol(orgchkETGExp)
+orgchkETGExp:
+  readmem(hkETGExp, 5)
+hkETGExp:
+  db 48 8B F8 90 90
+[DISABLE]
+hkETGExp:
+  readmem(orgchkETGExp, 5)
+dealloc(orgchkETGExp)
+unregistersymbol(hkETGExp)
+unregistersymbol(orgchkETGExp)
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>318</ID>
+              <Description>"XP Multiplier"</Description>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{ Game   : Last Epoch.exe
+  Version:
+  Date   : ?
+  Author : ExVault
+  Author : Messy6666 ( aka SinGul4ritY )
+           2023-03-21 - updated to 0.9f + readmem()
+                      - made the Xp Gain editable
+  Experience multiplier. Level up faster.
+}
+[ENABLE]
+{$LUA}
+if syntaxcheck then return end
+HckOFF('Level UP after Next Kill')
+--HckOFF('XP Multiplier')
+{$ASM}
+aobscanmodule(hkETGExpB,$MODULE_NAME,48xxxxxx40xxxx48xxxxxx48xxxx7cxx40)
+alloc(newmem,256,hkETGExpB)
+label(return)
+label(hkETGExpBbkp)
+registersymbol(hkETGExpB)
+registersymbol(hkETGExpBbkp)
+newmem:
+  imul rdi, [optXpGain]
+hkETGExpBbkp:
+  readmem(hkETGExpB, 7)
+  jmp return
+hkETGExpB:
+  jmp newmem
+  nop 2
+return:
+[DISABLE]
+hkETGExpB:
+  readmem(hkETGExpBbkp, 7)
+unregistersymbol(*)
+dealloc(*)
+</AssemblerScript>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>393</ID>
+                  <Description>"# Experience Multiplier"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <Color>C0C0C0</Color>
+                  <VariableType>8 Bytes</VariableType>
+                  <Address>optXpGain</Address>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>420</ID>
+          <Description>"&gt; Misc"</Description>
+          <Color>FFFF00</Color>
+          <GroupHeader>1</GroupHeader>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>428</ID>
+              <Description>"Dumb Enemies ( including Minions ... )"</Description>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{ Game   : Last Epoch.exe
+  Version:
+  Date   : 2023-04-04
+  Author : Messy ( aka SinGul4ritY )
+  dumb enemies
+}
+[ENABLE]
+define(BAD_PTR, 7FFFFFFF)
+aobscanmodule(hkAiIT,$MODULE_NAME,48xxxxxx80xxxxxxxxxxxx75xx48xxxxxx48xxxx74xx80)
+alloc(newmem,256,hkAiIT)
+label(hkAiITbkp)
+label(return)
+registersymbol(hkAiIT)
+registersymbol(hkAiITbkp)
+newmem:
+  cmp  rcx, BAD_PTR
+  jle  hkAiITbkp
+  cmp  BYTE PTR [rcx+0201], 0
+  jne  @f
+  cmp  BYTE PTR [rcx+017D], 0
+  jne  @f
+  mov  rax, [rcx+060]
+  cmp  rax, BAD_PTR
+  jle  hkAiITbkp
+  mov  rax, [rax+028]
+  test rax, rax
+  je   hkAiITbkp
+  mov  rax, [rax+040]
+  cmp  rax, [PlayerActor]
+  jne  hkAiITbkp
+@@:
+  mov  al, 1
+  ret
+hkAiITbkp:
+  readmem(hkAiIT, 11)
+  jmp return
+hkAiIT:
+  jmp newmem
+  nop 6
+return:
+[DISABLE]
+hkAiIT:
+  readmem(hkAiITbkp, 11)
+unregistersymbol(hkAiIT)
+dealloc(newmem)
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>440</ID>
+              <Description>"Fog of War Reveal ( for new zones )"</Description>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{ Game   : Last Epoch.exe
+  Version:
+  Date   : 2023-04-10
+  Author : Messy6666 ( aka SinGul4ritY )
+}
+[ENABLE]
+aobscanmodule(hkMFOWOASC,$MODULE_NAME,f2xxxxxxxx4cxxxxxxxx8bxxxx45xxxx8b)
+aobscanmodule(hkMFOWU,$MODULE_NAME,48xxxxxxxxxxxxxx48xxxxxxxxxxxx48xxxx48xxxx0F84xxxxxxxx48xxxxxxxxxxxx48xxxx0F84xxxxxxxx83xxxxxx77xx33xx )
+alloc(newmemhkMFOWOASC,64,hkMFOWOASC)
+alloc(newmemhkMFOWU,64,hkMFOWU)
+label(hkMFOWOASCbkp)
+label(returnhkMFOWOASC)
+label(hkMFOWUbkp)
+label(returnhkMFOWU)
+registersymbol(hkMFOWOASC)
+registersymbol(hkMFOWOASCbkp)
+registersymbol(hkMFOWU)
+registersymbol(hkMFOWUbkp)
+newmemhkMFOWOASC:
+  mov  WORD PTR [rcx+28], ffff
+  mov  WORD PTR [rcx+30], ffff
+hkMFOWOASCbkp:
+  readmem(hkMFOWOASC, 5)
+  jmp returnhkMFOWOASC
+hkMFOWOASC:
+  jmp newmemhkMFOWOASC
+returnhkMFOWOASC:
+newmemhkMFOWU:
+  mov [rsi+020], (float)999999
+hkMFOWUbkp:
+  readmem(hkMFOWU, 8)
+  jmp returnhkMFOWU
+hkMFOWU:
+  jmp newmemhkMFOWU
+  nop 3
+returnhkMFOWU:
+[DISABLE]
+hkMFOWOASC:
+  readmem(hkMFOWOASCbkp, 5)
+hkMFOWU:
+  readmem(hkMFOWUbkp, 8)
+unregistersymbol(*)
+dealloc(*)
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>289</ID>
+              <Description>"Gold Set To:"</Description>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{ Game   : Last Epoch.exe
+  Version:
+  Date   : 2020-10-21
+  Author : Messy6666 ( aka SinGul4ritY )
+  Gold Set
+           2023-03-10 - 0.9 update
+           2022-08-07 - updated to 0.8.5f
+           2021-01-07 - moved optGold to globals
+           2020-12-14 - added Gold Set
+           2020-12-05 - update for 0.8
+}
+[ENABLE]
+{$LUA}
+if syntaxcheck then return end
+--CheatOFF('Gold freeze')
+--CheatOFF('Gold doesn\'t Deduct')
+--CheatOFF('Gold Set To:')
+{$ASM}
+aobscanmodule(hkMoney,$MODULE_NAME,89xxxx48xxxx74xx48xxxxxxxxxxxxe8xxxxxxxx80xxxxxxxxxxxx48)
+alloc(newmem,64,hkMoney)
+registersymbol(hkMoney)
+label(return)
+label(orgchkMoney)
+registersymbol(orgchkMoney)
+{label(optGold)
+registersymbol(optGold)
+}
+newmem:
+  mov ebp, [optGold]
+orgchkMoney:
+  readmem(hkMoney,6)
+  jmp return
+hkMoney:
+  jmp newmem
+  nop
+return:
+[DISABLE]
+hkMoney:
+  readmem(orgchkMoney,6)
+dealloc(newmem)
+unregistersymbol(hkMoney)
+unregistersymbol(orgchkMoney)
+</AssemblerScript>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>290</ID>
+                  <Description>"# Amount"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <Color>C0C0C0</Color>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>optGold</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>291</ID>
+                  <Description>"note: Activate then Sell or Buy something or pickup gold"</Description>
+                  <Color>FF8000</Color>
+                  <GroupHeader>1</GroupHeader>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>352</ID>
+                  <Description>"note: - selling = directly visible, buying not"</Description>
+                  <Color>FF8000</Color>
+                  <GroupHeader>1</GroupHeader>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>399</ID>
+              <Description>"&gt; Monolith + Time line Options"</Description>
+              <Options moDeactivateChildrenAsWell="1"/>
+              <Color>FFFF00</Color>
+              <GroupHeader>1</GroupHeader>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>401</ID>
+                  <Description>"&gt; Enable this and open a monolith (echoweb, timeline )"</Description>
+                  <Options moHideChildren="1"/>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>{ Game   : Last Epoch.exe
+  Version:
+  Date   : 2023-03-25
+  Author : moo ( PhCCRQQsd6Bi )
+  Author : Messy ( aka SinGul4ritY )
+           2023-03-28 - changed ptr to MonoLithRun
+                      - added some options for that
+  rdi = monorun
+  +60 = timeline
+}
+[ENABLE]
+aobscanmodule(hkMPMdTlR,$MODULE_NAME,80xxxxxxxxxxxx48xxxx48xxxx75xx8bxxxxxxxxxxe8xxxxxxxxc6xxxxxxxxxxxx33xx48xxxxe8xxxxxxxx48xxxx0f84xxxxxxxx33xx48xxxxe8xxxxxxxx84xx74)
+alloc(newmem,64,hkMPMdTlR)
+alloc(ptrMonoRun,8,hkMPMdTlR)
+label(hkMPMdTlRbkp)
+label(return)
+registersymbol(hkMPMdTlR)
+registersymbol(hkMPMdTlRbkp)
+registersymbol(ptrMonoRun)
+newmem:
+  mov  [ptrMonoRun],rdi
+hkMPMdTlRbkp:
+  readmem(hkMPMdTlR, 7)
+  jmp  return
+hkMPMdTlR:
+  jmp newmem
+  nop 2
+return:
+[DISABLE]
+hkMPMdTlR:
+  readmem(hkMPMdTlRbkp, 7)
+unregistersymbol(*)
+dealloc(*)
+</AssemblerScript>
+                  <CheatEntries>
+                    <CheatEntry>
+                      <ID>411</ID>
+                      <Description>"Arena Echo Weigthing"</Description>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <Color>C0C0C0</Color>
+                      <VariableType>Float</VariableType>
+                      <Address>ptrMonoRun</Address>
+                      <Offsets>
+                        <Offset>+D0</Offset>
+                        <Offset>60</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>404</ID>
+                      <Description>"Enemy Density Modifier"</Description>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <Color>C0C0C0</Color>
+                      <VariableType>Float</VariableType>
+                      <Address>ptrMonoRun</Address>
+                      <Offsets>
+                        <Offset>+A8</Offset>
+                        <Offset>60</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>403</ID>
+                      <Description>"Boss Loot Dropped ? set to 0 = possible new drop ?"</Description>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <Color>C0C0C0</Color>
+                      <VariableType>Byte</VariableType>
+                      <Address>ptrMonoRun</Address>
+                      <Offsets>
+                        <Offset>2c</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>412</ID>
+                      <Description>"Increased Item Rarity"</Description>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <Color>C0C0C0</Color>
+                      <VariableType>Float</VariableType>
+                      <Address>ptrMonoRun</Address>
+                      <Offsets>
+                        <Offset>68</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>413</ID>
+                      <Description>"Increased Experience"</Description>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <Color>C0C0C0</Color>
+                      <VariableType>Float</VariableType>
+                      <Address>ptrMonoRun</Address>
+                      <Offsets>
+                        <Offset>68</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                  </CheatEntries>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>410</ID>
+              <Description>"Waypoint travel unlock"</Description>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{ Game   : Last Epoch.exe
+  Version:
+  Date   : 2023-03-26
+  Author : moo ( PhCCRQQsd6Bi )
+}
+[ENABLE]
+aobscanmodule(hkIWSOPE,$MODULE_NAME,80xxxxxxxxxxxx48xxxx75xx8bxxxxxxxxxxe8xxxxxxxxc6xxxxxxxxxxxx48xxxxxx48xxxx0f84xxxxxxxx45xxxxb2xxe8xxxxxxxx48xxxxxx48xxxx0f84xxxxxxxx33xxe8xxxxxxxx48)
+alloc(newmem,64,hkIWSOPE)
+label(return)
+label(hkIWSOPEbkp)
+registersymbol(hkIWSOPE)
+registersymbol(hkIWSOPEbkp)
+newmem:
+  cmp byte ptr [rcx+48],01
+  je  @F
+  mov byte ptr [rcx+49],01
+hkIWSOPEbkp:
+  readmem(hkIWSOPE, 7)
+  jmp return
+hkIWSOPE:
+  jmp newmem
+  nop 2
+return:
+[DISABLE]
+hkIWSOPE:
+  readmem(hkIWSOPEbkp, 7)
+unregistersymbol(*)
+dealloc(*)
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>518</ID>
+              <Description>"New Zone Parameters"</Description>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{ Game   : Last Epoch.exe
+  Version:
+  Date   : 2023-05-19
+  Author : Messy ( aka SinGul4ritY )
+}
+[ENABLE]
+aobscanmodule(hkSgE,$MODULE_NAME,f3xxxxxxxx45xxxxf3xxxxxxxx0f28xx0f57xxxxxxxxxxf3)
+alloc(memhkSgE,256,hkSgE)
+label(hkSgEbkp)
+label(rethkSgE)
+registersymbol(hkSgE)
+registersymbol(hkSgEbkp)
+memhkSgE:
+  push  rax
+  mov   eax, [optNZnumberToSpawn]
+  mov   [rbx+02C], eax
+  mov   eax, [optNZpercentVariance]
+  mov   [rbx+030], eax
+  mov   eax, [optNZcommonWeighting]
+  mov   [rbx+034], eax
+  mov   eax, [optNZmagicWeighting]
+  mov   [rbx+038], eax
+  mov   eax, [optNZrareWeighting]
+  mov   [rbx+03C], eax
+  mov   eax, [optNZuniqueWeighting]
+  mov   [rbx+040], eax
+  mov   al,  [optNZenableAutoCombat]
+  mov   [rbx+044], al
+  mov   al, [optNZnoAutoCombatOnEmerge]
+  mov   [rbx+050], al
+  mov   eax, [optNZincreasedItemDropRate]
+  mov   [rbx+088], eax
+  mov   eax, [optNZincreasedItemDropAmount]
+  mov   [rbx+08C], eax
+  mov   al, [optNZnoItemDrops]
+  mov   [rbx+090], al
+  mov   eax, [optNZincreasedGoldDropRate]
+  mov   [rbx+094], eax
+  mov   eax, [optNZincreasedGoldDropRate]
+  mov   [rbx+098], eax
+  mov   al, [optNZnoWandering]
+  mov   [rbx+09C], al
+  pop  rax
+hkSgEbkp:
+  readmem(hkSgE, 5)
+  jmp   rethkSgE
+hkSgE:
+  jmp   memhkSgE
+rethkSgE:
+[DISABLE]
+hkSgE:
+  readmem(hkSgEbkp, 5)
+unregistersymbol(*)
+dealloc(*)
+</AssemblerScript>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>519</ID>
+                  <Description>"Number To Spawn"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <Color>C0C0C0</Color>
+                  <VariableType>Float</VariableType>
+                  <Address>optNZnumberToSpawn</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>520</ID>
+                  <Description>"Variance Percentage"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <Color>C0C0C0</Color>
+                  <VariableType>Float</VariableType>
+                  <Address>optNZpercentVariance</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>521</ID>
+                  <Description>"Common Monster Packs Spawn Weighting"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <Color>C0C0C0</Color>
+                  <VariableType>Float</VariableType>
+                  <Address>optNZcommonWeighting</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>522</ID>
+                  <Description>"Magic Monster Packs Spawn Weighting"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <Color>C0C0C0</Color>
+                  <VariableType>Float</VariableType>
+                  <Address>optNZmagicWeighting</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>523</ID>
+                  <Description>"Rare Monster Packs Spawn Weighting"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <Color>C0C0C0</Color>
+                  <VariableType>Float</VariableType>
+                  <Address>optNZrareWeighting</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>524</ID>
+                  <Description>"Unique Monster Spawn Weighting  ( ?? )"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <Color>C0C0C0</Color>
+                  <VariableType>Float</VariableType>
+                  <Address>optNZuniqueWeighting</Address>
+                  <CheatEntries>
+                    <CheatEntry>
+                      <ID>533</ID>
+                      <Description>"Dont set to high -&gt; causes empty zones"</Description>
+                      <Color>4080FF</Color>
+                      <GroupHeader>1</GroupHeader>
+                    </CheatEntry>
+                  </CheatEntries>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>525</ID>
+                  <Description>"Monsters Will Auto Come f0r You and Attack"</Description>
+                  <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0:no
+1:yes
+</DropDownList>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <Color>C0C0C0</Color>
+                  <VariableType>Byte</VariableType>
+                  <Address>optNZenableAutoCombat</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>526</ID>
+                  <Description>"Monsters No Auto Combat On Emerge ( ?? )"</Description>
+                  <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0:no
+1:yes
+</DropDownList>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <Color>C0C0C0</Color>
+                  <VariableType>Byte</VariableType>
+                  <Address>optNZnoAutoCombatOnEmerge</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>527</ID>
+                  <Description>"Increased Item Drop Rate"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <Color>C0C0C0</Color>
+                  <VariableType>Float</VariableType>
+                  <Address>optNZincreasedItemDropRate</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>528</ID>
+                  <Description>"Increased Item Drop Amount"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <Color>C0C0C0</Color>
+                  <VariableType>Float</VariableType>
+                  <Address>optNZincreasedItemDropAmount</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>529</ID>
+                  <Description>"No Item Drops"</Description>
+                  <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0:no
+1:yes
+</DropDownList>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <Color>C0C0C0</Color>
+                  <VariableType>Byte</VariableType>
+                  <Address>optNZnoItemDrops</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>530</ID>
+                  <Description>"Increased Gold Drop Rate"</Description>
+                  <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0:no
+1:yes
+</DropDownList>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <Color>C0C0C0</Color>
+                  <VariableType>Float</VariableType>
+                  <Address>optNZincreasedGoldDropRate</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>531</ID>
+                  <Description>"Rare Item Guarantee ( ?? )"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <Color>C0C0C0</Color>
+                  <VariableType>2 Bytes</VariableType>
+                  <Address>optNZrareItemGuarantee</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>532</ID>
+                  <Description>"No Wandering"</Description>
+                  <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0:no
+1:yes
+</DropDownList>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <Color>C0C0C0</Color>
+                  <VariableType>Byte</VariableType>
+                  <Address>optNZnoWandering</Address>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>116</ID>
+          <Description>"&gt; Crafting ( check to enable all )"</Description>
+          <Options moActivateChildrenAsWell="1" moDeactivateChildrenAsWell="1"/>
+          <Color>808080</Color>
+          <GroupHeader>1</GroupHeader>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>305</ID>
+              <Description>"Ignore Level Req to Forge"</Description>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{ Game   : Last Epoch.exe
+  Version:
+  Date   : 2020-11-05
+  Author : Messy ( aka SinGul4ritY )
+           2022-08-07 - updated to 0.8.5f
+           2021-09-09 - updated tp beta 0.8.3c
+           2021-03-27 - updated tp beta 08.1d
+           2021-02-19 - updated tp beta 08.1B
+           2021-01-03 - updated to readmem()
+           2020-12-10 - update for beta 0.8c
+           2020-12-08 - AOB for beta 0.8b
+           2020-12-05 - updated for 0.8
+}
+[ENABLE]
+aobscanmodule(hkIDCLRAShard,$MODULE_NAME,40xxxxxx41xx41xx41xx41xx48xxxxxxxxxxxx48xxxxxxxx48xxxxxxxxxxxx0f29xxxxxxxxxx0f29xxxx44xxxxxxxx44)
+registersymbol(hkIDCLRAShard)
+alloc(orgchkIDCLRAShard, 3,hkIDCLRAShard)
+registersymbol(orgchkIDCLRAShard)
+orgchkIDCLRAShard:
+  readmem(hkIDCLRAShard, 3)
+hkIDCLRAShard:
+  db 31 C0 C3
+[DISABLE]
+hkIDCLRAShard:
+  readmem(orgchkIDCLRAShard, 3)
+dealloc(orgchkIDCLRAShard)
+unregistersymbol(hkIDCLRAShard)
+unregistersymbol(orgchkIDCLRAShard)
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>307</ID>
+              <Description>"Shards don't Deduct"</Description>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{ Game   : Last Epoch.exe
+  Version:
+  Date   : 2020-10-28
+  Author : Messy ( aka SinGul4ritY )
+           2022-03-12 - 0.9b update
+           2022-08-07 - updated to 0.8.5f
+           2021-03-27 - updated for 0.8.1d
+           2021-01-03 - updated to readmem()
+           2020-12-11 - updated for 0.8c
+           2020-12-05 - updated for 0.8
+}
+[ENABLE]
+aobscanmodule(hkGDTRShard,$MODULE_NAME,40xxxx41xx48xxxxxx48xxxxxxxx48xxxxxx48xxxxxx8bxx4cxxxx80xxxxxxxxxxxx75xx8bxxxxxxxxxxe8xxxxxxxxc6xxxxxxxxxxxx8bxxxx48xxxxxx48xxxxxxxx8bxx49)
+registersymbol(hkGDTRShard)
+alloc(orgchkGDTRShard, 1, hkGDTRShard)
+registersymbol(orgchkGDTRShard)
+orgchkGDTRShard:
+  readmem(hkGDTRShard, 1)
+hkGDTRShard:
+  ret
+[DISABLE]
+hkGDTRShard:
+  readmem(orgchkGDTRShard, 1)
+dealloc(orgchkGDTRShard)
+unregistersymbol(hkGDTRShard)
+unregistersymbol(orgchkGDTRShard)
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>309</ID>
+              <Description>"Unlimited Shards ( set the amount of the selected item to #99 )"</Description>
+              <Color>0000FF</Color>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{
+Author : gideon25 or PhCCRQQsd6Bi
+Author : Messy ( aka SinGul4ritY )
+         2023-03-16 - 0.9e update
+         2022-08-07 - updated to 0.8.5f
+         2021-03-28 - bug fix
+         2021-03-27 - update for 0.8.1d
+         2021-01-28 - fixed my own bug
+         2021-01-26 - changed to readmem()
+}
+[ENABLE]
+aobscanmodule(hkCSMUAList,$MODULE_NAME,8B ?? ?? 03 ?? E8 ?? ?? ?? ?? 83 ?? ?? ?? 7F)
+alloc(newmem,64,hkCSMUAList)
+alloc(hkCSMUAListbkp,5,hkCSMUAList)
+registersymbol(hkCSMUAList)
+registersymbol(hkCSMUAListbkp)
+label(return)
+hkCSMUAListbkp:
+  readmem(hkCSMUAList, 5)
+newmem:
+  mov WORD PTR [rbx+1c],#99
+  readmem(hkCSMUAList, 3)
+  jmp return
+hkCSMUAList:
+  jmp newmem
+return:
+[DISABLE]
+hkCSMUAList:
+  readmem(hkCSMUAListbkp, 5)
+dealloc(*)
+unregistersymbol(hkCSMUAList)
+unregistersymbol(hkCSMUAListbkp)
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>317</ID>
+              <Description>"Max all affix shards"</Description>
+              <Color>0080FF</Color>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{
+Author : ExVault
+Author : Messy ( aka SinGul4ritY )
+           2022-08-07 - updated to 0.8.5f
+Get all affix shards even those you don't have.
+ To use: enable this - place any item to the crafting ui
+ - remove item from the crafting ui - depending on your machine spec you will feel the lag
+ - disable script. Added shards are only virtual in your crafting ui,
+   they will not save when you reload the game.
+ When crafting item this way you must re-select the shard you need after every use.
+}
+[ENABLE]
+aobscanmodule(hkCMPURAList,GameAssembly.dll,48xxxxxx48xxxx0f84xxxxxxxx83xxxxxx7exx8bxxxx83)
+alloc(ResetAffixListMem,256,hkCMPURAList)
+label(ResetAffixListRet)
+ResetAffixListMem:
+mov rbx,[rbp+30]
+test rbx,rbx
+je skip
+mov [rbx+1C],#999
+skip:
+jmp ResetAffixListRet
+hkCMPURAList:
+jmp ResetAffixListMem
+nop 2
+ResetAffixListRet:
+registersymbol(hkCMPURAList)
+[DISABLE]
+hkCMPURAList:
+db 48 8B 5D 30 48 85 DB
+unregistersymbol(hkCMPURAList)
+dealloc(ResetAffixListMem)
+</AssemblerScript>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>397</ID>
+                  <Description>"note: info on how to use in "Table Extras""</Description>
+                  <Color>FF8000</Color>
+                  <GroupHeader>1</GroupHeader>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>343</ID>
+              <Description>"Max forge and legendary potential for items that are in your inventory"</Description>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{ Game   : Last Epoch.exe
+  Version:
+  Date   : 2020-10-30
+  Author : Messy ( aka SinGul4ritY )
+UIBase.openInventory
+           2023-04-04 - highered BAD_PTR to avoid crashing
+           2023-03-14 - Added option to skip modifying Legendary Potential
+           2021-09-12 - bug fix: added another test for bad pointer
+           2020-09-11 - bug fix
+           2020-09-10 - update for 0.8.3d
+           2020-09-09 - update for 0.8.3c
+           2020-12-22 - use Count to walk item[0] .. item[X] instead of #10 items
+           2020-12-14 - Skip Itemtypes #101 - # 105 ( shards,run,key ... )
+           2020-12-05 - updated for 0.8
+                      - changed to UIBase.closeInventorty
+  Author : Toga
+           2022-04-02 - 0.8.5c bug fix
+                      - exclude rarity &gt;&gt;= 6
+                      - check for weird quantities
+           2022-03-28 - Forge and Legendary Potential
+           2021-09-19 - added more tests for bad pointers
+                      - update AOB for 0.8.3e
+}
+[ENABLE]
+define(itemType,01A)
+define(BAD_PTR, 7FFFFFFF)
+aobscanmodule(hkCItory,$MODULE_NAME,xxxxxxxxxxxxxxxxxx40xx48xxxxxx80xxxxxxxxxxxx48xxxx75xx8BxxxxxxxxxxE8xxxxxxxxC6xxxxxxxxxxxx48xxxxxxxxxxxx48xxxxxxxx48xxxx0F84xxxxxxxx80xxxxxx74xx48xxxxxxxxxxxx48xxxx0F84xxxxxxxx80xxxxxx75xx33xx48xxxxE8xxxxxxxx48xxxxxx48xxxx )
+registersymbol(hkCItory)
+alloc(newmem,1024,hkCItory)
+label(return)
+label(cleanup)
+label(Skip)
+label(NextItem)
+label(orgchkCItory)
+registersymbol(orgchkCItory)
+newmem:
+  push rax
+  push rbx
+  push rdi
+  push rdx
+  push rcx
+  mov  rax, [PlayerActor]
+  cmp  rax, BAD_PTR
+  jle   cleanup
+  mov  rax, [rax+00F8]
+  cmp  rax, BAD_PTR
+  jle   cleanup
+  mov  rax, [rax+018]
+  cmp  rax, BAD_PTR
+  jle   cleanup
+  mov  rax, [rax+028]
+  cmp  rax, BAD_PTR
+  jle   cleanup
+  mov  rax, [rax+010]
+  cmp  rax, BAD_PTR
+  jle   cleanup
+  movzx rdx, word ptr [rax+018]
+  cmp   rdx, 1
+  jl    cleanup
+  inc   edx
+  xor   rbx, rbx
+NextItem:
+    mov  rdi, [rax+rbx*8+020]
+    cmp  rdi, BAD_PTR
+    jle  Skip
+    dec  edx
+    cmp  WORD PTR [rdi+028], 1
+    jne  Skip
+    mov  rdi, [rdi+010]
+    cmp  rdi, BAD_PTR
+    jle  Skip
+    cmp  byte ptr [rdi+itemType], #50
+    je   Skip
+    cmp  byte ptr [rdi+itemType], #101
+    jl   @F
+    cmp  byte ptr [rdi+itemType], #105
+    jng  Skip
+  @@:
+    cmp  byte ptr [rdi+itemType], #25
+    jl   @F
+    cmp  byte ptr [rdi+itemType], #33
+    jng  Skip
+  @@:
+    mov  cl, [optForgePotential]
+    mov  byte ptr [rdi+018], cl
+    cmp  BYTE PTR [optSkipLegendaryPotential], 0
+    jne  @F
+    mov  cl, [optLegendaryPotential]
+    mov  byte ptr [rdi+019], cL
+Skip:
+    inc ebx
+    cmp ebx, #50
+    jae cleanup
+    cmp edx, 0
+    ja  NextItem
+cleanup:
+  pop rcx
+  pop rdx
+  pop rdi
+  pop rbx
+  pop rax
+orgchkCItory:
+  readmem(hkCItory+09,6)
+  jmp return
+hkCItory+09:
+  jmp newmem
+  nop
+return:
+[DISABLE]
+hkCItory+09:
+  readmem(orgchkCItory,6)
+dealloc(newmem)
+unregistersymbol(hkCItory)
+unregistersymbol(orgchkCItory)
+</AssemblerScript>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>288</ID>
+                  <Description>"note: Activate then CLOSE or Open/CLOSE Inventoy"</Description>
+                  <Color>FF8000</Color>
+                  <GroupHeader>1</GroupHeader>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>346</ID>
+          <Description>"hks"</Description>
+          <Options moHideChildren="1" moDeactivateChildrenAsWell="1"/>
+          <Color>000000</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+nop
+[DISABLE]
+</AssemblerScript>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>0</ID>
+              <Description>"hk: Player"</Description>
+              <Options moHideChildren="1" moDeactivateChildrenAsWell="1"/>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{ Game   : Last Epoch.exe
+  Date   : 2020-10-20
+  Author : Messy ( aka SinGul4ritY )
+           2023-03-17 - removed code for minions
+           2023-03-10 - fixed idols
+           2022-08-07 - updated to 0.8.5f
+           2021-09-09 - Update for 0.8.3c
+           2021-01-01 - Find summons from Player
+           2020-12-10 - Updated to 0.8c
+           2020-12-04 - Updated to 0.8
+           2020-10-30 - [ PlayerActor + 014D ] == isPlayerActor
+           2020-10-29 - fixed conditional jump for checkGodModeOff
+           2020-10-27 - optimized code
+                      - ptr to PlayerActor always updated
+                      - added ptr to # idols
+}
+[ENABLE]
+aobscanmodule(hkPlayer,$MODULE_NAME,48xxxxxx48xxxx0f84xxxxxxxx48xxxxxx48xxxx0f84xxxxxxxx48xxxxxx48xxxx0f84xxxxxxxxf3xxxxxxxxf3)
+alloc(newmem,$1000,hkPlayer)
+registersymbol(hkPlayer)
+alloc(PlayerActor,8)
+registersymbol(PlayerActor)
+alloc(pDamageable,8)
+registersymbol(pDamageable)
+alloc(pCanDie,8)
+registersymbol(pCanDie)
+alloc(optGod,1)
+registersymbol(optGod)
+alloc(optMinion,1)
+registersymbol(optMinion)
+alloc(optMana,1)
+registersymbol(optMana)
+alloc(pMana,8)
+registersymbol(pMana)
+alloc(pIdols,8)
+registersymbol(pIdols)
+label(cleanup)
+label(orgchkPlayer)
+registersymbol(orgchkPlayer)
+label(return)
+newmem:
+  pushf
+  push rax
+  push rbx
+  push rcx
+  push rdi
+  xor rcx, rcx
+  cmp rbx, rcx
+  je  @F
+  mov rbx, [rbx+18]
+  cmp rbx, rcx
+  je  @F
+  mov rax, [rbx+18]
+  cmp rax, rcx
+  je  @F
+  mov cl, byte ptr [rax+017d]
+  cmp cl, IS_PLAYER_ACTOR_2
+  jne @F
+  mov cl, IS_PLAYER_ACTOR
+@@:
+  mov byte ptr [isPlayerActor], cl
+  cmp cl, IS_PLAYER_ACTOR
+  jne @F
+  mov [PlayerActor], rax
+  lea rdi, [rbx+29]
+  mov [pCanDie],rdi
+  lea rdi, [rbx+28]
+  mov [pDamageable],rdi
+  mov rdi, [rax+68]
+  mov [pMana], rdi
+  mov rdi, [rax+0f8]
+  mov rdi, [rdi+0098]
+  lea rdi, [rdi+0078]
+  mov [pIdols], rdi
+@@:
+  xor cl, cl
+  cmp byte ptr [optGod], cl
+  je  @F
+  mov rdi,[pCanDie]
+  cmp rdi, rcx
+  je  @F
+  mov byte ptr [rdi], cl
+  mov rdi,[pDamageable]
+  cmp rdi, rcx
+  je  @F
+  mov byte ptr [rdi], cl
+{
+@@:
+  cmp byte ptr [isPlayerActor], IS_PLAYER_ACTOR
+  je  CheckGodMode
+  cmp  byte ptr [rax+018], cl
+  je   @F
+  mov  rdi, [rax+060]
+  test rdi, rdi
+  je   @F
+  mov  rdi, [rdi+028]
+  test rdi, rdi
+  je   @F
+  mov  rdi, [rdi+040]
+  cmp  rdi, [PlayerActor]
+  jne  @F
+  cmp  byte ptr [optMinion], cl
+  je   @F
+  mov  byte ptr [rbx+028], cl
+  jne  CheckGodMode
+@@:
+  mov  byte ptr [rbx+028], 1
+}
+CheckGodMode:
+@@:
+  cmp byte ptr [optGod], cl
+  jne @F
+  mov rdi,[pCanDie]
+  cmp rdi, rcx
+  je  @F
+  mov byte ptr [rdi], 1
+  mov rdi,[pDamageable]
+  cmp rdi, rcx
+  je  @F
+  mov byte ptr [rdi], 1
+@@:
+  cmp byte ptr [optMana], cl
+  je  @F
+  mov rax,[pMana]
+  cmp rax, rcx
+  je  @F
+  movd xmm6,[rax+18]
+  cvtdq2ps xmm6,xmm6
+  movss [rax+1c],xmm6
+@@:
+cleanup:
+  pop rdi
+  pop rcx
+  pop rbx
+  pop rax
+  popf
+orgchkPlayer:
+  readmem(hkPlayer,7)
+  jmp return
+align 10 CC
+isPlayerActor:
+  db 0
+hkPlayer:
+  jmp newmem
+  nop 2
+return:
+[DISABLE]
+hkPlayer:
+  readmem(orgchkPlayer,7)
+dealloc(newmem)
+dealloc(PlayerActor)
+dealloc(pDamageable)
+dealloc(pCanDie)
+dealloc(optGod)
+dealloc(optMinion)
+dealloc(optMana)
+dealloc(pMana)
+dealloc(pIdols)
+unregistersymbol(hkPlayer)
+unregistersymbol(PlayerActor)
+unregistersymbol(pDamageable)
+unregistersymbol(pCanDie)
+unregistersymbol(optGod)
+unregistersymbol(optMinion)
+unregistersymbol(optMana)
+unregistersymbol(pMana)
+unregistersymbol(pIdols)
+unregistersymbol(orgchkPlayer)
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>391</ID>
+              <Description>"hk: Minions"</Description>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{ Game   : Last Epoch.exe
+  Version:
+  Date   : 2023-03-15
+  Author : Messy ( aka SinGul4ritY )
+           2023-03-17 - changed to
+                         to fix possible crashing
+           2023-03-16 - fixed minions undamageable
+                      - fixed a little bug in the code
+}
+[ENABLE]
+define(BAD_PTR, 7FFFFFFF)
+aobscanmodule(hkSupd,$MODULE_NAME,40xx48xxxxxx80xxxxxx48xxxx0f29xxxxxx75xx33xxe8xxxxxxxxf3xxxxxxxx33xxe8xxxxxxxxf3xxxxxx0f28)
+alloc(newmem,256,hkSupd)
+label(hkSupdbkp)
+label(CleanUp)
+label(return)
+registersymbol(hkSupd)
+registersymbol(hkSupdbkp)
+newmem:
+  cmp  rcx, BAD_PTR
+  jle  hkSupdbkp
+  push rax
+  push rbx
+  mov  rbx, [rcx+050]
+  cmp  rbx, BAD_PTR
+  jle  CleanUp
+  cmp  BYTE PTR [rbx+0209], 1
+  jne  CleanUp
+  mov  rax, [rbx+060]
+  cmp  rax, BAD_PTR
+  jle  CleanUp
+  mov  rax, [rax+040]
+  cmp  rax, BAD_PTR
+  jle  CleanUp
+  mov  rax, [rax+050]
+  cmp  rax, [PlayerActor]
+  jne  CleanUp
+  mov  rbx, [rbx+030]
+  cmp  rbx, BAD_PTR
+  jle  CleanUp
+  xor  al, al
+  cmp  BYTE PTR [optMinion], 1
+  je   @F
+  inc  al
+@@:
+  mov  BYTE PTR [rbx+028], al
+  mov  BYTE PTR [rbx+029], al
+CleanUp:
+  pop  rbx
+  pop  rax
+hkSupdbkp:
+  readmem(hkSupd, 6)
+  jmp return
+hkSupd:
+  jmp newmem
+  nop
+return:
+[DISABLE]
+hkSupd:
+  readmem(hkSupdbkp, 6)
+unregistersymbol(*)
+dealloc(*)
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>296</ID>
+              <Description>"hk: Player Speed"</Description>
+              <Options moHideChildren="1"/>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{
+Author : gideon25 or PhCCRQQsd6Bi
+Author : Messy ( aka SinGul4ritY )
+         2022-08-01 - Updated to 0.8.5f
+         2020-12-04 - Updated to 0.8
+         2020-11-02 - Only change when [stat] is for the Player
+Author : Toga
+         2021-07-02 - Updated to 0.82i
+}
+[ENABLE]
+aobscanmodule(hkMovSpeed,$MODULE_NAME,44xxxxxxxxxxxxxx0f85xxxxxxxx85xx75xx48)
+alloc(newmem,256,hkMovSpeed)
+label(code)
+label(return)
+label(cleanup)
+label(NextItemStat)
+label(SkipItem)
+alloc(optPlayerSpeed,4,hkMovSpeed)
+registersymbol(optPlayerSpeed)
+label(orgchkMovSpeed)
+registersymbol(orgchkMovSpeed)
+newmem:
+  cmp rax,0
+  jz code
+  cmp [optPlayerSpeed],0
+  je code
+  cmp [rax+10],9
+  jne code
+  push rcx
+  push rbx
+  push rdx
+  push rdi
+  xor  rcx, rcx
+  mov  rdx, [PlayerActor]
+  test rdx, rdx
+  je   cleanup
+  mov  rdx, [rdx+048]
+  test rdx, rdx
+  je   cleanup
+  mov  rdx, [rdx+018]
+  test rdx, rdx
+  je   cleanup
+  mov  rdx, [rdx+010]
+  test rdx, rdx
+  je   cleanup
+  cmp  [rdx+018], 1
+  jl   cleanup
+  xor  rbx, rbx
+NextItemStat:
+    mov  rdi, [rdx+rbx*8+020]
+    test rdi, rdi
+    je   SkipItem
+    cmp  rdi, 7FFFFFF
+    jle  SkipItem
+    cmp  word ptr [rdi+010], 9
+    jne  SkipItem
+    cmp  byte ptr [rdi+011], 0
+    jne  SkipItem
+    cmp  word ptr [rdi+014], 0
+    jne  SkipItem
+    mov  rcx, rdi
+    je   cleanup
+  SkipItem:
+    inc  ebx
+    cmp  ebx, [rdx+018]
+  jl  NextItemStat
+cleanup:
+  pop  rdi
+  pop  rdx
+  pop  rbx
+  cmp  rcx, rax
+  pop  rcx
+  jne  code
+  movss xmm6,[optPlayerSpeed]
+  movss [rax+1c],xmm6
+  pxor xmm6, xmm6
+code:
+orgchkMovSpeed:
+  readmem(hkMovSpeed,8)
+  jmp return
+hkMovSpeed:
+  jmp newmem
+  nop 3
+return:
+registersymbol(hkMovSpeed)
+[DISABLE]
+hkMovSpeed:
+  readmem(orgchkMovSpeed,8)
+dealloc(optPlayerSpeed)
+dealloc(newmem)
+unregistersymbol(optPlayerSpeed)
+unregistersymbol(orgchkMovSpeed)
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>500</ID>
+              <Description>"hk: isLoading"</Description>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{ Game   : Last Epoch.exe
+  Version:
+  Date   : 2023-05-08
+  Author : Messy ( aka SinGul4ritY )
+}
+define(BAD_PTR, 7FFFFFFF)
+[ENABLE]
+aobscanmodule(hkZLSUOZLS,$MODULE_NAME,40xx48xxxxxx80xxxxxxxxxxxx48xxxx75xx8bxxxxxxxxxxe8xxxxxxxxc6xxxxxxxxxxxx33xx48xxxxe8xxxxxxxx48xxxxxx48xxxx74xx45)
+aobscanmodule(hkPSMoSL,$MODULE_NAME,40xx48xxxxxx80xxxxxxxxxxxx49xxxx75xx8bxxxxxxxxxxe8xxxxxxxxc6xxxxxxxxxxxx0f57)
+alloc(memhkZLSUOZLS,48,hkZLSUOZLS)
+alloc(memhkPSMoSL,48,hkPSMoSL)
+alloc(isLoading,1,hkZLSUOZLS)
+label(hkZLSUOZLSbkp)
+label(rethkZLSUOZLS)
+label(hkPSMoSLbkp)
+label(rethkPSMoSL)
+registersymbol(hkZLSUOZLS)
+registersymbol(hkZLSUOZLSbkp)
+registersymbol(hkPSMoSL)
+registersymbol(hkPSMoSLbkp)
+registersymbol(isLoading)
+memhkZLSUOZLS:
+  mov   BYTE PTR [isLoading], 1
+hkZLSUOZLSbkp:
+  readmem(hkZLSUOZLS, 6)
+  jmp rethkZLSUOZLS
+hkZLSUOZLS:
+  jmp memhkZLSUOZLS
+  nop
+rethkZLSUOZLS:
+memhkPSMoSL:
+  mov BYTE PTR [isLoading], 0
+hkPSMoSLbkp:
+  readmem(hkPSMoSL, 6)
+  jmp rethkPSMoSL
+hkPSMoSL:
+  jmp memhkPSMoSL
+  nop
+rethkPSMoSL:
+[DISABLE]
+hkZLSUOZLS:
+  readmem(hkZLSUOZLSbkp, 6)
+hkPSMoSL:
+  readmem(hkPSMoSLbkp, 6)
+unregistersymbol(*)
+dealloc(*)
+</AssemblerScript>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>350</ID>
+      <Description>"&gt;&gt;&gt; OFFLINE ONLY &lt;&lt;&lt;"</Description>
+      <Color>0000FF</Color>
+      <GroupHeader>1</GroupHeader>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>184</ID>
+      <Description>"----"</Description>
+      <Color>808080</Color>
+      <GroupHeader>1</GroupHeader>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>180</ID>
+      <Description>"Original Author: gideon25"</Description>
+      <Color>FF8000</Color>
+      <GroupHeader>1</GroupHeader>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>181</ID>
+      <Description>"Updated and added functionality by: PhCCRQQsd6Bi"</Description>
+      <Color>FF8000</Color>
+      <GroupHeader>1</GroupHeader>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>182</ID>
+      <Description>"Updated and added functionality by: Messy ( aka SinGul4ritY )"</Description>
+      <Color>FF8000</Color>
+      <GroupHeader>1</GroupHeader>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>313</ID>
+      <Description>"floob, J69R, Toga, ExVault"</Description>
+      <Color>FF8000</Color>
+      <GroupHeader>1</GroupHeader>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>183</ID>
+      <Description>"----"</Description>
+      <Color>808080</Color>
+      <GroupHeader>1</GroupHeader>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+  <Comments>{
+Author : ExVault
+Get all affix shards even those you don't have.
+ To use: enable this - place any item to the crafting ui
+ - remove item from the crafting ui - depending on your machine spec you will feel the lag
+ - disable script. Added shards are only virtual in your crafting ui,
+   they will not save when you reload the game.
+ When crafting item this way you must re-select the shard you need after every use.
+}
+</Comments>
+</CheatTable>

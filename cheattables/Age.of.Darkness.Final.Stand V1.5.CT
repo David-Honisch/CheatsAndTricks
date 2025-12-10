@@ -1,0 +1,1631 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="42">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>49845</ID>
+      <Description>"Script"</Description>
+      <Options moHideChildren="1"/>
+      <GroupHeader>1</GroupHeader>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>2</ID>
+          <Description>"CompactMode"</Description>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+
+{$lua}
+
+if not syntaxcheck then
+
+  function cycleFullCompact( sender, force )
+    local state = not( compactmenuitem.Caption == 'Compact View Mode' )
+    if force ~= nil then
+      state = not force
+    end
+    compactmenuitem.Caption = state and 'Compact View Mode' or 'Full View Mode'
+    getMainForm().Splitter1.Visible = state
+    getMainForm().Panel4.Visible = state
+    getMainForm().Panel5.Visible = state
+  end
+
+  function addCompactMenu()
+    if compactmenualreadyexists then return end
+      local parent = getMainForm().Menu.Items
+      compactmenuitem = createMenuItem( parent )
+      parent.add( compactmenuitem )
+      compactmenuitem.Caption = 'Compact View Mode'
+      compactmenuitem.OnClick = cycleFullCompact
+      compactmenualreadyexists = 'yes'
+  end
+
+  addCompactMenu()
+  cycleFullCompact( nil, true )
+
+end
+
+[DISABLE]
+
+{$lua}
+
+if not syntaxcheck then
+  cycleFullCompact( nil, false )
+end
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>1</ID>
+          <Description>"Attach to Process"</Description>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+{$lua}
+if not syntaxcheck then
+  openProcess("Achilles-Win64-Shipping.exe")
+end
+{$asm}
+
+[DISABLE]
+{$lua}
+if not syntaxcheck then
+  openProcess("Achilles-Win64-Shipping.exe")
+end
+{$asm}
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>49839</ID>
+          <Description>"Speed Hack"</Description>
+          <Options moHideChildren="1"/>
+          <GroupHeader>1</GroupHeader>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>49838</ID>
+              <Description>"Speed multiplied 0.25"</Description>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>[ENABLE]
+luacall(speedhack_setSpeed(0.25))
+
+[DISABLE]
+luacall(speedhack_setSpeed(1))
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>49843</ID>
+              <Description>"Speed multiplied 0.5"</Description>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>[ENABLE]
+luacall(speedhack_setSpeed(0.5))
+
+[DISABLE]
+luacall(speedhack_setSpeed(1))
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>49841</ID>
+              <Description>"Speed multiplied 0.75"</Description>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>[ENABLE]
+luacall(speedhack_setSpeed(0.75))
+
+[DISABLE]
+luacall(speedhack_setSpeed(1))
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>9199</ID>
+              <Description>"Speed multiplied 1.25"</Description>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>[ENABLE]
+luacall(speedhack_setSpeed(1.25))
+
+[DISABLE]
+luacall(speedhack_setSpeed(1))
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>49842</ID>
+              <Description>"Speed multiplied 1.5"</Description>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>[ENABLE]
+luacall(speedhack_setSpeed(1.5))
+
+[DISABLE]
+luacall(speedhack_setSpeed(1))
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>49840</ID>
+              <Description>"Speed multiplied 2"</Description>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>[ENABLE]
+luacall(speedhack_setSpeed(2))
+
+[DISABLE]
+luacall(speedhack_setSpeed(1))
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>49836</ID>
+              <Description>"Speed multiplied 3"</Description>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>[ENABLE]
+luacall(speedhack_setSpeed(3))
+
+[DISABLE]
+luacall(speedhack_setSpeed(1))
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>49837</ID>
+              <Description>"Speed multiplied 5"</Description>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>[ENABLE]
+luacall(speedhack_setSpeed(5))
+
+[DISABLE]
+luacall(speedhack_setSpeed(1))
+</AssemblerScript>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>49852</ID>
+          <Description>"Unlimited Save"</Description>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+
+aobscanmodule(UnlimitedSave,Achilles-Win64-Shipping.exe,89 83 60 03 00 00 EB) // should be unique
+alloc(newmem,$1000,UnlimitedSave)
+
+label(code,return)
+
+newmem:
+
+code:
+  mov eax,#99
+  mov [rbx+00000360],eax
+  jmp return
+
+UnlimitedSave:
+  jmp newmem
+  nop
+return:
+registersymbol(UnlimitedSave)
+
+[DISABLE]
+
+UnlimitedSave:
+  db 89 83 60 03 00 00
+
+unregistersymbol(*)
+dealloc(*)
+
+  //mov [rbx+00000360],eax
+  //jmp return
+  //"Achilles-Win64-Shipping.exe"+F62FA8
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>49894</ID>
+          <Description>"Edit Time"</Description>
+          <Options moHideChildren="1"/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+
+aobscanmodule(TIME,Achilles-Win64-Shipping.exe,F3 0F 11 73 3C 48) // should be unique
+alloc(newmem,$1000,TIME)
+
+label(code,return)
+alloc(EditTime,4,"Achilles-Win64-Shipping.exe"+100CCB8)
+registersymbol(EditTime)
+
+EditTime:
+dd (float)0.0
+
+newmem:
+
+code:
+  movss xmm6,[EditTime]
+  movss [rbx+3C],xmm6
+  jmp return
+
+TIME:
+  jmp newmem
+return:
+registersymbol(TIME)
+
+[DISABLE]
+
+TIME:
+  db F3 0F 11 73 3C
+
+unregistersymbol(*)
+dealloc(*)
+
+  //movss [rbx+3C],xmm6
+  //jmp return
+  //"Achilles-Win64-Shipping.exe"+100CCB8
+</AssemblerScript>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>49895</ID>
+              <Description>"Time"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>Float</VariableType>
+              <Address>EditTime</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>49896</ID>
+              <Description>"Time Count is 30 each (float)"</Description>
+              <GroupHeader>1</GroupHeader>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>49857</ID>
+          <Description>"Max All Resource while ON"</Description>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+
+aobscanmodule(Money2,Achilles-Win64-Shipping.exe,F3 0F 11 44 8F 08) // should be unique
+alloc(newmem,$1000,Money2)
+
+label(code)
+label(return)
+
+newmem:
+
+code:
+  mov [rdi+rcx*4+08],(float)9999
+  jmp return
+
+Money2:
+  jmp newmem
+  nop
+return:
+registersymbol(Money2)
+
+[DISABLE]
+
+Money2:
+  db F3 0F 11 44 8F 08
+
+unregistersymbol(*)
+dealloc(*)
+
+  //movss [rdi+rcx*4+08],xmm0
+  //jmp return
+  //"Achilles-Win64-Shipping.exe"+100BEFB
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>49856</ID>
+          <Description>"Money Max when gain"</Description>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+
+aobscanmodule(Money1,Achilles-Win64-Shipping.exe,F3 0F 11 4C 8E 08) // should be unique
+alloc(newmem,$1000,Money1)
+
+label(code,return)
+
+newmem:
+
+code:
+  mov [rsi+rcx*4+08],(float)9999
+  jmp return
+
+Money1:
+  jmp newmem
+  nop
+return:
+registersymbol(Money1)
+
+[DISABLE]
+
+Money1:
+  db F3 0F 11 4C 8E 08
+
+unregistersymbol(*)
+dealloc(*)
+
+  //movss [rsi+rcx*4+08],xmm1
+  //jmp return
+  //"Achilles-Win64-Shipping.exe"+FDB95F
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>49897</ID>
+          <Description>"Not consumed when used."</Description>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+
+aobscanmodule(Use1,Achilles-Win64-Shipping.exe,F3 0F 11 4C 8F 08) // should be unique
+alloc(newmem,$1000,Use1)
+
+label(code,return)
+
+newmem:
+
+code:
+  mov [rdi+rcx*4+08],(float)9999
+  jmp return
+
+Use1:
+  jmp newmem
+  nop
+return:
+registersymbol(Use1)
+
+[DISABLE]
+
+Use1:
+  db F3 0F 11 4C 8F 08
+
+unregistersymbol(Use1)
+dealloc(newmem)
+
+  //movss [rdi+rcx*4+08],xmm1
+  //jmp return
+  //"Achilles-Win64-Shipping.exe"+FE8809
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>88077</ID>
+          <Description>"Instant Build and Upgrade"</Description>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+
+aobscanmodule(Construction,Achilles-Win64-Shipping.exe,F3??????????488B????460F??????73)
+alloc(newmem,$1000,Construction)
+label(code,return)
+
+newmem:
+
+code:
+  mov [rax+r13*4],(float)0
+  jmp return
+
+Construction:
+  jmp newmem
+  nop
+return:
+registersymbol(Construction)
+
+[DISABLE]
+
+Construction:
+  db F3 42 0F 11 04 A8
+
+unregistersymbol(*)
+dealloc(*)
+
+  //"Achilles-Win64-Shipping.exe"+F0E4BE
+  //movss [rax+r13*4],xmm0
+  //jmp return
+  //F3 42 0F 11 04 A8
+  //F3??????????488B????460F??????73
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>88057</ID>
+          <Description>"Infinite HP for Both (but often can defeat enemy)"</Description>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+
+aobscanmodule(AllyHP2,Achilles-Win64-Shipping.exe,F3 0F 11 3C 91 49 8B 86 10 01 00 00 48 8B 58 10 41 8B 0F E8 12) // should be unique
+alloc(newmem,$1000,AllyHP2)
+
+label(code,return)
+
+newmem:
+
+code:
+  mov [rcx+rdx*4],(float)9999
+  jmp return
+
+AllyHP2:
+  jmp newmem
+return:
+registersymbol(AllyHP2)
+
+[DISABLE]
+
+AllyHP2:
+  db F3 0F 11 3C 91
+
+unregistersymbol(*)
+dealloc(*)
+
+  //movss [rcx+rdx*4],xmm7
+  //jmp return
+  //"Achilles-Win64-Shipping.exe"+E2CFC6
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>88060</ID>
+          <Description>"MAX EXP (999999)"</Description>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+
+aobscanmodule(MP1,Achilles-Win64-Shipping.exe,F3 42 0F 11 14 B0 48 8B 41) // should be unique
+alloc(newmem,$1000,MP1)
+
+label(code,return)
+
+newmem:
+
+code:
+  mov [rax+r14*4],(float)999999
+  jmp return
+
+MP1:
+  jmp newmem
+  nop
+return:
+registersymbol(MP1)
+
+[DISABLE]
+
+MP1:
+  db F3 42 0F 11 14 B0
+
+unregistersymbol(*)
+dealloc(*)
+
+  //movss [rax+r14*4],xmm2
+  //jmp return
+  //"Achilles-Win64-Shipping.exe"+E840D9
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>88061</ID>
+          <Description>"Edit EXP (will be value number when defeat Enemy)"</Description>
+          <Options moHideChildren="1"/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+
+aobscanmodule(EXP1,Achilles-Win64-Shipping.exe,F3 42 0F 11 14 B0 48 8B 41) // should be unique
+alloc(newmem,$1000,EXP1)
+
+label(code,return)
+alloc(AddEXP,4,"Achilles-Win64-Shipping.exe"+E840D9)
+registersymbol(AddEXP)
+
+AddEXP:
+dd (float)1000.0
+
+newmem:
+
+code:
+  movss xmm2,[AddEXP]
+  movss [rax+r14*4],xmm2
+  jmp return
+
+EXP1:
+  jmp newmem
+  nop
+return:
+registersymbol(EXP1)
+
+[DISABLE]
+
+EXP1:
+  db F3 42 0F 11 14 B0
+
+unregistersymbol(*)
+dealloc(*)
+
+  //movss [rax+r14*4],xmm2
+  //jmp return
+  //"Achilles-Win64-Shipping.exe"+E840D9
+</AssemblerScript>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>88063</ID>
+              <Description>"Value"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>Float</VariableType>
+              <Address>AddEXP</Address>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>49871</ID>
+      <Description>"Stats"</Description>
+      <Options moHideChildren="1"/>
+      <GroupHeader>1</GroupHeader>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>49870</ID>
+          <Description>"Food (False)"</Description>
+          <VariableType>Float</VariableType>
+          <Address>"Achilles-Win64-Shipping.exe"+049838E0</Address>
+          <Offsets>
+            <Offset>8</Offset>
+            <Offset>290</Offset>
+            <Offset>280</Offset>
+            <Offset>1C68</Offset>
+          </Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>49873</ID>
+          <Description>"Wood"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>Float</VariableType>
+          <Address>"Achilles-Win64-Shipping.exe"+049838E0</Address>
+          <Offsets>
+            <Offset>1C</Offset>
+            <Offset>290</Offset>
+            <Offset>280</Offset>
+            <Offset>1C68</Offset>
+          </Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>49863</ID>
+          <Description>"Money"</Description>
+          <VariableType>Float</VariableType>
+          <Address>"Achilles-Win64-Shipping.exe"+049838E0</Address>
+          <Offsets>
+            <Offset>C</Offset>
+            <Offset>290</Offset>
+            <Offset>280</Offset>
+            <Offset>1C68</Offset>
+          </Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>49867</ID>
+          <Description>"Iron"</Description>
+          <VariableType>Float</VariableType>
+          <Address>"Achilles-Win64-Shipping.exe"+049838E0</Address>
+          <Offsets>
+            <Offset>10</Offset>
+            <Offset>290</Offset>
+            <Offset>280</Offset>
+            <Offset>1C68</Offset>
+          </Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>49868</ID>
+          <Description>"Stone"</Description>
+          <VariableType>Float</VariableType>
+          <Address>"Achilles-Win64-Shipping.exe"+049838E0</Address>
+          <Offsets>
+            <Offset>14</Offset>
+            <Offset>290</Offset>
+            <Offset>280</Offset>
+            <Offset>1C68</Offset>
+          </Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>49874</ID>
+          <Description>"Villagers (False)"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>Float</VariableType>
+          <Address>"Achilles-Win64-Shipping.exe"+049838E0</Address>
+          <Offsets>
+            <Offset>18</Offset>
+            <Offset>290</Offset>
+            <Offset>280</Offset>
+            <Offset>1C68</Offset>
+          </Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>49869</ID>
+          <Description>"Dark Essence"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>Float</VariableType>
+          <Address>"Achilles-Win64-Shipping.exe"+049838E0</Address>
+          <Offsets>
+            <Offset>20</Offset>
+            <Offset>290</Offset>
+            <Offset>280</Offset>
+            <Offset>1C68</Offset>
+          </Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>49872</ID>
+          <Description>"Population (False)"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>Float</VariableType>
+          <Address>"Achilles-Win64-Shipping.exe"+049838E0</Address>
+          <Offsets>
+            <Offset>34</Offset>
+            <Offset>290</Offset>
+            <Offset>280</Offset>
+            <Offset>1C68</Offset>
+          </Offsets>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>49848</ID>
+      <Description>"Misc"</Description>
+      <Options moHideChildren="1"/>
+      <GroupHeader>1</GroupHeader>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>49866</ID>
+          <Description>"Spare Pointer"</Description>
+          <Options moHideChildren="1"/>
+          <GroupHeader>1</GroupHeader>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>49864</ID>
+              <Description>"Money"</Description>
+              <VariableType>Float</VariableType>
+              <Address>"Achilles-Win64-Shipping.exe"+049ABEF0</Address>
+              <Offsets>
+                <Offset>C</Offset>
+                <Offset>290</Offset>
+                <Offset>30</Offset>
+                <Offset>3F0</Offset>
+                <Offset>118</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>49865</ID>
+              <Description>"Money"</Description>
+              <VariableType>Float</VariableType>
+              <Address>"Achilles-Win64-Shipping.exe"+049646B8</Address>
+              <Offsets>
+                <Offset>C</Offset>
+                <Offset>290</Offset>
+                <Offset>570</Offset>
+                <Offset>500</Offset>
+                <Offset>38</Offset>
+                <Offset>66B8</Offset>
+              </Offsets>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>88070</ID>
+          <Description>"Edit EXP for not Mainplayer?"</Description>
+          <Options moHideChildren="1"/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+
+aobscanmodule(Notmainplayer,Achilles-Win64-Shipping.exe,F3 0F 11 34 B8 41) // should be unique
+alloc(newmem,$1000,Notmainplayer)
+
+label(code,return)
+alloc(AddEXP2,4,"Achilles-Win64-Shipping.exe"+E8C3C1)
+registersymbol(AddEXP2)
+
+AddEXP2:
+dd (float)1000.0
+
+newmem:
+
+code:
+  movss xmm6,[AddEXP2]
+  movss [rax+rdi*4],xmm6
+  jmp return
+
+Notmainplayer:
+  jmp newmem
+return:
+registersymbol(Notmainplayer)
+
+[DISABLE]
+
+Notmainplayer:
+  db F3 0F 11 34 B8
+
+unregistersymbol(*)
+dealloc(*)
+
+  //movss [rax+rdi*4],xmm6
+  //jmp return
+  //"Achilles-Win64-Shipping.exe"+E8C3C1
+</AssemblerScript>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>88071</ID>
+              <Description>"Value"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>Float</VariableType>
+              <Address>AddEXP2</Address>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>88072</ID>
+          <Description>"Relation EXP for not mainplayer? EXP9999"</Description>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+
+aobscanmodule(RelationEXP,Achilles-Win64-Shipping.exe,F3 0F 11 04 B8 48 8B 46 08) // should be unique
+alloc(newmem,$1000,RelationEXP)
+
+label(code,return)
+
+newmem:
+
+code:
+  mov [rax+rdi*4],(float)9999
+  jmp return
+
+RelationEXP:
+  jmp newmem
+return:
+registersymbol(RelationEXP)
+
+[DISABLE]
+
+RelationEXP:
+  db F3 0F 11 04 B8
+
+unregistersymbol(*)
+dealloc(*)
+
+  //movss [rax+rdi*4],xmm0
+  //jmp return
+  //"Achilles-Win64-Shipping.exe"+E8C366
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>49846</ID>
+          <Description>"Blank Code"</Description>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+
+[DISABLE]
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>49849</ID>
+          <Description>"Blank Code for AOB"</Description>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+aobscan(Name0,** ** ** **) //should be unique
+label(Name1)
+registersymbol(Name1)
+
+Name1+0X:
+Name1:
+db 90 90//nop
+
+[DISABLE]
+Name1:
+db XX XX
+
+unregistersymbol(*)
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>49847</ID>
+          <Description>"Blank Code for lua script"</Description>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+
+{$lua}
+
+[DISABLE]
+
+{$lua}
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>49891</ID>
+          <Description>"TIME"</Description>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+
+aobscanmodule(TIME,Achilles-Win64-Shipping.exe,F3 0F 11 73 3C 48) // should be unique
+alloc(newmem,$1000,TIME)
+
+label(code,return)
+
+newmem:
+
+code:
+  movss [rbx+3C],xmm6
+  jmp return
+
+TIME:
+  jmp newmem
+return:
+registersymbol(TIME)
+
+[DISABLE]
+
+TIME:
+  db F3 0F 11 73 3C
+
+unregistersymbol(*)
+dealloc(*)
+
+  //movss [rbx+3C],xmm6
+  //jmp return
+  //"Achilles-Win64-Shipping.exe"+100CCB8
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>49898</ID>
+          <Description>"Use"</Description>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+
+aobscanmodule(Use1,Achilles-Win64-Shipping.exe,F3 0F 11 4C 8F 08) // should be unique
+alloc(newmem,$1000,Use1)
+
+label(code,return)
+
+newmem:
+
+code:
+  movss [rdi+rcx*4+08],xmm1
+  jmp return
+
+Use1:
+  jmp newmem
+  nop
+return:
+registersymbol(Use1)
+
+[DISABLE]
+
+Use1:
+  db F3 0F 11 4C 8F 08
+
+unregistersymbol(Use1)
+dealloc(newmem)
+
+  //movss [rdi+rcx*4+08],xmm1
+  //jmp return
+  //"Achilles-Win64-Shipping.exe"+FE8809
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>49902</ID>
+          <Description>"Durability"</Description>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+
+aobscanmodule(Durability1,Achilles-Win64-Shipping.exe,F3 41 0F 11 34 98) // should be unique
+alloc(newmem,$1000,Durability1)
+
+label(code,return)
+
+newmem:
+
+code:
+  movss [r8+rbx*4],xmm6
+  jmp return
+
+Durability1:
+  jmp newmem
+  nop
+return:
+registersymbol(Durability1)
+
+[DISABLE]
+
+Durability1:
+  db F3 41 0F 11 34 98
+
+unregistersymbol(*)
+dealloc(*)
+
+  //movss [r8+rbx*4],xmm6
+  //jmp return
+  //"Achilles-Win64-Shipping.exe"+ED5570
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>49901</ID>
+          <Description>"Infinite Durability of buildings (no meaning)"</Description>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+
+aobscanmodule(Durability1,Achilles-Win64-Shipping.exe,F3 41 0F 11 34 98) // should be unique
+alloc(newmem,$1000,Durability1)
+
+label(code,return)
+
+newmem:
+
+code:
+  mov [r8+rbx*4],(float)9999
+  jmp return
+
+Durability1:
+  jmp newmem
+  nop
+return:
+registersymbol(Durability1)
+
+[DISABLE]
+
+Durability1:
+  db F3 41 0F 11 34 98
+
+unregistersymbol(*)
+dealloc(*)
+
+  //movss [r8+rbx*4],xmm6
+  //jmp return
+  //"Achilles-Win64-Shipping.exe"+ED5570
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>88050</ID>
+          <Description>"HP for Both (Always counting)"</Description>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+
+aobscanmodule(AllyHP1,Achilles-Win64-Shipping.exe,F3 42 0F 11 04 B0 EB) // should be unique
+alloc(newmem,$1000,AllyHP1)
+
+label(code)
+label(return)
+
+newmem:
+
+code:
+  movss [rax+r14*4],xmm0
+  jmp return
+
+AllyHP1:
+  jmp newmem
+  nop
+return:
+registersymbol(AllyHP1)
+
+[DISABLE]
+
+AllyHP1:
+  db F3 42 0F 11 04 B0
+
+unregistersymbol(*)
+dealloc(*)
+
+  //movss [rax+r14*4],xmm0
+  //jmp return
+  //"Achilles-Win64-Shipping.exe"+E84FCB
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>88065</ID>
+          <Description>"Infinite HP(failure compare)"</Description>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+
+aobscanmodule(AllyHP2,Achilles-Win64-Shipping.exe,F3 0F 11 3C 91 49 8B 86 10 01 00 00 48 8B 58 10 41 8B 0F E8 12) // should be unique
+alloc(newmem,$1000,AllyHP2)
+
+label(code,return,ally,enemy)
+
+newmem:
+
+code:
+  cmp r10,#1
+  je ally
+  cmp r10,#0
+  je enemy
+  movss [rcx+rdx*4],xmm7
+  jmp return
+
+ally:
+  mov [rcx+rdx*4],(float)9999
+  jmp return
+
+enemy:
+  movss [rcx+rdx*4],xmm7
+  jmp return
+
+AllyHP2:
+  jmp newmem
+return:
+registersymbol(AllyHP2)
+
+[DISABLE]
+
+AllyHP2:
+  db F3 0F 11 3C 91
+
+unregistersymbol(*)
+dealloc(*)
+
+  //movss [rcx+rdx*4],xmm7
+  //jmp return
+  //"Achilles-Win64-Shipping.exe"+E2CFC6
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>88053</ID>
+          <Description>"Ally HP"</Description>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+
+aobscanmodule(AllyHP2,Achilles-Win64-Shipping.exe,F3 0F 11 3C 91 49 8B 86 10 01 00 00 48 8B 58 10 41 8B 0F E8 12) // should be unique
+alloc(newmem,$1000,AllyHP2)
+
+label(code,return)
+
+newmem:
+
+code:
+  movss [rcx+rdx*4],xmm7
+  jmp return
+
+AllyHP2:
+  jmp newmem
+return:
+registersymbol(AllyHP2)
+
+[DISABLE]
+
+AllyHP2:
+  db F3 0F 11 3C 91
+
+unregistersymbol(*)
+dealloc(*)
+
+  //movss [rcx+rdx*4],xmm7
+  //jmp return
+  //"Achilles-Win64-Shipping.exe"+E2CFC6
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>88062</ID>
+          <Description>"EXP"</Description>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+
+aobscanmodule(EXP1,Achilles-Win64-Shipping.exe,F3 42 0F 11 14 B0 48 8B 41) // should be unique
+alloc(newmem,$1000,EXP1)
+
+label(code,return)
+
+newmem:
+
+code:
+  movss [rax+r14*4],xmm2
+  jmp return
+
+EXP1:
+  jmp newmem
+  nop
+return:
+registersymbol(EXP1)
+
+[DISABLE]
+
+EXP1:
+  db F3 42 0F 11 14 B0
+
+unregistersymbol(*)
+dealloc(*)
+
+  //movss [rax+r14*4],xmm2
+  //jmp return
+  //"Achilles-Win64-Shipping.exe"+E840D9
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>88076</ID>
+          <Description>"Construction"</Description>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+
+aobscanmodule(Construction,Achilles-Win64-Shipping.exe,F3??????????488B????460F??????73)
+alloc(newmem,$1000,Construction)
+label(code,return)
+
+newmem:
+
+code:
+  movss [rax+r13*4],xmm0
+  jmp return
+
+Construction:
+  jmp newmem
+  nop
+return:
+registersymbol(Construction)
+
+[DISABLE]
+
+Construction:
+  db F3 42 0F 11 04 A8
+
+unregistersymbol(*)
+dealloc(*)
+
+  //"Achilles-Win64-Shipping.exe"+F0E4BE
+  //movss [rax+r13*4],xmm0
+  //jmp return
+  //F3 42 0F 11 04 A8
+  //F3??????????488B????460F??????73
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>88046</ID>
+          <Description>"Dissect"</Description>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+{$lua}
+-- general settings:
+local al = getAddressList()
+local mForm = getMainForm()
+
+
+bHideLua = 0
+local sMenuItem41 = "Delete All 'Unnamed' Structures..."
+local sMenuItem42 = "Delete Structures Selectively..."
+local sMenuItem43 = "Add Address By Reference"
+local sMenuItem44 = "CLean Up Structures..."
+local sMenuItem45 = "Switch Lua Engine Gui"
+
+
+function SplitStr(s, delimiter)
+    result = {};
+    for match in (s..delimiter):gmatch("(.-)"..delimiter) do
+        table.insert(result, match);
+    end
+    return result;
+end
+
+-- functions for [Design] submnenu...
+-- **********************************
+
+-- add Design menu to Structure form...
+local function OpenDissectStruct()
+   --getMemoryViewForm().miDissectData2.doClick()
+   --getMemoryViewForm().miOpenInDissectData.doClick()
+   local form = createStructureForm()
+   --local form = enumStructureForms()[1]
+   local mmenu = form.Menu
+
+   local mmenu_items = menu_getItems(mmenu)
+
+   -- Design submenu...
+   local mi1 = createMenuItem(mmenu)
+   mi1.Caption = '[Design]'
+
+   local DelUnnamedmenuitem = createMenuItem(mmenu)
+   DelUnnamedmenuitem.Caption = sMenuItem41
+   DelUnnamedmenuitem.OnClick = DissectStructRemove
+   mi1.add(DelUnnamedmenuitem)
+
+   local DissectStructRemoveSelectmenuitem = createMenuItem(mmenu)
+   DissectStructRemoveSelectmenuitem.Caption = sMenuItem42
+   DissectStructRemoveSelectmenuitem.OnClick = DissectStructRemoveSelect
+   mi1.add(DissectStructRemoveSelectmenuitem)
+
+   local Sepmenuitem = createMenuItem(mmenu)
+   Sepmenuitem.Caption = '-'
+   mi1.add(Sepmenuitem)
+
+   local AddAddressRefmenuitem = createMenuItem(mmenu)
+   AddAddressRefmenuitem.Caption = sMenuItem43
+   AddAddressRefmenuitem.OnClick = AddAddressByRef
+   mi1.add(AddAddressRefmenuitem)
+
+   local CleanupStructmenuitem = createMenuItem(mmenu)
+   CleanupStructmenuitem.Caption = sMenuItem44
+   CleanupStructmenuitem.OnClick = CleanupStruct
+   mi1.add(CleanupStructmenuitem)
+
+   local Sep2menuitem = createMenuItem(mmenu)
+   Sep2menuitem.Caption = '-'
+   mi1.add(Sep2menuitem)
+
+   local SwitchLuaGuimenuitem = createMenuItem(mmenu)
+   SwitchLuaGuimenuitem.Caption = sMenuItem45
+   SwitchLuaGuimenuitem.OnClick = SwitchLuaGui
+   mi1.add(SwitchLuaGuimenuitem)
+
+   mmenu_items.add(mi1)
+   --form.show()
+end
+
+function DissectStructRemove()
+  local nCount = getStructureCount()
+
+  local sText = 'Do you want to delete all Unnamed structures now...? \n' ..
+                'Note: [All] = Delete ALL structures !'
+  local nResult = messageDialog(sText, mtInformation, mbYes, mbAll, mbCancel)
+  if not (nResult == 6 or nResult == 8) then return end
+
+  -- LIFO deletion...
+  for i=nCount-1,0,-1 do
+    --local sName = nil
+    local oStruct = getStructure(i)
+    local sName = string.match(oStruct.name, "unnamed")
+    if (nResult == 8) then sName = oStruct.name end
+    if (sName ~= nil) then oStruct.removeFromGlobalStructureList() end
+  end
+end
+
+function CleanupStruct()
+    local nResult = 0
+
+    function SplitStr(s, delimiter)
+        result = {};
+        for match in (s..delimiter):gmatch("(.-)"..delimiter) do
+            table.insert(result, match);
+        end
+        return result;
+    end
+
+    local nIdx = 0
+    local aStructInfo = {}
+    local aStructList = {}
+    local aStructElem = {}
+    function Split(s, sep)
+        local sep = sep or '%.'
+        local nPosSep = string.find(s,sep)
+        local sStr1 = string.sub(s,1,nPosSep-1)
+        local sStr2 = string.sub(s,nPosSep+1)
+        aStructInfo[sStr1] = nIdx
+        aStructInfo[sStr2] = nIdx +1
+        aStructList[sStr1] = nIdx
+
+        local nOffset = 0
+        local nCount = getStructureCount()
+        for i=0,nCount-1 do
+            local oStruct = getStructure(i)
+            if (oStruct.Name  == sStr1) then
+                local nElem = oStruct.Count
+                for j=0,nElem-1 do
+                    local oElem = oStruct.Element[j]
+                    if (oElem.Name == sStr2) then nOffset = oElem.Offset; break end
+                end
+            end
+        end
+
+        aStructElem[sStr1..'~'..sStr2..'~'..nOffset] = nIdx
+    end
+
+    function StructElemRemove()
+        local sText = 'Do you want to remove obsolete elements from all structures now...? \n\n'..
+                      'Tip: Remove "Unnamed/Obsolete" structures first !'
+        nResult = messageDialog(sText, mtInformation, mbYes, mbCancel)
+        if not (nResult == 6 ) then return end
+
+        -- clears Lua Engine window
+        luaForm = getLuaEngine()
+        luaForm.MenuItem5.doClick()
+
+        print('\n\n')
+        print('Recreating "Structure.Elements" objects... Please, be patient... \n')
+
+        local nCount = getStructureCount()
+        -- perhaps: better to delete structs first and then add struct.elements...?!
+        for i=nCount-1,0,-1 do
+            local oStruct = getStructure(i)
+            local sName = string.match(oStruct.name, "unnamed")
+            if (sName == nil) then
+                oStruct.destroy()
+            end
+        end
+
+        local sPrevStruct = ''
+        local oCurStruct = nil
+        for k,v in ipairs(aStructElem) do
+            local aString = SplitStr(v, '~')
+            local sCurStruct = aString[1]
+
+            print('=&gt; ['.. k .. ']: ' .. aString[1] .. ' + ' .. aString[2] .. ' + ' .. string.format('%X',tonumber(aString[3])))
+            if (sCurStruct ~= sPrevStruct) then
+                oCurStruct = createStructure(aString[1])
+                oCurStruct.addToGlobalStructureList()
+            end
+            local oElem = oCurStruct.addElement()
+            oElem.Name = aString[2]
+            oElem.Offset = tonumber(aString[3])
+            oElem.Vartype = 3
+            sPrevStruct = aString[1]
+        end
+    end
+
+    -- *********************************
+    -- *** looping through memrecords...
+    local al = getAddressList()
+    local nCount = al.Count
+    local sSep = '%.'
+
+    for i=0,nCount-1 do
+        local mr = al.getMemoryRecord(i)
+        local addrVal = tostring(tonumber(mr.Address) or -99)
+        if (addrVal == "-99") then addrVal = string.sub(mr.Address,1,1) end
+        local sDescr = string.match(mr.Description,"pointerscan")
+
+        if ( (mr.Type &lt; 10 and mr.OffsetCount &gt; 0 and sDescr == nil) or addrVal == "+") then
+            --print(string.format('[%03d/%03d~%03d]: %s =&gt; %02d - %03d |  %s ~&gt; %s {%s}',
+             --                    i, mr.ID, mr.Index, mr.Description, mr.Type, mr.OffsetCount, mr.Address, addrVal, sDescr))
+
+            if (string.sub(mr.Address,1,1) == "+") then
+                Split(string.sub(mr.Address,2),sSep)
+            end
+            for j=0,mr.OffsetCount-1 do
+                local sOffset = tonumber(mr.OffsetText[j],16)
+                if (sOffset == nil) then
+                    Split(mr.OffsetText[j],sSep)
+                end
+            end
+        end
+    end
+
+    local aTmp = {}
+    for n in pairs(aStructElem) do table.insert(aTmp, n) end
+    table.sort(aTmp)
+    aStructElem = aTmp
+
+--[[
+    for i,n in ipairs(aStructElem) do
+        print(i .. ' - ' .. n .. ' [' .. aStructElem[i] .. ']')
+    end
+
+
+  local nCount = getStructureCount()
+  local sName = ''
+  for i=0,nCount-1 do
+      local oStruct = getStructure(i)
+      sName = oStruct.name
+      print(tostring(sName))
+  end
+
+for k,v in pairs(aStructInfo) do
+    print(k)
+end
+print('\n')
+for k,v in pairs(aStructList) do
+    print(k)
+end
+]]--
+
+    StructElemRemove()
+
+    if (nResult == 6 ) then
+        print('\n =&gt; Verify your structures and then [Save As] your table under new name...')
+        print('\n =&gt; Just close window when no longer needed...')
+    end
+end
+
+-- ***
+-- source info: google "cheat engine a way to create a checkbox list?"
+function DissectStructRemoveSelect()
+    function createScrollBox(Parent)
+        local scrbox = createComponentClass('TScrollBox', Parent)
+        scrbox.Parent = Parent
+        return scrbox
+    end
+
+    local function addImgButton(oPanel)
+        local btn1 = createButton(oPanel)
+        btn1.Width = 120
+        btn1.Height = 20
+        btn1.Top = oPanel.Height - btn1.Height - 10
+        btn1.Left = 10
+        btn1.Caption = 'Delete selected...'
+        btn1.onClick = bg_Toggle
+        btn1.ShowHint = true
+        btn1.Hint = " Click here to initiate deletion... "
+    end
+
+    function bg_Toggle(sender)
+        local sText = 'Do you want to delete these selected structures now...?'
+        local nResult = messageDialog(sText, mtInformation, mbYes, mbCancel)
+        if not (nResult == 6 ) then return end
+
+        local nCount = getStructureCount()
+        local i
+        for i=nCount-1,0,-1 do
+            --print(_G['cbx'..i].State)
+            local oStruct = getStructure(i)
+            if (_G['cbx'..i].State == 1) then
+                oStruct.destroy()
+            end
+        end
+        f.close()
+    end
+
+    function buildListbox()
+        local nCount = getStructureCount()
+        if (nCount == 0) then return end
+
+        f = createForm()
+        f.Top = 200
+        f.Left = 200
+        f.Width = 350
+        f.Height = 350
+        f.Caption = "Deleting structures..."
+
+        local oPanel = createPanel(f)
+        oPanel.width,oPanel.top,oPanel.left = 320,10,10
+        oPanel.Height = 300
+
+        addImgButton(f)
+
+        a = createScrollBox(oPanel)
+        a.Top = 0
+        a.Left = 10
+        a.Width = 300
+        a.Height = 290
+        a.Color = '0x00DFF7FF'
+        a.ScrollWidth = 10
+        a.VertScrollBar.Increment = 200
+        a.VertScrollBar.Page = 300
+        --a.VertScrollBar.Smooth = true
+        local nRange = nCount * 15            -- still gives good results with "full" structure list...
+        a.VertScrollBar.Range = nRange
+
+        local ctop=a.Top
+        local i
+        for i=0,nCount-1 do
+            local oStruct = getStructure(i)
+            sName = oStruct.name
+            local cbxname='cbx'..i
+            --print(cbxname .. ' : ' .. sName)
+            local cbx=createCheckBox(a)
+            _G[cbxname]=cbx
+            cbx.Left = 10
+            cbx.Top = ctop
+            ctop=ctop+20
+            cbx.caption = sName
+        end
+    end
+
+    buildListbox()
+end
+
+-- ***
+-- source info: google "cheat engine Change description/value of a node in structure dissect"
+function AddAddressByRef()
+    local bCreateStruct = true
+    local bReplaceBracket = '_'
+    local bReplaceSpace = false
+
+    local structForm = enumStructureForms()[1]
+    if (structForm == nil) then return end
+
+    -- gives base/startaddress of chain_Structs...
+    local sBaseAddr = structForm.Column[0].AddressText
+    local sBaseAddr2 = sBaseAddr:match("%[(.-)%]")
+    if (sBaseAddr2 ~= nil) then sBaseAddr = sBaseAddr2 end
+    --print(string.format("A) %X - %s",structForm.Column[0].Address, sBaseAddr))
+
+    local aStructList = {}
+    local nCount = getStructureCount()
+    local sName = ''
+
+    for i=0,nCount-1 do
+        local oStruct = getStructure(i)
+        sName = oStruct.name
+        if (sName ~= nil) then aStructList[sName] = i end
+        --print('{' .. i .. '}: ' .. tostring(sName))
+    end
+
+--[[
+for k,v in pairs(aStructList) do
+    print(k .. ' ~ ' .. v)
+end
+]]--
+
+    local entry = structForm.tvStructureView.Selected
+    local struct = integerToUserData(entry.Parent.Data)
+    local structelement = struct.Element[entry.Index]
+
+    local offsetlist={}
+    nCount = 0
+    while entry.Parent do
+        local sStruct = structelement.Name
+        -- replacing [] and 'spaces'...
+        local sStruct1 = string.gsub(sStruct,'[%[%]]',bReplaceBracket)
+        if (sStruct ~= sStruct1) then
+            if (bReplaceBracket ~= '') then
+                if (bReplaceSpace) then sStruct = string.gsub(sStruct,'%s',bReplaceBracket) end
+                sStruct = string.gsub(sStruct,'[%[%]]',bReplaceBracket)
+            else
+                sStruct = ''
+            end
+        end
+        local bUseOffset = 0
+        --print(string.format('[%X] = %s',structelement.Offset, sStruct))
+        table.insert(offsetlist,1,{structelement.Offset, sStruct, structelement.Vartype, bUseOffset})
+        entry = entry.Parent
+        if entry.Parent then
+            struct = integerToUserData(entry.Parent.Data)
+            structelement = struct.Element[entry.Index]
+        end
+    nCount = nCount + 1
+    end
+    -- add mainstruct name...
+    table.insert(offsetlist,1,{0,struct.Name,0,0})
+
+    -- create memrecord...
+    local al = getAddressList()
+    local mr = al.createMemoryRecord()
+    local sDescript = offsetlist[#offsetlist][2]
+    if (sDescript == '') then sDescript = '_no_Name_Descriptive' end
+    mr.Description = sDescript
+    mr.Address = sBaseAddr
+    mr.Type = offsetlist[#offsetlist][3]
+    mr.OffsetCount = #offsetlist-1
+
+    for i=2,#offsetlist do
+        local sCurStruct = offsetlist[i-1][2]
+        if (bCreateStruct and sCurStruct ~= '') then
+            local oStruct = getStructure(aStructList[sCurStruct])
+            if (aStructList[sCurStruct] == nil) then
+                oStruct = createStructure(sCurStruct)
+                oStruct.addToGlobalStructureList()
+            end
+            local oElem = oStruct.getElementByOffset(offsetlist[i][1])
+            if (oElem == nil) then oElem = oStruct.addElement() end
+            oElem.Offset = offsetlist[i][1]
+            oElem.Name = offsetlist[i][2]
+        end
+        local sAddr1 = offsetlist[i-1][2]
+        local sAddr2 = offsetlist[i][2]
+        sAddress =  sAddr1 .. '.' .. sAddr2
+        if (sAddr1 == '' or sAddr2 == '') then mr.Offset[#offsetlist-i] = offsetlist[i][1]
+        else mr.OffsetText[#offsetlist-i] = sAddress end
+
+        --print(string.format('%X ~ %s =&gt; Type: %d |  bUseOffset: %d',offsetlist[i][1], sAddress, offsetlist[i][3], offsetlist[i][4]))
+    end
+end
+
+local function OpenLuaEngine()
+    form = getLuaEngine()                            -- get Lua Engine form
+    form.MenuItem5.doClick()                         -- clear its window (using menu_item)
+    getMemoryViewForm().miLuaEngine.doClick()
+    form.Panel1.Visible = true
+    form.Splitter1.Visible = true
+    form.Menu = luaMenu
+end
+
+function SwitchLuaGui()
+    if (bHideLua == 0) then bHideLua = 1 else bHideLua = 0 end
+
+    form = getLuaEngine()
+    form.MenuItem5.doClick()                         -- clearing lua window
+    getMemoryViewForm().miLuaEngine.doClick()        -- opening lua window
+
+    if (luaMenu == nil) then luaMenu = form.Menu end
+
+    if (bHideLua == 0) then
+       form.Panel1.Visible = true
+       form.Splitter1.Visible = true
+       form.Menu = luaMenu
+
+       form.Font.Name = 'default'
+       form.Font.Size = 10
+
+       --form.Panel2.Visible = false
+       --form.Panel3.Visible = false
+    else
+        form.Panel1.Visible = false
+        form.Splitter1.Visible = false
+        form.Menu = nil
+    end
+end
+
+
+OpenDissectStruct()
+
+
+{$asm}
+test al,al
+
+[DISABLE]
+
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>88066</ID>
+          <Description>"The only useful feature in this is the spare pointer, don't use other."</Description>
+          <Color>0000FF</Color>
+          <GroupHeader>1</GroupHeader>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+</CheatTable>

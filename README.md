@@ -2,6 +2,10 @@
 https://www.letztechance.org
 https://github.com/David-Honisch/
 
+Updated on 10.12.2026
+
+- ./cheattables/cheats.csv
+
 # CheatsAndTricks
 https://github.com/David-Honisch/CheatsAndTricks/
 

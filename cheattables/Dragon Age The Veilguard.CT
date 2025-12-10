@@ -1,0 +1,1664 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="45">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>9</ID>
+      <Description>"Unlimited Potions"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript Async="1">[ENABLE]
+aobscanmodule(potions,$process,41 2B ?? ?? ?? ?? 00 00 48 63 ?? ?? 89 ?? ?? ?? ?? 00 00 E9)
+potions:
+  db EB 06
+registersymbol(potions)
+
+[DISABLE]
+potions:
+  db 41 2B
+unregistersymbol(potions)
+
+{
+// ORIGINAL CODE - INJECTION POINT: Dragon Age The Veilguard.exe+1E07B32
+
+Dragon Age The Veilguard.exe+1E07B04: 41 0F 10 04 C8                 - movups xmm0,[r8+rcx*8]
+Dragon Age The Veilguard.exe+1E07B09: 41 0F 58 04 C0                 - addps xmm0,[r8+rax*8]
+Dragon Age The Veilguard.exe+1E07B0E: 48 63 02                       - movsxd  rax,dword ptr [rdx]
+Dragon Age The Veilguard.exe+1E07B11: 48 83 E8 80                    - sub rax,-80
+Dragon Age The Veilguard.exe+1E07B15: 48 03 C0                       - add rax,rax
+Dragon Age The Veilguard.exe+1E07B18: 41 0F 11 04 C0                 - movups [r8+rax*8],xmm0
+Dragon Age The Veilguard.exe+1E07B1D: E9 81 09 00 00                 - jmp "Dragon Age The Veilguard.exe"+1E084A3
+Dragon Age The Veilguard.exe+1E07B22: 48 63 42 04                    - movsxd  rax,dword ptr [rdx+04]
+Dragon Age The Veilguard.exe+1E07B26: 48 63 4A 08                    - movsxd  rcx,dword ptr [rdx+08]
+Dragon Age The Veilguard.exe+1E07B2A: 41 8B 94 88 00 0D 00 00        - mov edx,[r8+rcx*4+00000D00]
+// ---------- INJECTING HERE ----------
+Dragon Age The Veilguard.exe+1E07B32: 41 2B 94 80 00 0D 00 00        - sub edx,[r8+rax*4+00000D00]
+// ---------- DONE INJECTING  ----------
+Dragon Age The Veilguard.exe+1E07B3A: 48 63 03                       - movsxd  rax,dword ptr [rbx]
+Dragon Age The Veilguard.exe+1E07B3D: 41 89 94 80 00 0D 00 00        - mov [r8+rax*4+00000D00],edx
+Dragon Age The Veilguard.exe+1E07B45: E9 59 09 00 00                 - jmp "Dragon Age The Veilguard.exe"+1E084A3
+Dragon Age The Veilguard.exe+1E07B4A: 48 63 42 08                    - movsxd  rax,dword ptr [rdx+08]
+Dragon Age The Veilguard.exe+1E07B4E: 48 63 4A 04                    - movsxd  rcx,dword ptr [rdx+04]
+Dragon Age The Veilguard.exe+1E07B52: F3 41 0F 10 84 80 80 0D 00 00  - movss xmm0,[r8+rax*4+00000D80]
+Dragon Age The Veilguard.exe+1E07B5C: F3 41 0F 5C 84 88 80 0D 00 00  - subss xmm0,[r8+rcx*4+00000D80]
+Dragon Age The Veilguard.exe+1E07B66: 48 63 02                       - movsxd  rax,dword ptr [rdx]
+Dragon Age The Veilguard.exe+1E07B69: F3 41 0F 11 84 80 80 0D 00 00  - movss [r8+rax*4+00000D80],xmm0
+Dragon Age The Veilguard.exe+1E07B73: E9 2B 09 00 00                 - jmp "Dragon Age The Veilguard.exe"+1E084A3
+}
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>15</ID>
+      <Description>"Unlimited Mana"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript Async="1">[ENABLE]
+{$lua}
+if syntaxcheck then return "define(address,1)" end
+local memscan = createMemScan()
+local found = createFoundList(memscan)
+local bytes = "F3 0F 59 05 ?? ?? ?? ?? 48 83 ?? ?? C3 CC"
+local start = getAddress(process)
+local stop  = getModuleSize(process) + start
+memscan.firstScan(
+  soExactValue, vtByteArray, rtRounded,
+  bytes, nil, start, stop, "+X-C-W",
+  fsmNotAligned, "1", true, false, false, false)
+memscan.waitTillDone()
+found.initialize()
+local count = found.Count
+local index = 0
+local address = nil
+for i = 0, count - 1 do
+  local addr = tonumber(found.Address[i], 16)
+  local offset = readInteger(addr + 0x04)
+  addr = addr + offset + 0x08
+  local value = readInteger(addr)
+  if value == 0xBF800000 then
+    address = found.Address[i]
+    break
+  end
+end
+memscan.Destroy()
+memscan = nil
+assert(count &gt; index, "Unable to find array of bytes.")
+return "define(address," .. address .. ")"
+{$asm}
+
+label(manaCost)
+address:
+manaCost:
+  db EB 06
+registersymbol(manaCost)
+ 
+[DISABLE]
+manaCost:
+  db F3 0F
+unregistersymbol(manaCost)
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>184</ID>
+      <Description>"Unlimited Arrows"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript Async="1">[ENABLE]
+aobscanmodule(arrows,$process,8B C2 89 51 2C)
+alloc(newmem,$1000,arrows)
+
+label(code)
+label(return)
+
+newmem:
+  test edx,edx
+  jne @f
+  cmp [rcx+2C],FFFFFFFF
+  jne @f
+  mov edx,EFFFFFFE
+code:
+  mov eax,edx
+  mov [rcx+2C],edx
+  jmp return
+
+arrows:
+  jmp newmem
+return:
+registersymbol(arrows)
+
+[DISABLE]
+arrows:
+  db 8B C2 89 51 2C
+unregistersymbol(arrows)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: Dragon Age The Veilguard.exe+1313A33
+
+Dragon Age The Veilguard.exe+1313A13: 48 8B 5C 24 40           - mov rbx,[rsp+40]
+Dragon Age The Veilguard.exe+1313A18: 48 83 C4 30              - add rsp,30
+Dragon Age The Veilguard.exe+1313A1C: 5F                       - pop rdi
+Dragon Age The Veilguard.exe+1313A1D: C3                       - ret 
+Dragon Age The Veilguard.exe+1313A1E: 48 8B 5C 24 40           - mov rbx,[rsp+40]
+Dragon Age The Veilguard.exe+1313A23: 40 88 B9 E4 00 00 00     - mov [rcx+000000E4],dil
+Dragon Age The Veilguard.exe+1313A2A: 48 83 C4 30              - add rsp,30
+Dragon Age The Veilguard.exe+1313A2E: 5F                       - pop rdi
+Dragon Age The Veilguard.exe+1313A2F: C3                       - ret 
+Dragon Age The Veilguard.exe+1313A30: 0F 57 C9                 - xorps xmm1,xmm1
+// ---------- INJECTING HERE ----------
+Dragon Age The Veilguard.exe+1313A33: 8B C2                    - mov eax,edx
+// ---------- DONE INJECTING  ----------
+Dragon Age The Veilguard.exe+1313A35: 89 51 2C                 - mov [rcx+2C],edx
+Dragon Age The Veilguard.exe+1313A38: F3 48 0F 2A C8           - cvtsi2ss xmm1,rax
+Dragon Age The Veilguard.exe+1313A3D: F3 0F 59 0D 1F 3C 6E 03  - mulss xmm1,["Dragon Age The Veilguard.exe"+49F7664]
+Dragon Age The Veilguard.exe+1313A45: 0F 28 C1                 - movaps xmm0,xmm1
+Dragon Age The Veilguard.exe+1313A48: F3 0F 59 CB              - mulss xmm1,xmm3
+Dragon Age The Veilguard.exe+1313A4C: F3 0F 59 C2              - mulss xmm0,xmm2
+Dragon Age The Veilguard.exe+1313A50: F3 0F 5C D0              - subss xmm2,xmm0
+Dragon Age The Veilguard.exe+1313A54: F3 0F 58 D1              - addss xmm2,xmm1
+Dragon Age The Veilguard.exe+1313A58: F3 0F 11 51 28           - movss [rcx+28],xmm2
+Dragon Age The Veilguard.exe+1313A5D: C3                       - ret 
+}
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>12</ID>
+      <Description>"Unlimited Skill Points"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript Async="1">[ENABLE]
+aobscanmodule(skills,$process,0F 82 ?? ?? ?? ?? ?? 29 ?? ?? ?? 00 00 ?? 83 ?? ?? ?? 00 00 00)
+skills:
+  db EB 0B
+registersymbol(skills)
+
+[DISABLE]
+skills:
+  db 0F 82
+unregistersymbol(skills)
+
+{
+// ORIGINAL CODE - INJECTION POINT: Dragon Age The Veilguard.exe+D28162
+
+Dragon Age The Veilguard.exe+D2813F: 89 54 24 10              - mov [rsp+10],edx
+Dragon Age The Veilguard.exe+D28143: 57                       - push rdi
+Dragon Age The Veilguard.exe+D28144: 48 83 EC 40              - sub rsp,40
+Dragon Age The Veilguard.exe+D28148: 0F B6 74 24 78           - movzx esi,byte ptr [rsp+78]
+Dragon Age The Veilguard.exe+D2814D: 41 0F B6 E9              - movzx ebp,r9b
+Dragon Age The Veilguard.exe+D28151: 8B DA                    - mov ebx,edx
+Dragon Age The Veilguard.exe+D28153: 48 8B F9                 - mov rdi,rcx
+Dragon Age The Veilguard.exe+D28156: 40 84 F6                 - test sil,sil
+Dragon Age The Veilguard.exe+D28159: 75 46                    - jne "Dragon Age The Veilguard.exe"+D281A1
+Dragon Age The Veilguard.exe+D2815B: 44 39 81 C8 01 00 00     - cmp [rcx+000001C8],r8d
+// ---------- INJECTING HERE ----------
+Dragon Age The Veilguard.exe+D28162: 0F 82 05 01 00 00        - jb "Dragon Age The Veilguard.exe"+D2826D
+// ---------- DONE INJECTING  ----------
+Dragon Age The Veilguard.exe+D28168: 44 29 81 C8 01 00 00     - sub [rcx+000001C8],r8d
+Dragon Age The Veilguard.exe+D2816F: 48 83 B9 78 02 00 00 00  - cmp qword ptr [rcx+00000278],00
+Dragon Age The Veilguard.exe+D28177: 74 20                    - je "Dragon Age The Veilguard.exe"+D28199
+Dragon Age The Veilguard.exe+D28179: 48 8B 89 78 02 00 00     - mov rcx,[rcx+00000278]
+Dragon Age The Veilguard.exe+D28180: 48 83 C1 40              - add rcx,40
+Dragon Age The Veilguard.exe+D28184: 48 8B 01                 - mov rax,[rcx]
+Dragon Age The Veilguard.exe+D28187: FF 50 10                 - call qword ptr [rax+10]
+Dragon Age The Veilguard.exe+D2818A: 8B 97 C8 01 00 00        - mov edx,[rdi+000001C8]
+Dragon Age The Veilguard.exe+D28190: 48 8D 48 78              - lea rcx,[rax+78]
+Dragon Age The Veilguard.exe+D28194: E8 F7 20 FF FF           - call "Dragon Age The Veilguard.exe"+D1A290
+}
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>164</ID>
+      <Description>"No Cooldowns"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript Async="1">[ENABLE]
+aobscanmodule(cooldown,$process,0F 2F ?? 76 ?? 0F 28 ?? 48 89 ?? ?? ?? 48 8D)
+alloc(cooldownBkp,3)
+cooldownBkp:
+  readmem(cooldown+05,3)
+cooldown+05:
+  xorps xmm1,xmm1
+registersymbol(cooldown)
+registersymbol(cooldownBkp)
+
+aobscanmodule(cooldown2,$process,F3 0F 5F ?? 48 8D ?? ?? ?? 00 00 F3 0F 11 ?? ?? ?? 00 00 48 83)
+alloc(cooldown2Bkp,4)
+cooldown2Bkp:
+  readmem(cooldown2,4)
+cooldown2:
+  db 0F 57 F6 90
+registersymbol(cooldown2)
+registersymbol(cooldown2Bkp)
+
+[DISABLE]
+cooldown+05:
+  readmem(cooldownBkp,3)
+unregistersymbol(cooldown)
+unregistersymbol(cooldownBkp)
+dealloc(cooldownBkp)
+
+cooldown2:
+  readmem(cooldown2Bkp,4)
+unregistersymbol(cooldown2)
+unregistersymbol(cooldown2Bkp)
+dealloc(cooldown2Bkp)
+
+{
+// ORIGINAL CODE - INJECTION POINT: Dragon Age The Veilguard.exe+1684DA9
+
+Dragon Age The Veilguard.exe+1684D87: 41 B0 01                 - mov r8b,01
+Dragon Age The Veilguard.exe+1684D8A: 49 8B C9                 - mov rcx,r9
+Dragon Age The Veilguard.exe+1684D8D: E8 FE 81 72 FF           - call "Dragon Age The Veilguard.exe"+DACF90
+Dragon Age The Veilguard.exe+1684D92: 0F 28 F0                 - movaps xmm6,xmm0
+Dragon Age The Veilguard.exe+1684D95: EB 0D                    - jmp "Dragon Age The Veilguard.exe"+1684DA4
+Dragon Age The Veilguard.exe+1684D97: F3 0F 10 B0 C0 00 00 00  - movss xmm6,[rax+000000C0]
+Dragon Age The Veilguard.exe+1684D9F: EB 03                    - jmp "Dragon Age The Veilguard.exe"+1684DA4
+Dragon Age The Veilguard.exe+1684DA1: 0F 57 F6                 - xorps xmm6,xmm6
+Dragon Age The Veilguard.exe+1684DA4: 0F 2F F7                 - comiss xmm6,xmm7
+Dragon Age The Veilguard.exe+1684DA7: 76 4D                    - jna "Dragon Age The Veilguard.exe"+1684DF6
+// ---------- INJECTING HERE ----------
+Dragon Age The Veilguard.exe+1684DA9: 0F 28 CE                 - movaps xmm1,xmm6
+// ---------- DONE INJECTING  ----------
+Dragon Age The Veilguard.exe+1684DAC: 48 89 5C 24 58           - mov [rsp+58],rbx
+Dragon Age The Veilguard.exe+1684DB1: 48 8D 8F 58 01 00 00     - lea rcx,[rdi+00000158]
+Dragon Age The Veilguard.exe+1684DB8: E8 C3 F0 EB FF           - call "Dragon Age The Veilguard.exe"+1543E80
+Dragon Age The Veilguard.exe+1684DBD: 48 8B 5C 24 58           - mov rbx,[rsp+58]
+Dragon Age The Veilguard.exe+1684DC2: F3 0F 5F F7              - maxss xmm6,xmm7
+Dragon Age The Veilguard.exe+1684DC6: 48 8D 8F 50 01 00 00     - lea rcx,[rdi+00000150]
+Dragon Age The Veilguard.exe+1684DCD: F3 0F 11 B7 5C 01 00 00  - movss [rdi+0000015C],xmm6
+Dragon Age The Veilguard.exe+1684DD5: 48 83 39 00              - cmp qword ptr [rcx],00
+Dragon Age The Veilguard.exe+1684DD9: F3 0F 10 87 58 01 00 00  - movss xmm0,[rdi+00000158]
+Dragon Age The Veilguard.exe+1684DE1: F3 0F 11 44 24 50        - movss [rsp+50],xmm0
+}
+
+{
+// ORIGINAL CODE - INJECTION POINT: Dragon Age The Veilguard.exe+1684DCD
+
+Dragon Age The Veilguard.exe+1684DA1: 0F 57 F6                 - xorps xmm6,xmm6
+Dragon Age The Veilguard.exe+1684DA4: 0F 2F F7                 - comiss xmm6,xmm7
+Dragon Age The Veilguard.exe+1684DA7: 76 4D                    - jna "Dragon Age The Veilguard.exe"+1684DF6
+Dragon Age The Veilguard.exe+1684DA9: 0F 28 CE                 - movaps xmm1,xmm6
+Dragon Age The Veilguard.exe+1684DAC: 48 89 5C 24 58           - mov [rsp+58],rbx
+Dragon Age The Veilguard.exe+1684DB1: 48 8D 8F 58 01 00 00     - lea rcx,[rdi+00000158]
+Dragon Age The Veilguard.exe+1684DB8: E8 C3 F0 EB FF           - call "Dragon Age The Veilguard.exe"+1543E80
+Dragon Age The Veilguard.exe+1684DBD: 48 8B 5C 24 58           - mov rbx,[rsp+58]
+// ---------- INJECTING HERE ----------
+Dragon Age The Veilguard.exe+1684DC2: F3 0F 5F F7              - maxss xmm6,xmm7
+Dragon Age The Veilguard.exe+1684DC6: 48 8D 8F 50 01 00 00     - lea rcx,[rdi+00000150]
+Dragon Age The Veilguard.exe+1684DCD: F3 0F 11 B7 5C 01 00 00  - movss [rdi+0000015C],xmm6
+// ---------- DONE INJECTING  ----------
+Dragon Age The Veilguard.exe+1684DD5: 48 83 39 00              - cmp qword ptr [rcx],00
+Dragon Age The Veilguard.exe+1684DD9: F3 0F 10 87 58 01 00 00  - movss xmm0,[rdi+00000158]
+Dragon Age The Veilguard.exe+1684DE1: F3 0F 11 44 24 50        - movss [rsp+50],xmm0
+Dragon Age The Veilguard.exe+1684DE7: 74 0D                    - je "Dragon Age The Veilguard.exe"+1684DF6
+Dragon Age The Veilguard.exe+1684DE9: 41 B0 01                 - mov r8b,01
+Dragon Age The Veilguard.exe+1684DEC: 48 8D 54 24 50           - lea rdx,[rsp+50]
+Dragon Age The Veilguard.exe+1684DF1: E8 DA 87 6D 01           - call "Dragon Age The Veilguard.exe"+2D5D5D0
+Dragon Age The Veilguard.exe+1684DF6: 0F 28 74 24 30           - movaps xmm6,[rsp+30]
+Dragon Age The Veilguard.exe+1684DFB: 0F 28 7C 24 20           - movaps xmm7,[rsp+20]
+Dragon Age The Veilguard.exe+1684E00: 48 83 C4 40              - add rsp,40
+}
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>18</ID>
+      <Description>"No Companion Cooldown"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript Async="1">[ENABLE]
+aobscanmodule(companionGlobalCooldown,$process,48 83 E1 FB 0F 84 ?? ?? ?? ?? E8 ?? ?? ?? ?? 48 8B ?? 48 85 C0 0F 84 ?? ?? ?? ?? 48 8B ?? 48 8B ?? FF ?? ?? 8D)
+companionGlobalCooldown+04:
+  db 90 E9
+registersymbol(companionGlobalCooldown)
+
+[DISABLE]
+companionGlobalCooldown+04:
+  db 0F 84
+unregistersymbol(companionGlobalCooldown)
+
+{
+// ORIGINAL CODE - INJECTION POINT: Dragon Age The Veilguard.exe+13C5C8E
+
+Dragon Age The Veilguard.exe+13C5C7A: CC                    - int 3 
+Dragon Age The Veilguard.exe+13C5C7B: CC                    - int 3 
+Dragon Age The Veilguard.exe+13C5C7C: CC                    - int 3 
+Dragon Age The Veilguard.exe+13C5C7D: CC                    - int 3 
+Dragon Age The Veilguard.exe+13C5C7E: CC                    - int 3 
+Dragon Age The Veilguard.exe+13C5C7F: CC                    - int 3 
+Dragon Age The Veilguard.exe+13C5C80: 40 53                 - push rbx
+Dragon Age The Veilguard.exe+13C5C82: 48 83 EC 20           - sub rsp,20
+Dragon Age The Veilguard.exe+13C5C86: 48 8B 49 28           - mov rcx,[rcx+28]
+Dragon Age The Veilguard.exe+13C5C8A: 48 83 E1 FB           - and rcx,-05
+// ---------- INJECTING HERE ----------
+Dragon Age The Veilguard.exe+13C5C8E: 0F 84 C2 00 00 00     - je "Dragon Age The Veilguard.exe"+13C5D56
+// ---------- DONE INJECTING  ----------
+Dragon Age The Veilguard.exe+13C5C94: E8 47 1E 76 FF        - call "Dragon Age The Veilguard.exe"+B27AE0
+Dragon Age The Veilguard.exe+13C5C99: 48 8B D8              - mov rbx,rax
+Dragon Age The Veilguard.exe+13C5C9C: 48 85 C0              - test rax,rax
+Dragon Age The Veilguard.exe+13C5C9F: 0F 84 B1 00 00 00     - je "Dragon Age The Veilguard.exe"+13C5D56
+Dragon Age The Veilguard.exe+13C5CA5: 48 8B 10              - mov rdx,[rax]
+Dragon Age The Veilguard.exe+13C5CA8: 48 8B C8              - mov rcx,rax
+Dragon Age The Veilguard.exe+13C5CAB: FF 12                 - call qword ptr [rdx]
+Dragon Age The Veilguard.exe+13C5CAD: 4C 8D 05 BC 77 BE 04  - lea r8,["Dragon Age The Veilguard.exe"+5FAD470]
+Dragon Age The Veilguard.exe+13C5CB4: 48 8B D3              - mov rdx,rbx
+Dragon Age The Veilguard.exe+13C5CB7: 48 8B C8              - mov rcx,rax
+}
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>348</ID>
+      <Description>"Faction Strength Pointer"</Description>
+      <Options moHideChildren="1"/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript Async="1">[ENABLE]
+aobscanmodule(faction,$process,?? 8B ?? 04 FF ?? ?? 48 85 C0 0F 84 ?? ?? ?? ?? 8B ?? 04 8B ?? ?? 89)
+alloc(newmem,$1000,faction)
+
+label(hack)
+label(factionPtr)
+label(factionBkp)
+label(return)
+
+newmem:
+  mov rcx,factionPtr
+  cmp [rcx],0
+  jne @f
+  mov [rcx],1
+  add rcx,08
+  jmp hack
+@@:
+  mov [rcx],0
+  add rcx,10
+hack:
+  mov [rcx],rax
+factionBkp:
+  readmem(faction+10,5)
+  jmp return
+
+align 10
+factionPtr:
+  dq 0
+  dq 0
+  dq 0
+
+faction+10:
+  jmp newmem
+return:
+registersymbol(faction)
+registersymbol(factionBkp)
+registersymbol(factionPtr)
+
+[DISABLE]
+faction+10:
+  readmem(factionBkp,5)
+unregistersymbol(faction)
+unregistersymbol(factionBkp)
+unregistersymbol(factionPtr)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: Dragon Age The Veilguard.exe+D231E3
+
+Dragon Age The Veilguard.exe+D231BD: 75 04              - jne "Dragon Age The Veilguard.exe"+D231C3
+Dragon Age The Veilguard.exe+D231BF: 4D 8B 42 30        - mov r8,[r10+30]
+Dragon Age The Veilguard.exe+D231C3: 4D 3B 42 30        - cmp r8,[r10+30]
+Dragon Age The Veilguard.exe+D231C7: 0F 84 F6 00 00 00  - je "Dragon Age The Veilguard.exe"+D232C3
+Dragon Age The Veilguard.exe+D231CD: 49 8B 02           - mov rax,[r10]
+Dragon Age The Veilguard.exe+D231D0: 49 8B CA           - mov rcx,r10
+Dragon Age The Veilguard.exe+D231D3: 41 8B 50 04        - mov edx,[r8+04]
+Dragon Age The Veilguard.exe+D231D7: FF 50 08           - call qword ptr [rax+08]
+Dragon Age The Veilguard.exe+D231DA: 48 85 C0           - test rax,rax
+Dragon Age The Veilguard.exe+D231DD: 0F 84 E0 00 00 00  - je "Dragon Age The Veilguard.exe"+D232C3
+// ---------- INJECTING HERE ----------
+Dragon Age The Veilguard.exe+D231E3: 8B 48 04           - mov ecx,[rax+04]
+// ---------- DONE INJECTING  ----------
+Dragon Age The Veilguard.exe+D231E6: 8B D3              - mov edx,ebx
+Dragon Age The Veilguard.exe+D231E8: 41 89 0F           - mov [r15],ecx
+Dragon Age The Veilguard.exe+D231EB: 44 8B 08           - mov r9d,[rax]
+Dragon Age The Veilguard.exe+D231EE: 45 89 0E           - mov [r14],r9d
+Dragon Age The Veilguard.exe+D231F1: 4C 8B 47 68        - mov r8,[rdi+68]
+Dragon Age The Veilguard.exe+D231F5: 49 83 E0 FB        - and r8,-05
+Dragon Age The Veilguard.exe+D231F9: 74 3E              - je "Dragon Age The Veilguard.exe"+D23239
+Dragon Age The Veilguard.exe+D231FB: 49 8B 40 20        - mov rax,[r8+20]
+Dragon Age The Veilguard.exe+D231FF: 4C 8B C0           - mov r8,rax
+Dragon Age The Veilguard.exe+D23202: 8B 48 FC           - mov ecx,[rax-04]
+}
+</AssemblerScript>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>349</ID>
+          <Description>"Open Trade With a Merchant"</Description>
+          <Options moHideChildren="1"/>
+          <ShowAsSigned>0</ShowAsSigned>
+          <GroupHeader>1</GroupHeader>
+          <Address>factionPtr</Address>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>350</ID>
+              <Description>"Strength"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>4 Bytes</VariableType>
+              <Address>+8</Address>
+              <Offsets>
+                <Offset>4</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>352</ID>
+              <Description>"Strength"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>4 Bytes</VariableType>
+              <Address>+10</Address>
+              <Offsets>
+                <Offset>4</Offset>
+              </Offsets>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>250</ID>
+      <Description>"Materials Pointer"</Description>
+      <Options moHideChildren="1"/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+aobscanmodule(materials,$process,?? 83 ?? ?? 08 E9 ?? ?? ?? ?? ?? 8B ?? ?? ?? 8B ?? ?? ?? 8B ?? ?? ?? 2B)
+alloc(newmem,$1000,materials)
+
+label(materialsPtr)
+label(materialsBkp)
+label(return)
+
+newmem:
+
+materialsBkp:
+  readmem(materials+0A,8)
+  push rax
+  mov rax,materialsPtr
+  mov [rax],rdx
+  pop rax
+  jmp return
+
+align 10
+materialsPtr:
+  dq 0
+
+materials+0A:
+  jmp newmem
+  nop 3
+return:
+registersymbol(materials)
+registersymbol(materialsBkp)
+registersymbol(materialsPtr)
+
+[DISABLE]
+materials+0A:
+  db 49 8B 55 60 49 8B 4D 68
+unregistersymbol(materials)
+unregistersymbol(materialsBkp)
+unregistersymbol(materialsPtr)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: Dragon Age The Veilguard.exe+13EFE81
+
+Dragon Age The Veilguard.exe+13EFE60: 8B 01                 - mov eax,[rcx]
+Dragon Age The Veilguard.exe+13EFE62: 48 FF CA              - dec rdx
+Dragon Age The Veilguard.exe+13EFE65: 89 41 F8              - mov [rcx-08],eax
+Dragon Age The Veilguard.exe+13EFE68: 8B 41 04              - mov eax,[rcx+04]
+Dragon Age The Veilguard.exe+13EFE6B: 89 41 FC              - mov [rcx-04],eax
+Dragon Age The Veilguard.exe+13EFE6E: 48 8D 49 08           - lea rcx,[rcx+08]
+Dragon Age The Veilguard.exe+13EFE72: 48 85 D2              - test rdx,rdx
+Dragon Age The Veilguard.exe+13EFE75: 7F E9                 - jg "Dragon Age The Veilguard.exe"+13EFE60
+Dragon Age The Veilguard.exe+13EFE77: 49 83 6D 68 08        - sub qword ptr [r13+68],08
+Dragon Age The Veilguard.exe+13EFE7C: E9 F0 00 00 00        - jmp "Dragon Age The Veilguard.exe"+13EFF71
+// ---------- INJECTING HERE ----------
+Dragon Age The Veilguard.exe+13EFE81: 49 8B 55 60           - mov rdx,[r13+60]
+// ---------- DONE INJECTING  ----------
+Dragon Age The Veilguard.exe+13EFE85: 49 8B 4D 68           - mov rcx,[r13+68]
+Dragon Age The Veilguard.exe+13EFE89: 44 8B 4F 0C           - mov r9d,[rdi+0C]
+Dragon Age The Veilguard.exe+13EFE8D: 48 2B CA              - sub rcx,rdx
+Dragon Age The Veilguard.exe+13EFE90: 48 C1 F9 03           - sar rcx,03
+Dragon Age The Veilguard.exe+13EFE94: 48 85 C9              - test rcx,rcx
+Dragon Age The Veilguard.exe+13EFE97: 7E 32                 - jle "Dragon Age The Veilguard.exe"+13EFECB
+Dragon Age The Veilguard.exe+13EFE99: 0F 1F 80 00 00 00 00  - nop dword ptr [rax+00000000]
+Dragon Age The Veilguard.exe+13EFEA0: 4C 8B C1              - mov r8,rcx
+Dragon Age The Veilguard.exe+13EFEA3: 49 D1 F8              - sar r8,1
+Dragon Age The Veilguard.exe+13EFEA6: 46 39 0C C2           - cmp [rdx+r8*8],r9d
+}
+</AssemblerScript>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>190</ID>
+          <Description>"Inventory Quantity Must Change to Populate Pointer"</Description>
+          <Options moHideChildren="1"/>
+          <ShowAsSigned>0</ShowAsSigned>
+          <GroupHeader>1</GroupHeader>
+          <Address>materialsPtr</Address>
+          <Offsets>
+            <Offset>0</Offset>
+          </Offsets>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>198</ID>
+              <Description>"Set of Materials (don't change values beyond your actual inventory)"</Description>
+              <Options moHideChildren="1"/>
+              <ShowAsSigned>0</ShowAsSigned>
+              <GroupHeader>1</GroupHeader>
+              <Address>+0*50</Address>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>191</ID>
+                  <Description>"Quantity"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>+0*8+4</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>194</ID>
+                  <Description>"Quantity"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>+1*8+4</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>196</ID>
+                  <Description>"Quantity"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>+2*8+4</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>199</ID>
+                  <Description>"Quantity"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>+3*8+4</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>201</ID>
+                  <Description>"Quantity"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>+4*8+4</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>203</ID>
+                  <Description>"Quantity"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>+5*8+4</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>205</ID>
+                  <Description>"Quantity"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>+6*8+4</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>207</ID>
+                  <Description>"Quantity"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>+7*8+4</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>209</ID>
+                  <Description>"Quantity"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>+8*8+4</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>211</ID>
+                  <Description>"Quantity"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>+9*8+4</Address>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>234</ID>
+              <Description>"Set of Materials"</Description>
+              <Options moHideChildren="1"/>
+              <ShowAsSigned>0</ShowAsSigned>
+              <GroupHeader>1</GroupHeader>
+              <Address>+1*50</Address>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>235</ID>
+                  <Description>"Quantity"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>+0*8+4</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>236</ID>
+                  <Description>"Quantity"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>+1*8+4</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>237</ID>
+                  <Description>"Quantity"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>+2*8+4</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>238</ID>
+                  <Description>"Quantity"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>+3*8+4</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>239</ID>
+                  <Description>"Quantity"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>+4*8+4</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>240</ID>
+                  <Description>"Quantity"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>+5*8+4</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>241</ID>
+                  <Description>"Quantity"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>+6*8+4</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>242</ID>
+                  <Description>"Quantity"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>+7*8+4</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>243</ID>
+                  <Description>"Quantity"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>+8*8+4</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>244</ID>
+                  <Description>"Quantity"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>+9*8+4</Address>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>223</ID>
+              <Description>"Set of Materials"</Description>
+              <Options moHideChildren="1"/>
+              <ShowAsSigned>0</ShowAsSigned>
+              <GroupHeader>1</GroupHeader>
+              <Address>+2*50</Address>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>224</ID>
+                  <Description>"Quantity"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>+0*8+4</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>225</ID>
+                  <Description>"Quantity"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>+1*8+4</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>226</ID>
+                  <Description>"Quantity"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>+2*8+4</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>227</ID>
+                  <Description>"Quantity"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>+3*8+4</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>228</ID>
+                  <Description>"Quantity"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>+4*8+4</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>229</ID>
+                  <Description>"Quantity"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>+5*8+4</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>230</ID>
+                  <Description>"Quantity"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>+6*8+4</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>231</ID>
+                  <Description>"Quantity"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>+7*8+4</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>232</ID>
+                  <Description>"Quantity"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>+8*8+4</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>233</ID>
+                  <Description>"Quantity"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>+9*8+4</Address>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>212</ID>
+              <Description>"Set of Materials"</Description>
+              <Options moHideChildren="1"/>
+              <ShowAsSigned>0</ShowAsSigned>
+              <GroupHeader>1</GroupHeader>
+              <Address>+3*50</Address>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>213</ID>
+                  <Description>"Quantity"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>+0*8+4</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>214</ID>
+                  <Description>"Quantity"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>+1*8+4</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>215</ID>
+                  <Description>"Quantity"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>+2*8+4</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>216</ID>
+                  <Description>"Quantity"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>+3*8+4</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>217</ID>
+                  <Description>"Quantity"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>+4*8+4</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>218</ID>
+                  <Description>"Quantity"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>+5*8+4</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>219</ID>
+                  <Description>"Quantity"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>+6*8+4</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>220</ID>
+                  <Description>"Quantity"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>+7*8+4</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>221</ID>
+                  <Description>"Quantity"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>+8*8+4</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>222</ID>
+                  <Description>"Quantity"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>+9*8+4</Address>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>193</ID>
+      <Description>""Fake" Materials Pointer"</Description>
+      <Options moHideChildren="1"/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript Async="1">[ENABLE]
+aobscanmodule(material,$process,?? 8B ?? 60 ?? 8B ?? ?? 8B ?? 68 ?? 2B)
+alloc(newmem,$1000,material)
+
+label(materialPtr)
+label(materialBkp)
+label(return)
+
+newmem:
+  db 48 8B 41
+  readmem(material+03,1)
+  push rcx
+  mov rcx,materialPtr
+  mov [rcx],rax
+  pop rcx
+materialBkp:
+  readmem(material,7)
+  jmp return
+
+align 10
+materialPtr:
+  dq 0
+
+material:
+  jmp newmem
+  nop 2
+return:
+registersymbol(material)
+registersymbol(materialBkp)
+registersymbol(materialPtr)
+
+[DISABLE]
+material:
+  readmem(materialBkp,7)
+unregistersymbol(material)
+unregistersymbol(materialBkp)
+unregistersymbol(materialPtr)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: Dragon Age The Veilguard.exe+13F63E0
+
+Dragon Age The Veilguard.exe+13F63D5: C3                          - ret 
+Dragon Age The Veilguard.exe+13F63D6: 33 C0                       - xor eax,eax
+Dragon Age The Veilguard.exe+13F63D8: C3                          - ret 
+Dragon Age The Veilguard.exe+13F63D9: CC                          - int 3 
+Dragon Age The Veilguard.exe+13F63DA: CC                          - int 3 
+Dragon Age The Veilguard.exe+13F63DB: CC                          - int 3 
+Dragon Age The Veilguard.exe+13F63DC: CC                          - int 3 
+Dragon Age The Veilguard.exe+13F63DD: CC                          - int 3 
+Dragon Age The Veilguard.exe+13F63DE: CC                          - int 3 
+Dragon Age The Veilguard.exe+13F63DF: CC                          - int 3 
+// ---------- INJECTING HERE ----------
+Dragon Age The Veilguard.exe+13F63E0: 4C 8B 49 60                 - mov r9,[rcx+60]
+// ---------- DONE INJECTING  ----------
+Dragon Age The Veilguard.exe+13F63E4: 4C 8B D1                    - mov r10,rcx
+Dragon Age The Veilguard.exe+13F63E7: 4C 8B 41 68                 - mov r8,[rcx+68]
+Dragon Age The Veilguard.exe+13F63EB: 4D 2B C1                    - sub r8,r9
+Dragon Age The Veilguard.exe+13F63EE: 49 C1 F8 03                 - sar r8,03
+Dragon Age The Veilguard.exe+13F63F2: 4D 85 C0                    - test r8,r8
+Dragon Age The Veilguard.exe+13F63F5: 7E 34                       - jle "Dragon Age The Veilguard.exe"+13F642B
+Dragon Age The Veilguard.exe+13F63F7: 66 0F 1F 84 00 00 00 00 00  - nop word ptr [rax+rax+00000000]
+Dragon Age The Veilguard.exe+13F6400: 49 8B C8                    - mov rcx,r8
+Dragon Age The Veilguard.exe+13F6403: 48 D1 F9                    - sar rcx,1
+Dragon Age The Veilguard.exe+13F6406: 41 39 14 C9                 - cmp [r9+rcx*8],edx
+}
+</AssemblerScript>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>259</ID>
+          <Description>"Open Inventory to Populate Pointer"</Description>
+          <Options moHideChildren="1"/>
+          <ShowAsSigned>0</ShowAsSigned>
+          <GroupHeader>1</GroupHeader>
+          <Address>materialPtr</Address>
+          <Offsets>
+            <Offset>0</Offset>
+          </Offsets>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>260</ID>
+              <Description>"Set of Materials (don't change values beyond your actual inventory)"</Description>
+              <Options moHideChildren="1"/>
+              <ShowAsSigned>0</ShowAsSigned>
+              <GroupHeader>1</GroupHeader>
+              <Address>+0*50</Address>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>261</ID>
+                  <Description>"Quantity"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>+0*8+4</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>262</ID>
+                  <Description>"Quantity"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>+1*8+4</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>263</ID>
+                  <Description>"Quantity"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>+2*8+4</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>264</ID>
+                  <Description>"Quantity"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>+3*8+4</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>265</ID>
+                  <Description>"Quantity"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>+4*8+4</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>266</ID>
+                  <Description>"Quantity"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>+5*8+4</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>267</ID>
+                  <Description>"Quantity"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>+6*8+4</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>268</ID>
+                  <Description>"Quantity"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>+7*8+4</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>269</ID>
+                  <Description>"Quantity"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>+8*8+4</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>270</ID>
+                  <Description>"Quantity"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>+9*8+4</Address>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>271</ID>
+              <Description>"Set of Materials"</Description>
+              <Options moHideChildren="1"/>
+              <ShowAsSigned>0</ShowAsSigned>
+              <GroupHeader>1</GroupHeader>
+              <Address>+1*50</Address>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>272</ID>
+                  <Description>"Quantity"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>+0*8+4</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>273</ID>
+                  <Description>"Quantity"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>+1*8+4</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>274</ID>
+                  <Description>"Quantity"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>+2*8+4</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>275</ID>
+                  <Description>"Quantity"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>+3*8+4</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>276</ID>
+                  <Description>"Quantity"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>+4*8+4</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>277</ID>
+                  <Description>"Quantity"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>+5*8+4</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>278</ID>
+                  <Description>"Quantity"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>+6*8+4</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>279</ID>
+                  <Description>"Quantity"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>+7*8+4</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>280</ID>
+                  <Description>"Quantity"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>+8*8+4</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>281</ID>
+                  <Description>"Quantity"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>+9*8+4</Address>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>282</ID>
+              <Description>"Set of Materials"</Description>
+              <Options moHideChildren="1"/>
+              <ShowAsSigned>0</ShowAsSigned>
+              <GroupHeader>1</GroupHeader>
+              <Address>+2*50</Address>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>283</ID>
+                  <Description>"Quantity"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>+0*8+4</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>284</ID>
+                  <Description>"Quantity"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>+1*8+4</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>285</ID>
+                  <Description>"Quantity"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>+2*8+4</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>286</ID>
+                  <Description>"Quantity"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>+3*8+4</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>287</ID>
+                  <Description>"Quantity"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>+4*8+4</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>288</ID>
+                  <Description>"Quantity"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>+5*8+4</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>289</ID>
+                  <Description>"Quantity"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>+6*8+4</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>290</ID>
+                  <Description>"Quantity"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>+7*8+4</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>291</ID>
+                  <Description>"Quantity"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>+8*8+4</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>292</ID>
+                  <Description>"Quantity"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>+9*8+4</Address>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>293</ID>
+              <Description>"Set of Materials"</Description>
+              <Options moHideChildren="1"/>
+              <ShowAsSigned>0</ShowAsSigned>
+              <GroupHeader>1</GroupHeader>
+              <Address>+3*50</Address>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>294</ID>
+                  <Description>"Quantity"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>+0*8+4</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>295</ID>
+                  <Description>"Quantity"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>+1*8+4</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>296</ID>
+                  <Description>"Quantity"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>+2*8+4</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>297</ID>
+                  <Description>"Quantity"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>+3*8+4</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>298</ID>
+                  <Description>"Quantity"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>+4*8+4</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>299</ID>
+                  <Description>"Quantity"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>+5*8+4</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>300</ID>
+                  <Description>"Quantity"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>+6*8+4</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>301</ID>
+                  <Description>"Quantity"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>+7*8+4</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>302</ID>
+                  <Description>"Quantity"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>+8*8+4</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>303</ID>
+                  <Description>"Quantity"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>+9*8+4</Address>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>357</ID>
+      <Description>"Unlock All Transmog (from zachillios)"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript Async="1">[ENABLE]
+aobscanmodule(transmogs,$process,80 ?? ?? 00 74 04 ?? FF)
+alloc(newmem,$1000,transmogs)
+
+label(transmogsBkp)
+label(return)
+
+newmem:
+  db C6 47
+  readmem(transmogs+02,1)
+  db 01
+  jmp return
+transmogsBkp:
+  readmem(transmogs,6)
+  jmp return
+
+transmogs:
+  jmp newmem
+  nop
+return:
+registersymbol(transmogs)
+registersymbol(transmogsBkp)
+
+[DISABLE]
+transmogs:
+  readmem(transmogsBkp,6)
+unregistersymbol(transmogs)
+unregistersymbol(transmogsBkp)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: Dragon Age The Veilguard.exe+246C5B2
+
+Dragon Age The Veilguard.exe+246C588: 48 8B 4C 24 78  - mov rcx,[rsp+78]
+Dragon Age The Veilguard.exe+246C58D: 33 D2           - xor edx,edx
+Dragon Age The Veilguard.exe+246C58F: E8 4C 7C 81 FE  - call "Dragon Age The Veilguard.exe"+C841E0
+Dragon Age The Veilguard.exe+246C594: 48 8B 4C 24 50  - mov rcx,[rsp+50]
+Dragon Age The Veilguard.exe+246C599: 48 89 08        - mov [rax],rcx
+Dragon Age The Veilguard.exe+246C59C: 33 C9           - xor ecx,ecx
+Dragon Age The Veilguard.exe+246C59E: E8 ED C5 43 00  - call "Dragon Age The Veilguard.exe"+28A8B90
+Dragon Age The Veilguard.exe+246C5A3: 48 8D 4C 24 50  - lea rcx,[rsp+50]
+Dragon Age The Veilguard.exe+246C5A8: 48 89 44 24 50  - mov [rsp+50],rax
+Dragon Age The Veilguard.exe+246C5AD: E8 1E 19 43 00  - call "Dragon Age The Veilguard.exe"+289DED0
+// ---------- INJECTING HERE ----------
+Dragon Age The Veilguard.exe+246C5B2: 80 7F 19 00     - cmp byte ptr [rdi+19],00
+// ---------- DONE INJECTING  ----------
+Dragon Age The Veilguard.exe+246C5B6: 74 04           - je "Dragon Age The Veilguard.exe"+246C5BC
+Dragon Age The Veilguard.exe+246C5B8: 41 FF 04 24     - inc [r12]
+Dragon Age The Veilguard.exe+246C5BC: 41 FF 45 00     - inc [r13+00]
+Dragon Age The Veilguard.exe+246C5C0: B8 FF FF FF FF  - mov eax,FFFFFFFF
+Dragon Age The Veilguard.exe+246C5C5: F0 0F C1 43 10  - lock xadd [rbx+10],eax
+Dragon Age The Veilguard.exe+246C5CA: 83 F8 01        - cmp eax,01
+Dragon Age The Veilguard.exe+246C5CD: 75 0F           - jne "Dragon Age The Veilguard.exe"+246C5DE
+Dragon Age The Veilguard.exe+246C5CF: 48 8B 4C 24 60  - mov rcx,[rsp+60]
+Dragon Age The Veilguard.exe+246C5D4: 45 33 C0        - xor r8d,r8d
+Dragon Age The Veilguard.exe+246C5D7: 33 D2           - xor edx,edx
+}
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>387</ID>
+      <Description>"Last Item Equipped Pointer"</Description>
+      <Options moHideChildren="1"/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript Async="1">[ENABLE]
+aobscanmodule(lastEquipped,$process,FF 90 ?? ?? 00 00 48 8B ?? ?? ?? 48 89 ?? ?? 48 3B)
+alloc(newmem,$1000)
+
+label(lastEquippedPtr)
+label(lastEquippedBkp)
+label(return)
+
+newmem:
+  push rax
+  mov rax,lastEquippedPtr
+  mov [rax],rcx
+  pop rax
+lastEquippedBkp:
+  readmem(lastEquipped,15)
+  jmp return
+
+align 10
+lastEquippedPtr:
+  dq 0
+
+lastEquipped:
+  jmp far newmem
+  nop
+return:
+registersymbol(lastEquipped)
+registersymbol(lastEquippedBkp)
+registersymbol(lastEquippedPtr)
+
+[DISABLE]
+lastEquipped:
+  readmem(lastEquippedBkp,15)
+unregistersymbol(lastEquipped)
+unregistersymbol(lastEquippedBkp)
+unregistersymbol(lastEquippedPtr)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: Dragon Age The Veilguard.exe+24F4460
+
+Dragon Age The Veilguard.exe+24F4436: FF 92 C8 00 00 00     - call qword ptr [rdx+000000C8]
+Dragon Age The Veilguard.exe+24F443C: 48 8B 4C 24 30        - mov rcx,[rsp+30]
+Dragon Age The Veilguard.exe+24F4441: 48 3B F8              - cmp rdi,rax
+Dragon Age The Veilguard.exe+24F4444: 75 17                 - jne "Dragon Age The Veilguard.exe"+24F445D
+Dragon Age The Veilguard.exe+24F4446: 48 8B 5C 24 38        - mov rbx,[rsp+38]
+Dragon Age The Veilguard.exe+24F444B: 48 85 C9              - test rcx,rcx
+Dragon Age The Veilguard.exe+24F444E: 0F 84 B8 02 00 00     - je "Dragon Age The Veilguard.exe"+24F470C
+Dragon Age The Veilguard.exe+24F4454: 48 85 DB              - test rbx,rbx
+Dragon Age The Veilguard.exe+24F4457: 0F 85 F2 02 00 00     - jne "Dragon Age The Veilguard.exe"+24F474F
+Dragon Age The Veilguard.exe+24F445D: 48 8B 01              - mov rax,[rcx]
+// ---------- INJECTING HERE ----------
+Dragon Age The Veilguard.exe+24F4460: FF 90 98 00 00 00     - call qword ptr [rax+00000098]
+// ---------- DONE INJECTING  ----------
+Dragon Age The Veilguard.exe+24F4466: 48 8B 54 24 70        - mov rdx,[rsp+70]
+Dragon Age The Veilguard.exe+24F446B: 48 89 45 88           - mov [rbp-78],rax
+Dragon Age The Veilguard.exe+24F446F: 48 3B 54 24 78        - cmp rdx,[rsp+78]
+Dragon Age The Veilguard.exe+24F4474: 73 16                 - jae "Dragon Age The Veilguard.exe"+24F448C
+Dragon Age The Veilguard.exe+24F4476: 48 8B CA              - mov rcx,rdx
+Dragon Age The Veilguard.exe+24F4479: 48 83 C2 78           - add rdx,78
+Dragon Age The Veilguard.exe+24F447D: 48 89 54 24 70        - mov [rsp+70],rdx
+Dragon Age The Veilguard.exe+24F4482: E8 59 64 C7 01        - call "Dragon Age The Veilguard.exe"+416A8E0
+Dragon Age The Veilguard.exe+24F4487: E9 5D 01 00 00        - jmp "Dragon Age The Veilguard.exe"+24F45E9
+Dragon Age The Veilguard.exe+24F448C: 48 8D 8D 90 00 00 00  - lea rcx,[rbp+00000090]
+}
+</AssemblerScript>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>378</ID>
+          <Description>"Re-Equip Item to See Changes"</Description>
+          <Options moHideChildren="1"/>
+          <ShowAsSigned>0</ShowAsSigned>
+          <GroupHeader>1</GroupHeader>
+          <Address>lastEquippedPtr</Address>
+          <Offsets>
+            <Offset>0</Offset>
+          </Offsets>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>379</ID>
+              <Description>"Name (do not change)"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>String</VariableType>
+              <Length>256</Length>
+              <Unicode>0</Unicode>
+              <CodePage>0</CodePage>
+              <ZeroTerminate>1</ZeroTerminate>
+              <Address>+90</Address>
+              <Offsets>
+                <Offset>0</Offset>
+                <Offset>38</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>380</ID>
+              <Description>"Level"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>4 Bytes</VariableType>
+              <Address>+38</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>381</ID>
+              <Description>"Rarity"</Description>
+              <DropDownList DisplayValueAsItem="1">1:Common
+2:Uncommon
+3:Rare
+4:Epic
+5:Legendary
+</DropDownList>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>4 Bytes</VariableType>
+              <Address>+40</Address>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>353</ID>
+      <Description>"Ignore This"</Description>
+      <Options moHideChildren="1"/>
+      <Color>FFFFFF</Color>
+      <GroupHeader>1</GroupHeader>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>248</ID>
+          <Description>"addMaterials"</Description>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+aobscanmodule(addMaterials,$process,44 8B 7F 08 45 03 FC)
+alloc(newmem,$1000,addMaterials)
+
+label(code)
+label(return)
+
+newmem:
+
+code:
+  mov r15d,[rdi+08]
+  add r15d,r12d
+  jmp return
+
+addMaterials:
+  jmp newmem
+  nop 2
+return:
+registersymbol(addMaterials)
+
+[DISABLE]
+
+addMaterials:
+  db 44 8B 7F 08 45 03 FC
+
+unregistersymbol(addMaterials)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: Dragon Age The Veilguard.exe+13EFDF2
+
+Dragon Age The Veilguard.exe+13EFDD4: 7C 09                 - jl "Dragon Age The Veilguard.exe"+13EFDDF
+Dragon Age The Veilguard.exe+13EFDD6: 48 8D 43 08           - lea rax,[rbx+08]
+Dragon Age The Veilguard.exe+13EFDDA: 48 3B D8              - cmp rbx,rax
+Dragon Age The Veilguard.exe+13EFDDD: 75 04                 - jne "Dragon Age The Veilguard.exe"+13EFDE3
+Dragon Age The Veilguard.exe+13EFDDF: 49 8B 5D 68           - mov rbx,[r13+68]
+Dragon Age The Veilguard.exe+13EFDE3: 49 3B 5D 68           - cmp rbx,[r13+68]
+Dragon Age The Veilguard.exe+13EFDE7: 74 06                 - je "Dragon Age The Veilguard.exe"+13EFDEF
+Dragon Age The Veilguard.exe+13EFDE9: 44 8B 63 04           - mov r12d,[rbx+04]
+Dragon Age The Veilguard.exe+13EFDED: EB 03                 - jmp "Dragon Age The Veilguard.exe"+13EFDF2
+Dragon Age The Veilguard.exe+13EFDEF: 45 33 E4              - xor r12d,r12d
+// ---------- INJECTING HERE ----------
+Dragon Age The Veilguard.exe+13EFDF2: 44 8B 7F 08           - mov r15d,[rdi+08]
+// ---------- DONE INJECTING  ----------
+Dragon Age The Veilguard.exe+13EFDF6: 45 03 FC              - add r15d,r12d
+Dragon Age The Veilguard.exe+13EFDF9: 83 7F 08 00           - cmp dword ptr [rdi+08],00
+Dragon Age The Veilguard.exe+13EFDFD: 7D 0A                 - jnl "Dragon Age The Veilguard.exe"+13EFE09
+Dragon Age The Veilguard.exe+13EFDFF: 45 3B FC              - cmp r15d,r12d
+Dragon Age The Veilguard.exe+13EFE02: 72 2B                 - jb "Dragon Age The Veilguard.exe"+13EFE2F
+Dragon Age The Veilguard.exe+13EFE04: 45 33 FF              - xor r15d,r15d
+Dragon Age The Veilguard.exe+13EFE07: EB 2B                 - jmp "Dragon Age The Veilguard.exe"+13EFE34
+Dragon Age The Veilguard.exe+13EFE09: 48 8B 0D D0 39 B9 04  - mov rcx,["Dragon Age The Veilguard.exe"+5F837E0]
+Dragon Age The Veilguard.exe+13EFE10: 45 3B FC              - cmp r15d,r12d
+Dragon Age The Veilguard.exe+13EFE13: 44 0F 42 FE           - cmovb r15d,esi
+}
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>347</ID>
+          <Description>"getReputation"</Description>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+aobscanmodule(getReputation,Dragon Age The Veilguard.exe,8B 48 04 8B D3) // should be unique
+alloc(newmem,$1000,getReputation)
+
+label(code)
+label(return)
+
+newmem:
+
+code:
+  mov ecx,[rax+04]
+  mov edx,ebx
+  jmp return
+
+getReputation:
+  jmp newmem
+return:
+registersymbol(getReputation)
+
+[DISABLE]
+
+getReputation:
+  db 8B 48 04 8B D3
+
+unregistersymbol(getReputation)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: Dragon Age The Veilguard.exe+D231E3
+
+Dragon Age The Veilguard.exe+D231BD: 75 04              - jne "Dragon Age The Veilguard.exe"+D231C3
+Dragon Age The Veilguard.exe+D231BF: 4D 8B 42 30        - mov r8,[r10+30]
+Dragon Age The Veilguard.exe+D231C3: 4D 3B 42 30        - cmp r8,[r10+30]
+Dragon Age The Veilguard.exe+D231C7: 0F 84 F6 00 00 00  - je "Dragon Age The Veilguard.exe"+D232C3
+Dragon Age The Veilguard.exe+D231CD: 49 8B 02           - mov rax,[r10]
+Dragon Age The Veilguard.exe+D231D0: 49 8B CA           - mov rcx,r10
+Dragon Age The Veilguard.exe+D231D3: 41 8B 50 04        - mov edx,[r8+04]
+Dragon Age The Veilguard.exe+D231D7: FF 50 08           - call qword ptr [rax+08]
+Dragon Age The Veilguard.exe+D231DA: 48 85 C0           - test rax,rax
+Dragon Age The Veilguard.exe+D231DD: 0F 84 E0 00 00 00  - je "Dragon Age The Veilguard.exe"+D232C3
+// ---------- INJECTING HERE ----------
+Dragon Age The Veilguard.exe+D231E3: 8B 48 04           - mov ecx,[rax+04]
+// ---------- DONE INJECTING  ----------
+Dragon Age The Veilguard.exe+D231E6: 8B D3              - mov edx,ebx
+Dragon Age The Veilguard.exe+D231E8: 41 89 0F           - mov [r15],ecx
+Dragon Age The Veilguard.exe+D231EB: 44 8B 08           - mov r9d,[rax]
+Dragon Age The Veilguard.exe+D231EE: 45 89 0E           - mov [r14],r9d
+Dragon Age The Veilguard.exe+D231F1: 4C 8B 47 68        - mov r8,[rdi+68]
+Dragon Age The Veilguard.exe+D231F5: 49 83 E0 FB        - and r8,-05
+Dragon Age The Veilguard.exe+D231F9: 74 3E              - je "Dragon Age The Veilguard.exe"+D23239
+Dragon Age The Veilguard.exe+D231FB: 49 8B 40 20        - mov rax,[r8+20]
+Dragon Age The Veilguard.exe+D231FF: 4C 8B C0           - mov r8,rax
+Dragon Age The Veilguard.exe+D23202: 8B 48 FC           - mov ecx,[rax-04]
+}
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>258</ID>
+          <Description>"Auto Assemble script"</Description>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>define(address,"Dragon Age The Veilguard.exe"+13F6449)
+define(bytes,41 8B 41 04 C3)
+
+[ENABLE]
+assert(address,bytes)
+alloc(newmem,$1000,"Dragon Age The Veilguard.exe"+13F6449)
+
+label(code)
+label(return)
+
+newmem:
+  mov rax,1F1461D8
+  cmp rax,r9
+  jne @f
+  mov rax,[rsp]
+  lea rax,[rax]
+  nop
+  mov rax,[rsp+30]
+  lea rax,[rax]
+  nop
+  nop
+code:
+  mov eax,[r9+04]
+  ret 
+  jmp return
+
+address:
+  jmp newmem
+return:
+
+[DISABLE]
+//code from here till the end of the code will be used to disable the cheat
+address:
+  db bytes
+  // mov eax,[r9+04]
+  // ret 
+
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: Dragon Age The Veilguard.exe+13F6449
+
+Dragon Age The Veilguard.exe+13F642B: 4D 3B 4A 68  - cmp r9,[r10+68]
+Dragon Age The Veilguard.exe+13F642F: 74 0E        - je "Dragon Age The Veilguard.exe"+13F643F
+Dragon Age The Veilguard.exe+13F6431: 41 3B 11     - cmp edx,[r9]
+Dragon Age The Veilguard.exe+13F6434: 7C 09        - jl "Dragon Age The Veilguard.exe"+13F643F
+Dragon Age The Veilguard.exe+13F6436: 49 8D 41 08  - lea rax,[r9+08]
+Dragon Age The Veilguard.exe+13F643A: 4C 3B C8     - cmp r9,rax
+Dragon Age The Veilguard.exe+13F643D: 75 04        - jne "Dragon Age The Veilguard.exe"+13F6443
+Dragon Age The Veilguard.exe+13F643F: 4D 8B 4A 68  - mov r9,[r10+68]
+Dragon Age The Veilguard.exe+13F6443: 4D 3B 4A 68  - cmp r9,[r10+68]
+Dragon Age The Veilguard.exe+13F6447: 74 05        - je "Dragon Age The Veilguard.exe"+13F644E
+// ---------- INJECTING HERE ----------
+Dragon Age The Veilguard.exe+13F6449: 41 8B 41 04  - mov eax,[r9+04]
+// ---------- DONE INJECTING  ----------
+Dragon Age The Veilguard.exe+13F644D: C3           - ret 
+Dragon Age The Veilguard.exe+13F644E: 33 C0        - xor eax,eax
+Dragon Age The Veilguard.exe+13F6450: C3           - ret 
+Dragon Age The Veilguard.exe+13F6451: CC           - int 3 
+Dragon Age The Veilguard.exe+13F6452: CC           - int 3 
+Dragon Age The Veilguard.exe+13F6453: CC           - int 3 
+Dragon Age The Veilguard.exe+13F6454: CC           - int 3 
+Dragon Age The Veilguard.exe+13F6455: CC           - int 3 
+Dragon Age The Veilguard.exe+13F6456: CC           - int 3 
+Dragon Age The Veilguard.exe+13F6457: CC           - int 3 
+}
+</AssemblerScript>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols>
+    <SymbolEntry>
+      <Name>ArEd</Name>
+      <Address>00690000</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>lastItem</Name>
+      <Address>00690010</Address>
+    </SymbolEntry>
+  </UserdefinedSymbols>
+</CheatTable>

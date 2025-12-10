@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="45">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>6</ID>
+      <Description>"Unlimited Ammo"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>{ Game   : Borderlands4.exe
+  Version: 
+  Date   : 2025-09-11
+  Author :
+
+  This script does blah blah blah
+
+  - 4 bytes, value = ammo in clip + reserve ammo
+  - Execute when firing weapon
+}
+
+[ENABLE]
+
+aobscanmodule(ammocd,Borderlands4.exe,44 8B A4 06 B0 25 00 00 8B 94 06 B8 25 00 00) // should be unique
+alloc(newmem,$1000)
+
+label(code)
+label(return)
+
+newmem:
+  mov dword ptr [rsi+rax+000025B0], #999
+
+code:
+  mov r12d,[rsi+rax+000025B0]
+  mov edx,[rsi+rax+000025B8]
+  jmp return
+
+ammocd:
+  jmp far newmem
+  nop
+return:
+registersymbol(ammocd)
+
+[DISABLE]
+
+ammocd:
+  db 44 8B A4 06 B0 25 00 00 8B 94 06 B8 25 00 00
+
+unregistersymbol(ammocd)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: Borderlands4.exe+B1E8436
+
+Borderlands4.exe+B1E840C: 0F 85 22 03 00 00        - jne Borderlands4.exe+B1E8734
+Borderlands4.exe+B1E8412: 44 89 CF                 - mov edi,r9d
+Borderlands4.exe+B1E8415: 89 D3                    - mov ebx,edx
+Borderlands4.exe+B1E8417: 48 89 CE                 - mov rsi,rcx
+Borderlands4.exe+B1E841A: 44 0F B6 FA              - movzx r15d,dl
+Borderlands4.exe+B1E841E: 44 89 F8                 - mov eax,r15d
+Borderlands4.exe+B1E8421: C1 E0 06                 - shl eax,06
+Borderlands4.exe+B1E8424: 4C 8D 34 01              - lea r14,[rcx+rax]
+Borderlands4.exe+B1E8428: 49 81 C6 80 25 00 00     - add r14,00002580
+Borderlands4.exe+B1E842F: 8B 8C 01 94 25 00 00     - mov ecx,[rcx+rax+00002594]
+// ---------- INJECTING HERE ----------
+Borderlands4.exe+B1E8436: 44 8B A4 06 B0 25 00 00  - mov r12d,[rsi+rax+000025B0]
+// ---------- DONE INJECTING  ----------
+Borderlands4.exe+B1E843E: 8B 94 06 B8 25 00 00     - mov edx,[rsi+rax+000025B8]
+Borderlands4.exe+B1E8445: 45 01 E0                 - add r8d,r12d
+Borderlands4.exe+B1E8448: 41 39 D0                 - cmp r8d,edx
+Borderlands4.exe+B1E844B: 44 0F 4D C2              - cmovge r8d,edx
+Borderlands4.exe+B1E844F: 31 ED                    - xor ebp,ebp
+Borderlands4.exe+B1E8451: 45 85 C0                 - test r8d,r8d
+Borderlands4.exe+B1E8454: 41 0F 4F E8              - cmovg ebp,r8d
+Borderlands4.exe+B1E8458: 89 AC 06 B0 25 00 00     - mov [rsi+rax+000025B0],ebp
+Borderlands4.exe+B1E845F: 8D 51 01                 - lea edx,[rcx+01]
+Borderlands4.exe+B1E8462: 89 94 06 94 25 00 00     - mov [rsi+rax+00002594],edx
+}
+</AssemblerScript>
+      <Hotkeys>
+        <Hotkey>
+          <Action>Toggle Activation</Action>
+          <Keys>
+            <Key>99</Key>
+          </Keys>
+          <ID>0</ID>
+        </Hotkey>
+      </Hotkeys>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>16273</ID>
+      <Description>"More CHEATS AVAILABLE HERE"</Description>
+      <Color>0000FF</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>{$LUA}
+  if syntaxcheck then return end
+  [ENABLE]
+
+--Updated table! (Start)
+    --messageDialog('Enable Dark Mode?', mtInformation,mbYes,mbNo)
+    if messageDialog("Updated table with more cheats available!\r\n\r\nYou will need Mod Engine to get more cheats and the new updated table\r\n\r\nDownload Mod Engine?", mtConfirmation, mbYes, mbNo) ==mrYes then
+       shellExecute("https://modengine.net/threads/3852/")
+    else
+    end
+--Updated table! (End)
+  [DISABLE]
+
+</AssemblerScript>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+  <LuaScript>--Updated table! (Start)
+    --messageDialog('Enable Dark Mode?', mtInformation,mbYes,mbNo)
+    if messageDialog("Updated table with more cheats available!\r\n\r\nYou will need Mod Engine to get more cheats and the new updated table\r\n\r\nDownload Mod Engine?", mtConfirmation, mbYes, mbNo) ==mrYes then
+       shellExecute("https://modengine.net/threads/3852/")
+    else
+    end
+--Updated table! (End)
+
+
+
+
+</LuaScript>
+</CheatTable>

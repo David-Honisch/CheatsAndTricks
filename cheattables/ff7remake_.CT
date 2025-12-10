@@ -1,0 +1,2200 @@
+<?xml version="1.0" encoding="utf-8"?><CheatTable CheatEngineTableVersion="42"><CheatEntries><CheatEntry><ID>1</ID><Description>"Basic"</Description><Options moHideChildren="1" /><Color>000080</Color><GroupHeader>1</GroupHeader><CheatEntries><CheatEntry><ID>2</ID><Description>"Attach to Process"</Description><Options moHideChildren="1" /><Color>000080</Color><VariableType>Auto Assembler Script</VariableType><AssemblerScript>[ENABLE]
+{$lua}
+if not syntaxcheck then
+  openProcess("ff7remake_.exe")
+end
+{$asm}
+
+[DISABLE]
+{$lua}
+if not syntaxcheck then
+  openProcess("ff7remake_.exe")
+end
+{$asm}
+</AssemblerScript></CheatEntry><CheatEntry><ID>3</ID><Description>"Compact Mode"</Description><Color>000080</Color><VariableType>Auto Assembler Script</VariableType><AssemblerScript>[ENABLE]
+{$lua}
+if not syntaxcheck then
+  function cycleFullCompact( sender, force )
+    local state = not( compactmenuitem.Caption == 'Compact View Mode' )
+    if force ~= nil then state = not force end
+    compactmenuitem.Caption = state and 'Compact View Mode' or 'Full View Mode'
+    getMainForm().Splitter1.Visible = state
+    getMainForm().Panel4.Visible = state
+    getMainForm().Panel5.Visible = state
+  end
+
+  function addCompactMenu()
+    if compactmenualreadyexists then return end
+      local parent = getMainForm().Menu.Items
+      compactmenuitem = createMenuItem( parent )
+      parent.add( compactmenuitem )
+      compactmenuitem.Caption = 'Compact View Mode'
+      compactmenuitem.OnClick = cycleFullCompact
+      compactmenualreadyexists = 'yes'
+  end
+  addCompactMenu()
+  cycleFullCompact( nil, true )
+end
+[DISABLE]
+{$lua}
+if not syntaxcheck then cycleFullCompact( nil, false ) end
+</AssemblerScript></CheatEntry><CheatEntry><ID>4</ID><Description>"Speed Hack"</Description><Options moHideChildren="1" /><Color>000080</Color><GroupHeader>1</GroupHeader><CheatEntries><CheatEntry><ID>5</ID><Description>"Ctrl + Num1　0.5"</Description><Color>000080</Color><VariableType>Auto Assembler Script</VariableType><AssemblerScript>[ENABLE]
+luacall(speedhack_setSpeed(0.5))
+
+[DISABLE]
+luacall(speedhack_setSpeed(1))
+</AssemblerScript><Hotkeys><Hotkey><Action>Toggle Activation</Action><Keys><Key>17</Key><Key>97</Key></Keys><ID>6</ID><ActivateSound>Activate</ActivateSound><DeactivateSound>Deactivate</DeactivateSound></Hotkey></Hotkeys></CheatEntry><CheatEntry><ID>7</ID><Description>"Ctrl + Num2　2.0"</Description><Color>000080</Color><VariableType>Auto Assembler Script</VariableType><AssemblerScript>[ENABLE]
+luacall(speedhack_setSpeed(2))
+
+[DISABLE]
+luacall(speedhack_setSpeed(1))
+</AssemblerScript><Hotkeys><Hotkey><Action>Toggle Activation</Action><Keys><Key>17</Key><Key>98</Key></Keys><ID>8</ID><ActivateSound>Activate</ActivateSound><DeactivateSound>Deactivate</DeactivateSound></Hotkey></Hotkeys></CheatEntry></CheatEntries></CheatEntry><CheatEntry><ID>9</ID><Description>"For Debugger/Don't use"</Description><Options moHideChildren="1" /><Color>0000FF</Color><GroupHeader>1</GroupHeader><CheatEntries><CheatEntry><ID>10</ID><Description>"Blank Space for Coding"</Description><ShowAsSigned>0</ShowAsSigned><Color>0000FF</Color><GroupHeader>1</GroupHeader><Address>ff7remake_.exe+500</Address></CheatEntry><CheatEntry><ID>11</ID><Description>"Check Code for Amount"</Description><ShowAsSigned>0</ShowAsSigned><Color>0000FF</Color><GroupHeader>1</GroupHeader><Address>ff7remake_.exe.text+B1FE68</Address></CheatEntry><CheatEntry><ID>12</ID><Description>"Get Equip Amount Become 4"</Description><Color>0000FF</Color><VariableType>Auto Assembler Script</VariableType><AssemblerScript>[ENABLE]
+aobscanmodule(Get_New_Amount,ff7remake_.exe,41898CC74C560300)
+alloc(Alloc_GNA,$128,Get_New_Amount)
+alloc(mem_GNA,8)
+label(Extend return)
+registersymbol(Get_New_Amount mem_GNA)
+
+mem_GNA:
+  reassemble(Get_New_Amount)
+
+Alloc_GNA:
+  cmp [r15+rax*8+00035650],8
+  je Extend
+  cmp [r15+rax*8+00035650],9
+  je Extend
+  reassemble(Get_New_Amount)
+  jmp return
+
+Extend:
+  mov ecx,4
+  reassemble(Get_New_Amount)
+  jmp return
+
+Get_New_Amount:
+  jmp Alloc_GNA
+  nop 3
+return:
+
+[DISABLE]
+Get_New_Amount:
+  reassemble(mem_GNA)
+
+unregistersymbol(*)
+dealloc(*)
+</AssemblerScript></CheatEntry><CheatEntry><ID>13</ID><Description>"Specify the next get one　Item/Equip"</Description><Options moHideChildren="1" /><Color>0000FF</Color><VariableType>Auto Assembler Script</VariableType><AssemblerScript>[ENABLE]
+aobscanmodule(Change,ff7remake_.exe,4588ACC750560300)
+aobscanmodule(ForChange,ff7remake_.exe,8843238B4B0C)
+alloc(Alloc_Change,$128,Change)
+alloc(mem_Change,8)
+alloc(Int_GNI,4)
+alloc(Int_GNA,4)
+alloc(Int_GNT,4)
+label(return)
+registersymbol(Change ForChange mem_Change Int_GNI Int_GNA Int_GNT)
+
+mem_Change:
+  reassemble(Change)
+
+Int_GNI:
+dd #9002
+Int_GNA:
+dd #4
+Int_GNT:
+dd #8
+
+Alloc_Change:
+  mov r13l,[Int_GNT]
+  mov [r15+rax*8+00035650],r13l
+  lea rax,[rcx+rcx*2]
+  mov ecx,[rbp-21]
+  mov ecx,[Int_GNA]
+  mov [r15+rax*8+0003564C],ecx
+  mov rcx,[rbp+07]
+  mov [r15+rax*8+00035640],rcx
+  mov esi,[Int_GNI]
+  mov [r15+rax*8+00035648],esi
+  jmp ForChange
+
+Change:
+  jmp Alloc_Change
+  nop 3
+return:
+
+[DISABLE]
+Change:
+  reassemble(mem_Change)
+
+unregistersymbol(*)
+dealloc(*)
+</AssemblerScript><CheatEntries><CheatEntry><ID>14</ID><Description>"ID/Item"</Description><DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">1:Potion
+2:Hi_potion
+3:Ether
+4:Turbo_Ether
+5:Elixir
+6:Phoenix_Down
+7:Antidote
+8:Echo_Mist
+9:Adrenaline
+10:Sedative
+11:Remedy
+12:Celeris
+13:Grenade
+14:Spiderweb
+15:Hazardous_Material
+16:Big_Bomber
+17:Molotov_Cocktail
+18:Orb_of_Gravity
+19:Smelling_Salts
+21:Maiden's Kiss
+22:Mega_Potion
+31:AI_Core
+32:Fuzzy_Wuzzy
+33:Mr.Cuddlesworth
+50:Fire_Damage
+51:Ice_Damage
+52:Lightning_Damage
+53:Wind_Damage
+54:Earth_Damage
+55:Holy_Damage
+56:Dark_Damage
+57:Non_Elemental_Damage
+58:Fire_Damage
+59:Ice_Damage
+60:Lightning_Damage
+61:Wind_Damage
+62:Earth_Damage
+63:Holy_Damage
+64:Dark_Damage
+65:Non_Elemental_Damage
+66:No_Damage_Spell
+67:No_Damage_Physical_Attack
+68:Reflect
+69:Shield
+70:Pierce_Reflect
+71:Nullify_Reflect
+72:Pierce_Shield
+73:Nullify_Shield
+74:Toad
+75:Toad_All
+76:Maiden's_Kiss_All
+*:Misc
+</DropDownList><ShowAsSigned>0</ShowAsSigned><Color>0000FF</Color><VariableType>4 Bytes</VariableType><Address>Int_GNI</Address></CheatEntry><CheatEntry><ID>15</ID><Description>"ID/Armor"</Description><DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">9001:Bronze Bangle/Change to this and it disappears
+9002:Iron Bangle
+9003:Titanium Bangle
+9004:Gothic Bangle
+9005:Cog Bangle
+9006:Chain Bangle
+9007:Leather Bracer
+9008:Studded Bracer
+9009:Heavy-Duty Bracer
+9010:Supreme Bracer
+9011:Iron Maiden
+9012:Mesmeric Bracelet
+9013:Mythril Bracelet
+9014:Sorcerer’s Armlet
+9015:Rune Armlet
+9016:Astral Cuff
+*:Misc
+</DropDownList><ShowAsSigned>0</ShowAsSigned><Color>0000FF</Color><VariableType>4 Bytes</VariableType><Address>Int_GNI</Address></CheatEntry><CheatEntry><ID>16</ID><Description>"ID/Accessory"</Description><DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">9017:Power Wristguards
+9018:Bulletproof Vest
+9019:Earrings
+9020:Talisman
+9021:Headband
+9022:Star Pendant
+9023:Fury Ring
+9024:Revival Earrings
+9025:Whistlewind Scarf
+9026:Mythical Amulet
+9027:Healing Carcanet
+9028:Clarity Pendant
+9029:Transference Module
+9030:Spectral Cogwheel
+9031:Moogle's Amulet
+9032:Enfeeblement Ring
+9033:Crescent Moon Charm
+9034:Champion Belt
+9035:Protective Boots
+9036:Circlet
+9037:Tarot Cards
+9038:Otherworldly Crystal
+9039:Salvation Badge
+9040:Star Bracelet
+9041:Caliginous Bracelet
+9042:Magician’s Bracelet
+9043:Geometric Bracelet
+9044:Force Bracelet
+9045:Reraise Earrings
+9050:Enchanted Ring
+9051:Supernatural Wristguards
+9052:Survival Vest
+9053:Platinum Earrings
+9054:Timeworn Talisman
+9055:Midgar Bangle
+9056:Shinra Bangle
+9057:Corneo Armlet
+9058:Superstar Belt
+9059:Mako Crystal
+9060:Gotterdammerung
+*:Misc
+</DropDownList><ShowAsSigned>0</ShowAsSigned><Color>0000FF</Color><VariableType>4 Bytes</VariableType><Address>Int_GNI</Address></CheatEntry><CheatEntry><ID>17</ID><Description>"Type"</Description><DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0:Item
+8:Armor
+9:Accessory
+*:Misc
+</DropDownList><ShowAsSigned>0</ShowAsSigned><Color>0000FF</Color><VariableType>4 Bytes</VariableType><Address>Int_GNT</Address></CheatEntry><CheatEntry><ID>18</ID><Description>"Amount"</Description><ShowAsSigned>0</ShowAsSigned><Color>0000FF</Color><VariableType>4 Bytes</VariableType><Address>Int_GNA</Address></CheatEntry><CheatEntry><ID>19</ID><Description>"Backups should be made for possible problems"</Description><Color>0000FF</Color><GroupHeader>1</GroupHeader></CheatEntry><CheatEntry><ID>20</ID><Description>"Choose one of three IDs and select accordingly for types"</Description><Color>0000FF</Color><GroupHeader>1</GroupHeader></CheatEntry><CheatEntry><ID>21</ID><Description>"Need to restart the system because it'll affect the items you get afterwards..."</Description><Color>0000FF</Color><GroupHeader>1</GroupHeader></CheatEntry></CheatEntries></CheatEntry><CheatEntry><ID>22</ID><Description>"Better to use a save editor because need to reboot and some flag problems"</Description><Color>0000FF</Color><GroupHeader>1</GroupHeader></CheatEntry><CheatEntry><ID>23</ID><Description>"No complaints of any kind will be entertained in this scripts"</Description><Color>0000FF</Color><GroupHeader>1</GroupHeader></CheatEntry></CheatEntries></CheatEntry></CheatEntries></CheatEntry><CheatEntry><ID>24</ID><Description>"Various Data/Highlight"</Description><Options moHideChildren="1" /><Color>007500</Color><GroupHeader>1</GroupHeader><CheatEntries><CheatEntry><ID>25</ID><Description>"PlayData/Chara Stats"</Description><Options moHideChildren="1" /><Color>007500</Color><VariableType>Auto Assembler Script</VariableType><AssemblerScript>[ENABLE]
+aobscanmodule(PlayData,ff7remake_.exe,8BB1A0020000)
+alloc(Alloc_PlayData,$128,PlayData)
+alloc(mem_PlayData,6)
+alloc(PlayDataPointer,8)
+label(return)
+registersymbol(PlayData mem_PlayData PlayDataPointer)
+
+aobscanmodule(CurrentGil,ff7remake_.exe,418B7CCF0C)
+alloc(Alloc_Gil,$128,CurrentGil)
+alloc(mem_Gil,5)
+alloc(KeyItemPointer,8)
+label(return2)
+registersymbol(CurrentGil mem_Gil KeyItemPointer)
+
+mem_PlayData:
+  readmem(PlayData,6)
+
+Alloc_PlayData:
+  mov [PlayDataPointer],rcx
+  reassemble(PlayData)
+  jmp return
+
+PlayData:
+  jmp Alloc_PlayData
+  nop
+return:
+
+mem_Gil:
+  readmem(CurrentGil,5)
+
+KeyItemPointer:
+dq
+
+Alloc_Gil:
+  push rax
+  mov rax,rcx
+  imul rax,8
+  add rax,r15
+  mov [KeyItemPointer],rax
+  pop rax
+  reassemble(CurrentGil)
+  jmp return2
+
+CurrentGil:
+  jmp Alloc_Gil
+return2:
+
+[DISABLE]
+PlayData:
+  readmem(mem_PlayData,6)
+
+CurrentGil:
+  readmem(mem_Gil,5)
+
+unregistersymbol(*)
+dealloc(*)
+</AssemblerScript><CheatEntries><CheatEntry><ID>26</ID><Description>"Base/Open Menu"</Description><Options moAlwaysHideChildren="1" moManualExpandCollapse="1" /><ShowAsSigned>0</ShowAsSigned><Color>007500</Color><GroupHeader>1</GroupHeader><Address>PlayDataPointer</Address><Offsets><Offset>0</Offset></Offsets><CheatEntries><CheatEntry><ID>27</ID><Description>"PlayTime"</Description><ShowAsSigned>0</ShowAsSigned><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+2A0</Address></CheatEntry><CheatEntry><ID>28</ID><Description>"Cloud"</Description><Options moHideChildren="1" /><Color>007500</Color><GroupHeader>1</GroupHeader><CheatEntries><CheatEntry><ID>29</ID><Description>"Level"</Description><ShowAsSigned>0</ShowAsSigned><Color>007500</Color><VariableType>Byte</VariableType><Address>+020</Address></CheatEntry><CheatEntry><ID>30</ID><Description>"Slots"</Description><ShowAsSigned>0</ShowAsSigned><Color>007500</Color><VariableType>Byte</VariableType><Address>+022</Address></CheatEntry><CheatEntry><ID>31</ID><Description>"Limit"</Description><ShowAsSigned>0</ShowAsSigned><Color>007500</Color><VariableType>Float</VariableType><Address>+024</Address></CheatEntry><CheatEntry><ID>32</ID><Description>"ATB"</Description><ShowAsSigned>0</ShowAsSigned><Color>007500</Color><VariableType>Float</VariableType><Address>+044</Address></CheatEntry><CheatEntry><ID>33</ID><Description>"HP"</Description><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+030</Address></CheatEntry><CheatEntry><ID>34</ID><Description>"HP Max"</Description><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+034</Address></CheatEntry><CheatEntry><ID>35</ID><Description>"MP"</Description><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+038</Address></CheatEntry><CheatEntry><ID>36</ID><Description>"MP Max"</Description><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+03C</Address></CheatEntry><CheatEntry><ID>37</ID><Description>"EXP"</Description><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+040</Address></CheatEntry><CheatEntry><ID>38</ID><Description>"Attack"</Description><ShowAsSigned>0</ShowAsSigned><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+048</Address></CheatEntry><CheatEntry><ID>39</ID><Description>"Magic"</Description><ShowAsSigned>0</ShowAsSigned><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+04C</Address></CheatEntry><CheatEntry><ID>40</ID><Description>"Defense"</Description><ShowAsSigned>0</ShowAsSigned><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+050</Address></CheatEntry><CheatEntry><ID>41</ID><Description>"Mdefense"</Description><ShowAsSigned>0</ShowAsSigned><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+054</Address></CheatEntry><CheatEntry><ID>42</ID><Description>"Luck"</Description><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+058</Address></CheatEntry><CheatEntry><ID>43</ID><Description>"Status"</Description><Options moHideChildren="1" /><Color>007500</Color><GroupHeader>1</GroupHeader><CheatEntries><CheatEntry><ID>44</ID><Description>"Strength"</Description><ShowAsSigned>0</ShowAsSigned><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+220</Address></CheatEntry><CheatEntry><ID>45</ID><Description>"Magic"</Description><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+224</Address></CheatEntry><CheatEntry><ID>46</ID><Description>"Vitality"</Description><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+228</Address></CheatEntry><CheatEntry><ID>47</ID><Description>"Spirit"</Description><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+22C</Address></CheatEntry></CheatEntries></CheatEntry></CheatEntries></CheatEntry><CheatEntry><ID>48</ID><Description>"Barret"</Description><Options moHideChildren="1" /><Color>007500</Color><GroupHeader>1</GroupHeader><CheatEntries><CheatEntry><ID>49</ID><Description>"Level"</Description><ShowAsSigned>0</ShowAsSigned><Color>007500</Color><VariableType>Byte</VariableType><Address>+060</Address></CheatEntry><CheatEntry><ID>50</ID><Description>"Slots"</Description><ShowAsSigned>0</ShowAsSigned><Color>007500</Color><VariableType>Byte</VariableType><Address>+062</Address></CheatEntry><CheatEntry><ID>51</ID><Description>"Limit"</Description><ShowAsSigned>0</ShowAsSigned><Color>007500</Color><VariableType>Float</VariableType><Address>+064</Address></CheatEntry><CheatEntry><ID>52</ID><Description>"ATB"</Description><ShowAsSigned>0</ShowAsSigned><Color>007500</Color><VariableType>Float</VariableType><Address>+084</Address></CheatEntry><CheatEntry><ID>53</ID><Description>"HP"</Description><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+070</Address></CheatEntry><CheatEntry><ID>54</ID><Description>"HP Max"</Description><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+074</Address></CheatEntry><CheatEntry><ID>55</ID><Description>"MP"</Description><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+078</Address></CheatEntry><CheatEntry><ID>56</ID><Description>"MP Max"</Description><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+07C</Address></CheatEntry><CheatEntry><ID>57</ID><Description>"EXP"</Description><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+080</Address></CheatEntry><CheatEntry><ID>58</ID><Description>"Attack"</Description><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+088</Address></CheatEntry><CheatEntry><ID>59</ID><Description>"Magic"</Description><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+08C</Address></CheatEntry><CheatEntry><ID>60</ID><Description>"Defense"</Description><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+090</Address></CheatEntry><CheatEntry><ID>61</ID><Description>"Mdefense"</Description><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+094</Address></CheatEntry><CheatEntry><ID>62</ID><Description>"Luck"</Description><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+098</Address></CheatEntry><CheatEntry><ID>63</ID><Description>"Status"</Description><Options moHideChildren="1" /><Color>007500</Color><GroupHeader>1</GroupHeader><CheatEntries><CheatEntry><ID>64</ID><Description>"Strength"</Description><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+230</Address></CheatEntry><CheatEntry><ID>65</ID><Description>"Magic"</Description><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+234</Address></CheatEntry><CheatEntry><ID>66</ID><Description>"Vitality"</Description><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+238</Address></CheatEntry><CheatEntry><ID>67</ID><Description>"Spirit"</Description><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+23C</Address></CheatEntry></CheatEntries></CheatEntry></CheatEntries></CheatEntry><CheatEntry><ID>68</ID><Description>"Tifa"</Description><Options moHideChildren="1" /><Color>007500</Color><GroupHeader>1</GroupHeader><CheatEntries><CheatEntry><ID>69</ID><Description>"Level"</Description><ShowAsSigned>0</ShowAsSigned><Color>007500</Color><VariableType>Byte</VariableType><Address>+0A0</Address></CheatEntry><CheatEntry><ID>70</ID><Description>"Slots"</Description><ShowAsSigned>0</ShowAsSigned><Color>007500</Color><VariableType>Byte</VariableType><Address>+0A2</Address></CheatEntry><CheatEntry><ID>71</ID><Description>"Limit"</Description><ShowAsSigned>0</ShowAsSigned><Color>007500</Color><VariableType>Float</VariableType><Address>+0A4</Address></CheatEntry><CheatEntry><ID>72</ID><Description>"ATB"</Description><ShowAsSigned>0</ShowAsSigned><Color>007500</Color><VariableType>Float</VariableType><Address>+0C4</Address></CheatEntry><CheatEntry><ID>73</ID><Description>"HP"</Description><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+0B0</Address></CheatEntry><CheatEntry><ID>74</ID><Description>"Max HP"</Description><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+0B4</Address></CheatEntry><CheatEntry><ID>75</ID><Description>"MP"</Description><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+0B8</Address></CheatEntry><CheatEntry><ID>76</ID><Description>"MP Max"</Description><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+0BC</Address></CheatEntry><CheatEntry><ID>77</ID><Description>"EXP"</Description><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+0C0</Address></CheatEntry><CheatEntry><ID>78</ID><Description>"Attack"</Description><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+0C8</Address></CheatEntry><CheatEntry><ID>79</ID><Description>"Magic"</Description><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+0CC</Address></CheatEntry><CheatEntry><ID>80</ID><Description>"Defense"</Description><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+0D0</Address></CheatEntry><CheatEntry><ID>81</ID><Description>"Mdefense"</Description><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+0D4</Address></CheatEntry><CheatEntry><ID>82</ID><Description>"Luck"</Description><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+0D8</Address></CheatEntry><CheatEntry><ID>83</ID><Description>"Status"</Description><Options moHideChildren="1" /><Color>007500</Color><GroupHeader>1</GroupHeader><CheatEntries><CheatEntry><ID>84</ID><Description>"Strength"</Description><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+240</Address></CheatEntry><CheatEntry><ID>85</ID><Description>"Magic"</Description><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+244</Address></CheatEntry><CheatEntry><ID>86</ID><Description>"Vitality"</Description><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+248</Address></CheatEntry><CheatEntry><ID>87</ID><Description>"Spirit"</Description><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+24C</Address></CheatEntry></CheatEntries></CheatEntry></CheatEntries></CheatEntry><CheatEntry><ID>88</ID><Description>"Aerith"</Description><Options moHideChildren="1" /><Color>007500</Color><GroupHeader>1</GroupHeader><CheatEntries><CheatEntry><ID>89</ID><Description>"Level"</Description><ShowAsSigned>0</ShowAsSigned><Color>007500</Color><VariableType>Byte</VariableType><Address>+0E0</Address></CheatEntry><CheatEntry><ID>90</ID><Description>"Slots"</Description><ShowAsSigned>0</ShowAsSigned><Color>007500</Color><VariableType>Byte</VariableType><Address>+0E2</Address></CheatEntry><CheatEntry><ID>91</ID><Description>"Limit"</Description><ShowAsSigned>0</ShowAsSigned><Color>007500</Color><VariableType>Float</VariableType><Address>+0E4</Address></CheatEntry><CheatEntry><ID>92</ID><Description>"ATB"</Description><ShowAsSigned>0</ShowAsSigned><Color>007500</Color><VariableType>Float</VariableType><Address>+104</Address></CheatEntry><CheatEntry><ID>93</ID><Description>"HP"</Description><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+0F0</Address></CheatEntry><CheatEntry><ID>94</ID><Description>"Max HP"</Description><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+0F4</Address></CheatEntry><CheatEntry><ID>95</ID><Description>"MP"</Description><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+0F8</Address></CheatEntry><CheatEntry><ID>96</ID><Description>"MP Max"</Description><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+0FC</Address></CheatEntry><CheatEntry><ID>97</ID><Description>"EXP"</Description><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+100</Address></CheatEntry><CheatEntry><ID>98</ID><Description>"Attack"</Description><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+108</Address></CheatEntry><CheatEntry><ID>99</ID><Description>"Magic"</Description><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+10C</Address></CheatEntry><CheatEntry><ID>100</ID><Description>"Defense"</Description><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+110</Address></CheatEntry><CheatEntry><ID>101</ID><Description>"Mdefense"</Description><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+114</Address></CheatEntry><CheatEntry><ID>102</ID><Description>"Luck"</Description><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+118</Address></CheatEntry><CheatEntry><ID>103</ID><Description>"Status"</Description><Options moHideChildren="1" /><Color>007500</Color><GroupHeader>1</GroupHeader><CheatEntries><CheatEntry><ID>104</ID><Description>"Strength"</Description><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+250</Address></CheatEntry><CheatEntry><ID>105</ID><Description>"Magic"</Description><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+254</Address></CheatEntry><CheatEntry><ID>106</ID><Description>"Vitality"</Description><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+258</Address></CheatEntry><CheatEntry><ID>107</ID><Description>"Spirit"</Description><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+25C</Address></CheatEntry></CheatEntries></CheatEntry></CheatEntries></CheatEntry><CheatEntry><ID>108</ID><Description>"Red XIII"</Description><Options moHideChildren="1" /><Color>007500</Color><GroupHeader>1</GroupHeader><CheatEntries><CheatEntry><ID>109</ID><Description>"Level"</Description><ShowAsSigned>0</ShowAsSigned><Color>007500</Color><VariableType>Byte</VariableType><Address>+120</Address></CheatEntry><CheatEntry><ID>110</ID><Description>"Slots"</Description><ShowAsSigned>0</ShowAsSigned><Color>007500</Color><VariableType>Byte</VariableType><Address>+122</Address></CheatEntry><CheatEntry><ID>111</ID><Description>"Limit"</Description><ShowAsSigned>0</ShowAsSigned><Color>007500</Color><VariableType>Float</VariableType><Address>+124</Address></CheatEntry><CheatEntry><ID>112</ID><Description>"ATB"</Description><ShowAsSigned>0</ShowAsSigned><Color>007500</Color><VariableType>Float</VariableType><Address>+144</Address></CheatEntry><CheatEntry><ID>113</ID><Description>"HP"</Description><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+130</Address></CheatEntry><CheatEntry><ID>114</ID><Description>"Max HP"</Description><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+134</Address></CheatEntry><CheatEntry><ID>115</ID><Description>"MP"</Description><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+138</Address></CheatEntry><CheatEntry><ID>116</ID><Description>"MP Max"</Description><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+13C</Address></CheatEntry><CheatEntry><ID>117</ID><Description>"EXP"</Description><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+140</Address></CheatEntry><CheatEntry><ID>118</ID><Description>"Attack"</Description><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+148</Address></CheatEntry><CheatEntry><ID>119</ID><Description>"Magic"</Description><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+14C</Address></CheatEntry><CheatEntry><ID>120</ID><Description>"Defense"</Description><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+150</Address></CheatEntry><CheatEntry><ID>121</ID><Description>"Mdefense"</Description><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+154</Address></CheatEntry><CheatEntry><ID>122</ID><Description>"Luck"</Description><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+158</Address></CheatEntry><CheatEntry><ID>123</ID><Description>"Status"</Description><Options moHideChildren="1" /><Color>007500</Color><GroupHeader>1</GroupHeader><CheatEntries><CheatEntry><ID>124</ID><Description>"Strength"</Description><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+260</Address></CheatEntry><CheatEntry><ID>125</ID><Description>"Magic"</Description><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+264</Address></CheatEntry><CheatEntry><ID>126</ID><Description>"Vitality"</Description><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+268</Address></CheatEntry><CheatEntry><ID>127</ID><Description>"Spirit"</Description><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+26C</Address></CheatEntry></CheatEntries></CheatEntry></CheatEntries></CheatEntry><CheatEntry><ID>128</ID><Description>"Yuffie"</Description><Options moHideChildren="1" /><Color>007500</Color><GroupHeader>1</GroupHeader><CheatEntries><CheatEntry><ID>129</ID><Description>"Level"</Description><ShowAsSigned>0</ShowAsSigned><Color>007500</Color><VariableType>Byte</VariableType><Address>+160</Address></CheatEntry><CheatEntry><ID>130</ID><Description>"Slots"</Description><ShowAsSigned>0</ShowAsSigned><Color>007500</Color><VariableType>Byte</VariableType><Address>+162</Address></CheatEntry><CheatEntry><ID>131</ID><Description>"Limit"</Description><ShowAsSigned>0</ShowAsSigned><Color>007500</Color><VariableType>Float</VariableType><Address>+164</Address></CheatEntry><CheatEntry><ID>132</ID><Description>"ATB"</Description><ShowAsSigned>0</ShowAsSigned><Color>007500</Color><VariableType>Float</VariableType><Address>+184</Address></CheatEntry><CheatEntry><ID>133</ID><Description>"HP"</Description><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+170</Address></CheatEntry><CheatEntry><ID>134</ID><Description>"Max HP"</Description><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+174</Address></CheatEntry><CheatEntry><ID>135</ID><Description>"MP"</Description><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+178</Address></CheatEntry><CheatEntry><ID>136</ID><Description>"MP Max"</Description><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+17C</Address></CheatEntry><CheatEntry><ID>137</ID><Description>"EXP"</Description><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+180</Address></CheatEntry><CheatEntry><ID>138</ID><Description>"Attack"</Description><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+188</Address></CheatEntry><CheatEntry><ID>139</ID><Description>"Magic"</Description><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+18C</Address></CheatEntry><CheatEntry><ID>140</ID><Description>"Defense"</Description><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+190</Address></CheatEntry><CheatEntry><ID>141</ID><Description>"Mdefense"</Description><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+194</Address></CheatEntry><CheatEntry><ID>142</ID><Description>"Luck"</Description><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+198</Address></CheatEntry><CheatEntry><ID>143</ID><Description>"Status"</Description><Options moHideChildren="1" /><Color>007500</Color><GroupHeader>1</GroupHeader><CheatEntries><CheatEntry><ID>144</ID><Description>"Strength"</Description><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+270</Address></CheatEntry><CheatEntry><ID>145</ID><Description>"Magic"</Description><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+274</Address></CheatEntry><CheatEntry><ID>146</ID><Description>"Vitality"</Description><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+278</Address></CheatEntry><CheatEntry><ID>147</ID><Description>"Spirit"</Description><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+27C</Address></CheatEntry></CheatEntries></CheatEntry></CheatEntries></CheatEntry><CheatEntry><ID>148</ID><Description>"Sonon"</Description><Options moHideChildren="1" /><Color>007500</Color><GroupHeader>1</GroupHeader><CheatEntries><CheatEntry><ID>149</ID><Description>"Level"</Description><ShowAsSigned>0</ShowAsSigned><Color>007500</Color><VariableType>Byte</VariableType><Address>+1A0</Address></CheatEntry><CheatEntry><ID>150</ID><Description>"Slots"</Description><ShowAsSigned>0</ShowAsSigned><Color>007500</Color><VariableType>Byte</VariableType><Address>+1A2</Address></CheatEntry><CheatEntry><ID>151</ID><Description>"Limit"</Description><ShowAsSigned>0</ShowAsSigned><Color>007500</Color><VariableType>Float</VariableType><Address>+1A4</Address></CheatEntry><CheatEntry><ID>152</ID><Description>"ATB"</Description><ShowAsSigned>0</ShowAsSigned><Color>007500</Color><VariableType>Float</VariableType><Address>+1C4</Address></CheatEntry><CheatEntry><ID>153</ID><Description>"HP"</Description><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+1B0</Address></CheatEntry><CheatEntry><ID>154</ID><Description>"Max HP"</Description><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+1B4</Address></CheatEntry><CheatEntry><ID>155</ID><Description>"MP"</Description><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+1B8</Address></CheatEntry><CheatEntry><ID>156</ID><Description>"MP Max"</Description><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+1BC</Address></CheatEntry><CheatEntry><ID>157</ID><Description>"EXP"</Description><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+1C0</Address></CheatEntry><CheatEntry><ID>158</ID><Description>"Attack"</Description><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+1C8</Address></CheatEntry><CheatEntry><ID>159</ID><Description>"Magic"</Description><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+1CC</Address></CheatEntry><CheatEntry><ID>160</ID><Description>"Defense"</Description><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+1D0</Address></CheatEntry><CheatEntry><ID>161</ID><Description>"Mdefense"</Description><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+1D4</Address></CheatEntry><CheatEntry><ID>162</ID><Description>"Luck"</Description><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+1D8</Address></CheatEntry><CheatEntry><ID>163</ID><Description>"Status"</Description><Options moHideChildren="1" /><Color>007500</Color><GroupHeader>1</GroupHeader><CheatEntries><CheatEntry><ID>164</ID><Description>"Strength"</Description><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+280</Address></CheatEntry><CheatEntry><ID>165</ID><Description>"Magic"</Description><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+284</Address></CheatEntry><CheatEntry><ID>166</ID><Description>"Vitality"</Description><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+288</Address></CheatEntry><CheatEntry><ID>167</ID><Description>"Spirit"</Description><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+28C</Address></CheatEntry></CheatEntries></CheatEntry></CheatEntries></CheatEntry></CheatEntries></CheatEntry><CheatEntry><ID>168</ID><Description>"Gil and Key Items"</Description><Color>008000</Color><VariableType>Auto Assembler Script</VariableType><AssemblerScript>{$lua}
+if syntaxcheck then return end
+
+[ENABLE]
+
+local Gil = getAddress("[KeyItemPointer]+C")
+local Base,offset,stop = getAddress("[KeyItemPointer]+B4"),0x18,150
+
+local createGilRecords = function()
+        mr = AddressList.createMemoryRecord()
+        mr.appendToEntry(memrec)
+        mr.Address = Gil
+        mr.Description = "Gil"
+        mr.VarType = vtDword
+        mr.color = 0x007500
+end
+
+local createKeyItemRecords = function()
+    for i = 1, stop do
+local number =
+{
+"Moogle Medals",
+"Phoenix tail",
+"Hi Potion",
+"Yellow Flower",
+"KeyItem"..i.."",
+"Stimulant",
+"KeyItem"..i.."",
+"Antidote",
+"KeyItem"..i.."",
+"KeyItem"..i.."",
+"KeyItem"..i.."",
+"KeyItem"..i.."",
+"KeyItem"..i.."",
+"KeyItem"..i.."",
+"Combat Analyzer",
+"KeyItem"..i.."",
+"KeyItem"..i.."",
+"Elixir",
+"Watch Security Key",
+"Gravity Ball",
+"KeyItem"..i.."",
+"KeyItem"..i.."",
+"KeyItem"..i.."",
+"Spider Silk",
+"KeyItem"..i.."",
+"KeyItem"..i.."",
+"KeyItem"..i.."",
+"Keeping oneself awake",
+"Toxic substance",
+"Ether Turbo",
+"KeyItem"..i.."",
+"KeyItem"..i.."",
+"Wire Reel",
+"Curing Silence",
+"Sector 5 Reactor Key",
+"Big Bomber",
+"KeyItem"..i.."",
+"KeyItem"..i.."",
+"Mega Potion",
+"KeyItem"..i.."",
+"KeyItem"..i.."",
+"KeyItem"..i.."",
+"Speed Drink",
+"KeyItem"..i.."",
+"KeyItem"..i.."",
+"Pass to secret base",
+"Moogle Membership",
+"KeyItem"..i.."",
+"KeyItem"..i.."",
+"KeyItem"..i.."",
+"Graveyard Key",
+"KeyItem"..i.."",
+"KeyItem"..i.."",
+"KeyItem"..i.."",
+"KeyItem"..i.."",
+"KeyItem"..i.."",
+"Guardian Angel's Calling Card",
+"KeyItem"..i.."",
+"Emerald Tiara",
+"KeyItem"..i.."",
+"KeyItem"..i.."",
+"KeyItem"..i.."",
+"KeyItem"..i.."",
+"KeyItem"..i.."",
+"KeyItem"..i.."",
+"KeyItem"..i.."",
+"KeyItem"..i.."",
+"KeyItem"..i.."",
+"KeyItem"..i.."",
+"KeyItem"..i.."",
+"KeyItem"..i.."",
+"Sam's Coin",
+"Tournament Entry Form",
+"KeyItem"..i.."",
+"KeyItem"..i.."",
+"KeyItem"..i.."",
+"KeyItem"..i.."",
+"KeyItem"..i.."",
+"Sam's Endorsement",
+"Inn Special Potion",
+"Inn Special Stimulant",
+"Secret of Vending machine",
+"Pharmacy Product Coupon",
+"Disinfectant",
+"Deodorant",
+"Digestive medicine",
+"VIP Membership",
+"KeyItem"..i.."",
+"Fire Cocktails",
+"Mam's Endorsement",
+"KeyItem"..i.."",
+"Andrea's Earring",
+"KeyItem"..i.."",
+"Andrea's Endorsement",
+"KeyItem"..i.."",
+"Key to the Grand Canal",
+"KeyItem"..i.."",
+"Panacea",
+"KeyItem"..i.."",
+"KeyItem"..i.."",
+"KeyItem"..i.."",
+"KeyItem"..i.."",
+"KeyItem"..i.."",
+"KeyItem"..i.."",
+"KeyItem"..i.."",
+"Gyshal Greens",
+"Doctor's List",
+"Chocobo Free Ride",
+"KeyItem"..i.."",
+"KeyItem"..i.."",
+"Corneo Vault Key",
+"Johnny's Wallet",
+"Corneo Vault Note",
+"KeyItem"..i.."",
+"KeyItem"..i.."",
+"KeyItem"..i.."",
+"KeyItem"..i.."",
+"KeyItem"..i.."",
+"Moogle Mortar",
+"Behemoth Horn",
+"KeyItem"..i.."",
+"KeyItem"..i.."",
+"Ruby Tiara",
+"Diamond Tiara",
+"KeyItem"..i.."",
+"KeyItem"..i.."",
+"KeyItem"..i.."",
+"KeyItem"..i.."",
+"KeyItem"..i.."",
+"KeyItem"..i.."",
+"Wire Gun",
+"KeyItem"..i.."",
+"KeyItem"..i.."",
+"KeyItem"..i.."",
+"KeyItem"..i.."",
+"KeyItem"..i.."",
+"Shinra Building Card Key",
+"KeyItem"..i.."",
+"KeyItem"..i.."",
+"Senior Employee Card Key",
+"KeyItem"..i.."",
+"KeyItem"..i.."",
+"KeyItem"..i.."",
+"KeyItem"..i.."",
+"KeyItem"..i.."",
+"KeyItem"..i.."",
+"KeyItem"..i.."",
+"KeyItem"..i.."",
+"KeyItem"..i.."",
+"KeyItem"..i..""
+}
+        mr = AddressList.createMemoryRecord()
+        mr.appendToEntry(memrec)
+        mr.Address = Base + i * offset
+        local createDescription = function(count)
+              return (count == 0) or number[i]
+        end
+        mr.Description = createDescription(i)
+        mr.VarType = vtDword
+        mr.color = 0x007500
+        end
+end
+
+createGilRecords()
+createKeyItemRecords()
+
+[DISABLE]
+for i = memrec.count - 1, 0, -1 do memrec.Child[i].destroy() end
+</AssemblerScript></CheatEntry></CheatEntries></CheatEntry><CheatEntry><ID>169</ID><Description>"Equip"</Description><Options moHideChildren="1" /><Color>007500</Color><VariableType>Auto Assembler Script</VariableType><AssemblerScript>[ENABLE]
+aobscanmodule(Equip,ff7remake_.exe,8B4070894728)
+alloc(Alloc_Equip,$128,Equip)
+alloc(mem_Equip,6)
+alloc(Equip_Pointer,8)
+label(return)
+registersymbol(Equip mem_Equip Equip_Pointer)
+
+mem_Equip:
+  readmem(Equip,6)
+
+Equip_Pointer:
+dq
+
+Alloc_Equip:
+  mov [Equip_Pointer],rax
+  readmem(Equip,6)
+  jmp return
+
+Equip:
+  jmp Alloc_Equip
+  nop
+return:
+
+[DISABLE]
+Equip:
+  readmem(mem_Equip,6)
+
+unregistersymbol(*)
+dealloc(*)
+</AssemblerScript><CheatEntries><CheatEntry><ID>170</ID><Description>"Base"</Description><Options moAlwaysHideChildren="1" moManualExpandCollapse="1" /><ShowAsSigned>0</ShowAsSigned><Color>007500</Color><GroupHeader>1</GroupHeader><Address>Equip_Pointer</Address><Offsets><Offset>0</Offset></Offsets><CheatEntries><CheatEntry><ID>171</ID><Description>"ID"</Description><DropDownList DisplayValueAsItem="1">9001:Bronze Bangle/Change to this and it disappears
+9002:Iron Bangle
+9003:Titanium Bangle
+9004:Gothic Bangle
+9005:Cog Bangle
+9006:Chain Bangle
+9007:Leather Bracer
+9008:Studded Bracer
+9009:Heavy-Duty Bracer
+9010:Supreme Bracer
+9011:Iron Maiden
+9012:Mesmeric Bracelet
+9013:Mythril Bracelet
+9014:Sorcerer’s Armlet
+9015:Rune Armlet
+9016:Astral Cuff
+9017:Power Wristguards
+9018:Bulletproof Vest
+9019:Earrings
+9020:Talisman
+9021:Headband
+9022:Star Pendant
+9023:Fury Ring
+9024:Revival Earrings
+9025:Whistlewind Scarf
+9026:Mythical Amulet
+9027:Healing Carcanet
+9028:Clarity Pendant
+9029:Transference Module
+9030:Spectral Cogwheel
+9031:Moogle's Amulet
+9032:Enfeeblement Ring
+9033:Crescent Moon Charm
+9034:Champion Belt
+9035:Protective Boots
+9036:Circlet
+9037:Tarot Cards
+9038:Otherworldly Crystal
+9039:Salvation Badge
+9040:Star Bracelet
+9041:Caliginous Bracelet
+9042:Magician’s Bracelet
+9043:Geometric Bracelet
+9044:Force Bracelet
+9045:Reraise Earrings
+9050:Enchanted Ring
+9051:Supernatural Wristguards
+9052:Survival Vest
+9053:Platinum Earrings
+9054:Timeworn Talisman
+9055:Midgar Bangle
+9056:Shinra Bangle
+9057:Corneo Armlet
+9058:Superstar Belt
+9059:Mako Crystal
+9060:Gotterdammerung
+*:Misc
+</DropDownList><ShowAsSigned>0</ShowAsSigned><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+8</Address></CheatEntry><CheatEntry><ID>172</ID><Description>"Buy"</Description><ShowAsSigned>0</ShowAsSigned><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+50</Address></CheatEntry><CheatEntry><ID>173</ID><Description>"Sell"</Description><ShowAsSigned>0</ShowAsSigned><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+58</Address></CheatEntry><CheatEntry><ID>174</ID><Description>"Attack"</Description><ShowAsSigned>0</ShowAsSigned><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+70</Address></CheatEntry><CheatEntry><ID>175</ID><Description>"Attack+%"</Description><ShowAsSigned>0</ShowAsSigned><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+74</Address></CheatEntry><CheatEntry><ID>176</ID><Description>"Mattack"</Description><ShowAsSigned>0</ShowAsSigned><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+78</Address></CheatEntry><CheatEntry><ID>177</ID><Description>"Mattack+%"</Description><ShowAsSigned>0</ShowAsSigned><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+7C</Address></CheatEntry><CheatEntry><ID>178</ID><Description>"Defense"</Description><ShowAsSigned>0</ShowAsSigned><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+80</Address></CheatEntry><CheatEntry><ID>179</ID><Description>"Defense+%"</Description><ShowAsSigned>0</ShowAsSigned><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+84</Address></CheatEntry><CheatEntry><ID>180</ID><Description>"Mdefense"</Description><ShowAsSigned>0</ShowAsSigned><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+88</Address></CheatEntry><CheatEntry><ID>181</ID><Description>"Mdefense+%"</Description><ShowAsSigned>0</ShowAsSigned><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+8C</Address></CheatEntry><CheatEntry><ID>182</ID><Description>"Strength"</Description><ShowAsSigned>0</ShowAsSigned><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+90</Address></CheatEntry><CheatEntry><ID>183</ID><Description>"Strength+%"</Description><ShowAsSigned>0</ShowAsSigned><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+94</Address></CheatEntry><CheatEntry><ID>184</ID><Description>"Magic"</Description><ShowAsSigned>0</ShowAsSigned><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+98</Address></CheatEntry><CheatEntry><ID>185</ID><Description>"Magic+%"</Description><ShowAsSigned>0</ShowAsSigned><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+9C</Address></CheatEntry><CheatEntry><ID>186</ID><Description>"Vitality"</Description><ShowAsSigned>0</ShowAsSigned><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+A0</Address></CheatEntry><CheatEntry><ID>187</ID><Description>"Vitality+%"</Description><ShowAsSigned>0</ShowAsSigned><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+A4</Address></CheatEntry><CheatEntry><ID>188</ID><Description>"Spirit"</Description><ShowAsSigned>0</ShowAsSigned><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+A8</Address></CheatEntry><CheatEntry><ID>189</ID><Description>"Spirit+%"</Description><ShowAsSigned>0</ShowAsSigned><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+AC</Address></CheatEntry><CheatEntry><ID>190</ID><Description>"Luck"</Description><ShowAsSigned>0</ShowAsSigned><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+B0</Address></CheatEntry><CheatEntry><ID>191</ID><Description>"Luck+%"</Description><ShowAsSigned>0</ShowAsSigned><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+B4</Address></CheatEntry><CheatEntry><ID>192</ID><Description>"HP"</Description><ShowAsSigned>0</ShowAsSigned><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+B8</Address></CheatEntry><CheatEntry><ID>193</ID><Description>"HP+%"</Description><ShowAsSigned>0</ShowAsSigned><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+BC</Address></CheatEntry><CheatEntry><ID>194</ID><Description>"MP"</Description><ShowAsSigned>0</ShowAsSigned><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+C0</Address></CheatEntry><CheatEntry><ID>195</ID><Description>"MP+%"</Description><ShowAsSigned>0</ShowAsSigned><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+C4</Address></CheatEntry><CheatEntry><ID>196</ID><Description>"Materia Slots/Linked"</Description><DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0:0
+1:1
+2:2
+3:3
+4:4
+</DropDownList><ShowAsSigned>0</ShowAsSigned><Color>007500</Color><VariableType>Byte</VariableType><Address>+120</Address></CheatEntry><CheatEntry><ID>197</ID><Description>"Materia Slots/Single"</Description><DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0:0
+1:1
+2:2
+3:3
+4:4
+5:5
+6:6
+7:7
+8:8
+</DropDownList><ShowAsSigned>0</ShowAsSigned><Color>007500</Color><VariableType>Byte</VariableType><Address>+121</Address></CheatEntry></CheatEntries></CheatEntry></CheatEntries></CheatEntry><CheatEntry><ID>198</ID><Description>"Equip Max Stats"</Description><Options moHideChildren="1" /><Color>008000</Color><VariableType>Auto Assembler Script</VariableType><AssemblerScript>define(Max,#99999)
+[ENABLE]
+aobscanmodule(EquipStats,ff7remake_.exe,8B4070894728)
+alloc(Alloc_ES,$128,EquipStats)
+alloc(mem_ES,6)
+alloc(Int_Eat,4)
+alloc(Int_Ema,4)
+alloc(Int_Ede,4)
+alloc(Int_Emd,4)
+alloc(Int_Elu,4)
+alloc(Int_Ehp,4)
+alloc(Int_Emp,4)
+label(return)
+registersymbol(EquipStats mem_ES Int_Eat Int_Ema Int_Ede Int_Emd Int_Elu Int_Ehp Int_Emp)
+
+mem_ES:
+  readmem(EquipStats,6)
+
+Int_Eat:
+dd Max
+
+Int_Ema:
+dd Max
+
+Int_Ede:
+dd Max
+
+Int_Emd:
+dd Max
+
+Int_Elu:
+dd Max
+
+Int_Ehp:
+dd Max
+
+Int_Emp:
+dd Max
+
+Alloc_ES:
+  push rbx
+  push rcx
+  push rdx
+  mov rbx,[Int_Eat]
+  mov rcx,[Int_Ema]
+  mov rdx,[Int_Ede]
+  mov [rax+70],rbx
+  mov [rax+78],rcx
+  mov [rax+80],rdx
+  mov rbx,[Int_Emd]
+  mov rcx,[Int_Elu]
+  mov [rax+88],rbx
+  mov [rax+B0],rcx
+  mov rbx,[Int_Ehp]
+  mov rcx,[Int_Emp]
+  mov [rax+B8],rbx
+  mov [rax+C0],rcx
+  pop rbx
+  pop rcx
+  pop rdx
+  readmem(EquipStats,6)
+  jmp return
+
+EquipStats:
+  jmp Alloc_ES
+  nop
+return:
+
+[DISABLE]
+EquipStats:
+  readmem(mem_ES,6)
+
+unregistersymbol(*)
+dealloc(*)
+</AssemblerScript><CheatEntries><CheatEntry><ID>199</ID><Description>"Attack"</Description><ShowAsSigned>0</ShowAsSigned><Color>C08000</Color><VariableType>4 Bytes</VariableType><Address>Int_Eat</Address></CheatEntry><CheatEntry><ID>200</ID><Description>"Defense"</Description><ShowAsSigned>0</ShowAsSigned><Color>C08000</Color><VariableType>4 Bytes</VariableType><Address>Int_Ema</Address></CheatEntry><CheatEntry><ID>201</ID><Description>"Magic"</Description><ShowAsSigned>0</ShowAsSigned><Color>C08000</Color><VariableType>4 Bytes</VariableType><Address>Int_Ede</Address></CheatEntry><CheatEntry><ID>202</ID><Description>"Mdefense"</Description><ShowAsSigned>0</ShowAsSigned><Color>C08000</Color><VariableType>4 Bytes</VariableType><Address>Int_Emd</Address></CheatEntry><CheatEntry><ID>203</ID><Description>"Luck"</Description><ShowAsSigned>0</ShowAsSigned><Color>C08000</Color><VariableType>4 Bytes</VariableType><Address>Int_Elu</Address></CheatEntry><CheatEntry><ID>204</ID><Description>"HP"</Description><ShowAsSigned>0</ShowAsSigned><Color>C08000</Color><VariableType>4 Bytes</VariableType><Address>Int_Ehp</Address></CheatEntry><CheatEntry><ID>205</ID><Description>"MP"</Description><ShowAsSigned>0</ShowAsSigned><Color>C08000</Color><VariableType>4 Bytes</VariableType><Address>Int_Emp</Address></CheatEntry></CheatEntries></CheatEntry><CheatEntry><ID>206</ID><Description>"Materia"</Description><Options moHideChildren="1" /><Color>007500</Color><VariableType>Auto Assembler Script</VariableType><AssemblerScript>[ENABLE]
+aobscanmodule(Mdata,ff7remake_.exe,8B4A04E8ED570400)
+alloc(Alloc_Mdata,$128,Mdata)
+alloc(mem_Mdata,8)
+alloc(MateriaPointer,8)
+label(return)
+registersymbol(Mdata mem_Mdata MateriaPointer)
+
+mem_Mdata:
+  readmem(Mdata,8)
+
+MateriaPointer:
+dq
+
+Alloc_Mdata:
+  mov [MateriaPointer],rdx
+  reassemble(Mdata)
+  reassemble(Mdata+3)
+  jmp return
+
+Mdata:
+  jmp Alloc_Mdata
+  nop 3
+return:
+
+[DISABLE]
+Mdata:
+  readmem(mem_Mdata,8)
+
+unregistersymbol(*)
+dealloc(*)
+</AssemblerScript><CheatEntries><CheatEntry><ID>207</ID><Description>"Base"</Description><Options moAlwaysHideChildren="1" moManualExpandCollapse="1" /><ShowAsSigned>0</ShowAsSigned><Color>007500</Color><GroupHeader>1</GroupHeader><Address>MateriaPointer</Address><Offsets><Offset>0</Offset></Offsets><CheatEntries><CheatEntry><ID>208</ID><Description>"Star"</Description><ShowAsSigned>0</ShowAsSigned><Color>007500</Color><VariableType>Byte</VariableType><Address>+0</Address></CheatEntry><CheatEntry><ID>209</ID><Description>"Equipped"</Description><DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0:Cloud
+1:Barret
+2:Tifa
+3:Aerith
+4:Yuffie
+5:Soron
+9:None
+</DropDownList><ShowAsSigned>0</ShowAsSigned><Color>007500</Color><VariableType>Byte</VariableType><Address>+1</Address></CheatEntry><CheatEntry><ID>210</ID><Description>"ID"</Description><DropDownList DisplayValueAsItem="1">10001:Healing
+10002:Cleansing
+10003:Revival
+10004:Fire
+10005:Ice
+10006:Lightning
+10007:Wind
+10008:Poison
+10009:Binding
+10010:Time
+10011:Barrier
+10012:Subversion
+11001:Magnify
+11002:Elemental
+11003:Warding
+11004:HP Absorbtion
+11005:MP Absorbtion
+11006:Synergy
+11007:AP Up
+11008:Ninja Cannonball
+12001:Steal
+12002:Assess
+12003:Enemy Skill
+12004:Chakra
+12005:Prayer
+12006:ATB Boost
+13001:HP Up
+13002:MP Up
+13003:Magic Up
+13004:Luck Up
+13005:Gil Up
+13006:EXP Up
+13007:Item Master
+13008:ATB Stagger
+13009:First Strike
+13010:Steadfast Block
+13011:Skill Master
+13012:Deadly Dodge
+13013:Parry
+13014:ATB Assist
+13015:Auto-Cure
+13016:Provoke
+13017:Pedometer
+13018:Refocus
+14001:Chocobo &amp; Moogle
+14002:Shiva
+14003:Ifrit
+14004:Leviathan
+14005:Bahamut
+14006:Fat Chocobo
+14007:Carbuncle
+14008:Cactuar
+14009:Chocobo Chick
+14010:Ramuh
+</DropDownList><ShowAsSigned>0</ShowAsSigned><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+4</Address></CheatEntry><CheatEntry><ID>211</ID><Description>"AP"</Description><ShowAsSigned>0</ShowAsSigned><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+8</Address></CheatEntry></CheatEntries></CheatEntry></CheatEntries></CheatEntry><CheatEntry><ID>212</ID><Description>"Materia Max Linked Slots"</Description><Options moHideChildren="1" /><Color>007500</Color><VariableType>Auto Assembler Script</VariableType><AssemblerScript>[ENABLE]
+aobscanmodule(Materia,ff7remake_.exe,8B417889472C)
+alloc(Alloc_Materia,$128,Materia)
+alloc(mem_Materia,6)
+alloc(Int_Ms,1)
+label(return)
+registersymbol(Materia mem_Materia Int_Ms)
+
+mem_Materia:
+  readmem(Materia,6)
+
+Int_Ms:
+db 3
+
+Alloc_Materia:
+  readmem(Materia,6)
+  mov dl,[Int_Ms]
+  mov [rcx+120],dl
+  mov byte ptr [rcx+121],0
+  jmp return
+
+Materia:
+  jmp Alloc_Materia
+  nop
+return:
+
+[DISABLE]
+Materia:
+  readmem(mem_Materia,6)
+
+unregistersymbol(*)
+dealloc(*)
+</AssemblerScript><CheatEntries><CheatEntry><ID>213</ID><Description>"Value"</Description><DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0:0
+1:1
+2:2
+3:3
+4:4
+</DropDownList><ShowAsSigned>0</ShowAsSigned><Color>007500</Color><VariableType>Byte</VariableType><Address>Int_Ms</Address></CheatEntry><CheatEntry><ID>214</ID><Description>"Main Menu&gt;Items&gt;Weapons"</Description><Color>007500</Color><GroupHeader>1</GroupHeader></CheatEntry><CheatEntry><ID>215</ID><Description>"Doesn't include additions from weapon enhancements"</Description><Color>007500</Color><GroupHeader>1</GroupHeader></CheatEntry><CheatEntry><ID>216</ID><Description>"When restart,extension restore,but no problem just be displayed as being equipped"</Description><Color>007500</Color><GroupHeader>1</GroupHeader></CheatEntry></CheatEntries></CheatEntry><CheatEntry><ID>217</ID><Description>"Materia Max Single  Slots"</Description><Options moHideChildren="1" /><Color>007500</Color><VariableType>Auto Assembler Script</VariableType><AssemblerScript>[ENABLE]
+aobscanmodule(Materia,ff7remake_.exe,8B417889472C)
+alloc(Alloc_Materia,$128,Materia)
+alloc(mem_Materia,6)
+alloc(Int_Ms,1)
+label(return)
+registersymbol(Materia mem_Materia Int_Ms)
+
+mem_Materia:
+  readmem(Materia,6)
+
+Int_Ms:
+db 6
+
+Alloc_Materia:
+  readmem(Materia,6)
+  mov dl,[Int_Ms]
+  mov byte ptr [rcx+120],0
+  mov [rcx+121],dl
+  jmp return
+
+Materia:
+  jmp Alloc_Materia
+  nop
+return:
+
+[DISABLE]
+Materia:
+  readmem(mem_Materia,6)
+
+unregistersymbol(*)
+dealloc(*)
+</AssemblerScript><CheatEntries><CheatEntry><ID>218</ID><Description>"Value"</Description><DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0:0
+1:1
+2:2
+3:3
+4:4
+5:5
+6:6
+7:7
+8:8
+</DropDownList><ShowAsSigned>0</ShowAsSigned><Color>007500</Color><VariableType>Byte</VariableType><Address>Int_Ms</Address></CheatEntry><CheatEntry><ID>219</ID><Description>"Main Menu&gt;Items&gt;Weapons"</Description><Color>007500</Color><GroupHeader>1</GroupHeader></CheatEntry><CheatEntry><ID>220</ID><Description>"Doesn't include additions from weapon enhancements"</Description><Color>007500</Color><GroupHeader>1</GroupHeader></CheatEntry><CheatEntry><ID>221</ID><Description>"When restart,extension restore,but no problem just be displayed as being equipped"</Description><Color>007500</Color><GroupHeader>1</GroupHeader></CheatEntry></CheatEntries></CheatEntry><CheatEntry><ID>222</ID><Description>"WeaponXP"</Description><Options moHideChildren="1" /><Color>007500</Color><VariableType>Auto Assembler Script</VariableType><AssemblerScript>[ENABLE]
+aobscanmodule(WeaponXP,ff7remake_.exe,F18B42048941048B42088941088B420C89410C8B)
+alloc(Alloc_WeaponXP,$128,WeaponXP)
+alloc(mem_WeaponXP,6)
+alloc(WeaponPointer,8)
+label(return)
+registersymbol(WeaponXP mem_WeaponXP WeaponPointer)
+
+mem_WeaponXP:
+  readmem(WeaponXP,6)
+
+WeaponPointer:
+dq
+
+Alloc_WeaponXP:
+  mov [WeaponPointer],rdx
+  readmem(WeaponXP,6)
+  jmp return
+
+WeaponXP:
+  jmp Alloc_WeaponXP
+  nop
+return:
+
+[DISABLE]
+WeaponXP:
+  readmem(mem_WeaponXP,6)
+
+unregistersymbol(*)
+dealloc(*)
+</AssemblerScript><CheatEntries><CheatEntry><ID>223</ID><Description>"Value"</Description><ShowAsSigned>0</ShowAsSigned><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>WeaponPointer</Address><Offsets><Offset>0</Offset></Offsets></CheatEntry></CheatEntries></CheatEntry><CheatEntry><ID>224</ID><Description>"Battle Report"</Description><Options moHideChildren="1" /><Color>007500</Color><VariableType>Auto Assembler Script</VariableType><AssemblerScript>[ENABLE]
+aobscanmodule(Report,ff7remake_.exe,8B40184883C4205BC333C0488B)
+alloc(Alloc_Report,$128,Report)
+alloc(mem_Report,7)
+alloc(ReportPointer,8)
+label(return)
+registersymbol(Report mem_Report ReportPointer)
+
+mem_Report:
+  readmem(Report,7)
+
+ReportPointer:
+dq
+
+Alloc_Report:
+  mov [ReportPointer],rax
+  readmem(Report,7)
+  jmp return
+
+Report:
+  jmp Alloc_Report
+  nop 2
+return:
+
+[DISABLE]
+Report:
+  readmem(mem_Report,7)
+
+unregistersymbol(*)
+dealloc(*)
+</AssemblerScript><CheatEntries><CheatEntry><ID>225</ID><Description>"Base"</Description><Options moAlwaysHideChildren="1" moManualExpandCollapse="1" /><ShowAsSigned>0</ShowAsSigned><Color>007500</Color><GroupHeader>1</GroupHeader><Address>ReportPointer</Address><Offsets><Offset>0</Offset></Offsets><CheatEntries><CheatEntry><ID>226</ID><Description>"Current Points"</Description><ShowAsSigned>0</ShowAsSigned><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+14</Address></CheatEntry><CheatEntry><ID>227</ID><Description>"Current Points"</Description><ShowAsSigned>0</ShowAsSigned><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+18</Address></CheatEntry><CheatEntry><ID>228</ID><Description>"Required"</Description><ShowAsSigned>0</ShowAsSigned><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+1C</Address></CheatEntry><CheatEntry><ID>229</ID><Description>"Flag1"</Description><ShowAsSigned>0</ShowAsSigned><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+8</Address></CheatEntry><CheatEntry><ID>230</ID><Description>"Flag2"</Description><ShowAsSigned>0</ShowAsSigned><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+C</Address></CheatEntry><CheatEntry><ID>231</ID><Description>"Flag3"</Description><ShowAsSigned>0</ShowAsSigned><Color>007500</Color><VariableType>4 Bytes</VariableType><Address>+10</Address></CheatEntry><CheatEntry><ID>232</ID><Description>"Flag4"</Description><ShowAsSigned>0</ShowAsSigned><Color>007500</Color><VariableType>Byte</VariableType><Address>+20</Address></CheatEntry><CheatEntry><ID>233</ID><Description>"Flag5"</Description><ShowAsSigned>0</ShowAsSigned><Color>007500</Color><VariableType>Byte</VariableType><Address>+21</Address></CheatEntry><CheatEntry><ID>234</ID><Description>"Flag6"</Description><ShowAsSigned>0</ShowAsSigned><Color>007500</Color><VariableType>Byte</VariableType><Address>+22</Address></CheatEntry><CheatEntry><ID>235</ID><Description>"Flag7"</Description><ShowAsSigned>0</ShowAsSigned><Color>007500</Color><VariableType>Byte</VariableType><Address>+23</Address></CheatEntry><CheatEntry><ID>236</ID><Description>"Actually, there is no point in browsing here"</Description><Color>007500</Color><GroupHeader>1</GroupHeader></CheatEntry></CheatEntries></CheatEntry></CheatEntries></CheatEntry><CheatEntry><ID>237</ID><Description>"Instant Battle Report"</Description><Options moHideChildren="1" /><Color>008000</Color><VariableType>Auto Assembler Script</VariableType><AssemblerScript>[ENABLE]
+aobscanmodule(Report,ff7remake_.exe,440FB6B4248800000089)
+aobscanmodule(ReportJudge,ff7remake_.exe,8843238B4B0C)
+alloc(Alloc_Report,$128,Report)
+alloc(mem_Report,9)
+alloc(mem_ReportJudge,3)
+label(return)
+registersymbol(Report ReportJudge mem_Report mem_ReportJudge)
+
+mem_Report:
+  readmem(Report,9)
+
+mem_ReportJudge:
+  readmem(ReportJudge,3)
+
+Alloc_Report:
+  mov rdi,[rbx+1C]
+  mov [rbx+08],1
+  mov [rbx+0C],1
+  mov [rbx+10],1
+  mov [rbx+14],rdi
+  mov [rbx+20],0x01010101
+  reassemble(Report)
+  jmp return
+
+Report:
+  jmp Alloc_Report
+  nop 4
+return:
+
+ReportJudge:
+  db EB 01 90
+
+[DISABLE]
+Report:
+  readmem(mem_Report,9)
+
+ReportJudge:
+  readmem(mem_ReportJudge,3)
+
+unregistersymbol(*)
+dealloc(*)
+</AssemblerScript><CheatEntries><CheatEntry><ID>238</ID><Description>"Need to talk with Chadley"</Description><Color>008000</Color><GroupHeader>1</GroupHeader></CheatEntry></CheatEntries></CheatEntry></CheatEntries></CheatEntry><CheatEntry><ID>239</ID><Description>"MiniGames"</Description><Options moHideChildren="1" /><Color>006AD5</Color><GroupHeader>1</GroupHeader><CheatEntries><CheatEntry><ID>240</ID><Description>"Dart Easy Mode"</Description><Options moHideChildren="1" /><Color>006AD5</Color><VariableType>Auto Assembler Script</VariableType><AssemblerScript>[ENABLE]
+aobscanmodule(Dart,ff7remake_.exe,29B7B0030000)
+alloc(Alloc_Dart,$128,Dart)
+alloc(mem_Dart,6)
+alloc(Int_DP,4)
+label(return)
+registersymbol(Dart mem_Dart Int_DP)
+
+mem_Dart:
+  readmem(Dart,6)
+
+Int_DP:
+dd #50
+
+Alloc_Dart:
+  mov esi,[Int_DP]
+  reassemble(Dart)
+  jmp return
+
+Dart:
+  jmp Alloc_Dart
+  nop
+return:
+
+[DISABLE]
+Dart:
+  readmem(mem_Dart,6)
+
+unregistersymbol(*)
+dealloc(*)
+</AssemblerScript><CheatEntries><CheatEntry><ID>241</ID><Description>"Substract value"</Description><ShowAsSigned>0</ShowAsSigned><Color>006AD5</Color><VariableType>4 Bytes</VariableType><Address>Int_DP</Address></CheatEntry></CheatEntries></CheatEntry><CheatEntry><ID>242</ID><Description>"Dart Automatically Win"</Description><Options moHideChildren="1" /><Color>006AD5</Color><VariableType>Auto Assembler Script</VariableType><AssemblerScript>[ENABLE]
+aobscanmodule(Dart,ff7remake_.exe,29B7B0030000)
+alloc(Alloc_Dart,$128,Dart)
+alloc(mem_Dart,6)
+label(return)
+registersymbol(Dart mem_Dart)
+
+mem_Dart:
+  readmem(Dart,6)
+
+Alloc_Dart:
+  mov [rdi+000003B0],0
+  jmp return
+
+Dart:
+  jmp Alloc_Dart
+  nop
+return:
+
+[DISABLE]
+Dart:
+  readmem(mem_Dart,6)
+
+unregistersymbol(*)
+dealloc(*)
+</AssemblerScript></CheatEntry><CheatEntry><ID>243</ID><Description>"MotorCycle Infinite HP"</Description><Color>006AD5</Color><VariableType>Auto Assembler Script</VariableType><AssemblerScript>[ENABLE]
+aobscanmodule(MotoHealth,ff7remake_.exe,660F6E8804010000660F6E90)
+alloc(Alloc_MotoHealth,$128,MotoHealth)
+alloc(mem_MotoHealth,8)
+label(return)
+registersymbol(MotoHealth mem_MotoHealth)
+
+mem_MotoHealth:
+  readmem(MotoHealth,8)
+
+Alloc_MotoHealth:
+  push edx
+  mov edx,[rax+00000108]
+  mov [rax+00000104],edx
+  pop edx
+  reassemble(MotoHealth)
+  jmp return
+
+MotoHealth:
+  jmp Alloc_MotoHealth
+  nop 3
+return:
+
+[DISABLE]
+MotoHealth:
+  readmem(mem_MotoHealth,8)
+
+unregistersymbol(*)
+dealloc(*)
+</AssemblerScript></CheatEntry><CheatEntry><ID>244</ID><Description>"MotorCycle Infinite Gauge"</Description><Color>006AD5</Color><VariableType>Auto Assembler Script</VariableType><AssemblerScript>[ENABLE]
+aobscanmodule(Moto,ff7remake_.exe,F30F1181D0010000F30F5E)
+alloc(Alloc_Moto,$128,Moto)
+alloc(mem_Moto,8)
+label(return)
+registersymbol(Moto mem_Moto)
+
+mem_Moto:
+  readmem(Moto,8)
+
+Alloc_Moto:
+  maxss xmm0,xmm2
+  reassemble(Moto)
+  jmp return
+
+Moto:
+  jmp Alloc_Moto
+  nop 3
+return:
+
+[DISABLE]
+Moto:
+  readmem(mem_Moto,8)
+
+unregistersymbol(*)
+dealloc(*)
+</AssemblerScript></CheatEntry><CheatEntry><ID>245</ID><Description>"Squat and PushUp Count Triple"</Description><Options moHideChildren="1" /><Color>006AD5</Color><VariableType>Auto Assembler Script</VariableType><AssemblerScript>[ENABLE]
+aobscanmodule(Squat,ff7remake_.exe,41FF403C418B4014498B08FFC0418940144885C9744F448B)
+alloc(Alloc_Squat,$128,Squat)
+alloc(mem_Squat,8)
+alloc(Int_SqCount,1)
+label(return)
+registersymbol(Squat mem_Squat Int_SqCount)
+
+mem_Squat:
+  readmem(Squat,8)
+
+Int_SqCount:
+db 2
+
+Alloc_Squat:
+  mov dl,[Int_SqCount]
+  add [r8+3C],dl
+  readmem(Squat,8)
+  jmp return
+
+Squat:
+  jmp Alloc_Squat
+  nop 3
+return:
+
+[DISABLE]
+Squat:
+  readmem(mem_Squat,8)
+
+unregistersymbol(*)
+dealloc(*)
+</AssemblerScript><CheatEntries><CheatEntry><ID>246</ID><Description>"+Count"</Description><ShowAsSigned>0</ShowAsSigned><Color>0080FF</Color><VariableType>Byte</VariableType><Address>Int_SqCount</Address></CheatEntry></CheatEntries></CheatEntry><CheatEntry><ID>247</ID><Description>"Squat and PushUp Count Stop for Rival"</Description><Color>0080FF</Color><VariableType>Auto Assembler Script</VariableType><AssemblerScript>[ENABLE]
+aobscanmodule(RivalCounter,ff7remake_.exe,41FF403C418B4014498B08FFC0418940144885C97450448B)
+alloc(mem_Rival,8)
+registersymbol(RivalCounter mem_Rival)
+
+mem_Rival:
+  readmem(RivalCounter,8)
+
+RivalCounter:
+  db EB 02 90 90
+
+[DISABLE]
+RivalCounter:
+  readmem(mem_Rival,8)
+
+unregistersymbol(*)
+dealloc(*)
+</AssemblerScript></CheatEntry><CheatEntry><ID>248</ID><Description>"Dance Always Great Judge"</Description><Color>006AD5</Color><VariableType>Auto Assembler Script</VariableType><AssemblerScript>[ENABLE]
+aobscanmodule(Dance,ff7remake_.exe,8B510883EA01)
+alloc(Alloc_Dance,$128,Dance)
+alloc(mem_Dance,6)
+label(return)
+registersymbol(Dance mem_Dance)
+
+mem_Dance:
+  readmem(Dance,6)
+
+Alloc_Dance:
+  mov [rcx+08],3
+  reassemble(Dance)
+  reassemble(Dance+03)
+  jmp return
+
+Dance:
+  jmp Alloc_Dance
+  nop
+return:
+
+[DISABLE]
+Dance:
+  readmem(mem_Dance,6)
+
+unregistersymbol(*)
+dealloc(*)
+</AssemblerScript></CheatEntry><CheatEntry><ID>249</ID><Description>"Whack_A_Box Point Multiplier"</Description><Options moHideChildren="1" /><Color>006AD5</Color><VariableType>Auto Assembler Script</VariableType><AssemblerScript>[ENABLE]
+aobscanmodule(Whack,ff7remake_.exe,0181E8010000)
+alloc(Alloc_Whack,$128,Whack)
+alloc(mem_Whack,6)
+alloc(WP_Multiplier,4)
+label(return)
+registersymbol(Whack mem_Whack WP_Multiplier)
+
+mem_Whack:
+  readmem(Whack,6)
+
+WP_Multiplier:
+dd 5
+
+Alloc_Whack:
+  imul eax,[WP_Multiplier]
+  reassemble(Whack)
+  jmp return
+
+Whack:
+  jmp Alloc_Whack
+  nop
+return:
+
+[DISABLE]
+Whack:
+  readmem(mem_Whack,6)
+
+unregistersymbol(*)
+dealloc(*)
+</AssemblerScript><CheatEntries><CheatEntry><ID>250</ID><Description>"Multiply"</Description><ShowAsSigned>0</ShowAsSigned><Color>006AD5</Color><VariableType>4 Bytes</VariableType><Address>WP_Multiplier</Address></CheatEntry></CheatEntries></CheatEntry><CheatEntry><ID>251</ID><Description>"Whack_A_Box Get Big Points from 1 Box"</Description><Options moHideChildren="1" /><Color>006AD5</Color><VariableType>Auto Assembler Script</VariableType><AssemblerScript>[ENABLE]
+aobscanmodule(Whack,ff7remake_.exe,0181E8010000)
+alloc(Alloc_Whack,$128,Whack)
+alloc(mem_Whack,6)
+alloc(Int_Whack,4)
+label(return)
+registersymbol(Whack mem_Whack Int_Whack)
+
+mem_Whack:
+  readmem(Whack,6)
+
+Int_Whack:
+dd 1388
+
+Alloc_Whack:
+  mov eax,[Int_Whack]
+  reassemble(Whack)
+  jmp return
+
+Whack:
+  jmp Alloc_Whack
+  nop
+return:
+
+[DISABLE]
+Whack:
+  readmem(mem_Whack,6)
+
+unregistersymbol(*)
+dealloc(*)
+</AssemblerScript><CheatEntries><CheatEntry><ID>252</ID><Description>"Value"</Description><ShowAsSigned>0</ShowAsSigned><Color>0A63F2</Color><VariableType>4 Bytes</VariableType><Address>Int_Whack</Address></CheatEntry></CheatEntries></CheatEntry></CheatEntries></CheatEntry><CheatEntry><ID>253</ID><Description>"Scripts"</Description><Options moHideChildren="1" /><Color>FF8000</Color><GroupHeader>1</GroupHeader><CheatEntries><CheatEntry><ID>254</ID><Description>"One Hit Kill"</Description><Options moHideChildren="1" /><Color>FF8000</Color><VariableType>Auto Assembler Script</VariableType><AssemblerScript>[ENABLE]
+aobscanmodule(OHK,ff7remake_.exe,895118C3CCCCCCCCCCCCCCCCCCCCCCCC8B411C)
+alloc(Alloc_OHK,$128,OHK)
+alloc(mem_OHK,5)
+label(KillEnemy return)
+registersymbol(OHK mem_OHK)
+
+mem_OHK:
+  readmem(OHK,5)
+
+Alloc_OHK:
+  reassemble(OHK)
+  cmp [rcx+14],(float)1.00
+  je KillEnemy
+  ret
+  int 3
+  jmp return
+
+KillEnemy:
+  mov [rcx+18],0
+  ret
+  int 3
+  jmp return
+
+OHK:
+  jmp Alloc_OHK
+return:
+
+[DISABLE]
+OHK:
+  readmem(mem_OHK,5)
+
+unregistersymbol(*)
+dealloc(*)
+</AssemblerScript></CheatEntry><CheatEntry><ID>255</ID><Description>"Enemy HP Check"</Description><Options moHideChildren="1" /><Color>FF8000</Color><VariableType>Auto Assembler Script</VariableType><AssemblerScript>[ENABLE]
+aobscanmodule(Enemy,ff7remake_.exe,8B411CC3CCCCCC)
+alloc(Alloc_Enemy,$128,Enemy)
+alloc(mem_Enemy,5)
+alloc(EnemyPointer,8)
+label(return)
+registersymbol(Enemy mem_Enemy EnemyPointer)
+
+mem_Enemy:
+  readmem(Enemy,5)
+
+EnemyPointer:
+dq
+
+Alloc_Enemy:
+  mov [EnemyPointer],rcx
+  readmem(Enemy,5)
+  jmp return
+
+Enemy:
+  jmp Alloc_Enemy
+return:
+
+[DISABLE]
+Enemy:
+  readmem(mem_Enemy,5)
+
+unregistersymbol(*)
+dealloc(*)
+</AssemblerScript><CheatEntries><CheatEntry><ID>256</ID><Description>"Base/Target"</Description><Options moAlwaysHideChildren="1" moManualExpandCollapse="1" /><ShowAsSigned>0</ShowAsSigned><Color>FF8000</Color><GroupHeader>1</GroupHeader><Address>EnemyPointer</Address><Offsets><Offset>0</Offset></Offsets><CheatEntries><CheatEntry><ID>257</ID><Description>"Enemy Judge"</Description><ShowAsSigned>0</ShowAsSigned><Color>FF8000</Color><VariableType>Float</VariableType><Address>+10</Address></CheatEntry><CheatEntry><ID>258</ID><Description>"Enemy Judge"</Description><ShowAsSigned>0</ShowAsSigned><Color>FF8000</Color><VariableType>Float</VariableType><Address>+14</Address></CheatEntry><CheatEntry><ID>259</ID><Description>"HP"</Description><ShowAsSigned>0</ShowAsSigned><Color>FF8000</Color><VariableType>4 Bytes</VariableType><Address>+18</Address></CheatEntry><CheatEntry><ID>260</ID><Description>"HP Max"</Description><ShowAsSigned>0</ShowAsSigned><Color>FF8000</Color><VariableType>4 Bytes</VariableType><Address>+1C</Address></CheatEntry></CheatEntries></CheatEntry></CheatEntries></CheatEntry><CheatEntry><ID>261</ID><Description>"Definitely Item Drop"</Description><Color>FF8000</Color><VariableType>Auto Assembler Script</VariableType><AssemblerScript>[ENABLE]
+aobscanmodule(Drop1,ff7remake_.exe,443BC00F836F010000)
+aobscanmodule(Drop2,ff7remake_.exe,443BC00F834F010000)
+registersymbol(Drop1 Drop2)
+
+Drop1:
+  db 48 85 E4 0F 84 6F 01 00 00
+Drop2:
+  db 48 85 E4 0F 84 4F 01 00 00
+
+[DISABLE]
+Drop1:
+  db 44 3B C0 0F 83 6F 01 00 00
+Drop2:
+  db 44 3B C0 0F 83 4F 01 00 00
+
+unregistersymbol(*)
+</AssemblerScript></CheatEntry><CheatEntry><ID>262</ID><Description>"Additional Damage by Each Count"</Description><Options moHideChildren="1" /><Color>FF8000</Color><VariableType>Auto Assembler Script</VariableType><AssemblerScript>[ENABLE]
+aobscanmodule(SubHP,ff7remake_.exe,895118C3CCCCCCCCCCCCCCCCCCCCCCCC8B411C)
+alloc(Alloc_SubHP,$128,SubHP)
+alloc(mem_SubHP,5)
+alloc(Sub_EnemyHP,4)
+label(SubEnemy return)
+registersymbol(SubHP mem_SubHP Sub_EnemyHP)
+
+mem_SubHP:
+  readmem(SubHP,5)
+
+Sub_EnemyHP:
+dd #100
+
+Alloc_SubHP:
+  mov [rcx+18],edx
+  cmp [rcx+14],(float)1.00
+  je SubEnemy
+  ret
+  int 3
+  jmp return
+
+SubEnemy:
+  push rax
+  mov rax,[Sub_EnemyHP]
+  sub [rcx+18],rax
+  pop rax
+  ret
+  int 3
+  jmp return
+
+SubHP:
+  jmp Alloc_SubHP
+return:
+
+[DISABLE]
+SubHP:
+  readmem(mem_SubHP,5)
+
+unregistersymbol(*)
+dealloc(*)
+</AssemblerScript><CheatEntries><CheatEntry><ID>263</ID><Description>"Value"</Description><ShowAsSigned>0</ShowAsSigned><Color>C08000</Color><VariableType>4 Bytes</VariableType><Address>Sub_EnemyHP</Address></CheatEntry><CheatEntry><ID>264</ID><Description>"Note that there's no damage indicator"</Description><Color>C08000</Color><GroupHeader>1</GroupHeader></CheatEntry><CheatEntry><ID>265</ID><Description>"Especially character like Barrett will be stronger"</Description><Color>C08000</Color><GroupHeader>1</GroupHeader></CheatEntry></CheatEntries></CheatEntry><CheatEntry><ID>266</ID><Description>"Additional ATB Gauge by Each Count"</Description><Options moHideChildren="1" /><Color>FF8000</Color><VariableType>Auto Assembler Script</VariableType><AssemblerScript>[ENABLE]
+aobscanmodule(ExATB,ff7remake_.exe,F30F11740844)
+alloc(Alloc_ExATB,$128,ExATB)
+alloc(mem_ExATB,6)
+alloc(EX_ATB_GAUGE,8)
+label(ExATBcode return)
+registersymbol(ExATB mem_ExATB EX_ATB_GAUGE)
+
+mem_ExATB:
+  readmem(ExATB,6)
+
+EX_ATB_GAUGE:
+dq (float)1
+
+Alloc_ExATB:
+  push rdx
+  mov rdx,[EX_ATB_GAUGE]
+  movq xmm15,rdx
+  addss xmm6,xmm15
+  movss [rax+rcx+44],xmm6
+  xorps xmm15,xmm15
+  pop rdx
+  jmp return
+
+ExATBcode:
+
+ExATB:
+  jmp Alloc_ExATB
+  nop
+return:
+
+[DISABLE]
+ExATB:
+  readmem(mem_ExATB,6)
+
+unregistersymbol(*)
+dealloc(*)
+</AssemblerScript><CheatEntries><CheatEntry><ID>267</ID><Description>"Value"</Description><ShowAsSigned>0</ShowAsSigned><Color>FF8000</Color><VariableType>Float</VariableType><Address>EX_ATB_GAUGE</Address></CheatEntry></CheatEntries></CheatEntry><CheatEntry><ID>268</ID><Description>"Additional Limit Gauge by Each Count"</Description><Options moHideChildren="1" /><Color>FF8000</Color><VariableType>Auto Assembler Script</VariableType><AssemblerScript>[ENABLE]
+aobscanmodule(EXL,ff7remake_.exe,F30F11740824)
+alloc(Alloc_EXL,$128,EXL)
+alloc(mem_EXL,6)
+alloc(EX_Limit,8)
+label(EXL_code return)
+registersymbol(EXL mem_EXL EX_Limit)
+
+mem_EXL:
+  reassemble(EXL)
+
+EX_Limit:
+dq (float)100
+
+Alloc_EXL:
+  push rdx
+  mov rdx,[EX_Limit]
+  movq xmm15,rdx
+  addss xmm6,xmm15
+  movss [rax+rcx+24],xmm6
+  xorps xmm15,xmm15
+  pop rdx
+  jmp return
+
+EXL_code:
+
+EXL:
+  jmp Alloc_EXL
+  nop
+return:
+
+[DISABLE]
+EXL:
+  reassemble(mem_EXL)
+
+unregistersymbol(*)
+dealloc(*)
+</AssemblerScript><CheatEntries><CheatEntry><ID>269</ID><Description>"Value"</Description><ShowAsSigned>0</ShowAsSigned><Color>FF8000</Color><VariableType>Float</VariableType><Address>EX_Limit</Address></CheatEntry></CheatEntries></CheatEntry><CheatEntry><ID>270</ID><Description>"Additional Burst Gauge by Each Count"</Description><Options moHideChildren="1" /><Color>FF8000</Color><VariableType>Auto Assembler Script</VariableType><AssemblerScript>[ENABLE]
+aobscanmodule(ExBurst,ff7remake_.exe,F3410F114424080F)
+alloc(Alloc_ExBurst,$128,ExBurst)
+alloc(mem_ExBurst,7)
+alloc(EX_BURST_GAUGE,8)
+label(ExBurstCode return)
+registersymbol(ExBurst mem_ExBurst EX_BURST_GAUGE)
+
+mem_ExBurst:
+  readmem(ExBurst,7)
+
+EX_BURST_GAUGE:
+dq (float)1
+
+Alloc_ExBurst:
+  push rax
+  mov rax,[EX_BURST_GAUGE]
+  movq xmm15,rax
+  addss xmm0,xmm15
+  xorps xmm15,xmm15
+  pop rax
+  movss [r12+08],xmm0
+  jmp return
+
+ExBurstCode:
+
+ExBurst:
+  jmp Alloc_ExBurst
+  nop 2
+return:
+
+[DISABLE]
+ExBurst:
+  readmem(mem_ExBurst,7)
+
+unregistersymbol(*)
+dealloc(*)
+</AssemblerScript><CheatEntries><CheatEntry><ID>271</ID><Description>"Value"</Description><ShowAsSigned>0</ShowAsSigned><Color>FF8000</Color><VariableType>Float</VariableType><Address>EX_BURST_GAUGE</Address></CheatEntry></CheatEntries></CheatEntry><CheatEntry><ID>272</ID><Description>"Regen ATB/HP/MP　This uses Additional ATB Script"</Description><Options moHideChildren="1" /><Color>FF8000</Color><VariableType>Auto Assembler Script</VariableType><AssemblerScript>[ENABLE]
+aobscanmodule(ExATB,ff7remake_.exe,F30F11740844)
+alloc(Alloc_ExATB,$128,ExATB)
+alloc(mem_ExATB,6)
+alloc(EX_ATB_GAUGE,8)
+alloc(Regen_HP,4)
+alloc(Regen_MP,4)
+label(ExATBcode return)
+registersymbol(ExATB mem_ExATB EX_ATB_GAUGE Regen_HP Regen_MP)
+
+mem_ExATB:
+  readmem(ExATB,6)
+
+Regen_HP:
+dd 1
+
+Regen_MP:
+dd 1
+
+EX_ATB_GAUGE:
+dq (float)1
+
+Alloc_ExATB:
+  push rbx
+  push rdx
+  mov rdx,[EX_ATB_GAUGE]
+  movq xmm15,rdx
+  addss xmm6,xmm15
+  movss [rax+rcx+44],xmm6
+  xorps xmm15,xmm15
+  mov rbx,[Regen_HP]
+  mov rdx,[Regen_MP]
+  add [rax+rcx+30],rbx
+  add [rax+rcx+38],rdx
+  pop rbx
+  pop rdx
+  jmp return
+
+ExATBcode:
+
+ExATB:
+  jmp Alloc_ExATB
+  nop
+return:
+
+[DISABLE]
+ExATB:
+  readmem(mem_ExATB,6)
+
+unregistersymbol(*)
+dealloc(*)
+</AssemblerScript><CheatEntries><CheatEntry><ID>273</ID><Description>"ATB"</Description><ShowAsSigned>0</ShowAsSigned><Color>FF8000</Color><VariableType>Float</VariableType><Address>EX_ATB_GAUGE</Address></CheatEntry><CheatEntry><ID>274</ID><Description>"HP"</Description><ShowAsSigned>0</ShowAsSigned><Color>FF8000</Color><VariableType>4 Bytes</VariableType><Address>Regen_HP</Address></CheatEntry><CheatEntry><ID>275</ID><Description>"MP"</Description><ShowAsSigned>0</ShowAsSigned><Color>FF8000</Color><VariableType>4 Bytes</VariableType><Address>Regen_MP</Address></CheatEntry><CheatEntry><ID>276</ID><Description>"Continue recovery beyond limits,Return normal after battle."</Description><Color>FF8000</Color><GroupHeader>1</GroupHeader></CheatEntry></CheatEntries></CheatEntry><CheatEntry><ID>277</ID><Description>"Infinite HP"</Description><Color>FF8000</Color><VariableType>Auto Assembler Script</VariableType><AssemblerScript>[ENABLE]
+aobscanmodule(HP,ff7remake_.exe,8B4408304883C420)
+alloc(Alloc_HP,$128,HP)
+alloc(mem_HP,8)
+label(Lost return)
+registersymbol(HP mem_HP)
+
+mem_HP:
+  readmem(HP,8)
+
+Alloc_HP:
+  cmp [rax+rcx+30],0
+  je Lost
+  push edx
+  mov edx,[rax+rcx+34]
+  mov [rax+rcx+30],edx
+  pop edx
+  readmem(HP,8)
+  jmp return
+
+Lost:
+  readmem(HP,8)
+  jmp return
+
+HP:
+  jmp Alloc_HP
+  nop 3
+return:
+
+[DISABLE]
+HP:
+  readmem(mem_HP,8)
+
+unregistersymbol(*)
+dealloc(*)
+</AssemblerScript></CheatEntry><CheatEntry><ID>278</ID><Description>"Infinite MP"</Description><Color>FF8000</Color><VariableType>Auto Assembler Script</VariableType><AssemblerScript>[ENABLE]
+aobscanmodule(MP,ff7remake_.exe,8B4408384883C420)
+alloc(Alloc_MP,$128,MP)
+alloc(mem_MP,8)
+label(return)
+registersymbol(MP mem_MP)
+
+mem_MP:
+  readmem(MP,8)
+
+Alloc_MP:
+  push edx
+  mov edx,[rax+rcx+3C]
+  mov [rax+rcx+38],edx
+  pop edx
+  readmem(MP,8)
+  jmp return
+
+MP:
+  jmp Alloc_MP
+  nop 3
+return:
+
+[DISABLE]
+MP:
+  readmem(mem_MP,8)
+
+unregistersymbol(*)
+dealloc(*)
+</AssemblerScript></CheatEntry><CheatEntry><ID>279</ID><Description>"Infinite Item"</Description><Options moHideChildren="1" /><Color>FF8000</Color><VariableType>Auto Assembler Script</VariableType><AssemblerScript>[ENABLE]
+aobscanmodule(InfItem,ff7remake_.exe,89420CC74308FFFFFFFF)
+alloc(Alloc_InfItem,$128,InfItem)
+alloc(mem_InfItem,10)
+alloc(Int_ItemAmount,4)
+label(return)
+registersymbol(InfItem mem_InfItem Int_ItemAmount)
+
+mem_InfItem:
+  readmem(InfItem,10)
+
+Int_ItemAmount:
+dd 5A
+
+Alloc_InfItem:
+  mov eax,[Int_ItemAmount]
+  readmem(InfItem,10)
+  jmp return
+
+InfItem:
+  jmp Alloc_InfItem
+  nop 5
+return:
+
+aobscanmodule(BuyItem,ff7remake_.exe,895A0C488B5C2430488B)
+alloc(Alloc_BuyItem,$128,BuyItem)
+alloc(mem_BuyItem,8)
+label(return2)
+registersymbol(BuyItem mem_BuyItem)
+
+mem_BuyItem:
+  readmem(BuyItem,8)
+
+Alloc_BuyItem:
+  mov ebx,[Int_ItemAmount]
+  readmem(BuyItem,8)
+  jmp return2
+
+BuyItem:
+  jmp Alloc_BuyItem
+  nop 3
+return2:
+
+aobscanmodule(InfItem_Buy,ff7remake_.exe,898ACC4D0300)
+alloc(Alloc_InfIB,$128,InfItem_Buy)
+alloc(mem_InfIB,6)
+label(return3)
+registersymbol(InfItem_Buy mem_InfIB)
+
+mem_InfIB:
+  reassemble(InfItem_Buy)
+
+Alloc_InfIB:
+  mov ecx,[Int_ItemAmount]
+  reassemble(InfItem_Buy)
+  jmp return3
+
+InfItem_Buy:
+  jmp Alloc_InfIB
+  nop
+return3:
+
+[DISABLE]
+InfItem:
+  readmem(mem_InfItem,10)
+
+BuyItem:
+  readmem(mem_BuyItem,8)
+
+InfItem_Buy:
+  readmem(mem_InfIB,6)
+
+unregistersymbol(*)
+dealloc(*)
+</AssemblerScript><CheatEntries><CheatEntry><ID>280</ID><Description>"Value/Use_Sell_Buy"</Description><ShowAsSigned>0</ShowAsSigned><Color>FF8000</Color><VariableType>4 Bytes</VariableType><Address>Int_ItemAmount</Address></CheatEntry></CheatEntries></CheatEntry><CheatEntry><ID>281</ID><Description>"Infinite Money"</Description><Color>FF8000</Color><VariableType>Auto Assembler Script</VariableType><AssemblerScript>[ENABLE]
+aobscanmodule(InfMoney,ff7remake_.exe,418B7CCF0C)
+alloc(Alloc_Money,$128,InfMoney)
+alloc(mem_Money,5)
+label(return)
+registersymbol(InfMoney mem_Money)
+
+mem_Money:
+  readmem(InfMoney,5)
+
+Alloc_Money:
+  mov [r15+rcx*8+0C],05F5E0FF
+  reassemble(InfMoney)
+  jmp return
+
+InfMoney:
+  jmp Alloc_Money
+return:
+
+[DISABLE]
+InfMoney:
+  readmem(mem_Money,5)
+
+unregistersymbol(*)
+dealloc(*)
+</AssemblerScript></CheatEntry><CheatEntry><ID>282</ID><Description>"Infinite ATB Gauge"</Description><Options moHideChildren="1" /><Color>FF8000</Color><VariableType>Auto Assembler Script</VariableType><AssemblerScript>[ENABLE]
+aobscanmodule(ATB,ff7remake_.exe,F30F10440844)
+alloc(Alloc_ATB,$128,ATB)
+alloc(mem_ATB,6)
+alloc(Int_ATB,8)
+label(return)
+registersymbol(ATB mem_ATB Int_ATB)
+
+mem_ATB:
+  readmem(ATB,6)
+
+Int_ATB:
+dd (float)3000
+
+Alloc_ATB:
+  push rdx
+  mov rdx,[Int_ATB]
+  mov [rax+rcx+44],rdx
+  movss xmm0,[rax+rcx+44]
+  pop rdx
+  jmp return
+
+ATB:
+  jmp Alloc_ATB
+  nop
+return:
+
+[DISABLE]
+ATB:
+  readmem(mem_ATB,6)
+
+unregistersymbol(*)
+dealloc(*)
+</AssemblerScript><CheatEntries><CheatEntry><ID>283</ID><Description>"Value"</Description><ShowAsSigned>0</ShowAsSigned><Color>C08000</Color><VariableType>Float</VariableType><Address>Int_ATB</Address></CheatEntry></CheatEntries></CheatEntry><CheatEntry><ID>284</ID><Description>"Infinite Limit Gauge"</Description><Color>FF8000</Color><VariableType>Auto Assembler Script</VariableType><AssemblerScript>[ENABLE]
+aobscanmodule(Limit,ff7remake_.exe,F30F10440824)
+alloc(Alloc_Limit,$128,Limit)
+alloc(mem_Limit,6)
+label(return)
+registersymbol(Limit mem_Limit)
+
+mem_Limit:
+  readmem(Limit,6)
+
+Alloc_Limit:
+  mov [rax+rcx+24],(float)10000
+  reassemble(Limit)
+  jmp return
+
+Limit:
+  jmp Alloc_Limit
+  nop
+return:
+
+[DISABLE]
+Limit:
+  readmem(mem_Limit,6)
+
+unregistersymbol(*)
+dealloc(*)
+</AssemblerScript></CheatEntry><CheatEntry><ID>285</ID><Description>"Infinite Barret Shot Charge"</Description><Color>FF8000</Color><VariableType>Auto Assembler Script</VariableType><AssemblerScript>[ENABLE]
+aobscanmodule(Bcharge,ff7remake_.exe,F30F118F080D0000)
+alloc(Alloc_Bcharge,$128,Bcharge)
+alloc(mem_Bcharge,8)
+label(return)
+registersymbol(Bcharge mem_Bcharge)
+
+mem_Bcharge:
+  reassemble(Bcharge)
+
+Alloc_Bcharge:
+  mov [rdi+00000D08],(float)30
+  jmp return
+
+Bcharge:
+  jmp Alloc_Bcharge
+  nop 3
+return:
+
+[DISABLE]
+Bcharge:
+  readmem(mem_Bcharge,8)
+
+unregistersymbol(*)
+dealloc(*)
+</AssemblerScript></CheatEntry><CheatEntry><ID>286</ID><Description>"Infinite Summon Duration"</Description><Options moHideChildren="1" /><Color>FF8000</Color><VariableType>Auto Assembler Script</VariableType><AssemblerScript>[ENABLE]
+aobscanmodule(SummonGauge,ff7remake_.exe,F30F118EB0240000)
+alloc(Alloc_Summon,$128,SummonGauge)
+alloc(mem_Summon,8)
+alloc(Set_Summon,8)
+label(return)
+registersymbol(SummonGauge mem_Summon Set_Summon)
+
+mem_Summon:
+  readmem(SummonGauge,8)
+
+Set_Summon:
+dq (float)100
+
+Alloc_Summon:
+  push rax
+  mov rax,[Set_Summon]
+  mov [rsi+000024B0],rax
+  pop rax
+  jmp return
+
+SummonGauge:
+  jmp Alloc_Summon
+  nop 3
+return:
+
+[DISABLE]
+SummonGauge:
+  readmem(mem_Summon,8)
+
+unregistersymbol(*)
+dealloc(*)
+</AssemblerScript><CheatEntries><CheatEntry><ID>287</ID><Description>"Value"</Description><ShowAsSigned>0</ShowAsSigned><Color>FF8000</Color><VariableType>Float</VariableType><Address>Set_Summon</Address></CheatEntry></CheatEntries></CheatEntry><CheatEntry><ID>288</ID><Description>"Burst Instant"</Description><Options moHideChildren="1" /><Color>FF8000</Color><VariableType>Auto Assembler Script</VariableType><AssemblerScript>[ENABLE]
+aobscanmodule(Burst,ff7remake_.exe,F3410F584424080F2F)
+alloc(Alloc_Burst,$128,Burst)
+alloc(mem_Burst,7)
+label(return)
+registersymbol(Burst mem_Burst)
+
+mem_Burst:
+  readmem(Burst,7)
+
+Alloc_Burst:
+  reassemble(Burst)
+  push rax
+  mov rax,(float)1000
+  movq xmm0,rax
+  pop rax
+  jmp return
+
+Burst:
+  jmp Alloc_Burst
+  nop 2
+return:
+
+[DISABLE]
+Burst:
+  readmem(mem_Burst,7)
+
+unregistersymbol(*)
+dealloc(*)
+</AssemblerScript><CheatEntries><CheatEntry><ID>289</ID><Description>"Depending on enemy types,may need to attack their weakness"</Description><Color>FF8000</Color><GroupHeader>1</GroupHeader></CheatEntry></CheatEntries></CheatEntry><CheatEntry><ID>290</ID><Description>"Burst Never Ends"</Description><Color>FF8000</Color><VariableType>Auto Assembler Script</VariableType><AssemblerScript>[ENABLE]
+aobscanmodule(BurstNeverEnd,ff7remake_.exe,F30F11471073)
+aobscanmodule(BNEjump,ff7remake_.exe,73**488BCFE8********488B0F)
+alloc(mem_BNE,5)
+registersymbol(BurstNeverEnd BNEjump mem_BNE)
+
+mem_BNE:
+  readmem(BurstNeverEnd,5)
+
+BurstNeverEnd:
+  jmp BNEjump
+  nop 3
+
+[DISABLE]
+BurstNeverEnd:
+  readmem(mem_BNE,5)
+
+unregistersymbol(*)
+</AssemblerScript></CheatEntry><CheatEntry><ID>291</ID><Description>"Burst Percent Set"</Description><Options moHideChildren="1" /><Color>FF8000</Color><VariableType>Auto Assembler Script</VariableType><AssemblerScript>[ENABLE]
+aobscanmodule(BurstLevel,ff7remake_.exe,F30F104028F30F59C7)
+aobscanmodule(BurstPercent,ff7remake_.exe,F30F11411C488B1D)
+alloc(Alloc_Blevel,$128,BurstLevel)
+alloc(mem_Blevel,5)
+alloc(Int_Burst,8)
+registersymbol(BurstLevel mem_Blevel Int_Burst)
+
+mem_Blevel:
+  readmem(BurstLevel,5)
+
+Int_Burst:
+dq (float)2.00
+
+Alloc_Blevel:
+  push rax
+  mov rax,[Int_Burst]
+  movq xmm0,rax
+  pop rax
+  jmp BurstPercent
+
+BurstLevel:
+  jmp Alloc_Blevel
+
+[DISABLE]
+BurstLevel:
+  readmem(mem_Blevel,5)
+
+unregistersymbol(*)
+dealloc(*)
+</AssemblerScript><CheatEntries><CheatEntry><ID>292</ID><Description>"Burst Percent x100"</Description><ShowAsSigned>0</ShowAsSigned><Color>FF8000</Color><VariableType>Float</VariableType><Address>Int_Burst</Address></CheatEntry></CheatEntries></CheatEntry><CheatEntry><ID>293</ID><Description>"Instant Weapon Proficiency"</Description><Options moHideChildren="1" /><Color>FF8000</Color><VariableType>Auto Assembler Script</VariableType><AssemblerScript>[ENABLE]
+aobscanmodule(WeaponSkill,ff7remake_.exe,664189AC46C0450300)
+alloc(Alloc_WS,$128,WeaponSkill)
+alloc(mem_WS,9)
+label(return)
+registersymbol(WeaponSkill mem_WS)
+
+mem_WS:
+  reassemble(WeaponSkill)
+
+Alloc_WS:
+  mov bp,63
+  reassemble(WeaponSkill)
+  jmp return
+
+WeaponSkill:
+  jmp Alloc_WS
+  nop 4
+return:
+
+[DISABLE]
+WeaponSkill:
+  readmem(mem_WS,9)
+
+unregistersymbol(*)
+dealloc(*)
+</AssemblerScript><CheatEntries><CheatEntry><ID>294</ID><Description>"Use twice"</Description><Color>FF8000</Color><GroupHeader>1</GroupHeader></CheatEntry></CheatEntries></CheatEntry><CheatEntry><ID>295</ID><Description>"Luck Max / Open Menu"</Description><Color>FF8000</Color><VariableType>Auto Assembler Script</VariableType><AssemblerScript>[ENABLE]
+aobscanmodule(LuckMax,ff7remake_.exe,8B4408584883C420)
+alloc(Alloc_LuckMax,$128,LuckMax)
+alloc(mem_LuckMax,8)
+label(return)
+registersymbol(LuckMax mem_LuckMax)
+
+mem_LuckMax:
+  readmem(LuckMax,8)
+
+Alloc_LuckMax:
+  mov [rax+rcx+58],#99999
+  readmem(LuckMax,8)
+  jmp return
+
+LuckMax:
+  jmp Alloc_LuckMax
+  nop 3
+return:
+
+[DISABLE]
+LuckMax:
+  readmem(mem_LuckMax,8)
+
+unregistersymbol(*)
+dealloc(*)
+</AssemblerScript></CheatEntry><CheatEntry><ID>296</ID><Description>"All Max / Open Menu and view Status"</Description><Color>C08000</Color><VariableType>Auto Assembler Script</VariableType><AssemblerScript>define(Max,#99999)
+[ENABLE]
+aobscanmodule(Int_HPMP,ff7remake_.exe,8B4408344883C420)
+alloc(Alloc_HPMP,$128,Int_HPMP)
+alloc(mem_HPMP,8)
+label(returnHPMP)
+registersymbol(Int_HPMP mem_HPMP)
+
+aobscanmodule(Int_Status,ff7remake_.exe,8B4408584883C420)
+alloc(Alloc_Int_Status,$128,Int_Status)
+alloc(mem_Int_Status,8)
+label(return_Int_Status)
+registersymbol(Int_Status mem_Int_Status)
+
+aobscanmodule(Int_Status2,ff7remake_.exe,8B84C82C020000)
+alloc(Alloc_Int_Status2,$128,Int_Status2)
+alloc(mem_Int_Status2,7)
+label(return_Int_Status2)
+registersymbol(Int_Status2 mem_Int_Status2)
+
+mem_HPMP:
+  readmem(Int_HPMP,8)
+
+mem_Int_Status:
+  readmem(Int_Status,8)
+
+mem_Int_Status2:
+  reassemble(Int_Status2)
+
+Alloc_HPMP:
+  mov [rax+rcx+30],Max
+  mov [rax+rcx+34],Max
+  mov [rax+rcx+38],Max
+  mov [rax+rcx+3C],Max
+  readmem(Int_HPMP,8)
+  jmp returnHPMP
+
+Int_HPMP:
+  jmp Alloc_HPMP
+  nop 3
+returnHPMP:
+
+Alloc_Int_Status:
+  mov [rax+rcx+48],Max
+  mov [rax+rcx+4C],Max
+  mov [rax+rcx+50],Max
+  mov [rax+rcx+54],Max
+  mov [rax+rcx+58],Max
+  readmem(Int_Status,8)
+  jmp return_Int_Status
+
+Int_Status:
+  jmp Alloc_Int_Status
+  nop 3
+return_Int_Status:
+
+Alloc_Int_Status2:
+  push rdx
+  mov rdx,rcx
+  imul rdx,8
+  add rdx,rax
+  add rdx,220
+  mov [rdx+00],Max
+  mov [rdx+04],Max
+  mov [rdx+08],Max
+  mov [rdx+0C],Max
+  pop rdx
+  reassemble(Int_Status2)
+  jmp return_Int_Status2
+
+Int_Status2:
+  jmp Alloc_Int_Status2
+  nop 2
+return_Int_Status2:
+
+[DISABLE]
+Int_HPMP:
+  readmem(mem_HPMP,8)
+
+Int_Status:
+  readmem(mem_Int_Status,8)
+
+Int_Status2:
+  reassemble(mem_Int_Status2)
+
+unregistersymbol(*)
+dealloc(*)
+</AssemblerScript></CheatEntry><CheatEntry><ID>297</ID><Description>"Gil    Multiplier"</Description><Options moHideChildren="1" /><Color>FF8000</Color><VariableType>Auto Assembler Script</VariableType><AssemblerScript>[ENABLE]
+aobscanmodule(Gil_Multi,ff7remake_.exe,018E80010000)
+alloc(Alloc_Gil_Multi,$128,Gil_Multi)
+alloc(mem_GilMulti,6)
+alloc(Gil_Multiplier,4)
+label(return)
+registersymbol(Gil_Multi mem_GilMulti Gil_Multiplier)
+
+mem_GilMulti:
+  readmem(Gil_Multi,6)
+
+Gil_Multiplier:
+dd 64
+
+Alloc_Gil_Multi:
+  imul ecx,[Gil_Multiplier]
+  reassemble(Gil_Multi)
+  jmp return
+
+Gil_Multi:
+  jmp Alloc_Gil_Multi
+  nop
+return:
+
+[DISABLE]
+Gil_Multi:
+  readmem(mem_GilMulti,6)
+
+unregistersymbol(*)
+dealloc(*)
+</AssemblerScript><CheatEntries><CheatEntry><ID>298</ID><Description>"Multiply"</Description><ShowAsSigned>0</ShowAsSigned><Color>FF8000</Color><VariableType>4 Bytes</VariableType><Address>Gil_Multiplier</Address></CheatEntry></CheatEntries></CheatEntry><CheatEntry><ID>299</ID><Description>"AP    Multiplier"</Description><Options moHideChildren="1" /><Color>FF8000</Color><VariableType>Auto Assembler Script</VariableType><AssemblerScript>[ENABLE]
+aobscanmodule(AP,ff7remake_.exe,01867C010000)
+alloc(Alloc_AP,$128,AP)
+alloc(mem_AP,6)
+alloc(AP_Multiplier,4)
+label(return)
+registersymbol(AP mem_AP AP_Multiplier)
+
+mem_AP:
+  readmem(AP,6)
+
+AP_Multiplier:
+dd 64
+
+Alloc_AP:
+  imul eax,[AP_Multiplier]
+  reassemble(AP)
+  jmp return
+
+AP:
+  jmp Alloc_AP
+  nop
+return:
+
+[DISABLE]
+AP:
+  readmem(mem_AP,6)
+
+unregistersymbol(*)
+dealloc(*)
+</AssemblerScript><CheatEntries><CheatEntry><ID>300</ID><Description>"Multiply"</Description><ShowAsSigned>0</ShowAsSigned><Color>FF8000</Color><VariableType>4 Bytes</VariableType><Address>AP_Multiplier</Address></CheatEntry></CheatEntries></CheatEntry><CheatEntry><ID>301</ID><Description>"EXP   Multiplier"</Description><Options moHideChildren="1" /><Color>FF8000</Color><VariableType>Auto Assembler Script</VariableType><AssemblerScript>[ENABLE]
+aobscanmodule(EXP,ff7remake_.exe,410FB68424C8080000)
+alloc(Alloc_EXP,$128,EXP)
+alloc(mem_EXP,9)
+alloc(EXP_Multiplier,4)
+label(return)
+registersymbol(EXP mem_EXP EXP_Multiplier)
+
+mem_EXP:
+  readmem(EXP,9)
+
+EXP_Multiplier:
+dd #5
+
+Alloc_EXP:
+  reassemble(EXP)
+  imul ecx,[EXP_Multiplier]
+  jmp return
+
+EXP:
+  jmp Alloc_EXP
+  nop 4
+return:
+
+[DISABLE]
+EXP:
+  readmem(mem_EXP,9)
+
+unregistersymbol(*)
+dealloc(*)
+</AssemblerScript><CheatEntries><CheatEntry><ID>302</ID><Description>"Multiply"</Description><ShowAsSigned>0</ShowAsSigned><Color>FF8000</Color><VariableType>4 Bytes</VariableType><Address>EXP_Multiplier</Address></CheatEntry></CheatEntries></CheatEntry><CheatEntry><ID>303</ID><Description>"No Cost　SP"</Description><Color>FF8000</Color><VariableType>Auto Assembler Script</VariableType><AssemblerScript Async="1">[ENABLE]
+aobscanmodule(CheckSP1,ff7remake_.exe,400F9DC540FEC5)
+aobscanmodule(CheckSP2,ff7remake_.exe,41807F4E00)
+alloc(mem_CheckSP1,4)
+alloc(mem_CheckSP2,11)
+registersymbol(CheckSP1 CheckSP2 mem_CheckSP1 mem_CheckSP2)
+
+mem_CheckSP1:
+readmem(CheckSP1,4)
+
+mem_CheckSP2:
+readmem(CheckSP2,11)
+
+CheckSP1:
+  db 40 B5 01 90
+
+CheckSP2:
+  db EB 09
+  nop 9
+
+[DISABLE]
+CheckSP1:
+  readmem(mem_CheckSP1,4)
+
+CheckSP2:
+  readmem(mem_CheckSP2,11)
+
+dealloc(*)
+unregistersymbol(*)
+</AssemblerScript></CheatEntry><CheatEntry><ID>304</ID><Description>"No Cost　Shopping"</Description><Color>FF8000</Color><VariableType>Auto Assembler Script</VariableType><AssemblerScript>[ENABLE]
+aobscanmodule(NoCost,ff7remake_.exe,740E8B8088000000)
+registersymbol(NoCost)
+
+NoCost:
+  db EB 0E
+
+[DISABLE]
+NoCost:
+  db 74 0E
+
+unregistersymbol(*)
+</AssemblerScript></CheatEntry><CheatEntry><ID>305</ID><Description>"Buy Half Price and Sell Double Price/Equip"</Description><Color>FF8000</Color><VariableType>Auto Assembler Script</VariableType><AssemblerScript>[ENABLE]
+aobscanmodule(BuyHalf,ff7remake_.exe,50410FAFF7488B6C2440)
+aobscanmodule(SellDouble,ff7remake_.exe,588945FF418B4500)
+registersymbol(BuyHalf SellDouble)
+
+BuyHalf:
+  db 58
+SellDouble:
+  db 50
+
+[DISABLE]
+BuyHalf:
+  db 50
+SellDouble:
+  db 58
+
+unregistersymbol(*)
+</AssemblerScript></CheatEntry><CheatEntry><ID>306</ID><Description>"Stop  PlayTime"</Description><Color>FF8000</Color><VariableType>Auto Assembler Script</VariableType><AssemblerScript>[ENABLE]
+aobscanmodule(TimeCount,ff7remake_.exe,8987A0020000EB)
+alloc(mem_Time,6)
+registersymbol(TimeCount mem_Time)
+
+mem_Time:
+  readmem(TimeCount,6)
+
+TimeCount:
+  db EB 04
+  nop 4
+
+[DISABLE]
+TimeCount:
+  readmem(mem_Time,6)
+
+unregistersymbol(*)
+dealloc(*)
+</AssemblerScript></CheatEntry><CheatEntry><ID>307</ID><Description>"Reset PlayTime"</Description><Color>FF8000</Color><VariableType>Auto Assembler Script</VariableType><AssemblerScript>[ENABLE]
+aobscanmodule(ResetTime,ff7remake_.exe,8987A0020000EB)
+alloc(Alloc_Reset,$128,ResetTime)
+alloc(mem_Reset,6)
+label(return)
+registersymbol(ResetTime mem_Reset)
+
+mem_Reset:
+  readmem(ResetTime,6)
+
+Alloc_Reset:
+  xor eax,eax
+  reassemble(ResetTime)
+  jmp return
+
+ResetTime:
+  jmp Alloc_Reset
+  nop
+return:
+
+[DISABLE]
+ResetTime:
+  readmem(mem_Reset,6)
+
+unregistersymbol(*)
+dealloc(*)
+</AssemblerScript></CheatEntry></CheatEntries></CheatEntry></CheatEntries><UserdefinedSymbols /><LuaScript>function CheckVersion()
+  if(getCEVersion() &lt; 7.2) then
+    ShowMessage('Cheat Engine 7.2 or above is desirable.')
+  end
+end
+
+function Menu()
+  if Exist then return end
+  local parent = getMainForm().Menu.Items
+  Item = createMenuItem(parent); parent.add(Item)
+  Item.Caption = 'Compact View Mode'
+  Item.OnClick = Routine
+  Exist = 'yes'
+end
+
+function Routine(sender,force)
+  local State = not(Item.Caption == 'Compact View Mode')
+  if force ~= nil then State = not force end
+  Item.Caption = State and 'Compact View Mode' or 'Full View Mode'
+  getMainForm().Splitter1.Visible = State
+  getMainForm().Panel4.Visible    = State
+  getMainForm().Panel5.Visible    = State
+end
+
+PROCESS_NAME = 'ff7remake_.exe'
+local Attach = nil
+local Interval = 100
+local MinCount = 0
+local MaxCount = 1000
+
+local function AutoAttach(Timer)
+    if getProcessIDFromProcessName(PROCESS_NAME) == nil then return end
+        Timer.destroy()
+        Reaction = messageDialog('Attach to Process?',mtConfirmation,mbYes,mbNo)
+        if Reaction == mrYes then
+        openProcess(PROCESS_NAME)
+        Routine(nil,true)
+        elseif MaxCount &gt; 0 and MinCount &gt;= MaxCount then
+        Timer.destroy()
+    end
+    MinCount = MinCount + 1
+end
+
+CheckVersion()
+Menu()
+Attach = createTimer(MainForm)
+Attach.Interval = Interval
+Attach.OnTimer = AutoAttach
+</LuaScript></CheatTable>

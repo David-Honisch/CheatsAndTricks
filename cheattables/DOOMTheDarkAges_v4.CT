@@ -1,0 +1,1025 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="46">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>74</ID>
+      <Description>"Enable Scripts"</Description>
+      <Options moHideChildren="1" moManualExpandCollapse="1"/>
+      <LastState/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+
+aobscanmodule(healtharm,DOOMTheDarkAges.exe,48 8B 87 20 73 02 00 FF 90 10 01 00 00 48 8B 87 20 73 02 00)
+alloc(newmem,$1000)
+aobscanmodule(dragonht,DOOMTheDarkAges.exe,48 8B 10 48 8B C8 FF 92 10 01 00 00 48 8B 13)
+alloc(newmem2,$1000)
+aobscanmodule(infammo,DOOMTheDarkAges.exe,00 8B 43 60 48 83 C4 20 5B C3 CC CC CC CC CC)
+alloc(newmem3,$1000)
+aobscanmodule(nohits,DOOMTheDarkAges.exe,F3 0F 10 48 28 48 63 86 70 03 00 00 F3 0F 11 4C 24 58)
+alloc(newmem4,$1000)
+aobscanmodule(damageval,DOOMTheDarkAges.exe,49 8B CC 45 0F 28 D8 E8 1E BF F7 FF 48 8B D8)
+alloc(newmem5,$1000)
+alloc(_weaponcld,8)
+alloc(_healthenable,8)
+alloc(_armorenable,8)
+alloc(_datapoint,8)
+alloc(_ammo,8)
+alloc(_nohits,8)
+alloc(_dmgenable,8)
+alloc(_damage,8)
+alloc(_thirdperson,8)
+alloc(_wcharge,8)
+
+label(nowpncld)
+label(wpncld)
+label(notperson)
+label(wcharge)
+label(nowcharge)
+label(heal)
+label(health)
+label(armor)
+label(code)
+label(return)
+label(code2)
+label(return2)
+label(code3)
+label(return3)
+label(hits)
+label(code4)
+label(return4)
+label(dmgstd)
+label(dmgclr)
+label(dmg)
+label(dmgmax)
+label(code5)
+label(return5)
+
+newmem:
+  cmp [_weaponcld],1
+  jne nowpncld
+  push rsi
+  mov rsi,DOOMTheDarkAges.exe+A128330
+  mov [rsi],#1
+  pop rsi
+  jmp wpncld
+
+nowpncld:
+  push rsi
+  mov rsi,DOOMTheDarkAges.exe+A128330
+  mov [rsi],#0
+  pop rsi
+
+wpncld:
+  cmp [_thirdperson],1
+  jne notperson
+  push rsi
+  mov rsi,DOOMTheDarkAges.exe+A00D3C0
+  mov [rsi],#1
+  pop rsi
+  jmp wcharge
+
+notperson:
+  push rsi
+  mov rsi,DOOMTheDarkAges.exe+A00D3C0
+  mov [rsi],#0
+  pop rsi
+
+wcharge:
+  cmp [_wcharge],1
+  jne nowcharge
+  push rsi
+  mov rsi,DOOMTheDarkAges.exe+A1276B0
+  mov [rsi],#1
+  pop rsi
+  jmp heal
+
+nowcharge:
+  push rsi
+  mov rsi,DOOMTheDarkAges.exe+A1276B0
+  mov [rsi],#0
+  pop rsi
+
+heal:
+  cmp [_healthenable],1
+  je health
+  cmp [_armorenable],1
+  je armor
+  jmp code
+
+health:
+  mov [rdi+2735C],(float)999
+  cmp [_armorenable],1
+  je armor
+  jmp code
+
+armor:
+  mov [rdi+27404],(float)999
+
+code:
+  mov [_datapoint],rdi
+  mov rax,[rdi+00027320]
+  call qword ptr [rax+00000110]
+  mov rax,[rdi+00027320]
+  jmp return
+
+healtharm:
+  jmp far newmem
+  nop 6
+return:
+
+newmem2:
+  cmp [_healthenable],1
+  jne code2
+  mov [rax+3C],(float)999
+
+code2:
+  mov rdx,[rax]
+  mov rcx,rax
+  call qword ptr [rdx+00000110]
+  mov rdx,[rbx]
+  jmp return2
+
+dragonht:
+  jmp far newmem2
+  nop
+return2:
+
+newmem3:
+  cmp [_ammo],1
+  jne code3
+  mov [rbx+60],#999
+
+code3:
+  mov eax,[rbx+60]
+  add rsp,20
+  pop rbx
+  ret
+  int 3
+  int 3
+  int 3
+  int 3
+  int 3
+  jmp return3
+
+infammo+01:
+  jmp far newmem3
+return3:
+
+newmem4:
+  cmp [_nohits],1
+  jne hits
+  push rdi
+  mov rdi,(float)0
+  movd xmm1,rdi
+  pop rdi
+  jmp code4
+
+hits:
+  movss xmm1,[rax+28]
+
+code4:
+  movsxd  rax,dword ptr [rsi+00000370]
+  movss [rsp+58],xmm1
+  jmp return4
+
+nohits:
+  jmp far newmem4
+  nop 4
+return4:
+
+newmem5:
+  push rdi
+  test al,al
+  je dmgclr
+  cmp [_dmgenable],1
+  je dmgmax
+  cmp [_damage],0
+  je dmgstd
+  cmp [_damage],(float)0.1
+  jb dmg
+  //mulss xmm9,xmm0
+  movd rdi,xmm0
+  jmp code5
+
+dmgstd:
+  movd rdi,xmm9
+  jmp code5
+
+dmgclr:
+  cmp [_nohits],1
+  jne dmgstd
+  mov rdi,(float)0
+  movd xmm9,rdi
+  jmp code5
+
+dmg:
+  mov rdi,(float)0.5
+  movd xmm9,rdi
+  jmp code5
+
+dmgmax:
+  mov rdi,(float)9999
+  movd xmm9,rdi
+
+code5:
+  mov [_damage],rdi
+  pop rdi
+  mov rcx,r12
+  movaps xmm11,xmm8
+  call DOOMTheDarkAges.exe+DA6DE0
+  mov rbx,rax
+  jmp return5
+
+damageval:
+  jmp far newmem5
+  nop
+return5:
+registersymbol(_weaponcld)
+registersymbol(_thirdperson)
+registersymbol(_wcharge)
+registersymbol(healtharm)
+registersymbol(_healthenable)
+registersymbol(_armorenable)
+registersymbol(_datapoint)
+registersymbol(dragonht)
+registersymbol(infammo)
+registersymbol(_ammo)
+registersymbol(nohits)
+registersymbol(_nohits)
+registersymbol(damageval)
+registersymbol(_dmgenable)
+registersymbol(_damage)
+
+[DISABLE]
+
+healtharm:
+  db 48 8B 87 20 73 02 00 FF 90 10 01 00 00 48 8B 87 20 73 02 00
+
+unregistersymbol(healtharm)
+unregistersymbol(_healthenable)
+unregistersymbol(_armorenable)
+unregistersymbol(_datapoint)
+unregistersymbol(_weaponcld)
+unregistersymbol(_thirdperson)
+unregistersymbol(_wcharge)
+dealloc(newmem)
+dealloc(_healthenable)
+dealloc(_armorenable)
+dealloc(_datapoint)
+dealloc(_weaponcld)
+dealloc(_thirdperson)
+dealloc(_wcharge)
+
+dragonht:
+  db 48 8B 10 48 8B C8 FF 92 10 01 00 00 48 8B 13
+
+unregistersymbol(dragonht)
+dealloc(newmem2)
+
+infammo+01:
+  db 8B 43 60 48 83 C4 20 5B C3 CC CC CC CC CC
+
+unregistersymbol(infammo)
+unregistersymbol(_ammo)
+dealloc(_ammo)
+dealloc(newmem3)
+
+nohits:
+  db F3 0F 10 48 28 48 63 86 70 03 00 00 F3 0F 11 4C 24 58
+
+unregistersymbol(nohits)
+unregistersymbol(_nohits)
+dealloc(newmem4)
+dealloc(_nohits)
+
+damageval:
+  db 49 8B CC 45 0F 28 D8 E8 1E BF F7 FF 48 8B D8
+
+unregistersymbol(damageval)
+unregistersymbol(_dmgenable)
+unregistersymbol(_damage)
+dealloc(newmem5)
+dealloc(_dmgenable)
+dealloc(_damage)
+</AssemblerScript>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>87674</ID>
+          <Description>"Enable Infinite Health"</Description>
+          <Options moActivateChildrenAsWell="1" moDeactivateChildrenAsWell="1"/>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+_healthenable:
+dd 1
+
+[DISABLE]
+_healthenable:
+dd 0
+</AssemblerScript>
+          <Hotkeys>
+            <Hotkey>
+              <Action>Toggle Activation</Action>
+              <Keys>
+                <Key>17</Key>
+                <Key>97</Key>
+              </Keys>
+              <ID>0</ID>
+              <ActivateSound>Activate</ActivateSound>
+              <DeactivateSound>Deactivate</DeactivateSound>
+            </Hotkey>
+          </Hotkeys>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>87675</ID>
+          <Description>"Enable Infinite Armor"</Description>
+          <Options moActivateChildrenAsWell="1" moDeactivateChildrenAsWell="1"/>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+_armorenable:
+dd 1
+
+[DISABLE]
+_armorenable:
+dd 0
+</AssemblerScript>
+          <Hotkeys>
+            <Hotkey>
+              <Action>Toggle Activation</Action>
+              <Keys>
+                <Key>17</Key>
+                <Key>97</Key>
+              </Keys>
+              <ID>0</ID>
+              <ActivateSound>Activate</ActivateSound>
+              <DeactivateSound>Deactivate</DeactivateSound>
+            </Hotkey>
+          </Hotkeys>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>75</ID>
+          <Description>"Health Value"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>Float</VariableType>
+          <Address>_datapoint</Address>
+          <Offsets>
+            <Offset>2735C</Offset>
+          </Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>76</ID>
+          <Description>"Armor Value"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>Float</VariableType>
+          <Address>_datapoint</Address>
+          <Offsets>
+            <Offset>27404</Offset>
+          </Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>48</ID>
+          <Description>"Infinite Shields Energy"</Description>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+
+aobscanmodule(shields,DOOMTheDarkAges.exe,F3 0F 10 91 40 08 00 00 0F 28 C2 F3 0F 59 C1)
+alloc(newmem,$1000)
+aobscanmodule(shielden,DOOMTheDarkAges.exe,F3 0F 11 8F 50 0A 00 00 48 8B 03 FF 90 28 03 00 00)
+alloc(newmem2,$1000)
+
+label(code)
+label(return)
+label(code2)
+label(return2)
+
+newmem:
+  mov [rcx+840],(float)999
+  mov [rcx+A50],(float)999
+
+code:
+  movss xmm2,[rcx+00000840]
+  movaps xmm0,xmm2
+  mulss xmm0,xmm1
+  jmp return
+
+shields:
+  jmp far newmem
+  nop
+return:
+
+newmem2:
+  push rsi
+  mov rsi,(float)999
+  movd xmm1,rsi
+  pop rsi
+
+code2:
+  movss [rdi+00000A50],xmm1
+  mov rax,[rbx]
+  call qword ptr [rax+00000328]
+  jmp return2
+
+shielden:
+  jmp far newmem2
+  nop 3
+return2:
+registersymbol(shields)
+registersymbol(shielden)
+
+[DISABLE]
+
+shields:
+  db F3 0F 10 91 40 08 00 00 0F 28 C2 F3 0F 59 C1
+
+unregistersymbol(shields)
+dealloc(newmem)
+
+shielden:
+  db F3 0F 11 8F 50 0A 00 00 48 8B 03 FF 90 28 03 00 00
+
+unregistersymbol(shielden)
+dealloc(newmem2)
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>3</ID>
+          <Description>"Infinite Ammo"</Description>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+_ammo:
+dd 1
+
+[DISABLE]
+_ammo:
+dd 0
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>51</ID>
+          <Description>"Infinite Jumps"</Description>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+
+aobscanmodule(jumpsy,DOOMTheDarkAges.exe,C7 86 28 05 00 00 01 00 00 00)
+registersymbol(jumpsy)
+
+jumpsy:
+  db C7 86 28 05 00 00 00
+
+
+[DISABLE]
+
+aobscanmodule(jumpsy,DOOMTheDarkAges.exe,C7 86 28 05 00 00 00 00 00 00)
+registersymbol(jumpsy)
+
+jumpsy:
+  db C7 86 28 05 00 00 01
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>59</ID>
+          <Description>"Infinite Melee Attacks"</Description>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+
+aobscanmodule(gauntlets,DOOMTheDarkAges.exe,F3 0F 10 57 08 0F 57 C0 0F 28 F8 F3 0F 11 57 0C)
+alloc(newmem,$1000)
+
+label(code)
+label(return)
+
+newmem:
+  mov [rdi+08],(float)999
+
+code:
+  movss xmm2,[rdi+08]
+  xorps xmm0,xmm0
+  movaps xmm7,xmm0
+  movss [rdi+0C],xmm2
+  jmp return
+
+gauntlets:
+  jmp far newmem
+  nop 2
+return:
+registersymbol(gauntlets)
+
+[DISABLE]
+
+gauntlets:
+  db F3 0F 10 57 08 0F 57 C0 0F 28 F8 F3 0F 11 57 0C
+
+unregistersymbol(gauntlets)
+dealloc(newmem)
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>87706</ID>
+          <Description>"Break Enemy Shields Instantly"</Description>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+
+aobscanmodule(brksld,DOOMTheDarkAges.exe,41 0F 2F C8 F3 41 0F 11 86 98 05 00 00 0F 28 D0)
+alloc(newmem,$1000)
+
+label(code)
+label(return)
+
+newmem:
+  push rsi
+  mov rsi,(float)0
+  movd xmm0,rsi
+  pop rsi
+
+code:
+  comiss xmm1,xmm8
+  movss [r14+00000598],xmm0
+  movaps xmm2,xmm0
+  jmp return
+
+brksld:
+  jmp far newmem
+  nop 2
+return:
+registersymbol(brksld)
+
+[DISABLE]
+
+brksld:
+  db 41 0F 2F C8 F3 41 0F 11 86 98 05 00 00 0F 28 D0
+
+unregistersymbol(brksld)
+dealloc(newmem)
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>87707</ID>
+          <Description>"Infinite Resources"</Description>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+
+aobscanmodule(goldings,DOOMTheDarkAges.exe,48 8D 04 49 48 C1 E0 05 48 03 43 78 48 83 C4 20)
+alloc(newmem,$1000)
+
+label(code)
+label(return)
+
+newmem:
+
+code:
+  lea rax,[rcx+rcx*2]
+  shl rax,05
+  add rax,[rbx+78]
+  add rsp,20
+  mov [rax+14],#99999
+  jmp return
+
+goldings:
+  jmp far newmem
+  nop 2
+return:
+registersymbol(goldings)
+
+[DISABLE]
+
+goldings:
+  db 48 8D 04 49 48 C1 E0 05 48 03 43 78 48 83 C4 20
+
+unregistersymbol(goldings)
+dealloc(newmem)
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>87698</ID>
+          <Description>"No Hits"</Description>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+_nohits:
+dd 1
+
+[DISABLE]
+_nohits:
+dd 0
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>87712</ID>
+          <Description>"No Spread"</Description>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+
+aobscanmodule(nospread,DOOMTheDarkAges.exe,8B 48 08 0F B6 85 E4 01 00 00 F7 D9 1A D2)
+alloc(newmem,$1000)
+
+label(code)
+label(return)
+
+newmem:
+
+
+code:
+  mov ecx,[rax+08]
+  mov ecx,#1
+  movzx eax,byte ptr [rbp+000001E4]
+  neg ecx
+  sbb dl,dl
+  jmp return
+
+nospread:
+  jmp far newmem
+return:
+registersymbol(nospread)
+
+[DISABLE]
+
+nospread:
+  db 8B 48 08 0F B6 85 E4 01 00 00 F7 D9 1A D2
+
+unregistersymbol(nospread)
+dealloc(newmem)
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>87750</ID>
+          <Description>"No Recoil"</Description>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+
+aobscanmodule(norcl2,DOOMTheDarkAges.exe,48 89 4E 08 0F 28 D8 48 89 46 10 41 0F 28 C0)
+alloc(newmem,$1000)
+aobscanmodule(norcl4,DOOMTheDarkAges.exe,00 CC CC CC CC 40 57 4C 8B 5C 24 38 49 8B C0 48 8B 7C 24 40 4C 8B C2 48 89 11 4C 8B D1)
+alloc(newmem2,$1000)
+
+label(code)
+label(return)
+label(code2)
+label(return2)
+
+newmem:
+
+code:
+  mov [rsi+08],#0
+  mov [rsi+38],#0
+  movaps xmm3,xmm0
+  mov [rsi+10],rax
+  movaps xmm0,xmm8
+  jmp return
+
+norcl2:
+  jmp far newmem
+  nop
+return:
+
+newmem2:
+
+code2:
+  mov rdi,[rsp+40]
+  mov r8,rdx
+  mov [rcx],#0
+  mov r10,rcx
+  jmp return2
+
+norcl4+0F:
+  jmp far newmem2
+return2:
+registersymbol(norcl2)
+registersymbol(norcl4)
+
+[DISABLE]
+
+norcl2:
+  db 48 89 4E 08 0F 28 D8 48 89 46 10 41 0F 28 C0
+
+unregistersymbol(norcl2)
+dealloc(newmem)
+
+norcl4+0F:
+  db 48 8B 7C 24 40 4C 8B C2 48 89 11 4C 8B D1
+
+unregistersymbol(norcl4)
+dealloc(newmem2)
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>87762</ID>
+          <Description>"No Weapons Cooldown"</Description>
+          <Options moActivateChildrenAsWell="1" moDeactivateChildrenAsWell="1"/>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+_weaponcld:
+dd 1
+
+[DISABLE]
+_weaponcld:
+dd 0
+</AssemblerScript>
+          <Hotkeys>
+            <Hotkey>
+              <Action>Toggle Activation</Action>
+              <Keys>
+                <Key>17</Key>
+                <Key>97</Key>
+              </Keys>
+              <ID>0</ID>
+              <ActivateSound>Activate</ActivateSound>
+              <DeactivateSound>Deactivate</DeactivateSound>
+            </Hotkey>
+          </Hotkeys>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>87746</ID>
+          <Description>"Skullcrusher Mod Option (No Cooldown + FireRate)"</Description>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+
+aobscanmodule(weap1cld,DOOMTheDarkAges.exe,F3 0F 10 87 64 0E 00 00 0F 57 D2 F2 48 0F 2A D3 0F 57 C9 F2 49)
+alloc(newmem,$1000)
+
+label(code)
+label(return)
+
+newmem:
+  mov [rdi+00000E64],(float)888
+
+code:
+  movss xmm0,[rdi+00000E64]
+  xorps xmm2,xmm2
+  cvtsi2sd xmm2,rbx
+  jmp return
+
+weap1cld:
+  jmp far newmem
+  nop 2
+return:
+registersymbol(weap1cld)
+
+[DISABLE]
+
+weap1cld:
+  db F3 0F 10 87 64 0E 00 00 0F 57 D2 F2 48 0F 2A D3
+
+unregistersymbol(weap1cld)
+dealloc(newmem)
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>87778</ID>
+          <Description>"Enable Third Person View"</Description>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+_thirdperson:
+dd 1
+
+[DISABLE]
+_thirdperson:
+dd 0
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>87780</ID>
+          <Description>"Weapons Full Charged"</Description>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+_wcharge:
+dd 1
+
+[DISABLE]
+_wcharge:
+dd 0
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>87683</ID>
+          <Description>"Enable Infinite Damage"</Description>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+_dmgenable:
+dd 1
+
+[DISABLE]
+_dmgenable:
+dd 0
+</AssemblerScript>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>87688</ID>
+              <Description>"Damage Value"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>Float</VariableType>
+              <Address>_damage</Address>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>87686</ID>
+          <Description>"Movement Speed"</Description>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+
+aobscanmodule(movement,DOOMTheDarkAges.exe,F3 0F 10 87 88 06 00 00 41 0F 2F C4 F3 0F 59 BF E0 05 00 00)
+alloc(newmem,$1000)
+alloc(_speed,8)
+
+label(code)
+label(return)
+
+newmem:
+  mov [_speed],rdi
+
+code:
+  movss xmm0,[rdi+00000688]
+  comiss xmm0,xmm12
+  mulss xmm7,[rdi+000005E0]
+  jmp return
+
+movement:
+  jmp far newmem
+  nop 6
+return:
+registersymbol(movement)
+registersymbol(_speed)
+
+[DISABLE]
+
+movement:
+  db F3 0F 10 87 88 06 00 00 41 0F 2F C4 F3 0F 59 BF E0 05 00 00
+
+unregistersymbol(movement)
+unregistersymbol(_speed)
+dealloc(newmem)
+dealloc(_speed)
+</AssemblerScript>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>87687</ID>
+              <Description>"Speed Value"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>Float</VariableType>
+              <Address>_speed</Address>
+              <Offsets>
+                <Offset>5E0</Offset>
+              </Offsets>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>87709</ID>
+          <Description>"Timescale"</Description>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+
+aobscanmodule(timescale,DOOMTheDarkAges.exe,49 BB 00 00 00 00 00 00 00 80 F3 0F 10 40 0C)
+alloc(newmem,$1000)
+alloc(_timescale,8)
+
+label(timestand)
+label(code)
+label(return)
+
+newmem:
+  cmp [_timescale],0
+  je timestand
+  jmp code
+
+timestand:
+  push rbx
+  mov rbx,[rax+0C]
+  mov [_timescale],rbx
+  pop rbx
+
+code:
+  mov r11,8000000000000000
+  movss xmm0,[rax+0C]
+  push rbx
+  mov rbx,[_timescale]
+  movd xmm0,rbx
+  pop rbx
+  jmp return
+
+timescale:
+  jmp far newmem
+  nop
+return:
+registersymbol(timescale)
+registersymbol(_timescale)
+
+[DISABLE]
+
+timescale:
+  db 49 BB 00 00 00 00 00 00 00 80 F3 0F 10 40 0C
+
+unregistersymbol(timescale)
+unregistersymbol(timescale)
+dealloc(newmem)
+dealloc(timescale)
+</AssemblerScript>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>87710</ID>
+              <Description>"Value"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>Float</VariableType>
+              <Address>_timescale</Address>
+              <Hotkeys>
+                <Hotkey OnlyWhileDown="1">
+                  <Action>Set Value</Action>
+                  <Keys>
+                    <Key>17</Key>
+                    <Key>84</Key>
+                  </Keys>
+                  <Value>0.01</Value>
+                  <ID>2</ID>
+                  <ActivateSound>Activate</ActivateSound>
+                </Hotkey>
+              </Hotkeys>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>87772</ID>
+          <Description>"FOV Enable"</Description>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+
+aobscanmodule(cgfov,DOOMTheDarkAges.exe,F3 0F 10 51 14 0F 54 C5 0F 2F E0 F3 48 0F 2A D8)
+alloc(newmem,$1000)
+alloc(_fov,8)
+
+label(code)
+label(return)
+
+newmem:
+  mov [_fov],rcx
+
+code:
+  movss xmm2,[rcx+14]
+  andps xmm0,xmm5
+  comiss xmm4,xmm0
+  cvtsi2ss xmm3,rax
+  jmp return
+
+cgfov:
+  jmp far newmem
+  nop 2
+return:
+registersymbol(cgfov)
+registersymbol(_fov)
+
+[DISABLE]
+
+cgfov:
+  db F3 0F 10 51 14 0F 54 C5 0F 2F E0 F3 48 0F 2A D8
+
+unregistersymbol(cgfov)
+unregistersymbol(_fov)
+dealloc(newmem)
+dealloc(_fov)
+</AssemblerScript>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>87773</ID>
+              <Description>"Value"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>Float</VariableType>
+              <Address>_fov</Address>
+              <Offsets>
+                <Offset>180</Offset>
+              </Offsets>
+              <Hotkeys>
+                <Hotkey OnlyWhileDown="1">
+                  <Action>Set Value</Action>
+                  <Keys>
+                    <Key>17</Key>
+                    <Key>89</Key>
+                  </Keys>
+                  <Value>10</Value>
+                  <ID>0</ID>
+                  <ActivateSound>Activate</ActivateSound>
+                </Hotkey>
+              </Hotkeys>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+</CheatTable>

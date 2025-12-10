@@ -1,0 +1,951 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="45">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>26371</ID>
+      <Description>"Infinite Health"</Description>
+      <Options moHideChildren="1"/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript Async="1">{ Game   : TheGreatCircle.exe
+  Version: 
+  Date   : 2024-12-18
+  Author : joeyc
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+aobscanmodule(HEALTH,TheGreatCircle.exe,F3 41 0F 11 46 44 F3) // should be unique
+alloc(newmem,$1000,HEALTH)
+
+label(code)
+label(return)
+label(player)
+
+newmem:
+cmp [r14+5C],(float)90
+je player
+jmp code
+
+code:
+  movss [r14+44],xmm0
+  jmp return
+
+player:
+push rsi
+mov rsi,[r14+40]
+mov [r14+44],rsi
+pop rsi
+jmp return
+
+HEALTH:
+  jmp newmem
+  nop
+return:
+registersymbol(HEALTH)
+
+[DISABLE]
+
+HEALTH:
+  db F3 41 0F 11 46 44
+
+unregistersymbol(*)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: TheGreatCircle.exe+13ACB80
+
+TheGreatCircle.exe+13ACB58: 0F 2E F8                 - ucomiss xmm7,xmm0
+TheGreatCircle.exe+13ACB5B: F3 41 0F 10 76 50        - movss xmm6,[r14+50]
+TheGreatCircle.exe+13ACB61: 75 0D                    - jne TheGreatCircle.exe+13ACB70
+TheGreatCircle.exe+13ACB63: 0F 2E F1                 - ucomiss xmm6,xmm1
+TheGreatCircle.exe+13ACB66: 75 08                    - jne TheGreatCircle.exe+13ACB70
+TheGreatCircle.exe+13ACB68: 0F 28 C5                 - movaps xmm0,xmm5
+TheGreatCircle.exe+13ACB6B: E9 EF 01 00 00           - jmp TheGreatCircle.exe+13ACD5F
+TheGreatCircle.exe+13ACB70: 66 41 83 0B 02           - or word ptr [r11],02
+TheGreatCircle.exe+13ACB75: F3 0F 10 15 37 3D 54 02  - movss xmm2,[TheGreatCircle.exe+38F08B4]
+TheGreatCircle.exe+13ACB7D: 0F 2F FA                 - comiss xmm7,xmm2
+// ---------- INJECTING HERE ----------
+TheGreatCircle.exe+13ACB80: F3 41 0F 11 46 44        - movss [r14+44],xmm0
+// ---------- DONE INJECTING  ----------
+TheGreatCircle.exe+13ACB86: F3 41 0F 11 4E 50        - movss [r14+50],xmm1
+TheGreatCircle.exe+13ACB8C: 76 0A                    - jna TheGreatCircle.exe+13ACB98
+TheGreatCircle.exe+13ACB8E: 0F 2F C2                 - comiss xmm0,xmm2
+TheGreatCircle.exe+13ACB91: 77 05                    - ja TheGreatCircle.exe+13ACB98
+TheGreatCircle.exe+13ACB93: 41 B0 01                 - mov r8b,01
+TheGreatCircle.exe+13ACB96: EB 03                    - jmp TheGreatCircle.exe+13ACB9B
+TheGreatCircle.exe+13ACB98: 45 32 C0                 - xor r8b,r8b
+TheGreatCircle.exe+13ACB9B: 48 85 DB                 - test rbx,rbx
+TheGreatCircle.exe+13ACB9E: 74 0A                    - je TheGreatCircle.exe+13ACBAA
+TheGreatCircle.exe+13ACBA0: 40 38 73 18              - cmp [rbx+18],sil
+}
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>26370</ID>
+      <Description>"Infinite Stamina"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>{ Game   : TheGreatCircle.exe
+  Version: 
+  Date   : 2024-12-18
+  Author : joeyc
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+aobscanmodule(STAMINA,TheGreatCircle.exe,FF C8 89 41 0C F3) // should be unique
+alloc(newmem,$1000,STAMINA)
+
+label(code)
+label(return)
+
+newmem:
+
+code:
+  //dec eax
+  mov [rcx+0C],eax
+  jmp return
+
+STAMINA:
+  jmp newmem
+return:
+registersymbol(STAMINA)
+
+[DISABLE]
+
+STAMINA:
+  db FF C8 89 41 0C
+
+unregistersymbol(STAMINA)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: TheGreatCircle.exe+19FC3D1
+
+TheGreatCircle.exe+19FC3AC: 0F 44 C3              - cmove eax,ebx
+TheGreatCircle.exe+19FC3AF: 89 41 10              - mov [rcx+10],eax
+TheGreatCircle.exe+19FC3B2: 0F 54 05 57 75 EF 01  - andps xmm0,[TheGreatCircle.exe+38F3910]
+TheGreatCircle.exe+19FC3B9: F3 0F 5C D0           - subss xmm2,xmm0
+TheGreatCircle.exe+19FC3BD: C6 41 1C 03           - mov byte ptr [rcx+1C],03
+TheGreatCircle.exe+19FC3C1: EB 28                 - jmp TheGreatCircle.exe+19FC3EB
+TheGreatCircle.exe+19FC3C3: 8B 41 0C              - mov eax,[rcx+0C]
+TheGreatCircle.exe+19FC3C6: 85 C0                 - test eax,eax
+TheGreatCircle.exe+19FC3C8: 7E 16                 - jle TheGreatCircle.exe+19FC3E0
+TheGreatCircle.exe+19FC3CA: 0F 54 05 3F 75 EF 01  - andps xmm0,[TheGreatCircle.exe+38F3910]
+// ---------- INJECTING HERE ----------
+TheGreatCircle.exe+19FC3D1: FF C8                 - dec eax
+// ---------- DONE INJECTING  ----------
+TheGreatCircle.exe+19FC3D3: 89 41 0C              - mov [rcx+0C],eax
+TheGreatCircle.exe+19FC3D6: F3 0F 5C D0           - subss xmm2,xmm0
+TheGreatCircle.exe+19FC3DA: C6 41 1C 01           - mov byte ptr [rcx+1C],01
+TheGreatCircle.exe+19FC3DE: EB 0B                 - jmp TheGreatCircle.exe+19FC3EB
+TheGreatCircle.exe+19FC3E0: 88 59 1C              - mov [rcx+1C],bl
+TheGreatCircle.exe+19FC3E3: 0F 28 D4              - movaps xmm2,xmm4
+TheGreatCircle.exe+19FC3E6: EB 03                 - jmp TheGreatCircle.exe+19FC3EB
+TheGreatCircle.exe+19FC3E8: 0F 28 D0              - movaps xmm2,xmm0
+TheGreatCircle.exe+19FC3EB: 45 0F B6 CB           - movzx r9d,r11b
+TheGreatCircle.exe+19FC3EF: F3 0F 11 51 18        - movss [rcx+18],xmm2
+}
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>29157</ID>
+      <Description>"Infinite Rebreather"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>{ Game   : TheGreatCircle.exe
+  Version: 
+  Date   : 2024-12-23
+  Author : joeyc
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+aobscanmodule(BREATH,TheGreatCircle.exe,F3 41 0F 11 07 41 C6) // should be unique
+alloc(newmem,$1000,BREATH)
+
+label(code)
+label(return)
+
+newmem:
+
+code:
+  mov [r15],(float)450
+  jmp return
+
+BREATH:
+  jmp newmem
+return:
+registersymbol(BREATH)
+
+[DISABLE]
+
+BREATH:
+  db F3 41 0F 11 07
+
+unregistersymbol(BREATH)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: TheGreatCircle.exe+14C80D6
+
+TheGreatCircle.exe+14C80B2: 66 41 0F 6E CE           - movd xmm1,r14d
+TheGreatCircle.exe+14C80B7: 0F 5B C9                 - cvtdq2ps xmm1,xmm1
+TheGreatCircle.exe+14C80BA: 49 89 47 68              - mov [r15+68],rax
+TheGreatCircle.exe+14C80BE: F3 0F 59 CC              - mulss xmm1,xmm4
+TheGreatCircle.exe+14C80C2: F3 41 0F 10 07           - movss xmm0,[r15]
+TheGreatCircle.exe+14C80C7: 0F 2F C1                 - comiss xmm0,xmm1
+TheGreatCircle.exe+14C80CA: 76 06                    - jna TheGreatCircle.exe+14C80D2
+TheGreatCircle.exe+14C80CC: F3 0F 5C C1              - subss xmm0,xmm1
+TheGreatCircle.exe+14C80D0: EB 04                    - jmp TheGreatCircle.exe+14C80D6
+TheGreatCircle.exe+14C80D2: 41 0F 28 C0              - movaps xmm0,xmm8
+// ---------- INJECTING HERE ----------
+TheGreatCircle.exe+14C80D6: F3 41 0F 11 07           - movss [r15],xmm0
+// ---------- DONE INJECTING  ----------
+TheGreatCircle.exe+14C80DB: 41 C6 87 80 00 00 00 01  - mov byte ptr [r15+00000080],01
+TheGreatCircle.exe+14C80E3: 48 83 7D 08 00           - cmp qword ptr [rbp+08],00
+TheGreatCircle.exe+14C80E8: 74 75                    - je TheGreatCircle.exe+14C815F
+TheGreatCircle.exe+14C80EA: 48 8B 45 38              - mov rax,[rbp+38]
+TheGreatCircle.exe+14C80EE: 80 78 14 01              - cmp byte ptr [rax+14],01
+TheGreatCircle.exe+14C80F2: 75 6B                    - jne TheGreatCircle.exe+14C815F
+TheGreatCircle.exe+14C80F4: 41 80 BD 80 00 00 00 00  - cmp byte ptr [r13+00000080],00
+TheGreatCircle.exe+14C80FC: 74 11                    - je TheGreatCircle.exe+14C810F
+TheGreatCircle.exe+14C80FE: 41 C6 85 80 00 00 00 00  - mov byte ptr [r13+00000080],00
+TheGreatCircle.exe+14C8106: 48 8B CF                 - mov rcx,rdi
+}
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>26369</ID>
+      <Description>"Infinite Ammo All Guns Except Revolver"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>{ Game   : TheGreatCircle.exe
+  Version: 
+  Date   : 2024-12-18
+  Author : joeyc
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+aobscanmodule(AMMO,TheGreatCircle.exe,89 50 14 48 8B 05 9B B8 FB 02) // should be unique
+alloc(newmem,$1000,AMMO)
+
+label(code)
+label(return)
+
+newmem:
+
+code:
+  push rcx
+  mov rcx,[rax+18]
+  mov [rax+14],rcx
+  pop rcx
+  mov rax,[TheGreatCircle.exe+43CBEE0]
+  jmp return
+
+AMMO:
+  jmp newmem
+  nop 5
+return:
+registersymbol(AMMO)
+
+[DISABLE]
+
+AMMO:
+  db 89 50 14 48 8B 05 9B B8 FB 02
+
+unregistersymbol(AMMO)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: TheGreatCircle.exe+141063B
+
+TheGreatCircle.exe+141061F: E8 6C 61 C9 FF        - call TheGreatCircle.exe+10A6790
+TheGreatCircle.exe+1410624: F7 DE                 - neg esi
+TheGreatCircle.exe+1410626: 4C 8B F0              - mov r14,rax
+TheGreatCircle.exe+1410629: 8B 50 14              - mov edx,[rax+14]
+TheGreatCircle.exe+141062C: 03 D6                 - add edx,esi
+TheGreatCircle.exe+141062E: 79 04                 - jns TheGreatCircle.exe+1410634
+TheGreatCircle.exe+1410630: 8B D5                 - mov edx,ebp
+TheGreatCircle.exe+1410632: EB 07                 - jmp TheGreatCircle.exe+141063B
+TheGreatCircle.exe+1410634: 3B 50 1C              - cmp edx,[rax+1C]
+TheGreatCircle.exe+1410637: 0F 4F 50 1C           - cmovg edx,[rax+1C]
+// ---------- INJECTING HERE ----------
+TheGreatCircle.exe+141063B: 89 50 14              - mov [rax+14],edx
+// ---------- DONE INJECTING  ----------
+TheGreatCircle.exe+141063E: 48 8B 05 9B B8 FB 02  - mov rax,[TheGreatCircle.exe+43CBEE0]
+TheGreatCircle.exe+1410645: 39 68 08              - cmp [rax+08],ebp
+TheGreatCircle.exe+1410648: 74 6E                 - je TheGreatCircle.exe+14106B8
+TheGreatCircle.exe+141064A: 48 8B 0D 1F 62 41 03  - mov rcx,[TheGreatCircle.exe+4826870]
+TheGreatCircle.exe+1410651: 4C 8D 0D 10 30 0D 02  - lea r9,[TheGreatCircle.exe+34E3668]
+TheGreatCircle.exe+1410658: 41 B8 03 00 00 00     - mov r8d,00000003
+TheGreatCircle.exe+141065E: 48 8D 15 A3 B9 27 02  - lea rdx,[TheGreatCircle.exe+368C008]
+TheGreatCircle.exe+1410665: E8 B6 91 16 FF        - call TheGreatCircle.exe+579820
+TheGreatCircle.exe+141066A: 8B 0D 34 0D 94 02     - mov ecx,[TheGreatCircle.exe+3D513A4]
+TheGreatCircle.exe+1410670: 4C 8D 05 99 9C 1D 02  - lea r8,[TheGreatCircle.exe+35EA310]
+}
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>29138</ID>
+      <Description>"Infinite Bandages"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>{ Game   : TheGreatCircle.exe
+  Version: 
+  Date   : 2024-12-19
+  Author : joeyc
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+aobscanmodule(BANDAGE,TheGreatCircle.exe,89 5F 20 48 8B 7C 24 20) // should be unique
+alloc(newmem,$1000,BANDAGE)
+
+label(code)
+label(return)
+
+newmem:
+
+code:
+  mov [rdi+20],#3
+  mov rdi,[rsp+20]
+  jmp return
+
+BANDAGE:
+  jmp newmem
+  nop 3
+return:
+registersymbol(BANDAGE)
+
+[DISABLE]
+
+BANDAGE:
+  db 89 5F 20 48 8B 7C 24 20
+
+unregistersymbol(BANDAGE)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: TheGreatCircle.exe+19CB012
+
+TheGreatCircle.exe+19CAFF1: 33 D2           - xor edx,edx
+TheGreatCircle.exe+19CAFF3: 49 C1 E0 03     - shl r8,03
+TheGreatCircle.exe+19CAFF7: E8 CA 00 0D 01  - call TheGreatCircle.exe+2A9B0C6
+TheGreatCircle.exe+19CAFFC: 89 5F 20        - mov [rdi+20],ebx
+TheGreatCircle.exe+19CAFFF: B0 01           - mov al,01
+TheGreatCircle.exe+19CB001: 48 8B 7C 24 20  - mov rdi,[rsp+20]
+TheGreatCircle.exe+19CB006: 48 8B 5C 24 30  - mov rbx,[rsp+30]
+TheGreatCircle.exe+19CB00B: 48 83 C4 28     - add rsp,28
+TheGreatCircle.exe+19CB00F: C3              - ret 
+TheGreatCircle.exe+19CB010: 7E 03           - jle TheGreatCircle.exe+19CB015
+// ---------- INJECTING HERE ----------
+TheGreatCircle.exe+19CB012: 89 5F 20        - mov [rdi+20],ebx
+// ---------- DONE INJECTING  ----------
+TheGreatCircle.exe+19CB015: 48 8B 7C 24 20  - mov rdi,[rsp+20]
+TheGreatCircle.exe+19CB01A: 48 8B 5C 24 30  - mov rbx,[rsp+30]
+TheGreatCircle.exe+19CB01F: B0 01           - mov al,01
+TheGreatCircle.exe+19CB021: 48 83 C4 28     - add rsp,28
+TheGreatCircle.exe+19CB025: C3              - ret 
+TheGreatCircle.exe+19CB026: CC              - int 3 
+TheGreatCircle.exe+19CB027: CC              - int 3 
+TheGreatCircle.exe+19CB028: CC              - int 3 
+TheGreatCircle.exe+19CB029: CC              - int 3 
+TheGreatCircle.exe+19CB02A: CC              - int 3 
+}
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>29143</ID>
+      <Description>"Infinite Bread/Fruit/Repair Kits"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>{ Game   : TheGreatCircle.exe
+  Version: 
+  Date   : 2024-12-21
+  Author : joeyc
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+aobscanmodule(BREAD,TheGreatCircle.exe,FF C8 41 89 41 20) // should be unique
+alloc(newmem,$1000,BREAD)
+
+label(code)
+label(return)
+
+newmem:
+
+code:
+  //dec eax
+  mov [r9+20],eax
+  jmp return
+
+BREAD:
+  jmp newmem
+  nop
+return:
+registersymbol(BREAD)
+
+[DISABLE]
+
+BREAD:
+  db FF C8 41 89 41 20
+
+unregistersymbol(BREAD)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: TheGreatCircle.exe+19CD39C
+
+TheGreatCircle.exe+19CD377: 4C 8D 04 C5 00 00 00 00  - lea r8,[rax*8+00000000]
+TheGreatCircle.exe+19CD37F: 90                       - nop 
+TheGreatCircle.exe+19CD380: 49 8B 49 18              - mov rcx,[r9+18]
+TheGreatCircle.exe+19CD384: 4D 8D 40 08              - lea r8,[r8+08]
+TheGreatCircle.exe+19CD388: FF C2                    - inc edx
+TheGreatCircle.exe+19CD38A: 4A 8B 44 01 F8           - mov rax,[rcx+r8-08]
+TheGreatCircle.exe+19CD38F: 4A 89 44 01 F0           - mov [rcx+r8-10],rax
+TheGreatCircle.exe+19CD394: 41 8B 41 20              - mov eax,[r9+20]
+TheGreatCircle.exe+19CD398: 3B D0                    - cmp edx,eax
+TheGreatCircle.exe+19CD39A: 7C E4                    - jl TheGreatCircle.exe+19CD380
+// ---------- INJECTING HERE ----------
+TheGreatCircle.exe+19CD39C: FF C8                    - dec eax
+// ---------- DONE INJECTING  ----------
+TheGreatCircle.exe+19CD39E: 41 89 41 20              - mov [r9+20],eax
+TheGreatCircle.exe+19CD3A2: 48 8B 5C 24 08           - mov rbx,[rsp+08]
+TheGreatCircle.exe+19CD3A7: B0 01                    - mov al,01
+TheGreatCircle.exe+19CD3A9: 48 8B 74 24 10           - mov rsi,[rsp+10]
+TheGreatCircle.exe+19CD3AE: 48 8B 7C 24 18           - mov rdi,[rsp+18]
+TheGreatCircle.exe+19CD3B3: C3                       - ret 
+TheGreatCircle.exe+19CD3B4: CC                       - int 3 
+TheGreatCircle.exe+19CD3B5: CC                       - int 3 
+TheGreatCircle.exe+19CD3B6: CC                       - int 3 
+TheGreatCircle.exe+19CD3B7: CC                       - int 3 
+}
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>29155</ID>
+      <Description>"Unbreakable Melee Weapons"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>{ Game   : TheGreatCircle.exe
+  Version: 
+  Date   : 2024-12-23
+  Author : joeyc
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+aobscanmodule(MELEE,TheGreatCircle.exe,F3 0F 11 40 08 0F 2F) // should be unique
+alloc(newmem,$1000,MELEE)
+
+label(code)
+label(return)
+
+newmem:
+
+code:
+  //movss [rax+08],xmm0
+  jmp return
+
+MELEE:
+  jmp newmem
+return:
+registersymbol(MELEE)
+
+[DISABLE]
+
+MELEE:
+  db F3 0F 11 40 08
+
+unregistersymbol(MELEE)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: TheGreatCircle.exe+12FE6A5
+
+TheGreatCircle.exe+12FE67F: F3 0F 5C C1           - subss xmm0,xmm1
+TheGreatCircle.exe+12FE683: F3 0F 10 70 10        - movss xmm6,[rax+10]
+TheGreatCircle.exe+12FE688: EB 17                 - jmp TheGreatCircle.exe+12FE6A1
+TheGreatCircle.exe+12FE68A: 41 0F 54 C8           - andps xmm1,xmm8
+TheGreatCircle.exe+12FE68E: F3 0F 11 48 10        - movss [rax+10],xmm1
+TheGreatCircle.exe+12FE693: F3 0F 10 70 10        - movss xmm6,[rax+10]
+TheGreatCircle.exe+12FE698: EB 07                 - jmp TheGreatCircle.exe+12FE6A1
+TheGreatCircle.exe+12FE69A: F3 0F 5C C1           - subss xmm0,xmm1
+TheGreatCircle.exe+12FE69E: 0F 28 F7              - movaps xmm6,xmm7
+TheGreatCircle.exe+12FE6A1: F3 0F 58 F0           - addss xmm6,xmm0
+// ---------- INJECTING HERE ----------
+TheGreatCircle.exe+12FE6A5: F3 0F 11 40 08        - movss [rax+08],xmm0
+// ---------- DONE INJECTING  ----------
+TheGreatCircle.exe+12FE6AA: 0F 2F F7              - comiss xmm6,xmm7
+TheGreatCircle.exe+12FE6AD: 76 35                 - jna TheGreatCircle.exe+12FE6E4
+TheGreatCircle.exe+12FE6AF: 48 8B 5D 18           - mov rbx,[rbp+18]
+TheGreatCircle.exe+12FE6B3: 48 8B CB              - mov rcx,rbx
+TheGreatCircle.exe+12FE6B6: E8 35 75 B1 FF        - call TheGreatCircle.exe+E15BF0
+TheGreatCircle.exe+12FE6BB: 48 8B 0D FE B7 4C 03  - mov rcx,[TheGreatCircle.exe+47C9EC0]
+TheGreatCircle.exe+12FE6C2: 4C 8D 87 E8 02 00 00  - lea r8,[rdi+000002E8]
+TheGreatCircle.exe+12FE6C9: 48 8B 13              - mov rdx,[rbx]
+TheGreatCircle.exe+12FE6CC: 48 81 C1 A0 84 02 00  - add rcx,000284A0
+TheGreatCircle.exe+12FE6D3: 0F 28 DE              - movaps xmm3,xmm6
+}
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>29145</ID>
+      <Description>"Get Money/Adventure Points (Open Journal To Get Values)"</Description>
+      <Options moHideChildren="1"/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>{ Game   : TheGreatCircle.exe
+  Version: 
+  Date   : 2024-12-21
+  Author : joeyc
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+aobscanmodule(MONEY,TheGreatCircle.exe,57 48 8B 96 B8 03 00 00) // should be unique
+alloc(newmem,$1000,MONEY)
+
+label(code)
+label(return)
+label(cash)
+
+newmem:
+
+code:
+  mov rdx,[rsi+000003B8]
+  mov [cash],rdx
+  jmp return
+
+cash:
+dd 0
+
+MONEY+01:
+  jmp newmem
+  nop 2
+return:
+registersymbol(MONEY cash)
+
+[DISABLE]
+
+MONEY+01:
+  db 48 8B 96 B8 03 00 00
+
+unregistersymbol(*)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: TheGreatCircle.exe+1BE96ED
+
+TheGreatCircle.exe+1BE96BE: 0F 84 40 0D 00 00        - je TheGreatCircle.exe+1BEA404
+TheGreatCircle.exe+1BE96C4: 41 8B 46 50              - mov eax,[r14+50]
+TheGreatCircle.exe+1BE96C8: 48 89 7C 24 60           - mov [rsp+60],rdi
+TheGreatCircle.exe+1BE96CD: 48 8D 7C 24 78           - lea rdi,[rsp+78]
+TheGreatCircle.exe+1BE96D2: 48 89 7C 24 68           - mov [rsp+68],rdi
+TheGreatCircle.exe+1BE96D7: C7 44 24 74 18 00 00 80  - mov [rsp+74],80000018
+TheGreatCircle.exe+1BE96DF: 44 89 54 24 70           - mov [rsp+70],r10d
+TheGreatCircle.exe+1BE96E4: C6 44 24 78 00           - mov byte ptr [rsp+78],00
+TheGreatCircle.exe+1BE96E9: 85 C0                    - test eax,eax
+TheGreatCircle.exe+1BE96EB: 75 57                    - jne TheGreatCircle.exe+1BE9744
+// ---------- INJECTING HERE ----------
+TheGreatCircle.exe+1BE96ED: 48 8B 96 B8 03 00 00     - mov rdx,[rsi+000003B8]
+// ---------- DONE INJECTING  ----------
+TheGreatCircle.exe+1BE96F4: 48 63 86 C0 03 00 00     - movsxd  rax,dword ptr [rsi+000003C0]
+TheGreatCircle.exe+1BE96FB: 48 8D 0C 40              - lea rcx,[rax+rax*2]
+TheGreatCircle.exe+1BE96FF: 4C 8D 04 CA              - lea r8,[rdx+rcx*8]
+TheGreatCircle.exe+1BE9703: 49 3B D0                 - cmp rdx,r8
+TheGreatCircle.exe+1BE9706: 74 1D                    - je TheGreatCircle.exe+1BE9725
+TheGreatCircle.exe+1BE9708: 49 8B 89 88 00 00 00     - mov rcx,[r9+00000088]
+TheGreatCircle.exe+1BE970F: 90                       - nop 
+TheGreatCircle.exe+1BE9710: 48 8B 02                 - mov rax,[rdx]
+TheGreatCircle.exe+1BE9713: 48 39 88 88 00 00 00     - cmp [rax+00000088],rcx
+TheGreatCircle.exe+1BE971A: 74 22                    - je TheGreatCircle.exe+1BE973E
+}
+</AssemblerScript>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>29146</ID>
+          <Description>"Adventure Points"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>4 Bytes</VariableType>
+          <Address>cash</Address>
+          <Offsets>
+            <Offset>0C</Offset>
+          </Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>29147</ID>
+          <Description>"Money"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>4 Bytes</VariableType>
+          <Address>cash</Address>
+          <Offsets>
+            <Offset>3C</Offset>
+          </Offsets>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>29149</ID>
+      <Description>"Get Medicine Bottles (Open Journal To Get Value)"</Description>
+      <Options moHideChildren="1"/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>{ Game   : TheGreatCircle.exe
+  Version: 
+  Date   : 2024-12-21
+  Author : joeyc
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+aobscanmodule(MEDS,TheGreatCircle.exe,49 63 49 20 C1 E8 02) // should be unique
+alloc(newmem,$1000,MEDS)
+
+label(code)
+label(return)
+label(bottles)
+
+newmem:
+
+code:
+  mov [bottles],r9
+  movsxd  rcx,dword ptr [r9+20]
+  shr eax,02
+  jmp return
+
+bottles:
+dd 0
+
+MEDS:
+  jmp newmem
+  nop 2
+return:
+registersymbol(MEDS bottles)
+
+[DISABLE]
+
+MEDS:
+  db 49 63 49 20 C1 E8 02
+
+unregistersymbol(*)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: TheGreatCircle.exe+19CAEE9
+
+TheGreatCircle.exe+19CAEC9: 48 83 C4 20                 - add rsp,20
+TheGreatCircle.exe+19CAECD: 5B                          - pop rbx
+TheGreatCircle.exe+19CAECE: C3                          - ret 
+TheGreatCircle.exe+19CAECF: CC                          - int 3 
+TheGreatCircle.exe+19CAED0: 48 63 82 F0 00 00 00        - movsxd  rax,dword ptr [rdx+000000F0]
+TheGreatCircle.exe+19CAED7: 4C 8B D2                    - mov r10,rdx
+TheGreatCircle.exe+19CAEDA: 4C 8D 0C 40                 - lea r9,[rax+rax*2]
+TheGreatCircle.exe+19CAEDE: 49 C1 E1 04                 - shl r9,04
+TheGreatCircle.exe+19CAEE2: 4C 03 C9                    - add r9,rcx
+TheGreatCircle.exe+19CAEE5: 41 8B 41 10                 - mov eax,[r9+10]
+// ---------- INJECTING HERE ----------
+TheGreatCircle.exe+19CAEE9: 49 63 49 20                 - movsxd  rcx,dword ptr [r9+20]
+// ---------- DONE INJECTING  ----------
+TheGreatCircle.exe+19CAEED: C1 E8 02                    - shr eax,02
+TheGreatCircle.exe+19CAEF0: A8 01                       - test al,01
+TheGreatCircle.exe+19CAEF2: 74 35                       - je TheGreatCircle.exe+19CAF29
+TheGreatCircle.exe+19CAEF4: 4D 8B 41 18                 - mov r8,[r9+18]
+TheGreatCircle.exe+19CAEF8: 33 C0                       - xor eax,eax
+TheGreatCircle.exe+19CAEFA: 4D 8D 0C C8                 - lea r9,[r8+rcx*8]
+TheGreatCircle.exe+19CAEFE: 4D 3B C1                    - cmp r8,r9
+TheGreatCircle.exe+19CAF01: 74 51                       - je TheGreatCircle.exe+19CAF54
+TheGreatCircle.exe+19CAF03: 44 8B 5A 60                 - mov r11d,[rdx+60]
+TheGreatCircle.exe+19CAF07: 66 0F 1F 84 00 00 00 00 00  - nop word ptr [rax+rax+00000000]
+}
+</AssemblerScript>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>29150</ID>
+          <Description>"Medicine Bottles"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>4 Bytes</VariableType>
+          <Address>bottles</Address>
+          <Offsets>
+            <Offset>20</Offset>
+          </Offsets>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>29133</ID>
+      <Description>"Coordinates"</Description>
+      <Options moHideChildren="1" moDeactivateChildrenAsWell="1"/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>{ Game   : TheGreatCircle.exe
+  Version: 
+  Date   : 2024-12-18
+  Author : joeyc
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+aobscanmodule(COORDS,TheGreatCircle.exe,F3 44 0F 10 43 10 F3 0F 5C) // should be unique
+alloc(newmem,$1000,COORDS)
+
+label(code)
+label(return)
+label(position)
+
+newmem:
+
+code:
+  mov [position],rbx
+  movss xmm8,[rbx+10]
+  jmp return
+
+position:
+dd 0
+
+COORDS:
+  jmp newmem
+  nop
+return:
+registersymbol(COORDS position)
+
+[DISABLE]
+
+COORDS:
+  db F3 44 0F 10 43 10
+
+unregistersymbol(*)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: TheGreatCircle.exe+1538F25
+
+TheGreatCircle.exe+1538EF5: 89 45 D0                 - mov [rbp-30],eax
+TheGreatCircle.exe+1538EF8: 48 C7 45 E0 00 00 00 00  - mov qword ptr [rbp-20],00000000
+TheGreatCircle.exe+1538F00: C7 45 E8 00 00 00 00     - mov [rbp-18],00000000
+TheGreatCircle.exe+1538F07: F2 0F 10 43 14           - movsd xmm0,[rbx+14]
+TheGreatCircle.exe+1538F0C: F2 0F 11 45 EC           - movsd [rbp-14],xmm0
+TheGreatCircle.exe+1538F11: 8B 43 1C                 - mov eax,[rbx+1C]
+TheGreatCircle.exe+1538F14: 89 45 F4                 - mov [rbp-0C],eax
+TheGreatCircle.exe+1538F17: F3 0F 10 6B 08           - movss xmm5,[rbx+08]
+TheGreatCircle.exe+1538F1C: F3 0F 10 7B 0C           - movss xmm7,[rbx+0C]
+TheGreatCircle.exe+1538F21: F3 0F 5C DD              - subss xmm3,xmm5
+// ---------- INJECTING HERE ----------
+TheGreatCircle.exe+1538F25: F3 44 0F 10 43 10        - movss xmm8,[rbx+10]
+// ---------- DONE INJECTING  ----------
+TheGreatCircle.exe+1538F2B: F3 0F 5C E7              - subss xmm4,xmm7
+TheGreatCircle.exe+1538F2F: F3 41 0F 5C F0           - subss xmm6,xmm8
+TheGreatCircle.exe+1538F34: F3 45 0F 58 C0           - addss xmm8,xmm8
+TheGreatCircle.exe+1538F39: 0F 28 C3                 - movaps xmm0,xmm3
+TheGreatCircle.exe+1538F3C: F3 0F 59 C3              - mulss xmm0,xmm3
+TheGreatCircle.exe+1538F40: 0F 28 D4                 - movaps xmm2,xmm4
+TheGreatCircle.exe+1538F43: F3 0F 59 D4              - mulss xmm2,xmm4
+TheGreatCircle.exe+1538F47: 0F 28 CE                 - movaps xmm1,xmm6
+TheGreatCircle.exe+1538F4A: F3 0F 59 CE              - mulss xmm1,xmm6
+TheGreatCircle.exe+1538F4E: F3 0F 58 D0              - addss xmm2,xmm0
+}
+</AssemblerScript>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>29135</ID>
+          <Description>"Xpos"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>Float</VariableType>
+          <Address>position</Address>
+          <Offsets>
+            <Offset>08</Offset>
+          </Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>29134</ID>
+          <Description>"Ypos"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>Float</VariableType>
+          <Address>position</Address>
+          <Offsets>
+            <Offset>10</Offset>
+          </Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>29136</ID>
+          <Description>"Zpos"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>Float</VariableType>
+          <Address>position</Address>
+          <Offsets>
+            <Offset>0C</Offset>
+          </Offsets>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>45</ID>
+      <Description>"Health Values"</Description>
+      <Options moHideChildren="1" moDeactivateChildrenAsWell="1"/>
+      <Color>0000FF</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+aobscanmodule(GETHEALTH,$process,F3 0F 10 4E 44 42)
+alloc(newmem,$1111,GETHEALTH)
+alloc(hvalue,8)
+label(return)
+registersymbol(GETHEALTH hvalue)
+newmem:
+  mov [hvalue],rsi
+  movss xmm1,[rsi+44]
+  jmp return
+GETHEALTH:
+  jmp newmem
+return:
+[DISABLE]
+dealloc(*)
+unregistersymbol(*)
+GETHEALTH:
+  db F3 0F 10 4E 44
+</AssemblerScript>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>52</ID>
+          <Description>"▶ Health"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <Color>9B9BFF</Color>
+          <VariableType>Float</VariableType>
+          <Address>hvalue</Address>
+          <Offsets>
+            <Offset>44</Offset>
+          </Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>26329</ID>
+          <Description>"▶ Health   [Boost]"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <Color>9B9BFF</Color>
+          <VariableType>Float</VariableType>
+          <Address>hvalue</Address>
+          <Offsets>
+            <Offset>50</Offset>
+          </Offsets>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>51</ID>
+      <Description>"Stamina Values"</Description>
+      <Options moHideChildren="1" moDeactivateChildrenAsWell="1"/>
+      <Color>FF8000</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+aobscanmodule(GETSTAM,$process,03 46 0C 66 0F 6E C0 0F 5B C0 F3 0F 58 46 18 0F 2F)
+alloc(newmem,$1111,GETSTAM)
+alloc(svalue,8)
+label(return)
+registersymbol(GETSTAM svalue)
+newmem:
+  mov [svalue],rsi
+  add eax,[rsi+C]
+  movd xmm0,eax
+  jmp return
+GETSTAM:
+  jmp newmem
+  nop 2
+return:
+[DISABLE]
+dealloc(*)
+unregistersymbol(*)
+GETSTAM:
+  db 03 46 0C 66 0F 6E C0
+</AssemblerScript>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>53</ID>
+          <Description>"▶ Stamina"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <Color>FFB871</Color>
+          <VariableType>4 Bytes</VariableType>
+          <Address>svalue</Address>
+          <Offsets>
+            <Offset>c</Offset>
+          </Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>26322</ID>
+          <Description>"▶ Stamina   [Boost]"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <Color>FFB871</Color>
+          <VariableType>4 Bytes</VariableType>
+          <Address>svalue</Address>
+          <Offsets>
+            <Offset>14</Offset>
+          </Offsets>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>26336</ID>
+      <Description>"Ammo Values"</Description>
+      <Options moHideChildren="1" moDeactivateChildrenAsWell="1"/>
+      <Color>0080FF</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+aobscanmodule(GETAMMO,$process,8B 56 20 48 8B CF)
+alloc(newmem,$1111,GETAMMO)
+alloc(avalue,8)
+label(return)
+registersymbol(GETAMMO avalue)
+newmem:
+  mov [avalue],rsi
+  mov edx,[rsi+20]
+  mov rcx,rdi
+  jmp return
+GETAMMO:
+  jmp newmem
+  nop
+return:
+[DISABLE]
+dealloc(*)
+unregistersymbol(*)
+GETAMMO:
+  db 8B 56 20 48 8B CF
+</AssemblerScript>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>26338</ID>
+          <Description>"▶ Bullets   [Alternate Weapon/Signature Weapon]   Chamber"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <Color>97CBFF</Color>
+          <VariableType>4 Bytes</VariableType>
+          <Address>avalue</Address>
+          <Offsets>
+            <Offset>14</Offset>
+          </Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>26337</ID>
+          <Description>"▶ Bullets   [Alternate Weapon/Signature Weapon]   Pouch"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <Color>97CBFF</Color>
+          <VariableType>4 Bytes</VariableType>
+          <Address>avalue</Address>
+          <Offsets>
+            <Offset>20</Offset>
+          </Offsets>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+</CheatTable>

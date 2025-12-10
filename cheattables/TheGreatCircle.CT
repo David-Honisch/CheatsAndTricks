@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="45">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>4</ID>
+      <Description>"Get money and adventure points (open journal)"</Description>
+      <Options moHideChildren="1"/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>{ Game   : TheGreatCircle.exe
+  Version: 
+  Date   : 2024-12-07
+  Author : Nameless
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+aobscanmodule(ReadMoney,TheGreatCircle.exe,44 8B 42 0C EB E4 83 F8 01 75 34) // should be unique
+alloc(newmem,$1000,ReadMoney)
+
+label(code)
+label(return)
+label(pResource1)
+label(pResource2)
+registersymbol(ReadMoney)
+registersymbol(pResource1)
+registersymbol(pResource2)
+newmem:
+
+code:
+  cmp [pResource1],0
+  jne _check2
+  mov [pResource1],rdx
+  jmp _origCode
+_check2:
+  cmp [pResource2],0
+  jne _origCode
+  mov [pResource2],rdx
+_origCode:
+  mov r8d,[rdx+0C]
+  jmp TheGreatCircle.exe+1BE9728
+  jmp return
+
+pResource1:
+  dq 0
+pResource2:
+  dq 0
+
+ReadMoney:
+  jmp newmem
+  nop
+return:
+
+[DISABLE]
+
+ReadMoney:
+  db 44 8B 42 0C EB E4
+
+unregistersymbol(ReadMoney)
+unregistersymbol(pResource1)
+unregistersymbol(pResource2)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: TheGreatCircle.exe+1BDB84E
+
+TheGreatCircle.exe+1BDB82A: 74 22                 - je TheGreatCircle.exe+1BDB84E
+TheGreatCircle.exe+1BDB82C: 48 83 C2 18           - add rdx,18
+TheGreatCircle.exe+1BDB830: 49 3B D0              - cmp rdx,r8
+TheGreatCircle.exe+1BDB833: 75 EB                 - jne TheGreatCircle.exe+1BDB820
+TheGreatCircle.exe+1BDB835: 45 8B C2              - mov r8d,r10d
+TheGreatCircle.exe+1BDB838: 48 8D 15 E5 88 8E 01  - lea rdx,[TheGreatCircle.exe+34C4124]
+TheGreatCircle.exe+1BDB83F: 48 8D 4D C0           - lea rcx,[rbp-40]
+TheGreatCircle.exe+1BDB843: E8 58 E3 97 FE        - call TheGreatCircle.exe+559BA0
+TheGreatCircle.exe+1BDB848: 48 8D 55 C0           - lea rdx,[rbp-40]
+TheGreatCircle.exe+1BDB84C: EB 2D                 - jmp TheGreatCircle.exe+1BDB87B
+// ---------- INJECTING HERE ----------
+TheGreatCircle.exe+1BDB84E: 44 8B 42 0C           - mov r8d,[rdx+0C]
+// ---------- DONE INJECTING  ----------
+TheGreatCircle.exe+1BDB852: EB E4                 - jmp TheGreatCircle.exe+1BDB838
+TheGreatCircle.exe+1BDB854: 83 F8 01              - cmp eax,01
+TheGreatCircle.exe+1BDB857: 75 34                 - jne TheGreatCircle.exe+1BDB88D
+TheGreatCircle.exe+1BDB859: 49 8B D1              - mov rdx,r9
+TheGreatCircle.exe+1BDB85C: 48 8B CE              - mov rcx,rsi
+TheGreatCircle.exe+1BDB85F: E8 FC 33 DE FF        - call TheGreatCircle.exe+19BEC60
+TheGreatCircle.exe+1BDB864: 44 8B C0              - mov r8d,eax
+TheGreatCircle.exe+1BDB867: 48 8D 15 B6 88 8E 01  - lea rdx,[TheGreatCircle.exe+34C4124]
+TheGreatCircle.exe+1BDB86E: 48 8D 4D D0           - lea rcx,[rbp-30]
+TheGreatCircle.exe+1BDB872: E8 29 E3 97 FE        - call TheGreatCircle.exe+559BA0
+}
+</AssemblerScript>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>5</ID>
+          <Description>"Money"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>4 Bytes</VariableType>
+          <Address>pResource1</Address>
+          <Offsets>
+            <Offset>0C</Offset>
+          </Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>6</ID>
+          <Description>"Adventure Points"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>4 Bytes</VariableType>
+          <Address>pResource2</Address>
+          <Offsets>
+            <Offset>0C</Offset>
+          </Offsets>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+  <Comments>Info about this table:
+</Comments>
+</CheatTable>

@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?><CheatTable CheatEngineTableVersion="42"><CheatEntries><CheatEntry><ID>1</ID><Description>"Fort Condor Set ATB Gauge"</Description><Options moHideChildren="1" /><Color>4080FF</Color><VariableType>Auto Assembler Script</VariableType><AssemblerScript>[ENABLE]
+aobscanmodule(CATB,ff7remake_.exe,F3??????????????F3??????3B??7E??B0)
+alloc(Condor_Ally,$128,CATB)
+alloc(mem_CATB,8)
+alloc(Int_CATB_Ally,4)
+alloc(Int_CATB_Enemy,4)
+label(Condor_Enemy return)
+registersymbol(CATB mem_CATB Int_CATB_Ally Int_CATB_Enemy)
+
+mem_CATB:
+  reassemble(CATB)
+
+Int_CATB_Ally:
+dd (float)100
+
+Int_CATB_Enemy:
+dd (float)0
+
+Condor_Ally:
+  cmp [rcx+04],0
+  jne Condor_Enemy
+  push rdx
+  mov rdx,[Int_CATB_Ally]
+  movd xmm0,rdx
+  pop rdx
+  reassemble(CATB)
+  jmp return
+
+Condor_Enemy:
+  push rdx
+  mov rdx,[Int_CATB_Enemy]
+  movd xmm0,rdx
+  pop rdx
+  reassemble(CATB)
+  jmp return
+
+CATB:
+  jmp Condor_Ally
+  nop 3
+return:
+
+[DISABLE]
+CATB:
+  reassemble(mem_CATB)
+
+unregistersymbol(*)
+dealloc(*)
+</AssemblerScript><CheatEntries><CheatEntry><ID>2</ID><Description>"Ally ATB"</Description><ShowAsSigned>0</ShowAsSigned><Color>4080FF</Color><VariableType>Float</VariableType><Address>Int_CATB_Ally</Address></CheatEntry><CheatEntry><ID>3</ID><Description>"Enemy ATB"</Description><ShowAsSigned>0</ShowAsSigned><Color>4080FF</Color><VariableType>Float</VariableType><Address>Int_CATB_Enemy</Address></CheatEntry></CheatEntries></CheatEntry><CheatEntry><ID>4</ID><Description>"Fort Condor ATB,Ally Add/Enemy Decrease"</Description><Options moHideChildren="1" /><Color>4080FF</Color><VariableType>Auto Assembler Script</VariableType><AssemblerScript>[ENABLE]
+aobscanmodule(CATB,ff7remake_.exe,F3??????????????F3??????3B??7E??B0)
+alloc(Condor_Ally,$128,CATB)
+alloc(mem_CATB,8)
+alloc(Int_CATB_Ally,4)
+alloc(Int_CATB_Enemy,4)
+label(Condor_Enemy return)
+registersymbol(CATB mem_CATB Int_CATB_Ally Int_CATB_Enemy)
+
+mem_CATB:
+  reassemble(CATB)
+
+Int_CATB_Ally:
+dd (float)0.01
+
+Int_CATB_Enemy:
+dd (float)-0.01
+
+Condor_Ally:
+  cmp [rcx+04],0
+  jne Condor_Enemy
+  push rdx
+  mov rdx,[Int_CATB_Ally]
+  movd xmm14,rdx
+  addss xmm0,xmm14
+  xorps xmm14,xmm14
+  pop rdx
+  reassemble(CATB)
+  jmp return
+
+Condor_Enemy:
+  push rdx
+  mov rdx,[Int_CATB_Enemy]
+  movd xmm15,rdx
+  addss xmm0,xmm15
+  xorps xmm15,xmm15
+  pop rdx
+  reassemble(CATB)
+  jmp return
+
+CATB:
+  jmp Condor_Ally
+  nop 3
+return:
+
+[DISABLE]
+CATB:
+  reassemble(mem_CATB)
+
+unregistersymbol(*)
+dealloc(*)
+</AssemblerScript><CheatEntries><CheatEntry><ID>5</ID><Description>"+ATB Ally"</Description><ShowAsSigned>0</ShowAsSigned><Color>4080FF</Color><VariableType>Float</VariableType><Address>Int_CATB_Ally</Address></CheatEntry><CheatEntry><ID>6</ID><Description>"-ATB  Enemy"</Description><ShowAsSigned>0</ShowAsSigned><Color>4080FF</Color><VariableType>Float</VariableType><Address>Int_CATB_Enemy</Address></CheatEntry></CheatEntries></CheatEntry></CheatEntries><UserdefinedSymbols /><LuaScript>function CheckVersion()
+  if(getCEVersion() &lt; 7.2) then
+    ShowMessage('Cheat Engine 7.2 or above is desirable.')
+  end
+end
+
+function Menu()
+  if Exist then return end
+  local parent = getMainForm().Menu.Items
+  Item = createMenuItem(parent); parent.add(Item)
+  Item.Caption = 'Compact View Mode'
+  Item.OnClick = Routine
+  Exist = 'yes'
+end
+
+function Routine(sender,force)
+  local State = not(Item.Caption == 'Compact View Mode')
+  if force ~= nil then State = not force end
+  Item.Caption = State and 'Compact View Mode' or 'Full View Mode'
+  getMainForm().Splitter1.Visible = State
+  getMainForm().Panel4.Visible    = State
+  getMainForm().Panel5.Visible    = State
+end
+
+PROCESS_NAME = 'ff7remake_.exe'
+local Attach = nil
+local Interval = 100
+local MinCount = 0
+local MaxCount = 1000
+
+local function AutoAttach(Timer)
+    if getProcessIDFromProcessName(PROCESS_NAME) == nil then return end
+        Timer.destroy()
+        Reaction = messageDialog('Attach to Process?',mtConfirmation,mbYes,mbNo)
+        if Reaction == mrYes then
+        openProcess(PROCESS_NAME)
+        Routine(nil,true)
+        elseif MaxCount &gt; 0 and MinCount &gt;= MaxCount then
+        Timer.destroy()
+    end
+    MinCount = MinCount + 1
+end
+
+CheckVersion()
+Menu()
+Attach = createTimer(MainForm)
+Attach.Interval = Interval
+Attach.OnTimer = AutoAttach
+</LuaScript></CheatTable>

@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="46">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>9</ID>
+      <Description>"Infinite Health"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>{ Game   : GTA5_Enhanced.exe
+  Version: 
+  Date   : 2025-03-08
+  Author : joeyc
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+aobscanmodule(HEALTH,GTA5_Enhanced.exe,F3 0F 11 96 80 02 00 00 80) // should be unique
+aobscanmodule(DEATH,GTA5_Enhanced.exe,F3 0F 11 B6 80 02 00 00 0F)
+alloc(newmem,$1000,HEALTH)
+alloc(newmem1,$1000,DEATH)
+
+label(code)
+label(return)
+label(code1)
+label(return1)
+label(infhealth)
+label(nodeath)
+
+newmem:
+cmp [rsi+1F8],#1
+jg infhealth
+jmp code
+
+code:
+  movss [rsi+00000280],xmm2
+  jmp return
+
+infhealth:
+mov [rsi+00000280],(float)200
+jmp return
+
+HEALTH:
+  jmp newmem
+  nop 3
+return:
+registersymbol(HEALTH)
+///////////////////////////////////////////////////////
+newmem1:
+cmp [rsi+918],(float)0
+jg nodeath
+jmp code1
+
+code1:
+  movss [rsi+00000280],xmm6
+  jmp return1
+
+nodeath:
+mov [rsi+00000280],(float)200
+jmp return1
+
+DEATH:
+  jmp newmem1
+  nop 3
+return1:
+registersymbol(DEATH)
+
+[DISABLE]
+
+HEALTH:
+  db F3 0F 11 96 80 02 00 00
+
+DEATH:
+  db F3 0F 11 B6 80 02 00 00
+
+unregistersymbol(*)
+dealloc(*)
+
+{
+// ORIGINAL CODE - INJECTION POINT: GTA5_Enhanced.exe+C08EA4
+
+GTA5_Enhanced.exe+C08E71: 48 8B 4C 24 58              - mov rcx,[rsp+58]
+GTA5_Enhanced.exe+C08E76: 48 85 C9                    - test rcx,rcx
+GTA5_Enhanced.exe+C08E79: 74 0A                       - je GTA5_Enhanced.exe+C08E85
+GTA5_Enhanced.exe+C08E7B: 48 8D 54 24 58              - lea rdx,[rsp+58]
+GTA5_Enhanced.exe+C08E80: E8 2B A0 42 FF              - call GTA5_Enhanced.exe+32EB0
+GTA5_Enhanced.exe+C08E85: 48 C7 44 24 58 00 00 00 00  - mov qword ptr [rsp+58],00000000
+GTA5_Enhanced.exe+C08E8E: 48 8D 4C 24 30              - lea rcx,[rsp+30]
+GTA5_Enhanced.exe+C08E93: E8 38 6B EA 00              - call GTA5_Enhanced.exe+1AAF9D0
+GTA5_Enhanced.exe+C08E98: F3 0F 10 96 80 02 00 00     - movss xmm2,[rsi+00000280]
+GTA5_Enhanced.exe+C08EA0: F3 0F 58 D6                 - addss xmm2,xmm6
+// ---------- INJECTING HERE ----------
+GTA5_Enhanced.exe+C08EA4: F3 0F 11 96 80 02 00 00     - movss [rsi+00000280],xmm2
+// ---------- DONE INJECTING  ----------
+GTA5_Enhanced.exe+C08EAC: 80 7E 28 04                 - cmp byte ptr [rsi+28],04
+GTA5_Enhanced.exe+C08EB0: 75 19                       - jne GTA5_Enhanced.exe+C08ECB
+GTA5_Enhanced.exe+C08EB2: 48 C7 44 24 20 00 00 00 00  - mov qword ptr [rsp+20],00000000
+GTA5_Enhanced.exe+C08EBB: B9 04 00 00 00              - mov ecx,00000004
+GTA5_Enhanced.exe+C08EC0: 48 89 F2                    - mov rdx,rsi
+GTA5_Enhanced.exe+C08EC3: 45 31 C9                    - xor r9d,r9d
+GTA5_Enhanced.exe+C08EC6: E8 85 23 10 00              - call GTA5_Enhanced.exe+D0B250
+GTA5_Enhanced.exe+C08ECB: 0F 28 74 24 60              - movaps xmm6,[rsp+60]
+GTA5_Enhanced.exe+C08ED0: 48 83 C4 70                 - add rsp,70
+GTA5_Enhanced.exe+C08ED4: 5B                          - pop rbx
+}
+
+{
+// ORIGINAL CODE - INJECTION POINT: GTA5_Enhanced.exe+C08D8C
+
+GTA5_Enhanced.exe+C08D64: 83 E1 BF                       - and ecx,-41
+GTA5_Enhanced.exe+C08D67: 89 8E 58 14 00 00              - mov [rsi+00001458],ecx
+GTA5_Enhanced.exe+C08D6D: 48 89 F1                       - mov rcx,rsi
+GTA5_Enhanced.exe+C08D70: E8 DB 27 ED 00                 - call GTA5_Enhanced.exe+1ADB550
+GTA5_Enhanced.exe+C08D75: 48 85 C0                       - test rax,rax
+GTA5_Enhanced.exe+C08D78: 74 12                          - je GTA5_Enhanced.exe+C08D8C
+GTA5_Enhanced.exe+C08D7A: F3 0F 10 15 5E 75 86 01        - movss xmm2,[GTA5_Enhanced.D3D12SDKVersion+42E0]
+GTA5_Enhanced.exe+C08D82: 48 89 C1                       - mov rcx,rax
+GTA5_Enhanced.exe+C08D85: B2 01                          - mov dl,01
+GTA5_Enhanced.exe+C08D87: E8 44 B7 C7 00                 - call GTA5_Enhanced.exe+18844D0
+// ---------- INJECTING HERE ----------
+GTA5_Enhanced.exe+C08D8C: F3 0F 11 B6 80 02 00 00        - movss [rsi+00000280],xmm6
+// ---------- DONE INJECTING  ----------
+GTA5_Enhanced.exe+C08D94: 0F 28 74 24 60                 - movaps xmm6,[rsp+60]
+GTA5_Enhanced.exe+C08D99: 48 83 C4 70                    - add rsp,70
+GTA5_Enhanced.exe+C08D9D: 5B                             - pop rbx
+GTA5_Enhanced.exe+C08D9E: 5F                             - pop rdi
+GTA5_Enhanced.exe+C08D9F: 5E                             - pop rsi
+GTA5_Enhanced.exe+C08DA0: C3                             - ret
+GTA5_Enhanced.exe+C08DA1: C7 05 ED B4 6A FF 00 00 00 00  - mov [GTA5_Enhanced.exe+2B4298],00000000
+GTA5_Enhanced.exe+C08DAB: E9 23 38 EF FF                 - jmp GTA5_Enhanced.exe+AFC5D3
+GTA5_Enhanced.exe+C08DB0: 56                             - push rsi
+GTA5_Enhanced.exe+C08DB1: 57                             - push rdi
+}
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>3</ID>
+      <Description>"Infinite Ammo"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>{ Game   : GTA5_Enhanced.exe
+  Version: 
+  Date   : 2025-03-07
+  Author : joeyc
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+aobscanmodule(AMMO,GTA5_Enhanced.exe,89 4F 20 41 B4 01) // should be unique
+alloc(newmem,$1000,AMMO)
+
+label(code)
+label(return)
+
+newmem:
+
+code:
+  mov [rdi+20],#9999
+  mov r12b,01
+  jmp return
+
+AMMO:
+  jmp newmem
+  nop
+return:
+registersymbol(AMMO)
+
+[DISABLE]
+
+AMMO:
+  db 89 4F 20 41 B4 01
+
+unregistersymbol(AMMO)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: GTA5_Enhanced.exe+17FC6D3
+
+GTA5_Enhanced.exe+17FC6B5: 80 7F 25 00  - cmp byte ptr [rdi+25],00
+GTA5_Enhanced.exe+17FC6B9: 74 32        - je GTA5_Enhanced.exe+17FC6ED
+GTA5_Enhanced.exe+17FC6BB: 48 8B 01     - mov rax,[rcx]
+GTA5_Enhanced.exe+17FC6BE: 4C 89 F2     - mov rdx,r14
+GTA5_Enhanced.exe+17FC6C1: FF 50 48     - call qword ptr [rax+48]
+GTA5_Enhanced.exe+17FC6C4: 41 39 C7     - cmp r15d,eax
+GTA5_Enhanced.exe+17FC6C7: 41 0F 4C C7  - cmovl eax,r15d
+GTA5_Enhanced.exe+17FC6CB: 31 C9        - xor ecx,ecx
+GTA5_Enhanced.exe+17FC6CD: 45 85 FF     - test r15d,r15d
+GTA5_Enhanced.exe+17FC6D0: 0F 49 C8     - cmovns ecx,eax
+// ---------- INJECTING HERE ----------
+GTA5_Enhanced.exe+17FC6D3: 89 4F 20     - mov [rdi+20],ecx
+// ---------- DONE INJECTING  ----------
+GTA5_Enhanced.exe+17FC6D6: 41 B4 01     - mov r12b,01
+GTA5_Enhanced.exe+17FC6D9: 44 89 E0     - mov eax,r12d
+GTA5_Enhanced.exe+17FC6DC: 48 83 C4 28  - add rsp,28
+GTA5_Enhanced.exe+17FC6E0: 5B           - pop rbx
+GTA5_Enhanced.exe+17FC6E1: 5D           - pop rbp
+GTA5_Enhanced.exe+17FC6E2: 5F           - pop rdi
+GTA5_Enhanced.exe+17FC6E3: 5E           - pop rsi
+GTA5_Enhanced.exe+17FC6E4: 41 5C        - pop r12
+GTA5_Enhanced.exe+17FC6E6: 41 5D        - pop r13
+GTA5_Enhanced.exe+17FC6E8: 41 5E        - pop r14
+}
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>11</ID>
+      <Description>"Infinite Special Ability"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>{ Game   : GTA5_Enhanced.exe
+  Version: 
+  Date   : 2025-03-09
+  Author : joeyc
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+aobscanmodule(SPECIAL,GTA5_Enhanced.exe,F3 0F 11 46 34 66 0F 3A) // should be unique
+alloc(newmem,$500,SPECIAL)
+
+label(code)
+label(return)
+
+newmem:
+
+code:
+  mov [rsi+34],(float)17
+  jmp return
+
+SPECIAL:
+  jmp newmem
+return:
+registersymbol(SPECIAL)
+
+[DISABLE]
+
+SPECIAL:
+  db F3 0F 11 46 34
+
+unregistersymbol(SPECIAL)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: GTA5_Enhanced.exe+D3CE6F
+
+GTA5_Enhanced.exe+D3CE39: 75 26                    - jne GTA5_Enhanced.exe+D3CE61
+GTA5_Enhanced.exe+D3CE3B: 48 8B 0D 36 DE 65 03     - mov rcx,[GTA5_Enhanced.exe+439AC78]
+GTA5_Enhanced.exe+D3CE42: 48 8B 49 08              - mov rcx,[rcx+08]
+GTA5_Enhanced.exe+D3CE46: F6 81 4B 14 00 00 40     - test byte ptr [rcx+0000144B],40
+GTA5_Enhanced.exe+D3CE4D: 0F 84 CB 01 00 00        - je GTA5_Enhanced.exe+D3D01E
+GTA5_Enhanced.exe+D3CE53: 48 83 B9 30 15 00 00 00  - cmp qword ptr [rcx+00001530],00
+GTA5_Enhanced.exe+D3CE5B: 0F 84 BD 01 00 00        - je GTA5_Enhanced.exe+D3D01E
+GTA5_Enhanced.exe+D3CE61: F3 0F 59 70 28           - mulss xmm6,[rax+28]
+GTA5_Enhanced.exe+D3CE66: F3 0F 10 46 34           - movss xmm0,[rsi+34]
+GTA5_Enhanced.exe+D3CE6B: F3 0F 5C C6              - subss xmm0,xmm6
+// ---------- INJECTING HERE ----------
+GTA5_Enhanced.exe+D3CE6F: F3 0F 11 46 34           - movss [rsi+34],xmm0
+// ---------- DONE INJECTING  ----------
+GTA5_Enhanced.exe+D3CE74: 66 0F 3A 0A C0 09        - roundss xmm0,xmm0,09
+GTA5_Enhanced.exe+D3CE7A: F3 0F 2C C0              - cvttss2si eax,xmm0
+GTA5_Enhanced.exe+D3CE7E: 85 C0                    - test eax,eax
+GTA5_Enhanced.exe+D3CE80: 0F 8F 87 00 00 00        - jg GTA5_Enhanced.exe+D3CF0D
+GTA5_Enhanced.exe+D3CE86: C7 46 34 00 00 00 00     - mov [rsi+34],00000000
+GTA5_Enhanced.exe+D3CE8D: 48 89 F9                 - mov rcx,rdi
+GTA5_Enhanced.exe+D3CE90: E8 7B F5 E8 00           - call GTA5_Enhanced.exe+1BCC410
+GTA5_Enhanced.exe+D3CE95: 84 C0                    - test al,al
+GTA5_Enhanced.exe+D3CE97: 74 10                    - je GTA5_Enhanced.exe+D3CEA9
+GTA5_Enhanced.exe+D3CE99: 48 89 F9                 - mov rcx,rdi
+}
+</AssemblerScript>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+</CheatTable>

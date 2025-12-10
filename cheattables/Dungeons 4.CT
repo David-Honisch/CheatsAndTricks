@@ -1,0 +1,764 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="45">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>51</ID>
+      <Description>"Dungeons 4 AOB script"</Description>
+      <Options moHideChildren="1"/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript Async="1">// Game Executable   : Dungeons 4.exe
+// Author            : Cs
+// Executable Version: 2022.3.10.14226
+// Module Version    :
+// Script Date       : 2023-11-18
+// Created with      : customAOBInjectionTemplates version: 1.3.11
+[ENABLE]
+aobscanmodule(aobHealthUpdater,GameAssembly.dll,F3 0F 11 70 ?? 45 33 C0 48 8B CB E8)
+aobscanmodule(aobEntityOwnerOffset,GameAssembly.dll,0F B6 59 ?? 0F B6 77 ?? 40)
+aobscanmodule(aobWorkSpeedupFactorCalc,GameAssembly.dll,F3 0F 10 43 ?? 0F 2E C6 7A 02 74 ?? 48 8B 4B)
+aobscanmodule(aobWorkerXPGainCalc,GameAssembly.dll,F3 0F 10 49 ? 48 8B C8 F3 0F 10 58 ?? F3 0F 10 50)
+aobscanmodule(aobChangeGlobalCurrency,GameAssembly.dll,48 89 5C 24 ?? 48 89 74 24 ?? 57 48 81 EC ?? ?? 00 00 80 3D ?? ?? ?? ?? 00 41 0F B6 F0 8B FA 48 8B D9 75 1F)
+aobscanmodule(aobGoldMgrGrabber,GameAssembly.dll,33 ED 4D 8B 7E 18 85)
+aobscanmodule(aobEvilnessMgrGrabber,GameAssembly.dll,45 33 E4 4C 8B 7D 18 85 F6 41 8B FC)
+aobscanmodule(aobManaMgrGrabber,GameAssembly.dll,33 FF 4C 8B 75 18 85 F6 0F 49)
+aobscanmodule(aobOnBeginSlap,GameAssembly.dll,45 33 C9 4C 8B C6 49 8B D6 48 8B CD E8 ?? ?? ?? ?? F3 0F 10)
+aobscanmodule(aobTRSGrabber,GameAssembly.dll,48 89 74 24 ?? 33 D2 48 89 7C 24 ?? 48 8B CB 0F 29 74 24)
+aobscanmodule(aobSetMaxWorker,GameAssembly.dll,48 89 5C 24 ?? 57 48 83 EC ?? 48 8B 41 ?? 8B FA 48 8B D9 48 85 C0 74 ?? 39 50)
+aobscanmodule(aobSetMaxPop,GameAssembly.dll,48 83 EC ?? 48 8B 41 38 48 85 C0 74 ?? 3B 50 ?? 74 ?? 89 50 20 45 33 C0 B2 01)
+
+alloc(newmemHealthUpdater,4096,aobHealthUpdater)
+
+label(aobHealthUpdater_r)
+label(aobHealthUpdater_i)
+registersymbol(aobHealthUpdater_r)
+registersymbol(aobHealthUpdater_i)
+
+label(lblHealthUpdater)
+label(lblHealthUpdaterSkip)
+label(lblHealthUpdaterRet)
+
+label(bEnablePlayerDamageMod)
+label(fPlayerDamageMod)
+label(bEnableFoeDamageMod)
+label(fFoeDamageMod)
+registersymbol(bEnablePlayerDamageMod)
+registersymbol(fPlayerDamageMod)
+registersymbol(bEnableFoeDamageMod)
+registersymbol(fFoeDamageMod)
+
+label(iEntityOwnerOffset)
+registersymbol(iEntityOwnerOffset)
+
+label(aobWorkSpeedupFactorCalc_r)
+label(aobWorkSpeedupFactorCalc_i)
+registersymbol(aobWorkSpeedupFactorCalc_r)
+registersymbol(aobWorkSpeedupFactorCalc_i)
+
+label(lblWorkSpeedupFactorCalc)
+label(lblWorkSpeedupFactorCalcSkip)
+label(lblWorkSpeedupFactorCalcRet)
+
+label(bEnableWorkSpeedupFactorBonus)
+label(fWorkSpeedupFactorBonus)
+registersymbol(bEnableWorkSpeedupFactorBonus)
+registersymbol(fWorkSpeedupFactorBonus)
+
+label(aobWorkerXPGainCalc_r)
+label(aobWorkerXPGainCalc_i)
+registersymbol(aobWorkerXPGainCalc_r)
+registersymbol(aobWorkerXPGainCalc_i)
+
+label(lblWorkerXPGainCalc)
+label(lblWorkerXPGainCalcSkip)
+label(lblWorkerXPGainCalcRet)
+
+label(bEnableWorkerXPGainMod)
+label(fWorkerXPGainMod)
+registersymbol(bEnableWorkerXPGainMod)
+registersymbol(fWorkerXPGainMod)
+
+label(aobGoldMgrGrabber_r)
+label(aobGoldMgrGrabber_i)
+registersymbol(aobGoldMgrGrabber_r)
+registersymbol(aobGoldMgrGrabber_i)
+
+label(lblGoldMgrGrabber)
+label(lblGoldMgrGrabberSkip)
+label(lblGoldMgrGrabberRet)
+
+label(pGoldMgr)
+registersymbol(pGoldMgr)
+
+label(aobEvilnessMgrGrabber_r)
+label(aobEvilnessMgrGrabber_i)
+registersymbol(aobEvilnessMgrGrabber_r)
+registersymbol(aobEvilnessMgrGrabber_i)
+
+label(lblEvilnessMgrGrabber)
+label(lblEvilnessMgrGrabberSkip)
+label(lblEvilnessMgrGrabberRet)
+
+label(pEvilnessMgr)
+registersymbol(pEvilnessMgr)
+
+label(aobManaMgrGrabber_r)
+label(aobManaMgrGrabber_i)
+registersymbol(aobManaMgrGrabber_r)
+registersymbol(aobManaMgrGrabber_i)
+
+label(lblManaMgrGrabber)
+label(lblManaMgrGrabberSkip)
+label(lblManaMgrGrabberRet)
+
+label(pManaMgr)
+registersymbol(pManaMgr)
+
+label(aobOnBeginSlap_r)
+label(aobOnBeginSlap_i)
+registersymbol(aobOnBeginSlap_r)
+registersymbol(aobOnBeginSlap_i)
+
+label(lblOnBeginSlap)
+label(lblOnBeginSlapSkip)
+label(lblOnBeginSlapRet)
+
+label(bEnableAddGoldOnSlap)
+label(iAddGoldOnSlap)
+label(bEnableAddEvilnessOnSlap)
+label(iAddEvilnessOnSlap)
+label(bEnableAddManaOnSlap)
+label(iAddManaOnSlap)
+label(bEnableMaxWorkersOnSlap)
+label(iMaxWorkersOnSlap)
+registersymbol(bEnableAddGoldOnSlap)
+registersymbol(iAddGoldOnSlap)
+registersymbol(bEnableAddEvilnessOnSlap)
+registersymbol(iAddEvilnessOnSlap)
+registersymbol(bEnableAddManaOnSlap)
+registersymbol(iAddManaOnSlap)
+registersymbol(bEnableMaxWorkersOnSlap)
+registersymbol(iMaxWorkersOnSlap)
+registersymbol(bEnableMaxPopulationOnSlap)
+registersymbol(iMaxPopulationOnSlap)
+
+label(aobTRSGrabber_r)
+label(aobTRSGrabber_i)
+registersymbol(aobTRSGrabber_r)
+registersymbol(aobTRSGrabber_i)
+
+label(lblTRSGrabber)
+label(lblTRSGrabberSkip)
+label(lblTRSGrabberRet)
+
+label(pTRSpawner)
+registersymbol(pTRSpawner)
+
+newmemHealthUpdater:
+//////////////////////////////////////////////
+// Set your preferred default values below. //
+//////////////////////////////////////////////
+//////////////////////////////
+// Damage Controls
+bEnablePlayerDamageMod:
+dd 1
+fPlayerDamageMod:
+dd (float)0.1
+bEnableFoeDamageMod:
+dd 1
+fFoeDamageMod:
+dd (float)4.0
+//////////////////////////////
+// Worker Controls
+bEnableWorkSpeedupFactorBonus:
+dd 1
+fWorkSpeedupFactorBonus:
+dd (float)4.0
+bEnableWorkerXPGainMod:
+dd 1
+fWorkerXPGainMod:
+dd (float)10.0
+//////////////////////////////
+// Resource slapper
+bEnableAddGoldOnSlap:
+dd 1
+iAddGoldOnSlap:
+dd (int)15000
+bEnableAddEvilnessOnSlap:
+dd 1
+iAddEvilnessOnSlap:
+dd (int)2000
+bEnableAddManaOnSlap:
+dd 1
+iAddManaOnSlap:
+dd (int)15000
+bEnableMaxWorkersOnSlap:
+dd 1
+iMaxWorkersOnSlap:
+dd (int)28
+bEnableMaxPopulationOnSlap:
+dd 1
+iMaxPopulationOnSlap:
+dd (int)80
+//////////////////////////////////////////////
+// Set your preferred default values above. //
+//////////////////////////////////////////////
+
+lblHealthUpdater:
+mov r8,[rbx+18]
+movsx rcx,[iEntityOwnerOffset]
+movsx r8,[rcx+r8]
+test r8,r8
+jz short lblHealthUpdaterSkip
+cmp r8,4
+jle short @f
+cmp r8,(int)15
+jle short lblHealthUpdaterFoe
+jmp short lblHealthUpdaterSkip
+@@:
+cmp dword ptr [bEnablePlayerDamageMod],1
+jne short lblHealthUpdaterSkip
+movsx r8,[aobHealthUpdater_i+04]
+movss xmm15,[rax+r8]
+subss xmm15,xmm6
+xorps xmm14,xmm14
+comiss xmm15,xmm14
+jz short lblHealthUpdaterSkip
+jnc short lblHealthUpdaterSkip
+mulss xmm15,[fPlayerDamageMod]
+movss xmm6,[rax+r8]
+subss xmm6,xmm15
+lblHealthUpdaterSkip:
+readmem(aobHealthUpdater,5)
+jmp lblHealthUpdaterRet
+lblHealthUpdaterFoe:
+cmp dword ptr [bEnableFoeDamageMod],1
+jne short lblHealthUpdaterSkip
+movsx r8,[aobHealthUpdater_i+04]
+movss xmm15,[rax+r8]
+subss xmm15,xmm6
+xorps xmm14,xmm14
+comiss xmm15,xmm14
+jz short lblHealthUpdaterSkip
+jnc short lblHealthUpdaterSkip
+mulss xmm15,[fFoeDamageMod]
+movss xmm6,[rax+r8]
+subss xmm6,xmm15
+jmp short lblHealthUpdaterSkip
+aobHealthUpdater_i:
+readmem(aobHealthUpdater,5)
+align 8 CC
+iEntityOwnerOffset:
+readmem(aobEntityOwnerOffset+03,1)
+dd 0
+dw 0
+db 0
+
+lblWorkSpeedupFactorCalc:
+mov rax,[rbx+18]
+movsx r11,[iEntityOwnerOffset]
+cmp byte ptr [rax+r11],1
+jne short lblWorkSpeedupFactorCalcSkip
+cmp dword ptr [bEnableWorkSpeedupFactorBonus],1
+jne short lblWorkSpeedupFactorCalcSkip
+addss xmm6,[fWorkSpeedupFactorBonus]
+lblWorkSpeedupFactorCalcSkip:
+readmem(aobWorkSpeedupFactorCalc,5)
+jmp lblWorkSpeedupFactorCalcRet
+aobWorkSpeedupFactorCalc_i:
+readmem(aobWorkSpeedupFactorCalc,5)
+
+lblWorkerXPGainCalc:
+readmem(aobWorkerXPGainCalc,5)
+mov r10,[rdi+18]
+movsx r11,[iEntityOwnerOffset]
+cmp byte ptr [r10+r11],1
+jne short lblWorkerXPGainCalcSkip
+cmp dword ptr [bEnableWorkerXPGainMod],1
+jne short lblWorkerXPGainCalcSkip
+mulss xmm1,[fWorkerXPGainMod]
+lblWorkerXPGainCalcSkip:
+jmp lblWorkerXPGainCalcRet
+aobWorkerXPGainCalc_i:
+readmem(aobWorkerXPGainCalc,5)
+
+lblGoldMgrGrabber:
+mov rax,[r14+18]
+movsx r11,[iEntityOwnerOffset]
+cmp byte ptr [rax+r11],1
+jne short lblGoldMgrGrabberSkip
+mov qword ptr [pGoldMgr],r14
+lblGoldMgrGrabberSkip:
+readmem(aobGoldMgrGrabber,6)
+jmp lblGoldMgrGrabberRet
+aobGoldMgrGrabber_i:
+readmem(aobGoldMgrGrabber,6)
+align 8 CC
+pGoldMgr:
+dq 0
+
+lblEvilnessMgrGrabber:
+mov rax,[rbp+18]
+movsx r11,[iEntityOwnerOffset]
+cmp byte ptr [rax+r11],1
+jne short lblEvilnessMgrGrabberSkip
+mov qword ptr [pEvilnessMgr],rbp
+lblEvilnessMgrGrabberSkip:
+readmem(aobEvilnessMgrGrabber,7)
+jmp lblEvilnessMgrGrabberRet
+aobEvilnessMgrGrabber_i:
+readmem(aobEvilnessMgrGrabber,7)
+align 8 CC
+pEvilnessMgr:
+dq 0
+
+lblManaMgrGrabber:
+mov rax,[rbp+18]
+movsx r11,[iEntityOwnerOffset]
+cmp byte ptr [rax+r11],1
+jne short lblManaMgrGrabberSkip
+mov qword ptr [pManaMgr],rbp
+lblManaMgrGrabberSkip:
+readmem(aobManaMgrGrabber,6)
+jmp lblManaMgrGrabberRet
+aobManaMgrGrabber_i:
+readmem(aobManaMgrGrabber,6)
+align 8 CC
+pManaMgr:
+dq 0
+
+lblOnBeginSlap:
+mov rcx,[pGoldMgr]
+test rcx,rcx
+jz short @f
+cmp dword ptr [bEnableAddGoldOnSlap],1
+jne short @f
+mov dword ptr [bEnableAddGoldOnSlap],0
+push rcx
+push rdx
+mov r8,1
+xor r9,r9
+mov edx,[iAddGoldOnSlap]
+call aobChangeGlobalCurrency
+add rsp,10
+@@:
+mov rcx,[pEvilnessMgr]
+test rcx,rcx
+jz short @f
+cmp dword ptr [bEnableAddEvilnessOnSlap],1
+jne short @f
+mov dword ptr [bEnableAddEvilnessOnSlap],0
+push rcx
+push rdx
+mov r8,1
+xor r9,r9
+mov edx,[iAddEvilnessOnSlap]
+call aobChangeGlobalCurrency
+add rsp,10
+@@:
+mov rcx,[pManaMgr]
+test rcx,rcx
+jz short @f
+cmp dword ptr [bEnableAddManaOnSlap],1
+jne short @f
+mov dword ptr [bEnableAddManaOnSlap],0
+push rcx
+push rdx
+mov r8,1
+xor r9,r9
+mov edx,[iAddManaOnSlap]
+call aobChangeGlobalCurrency
+add rsp,10
+@@:
+mov rcx,[pTRSpawner]
+test rcx,rcx
+jz short @f
+cmp dword ptr [bEnableMaxWorkersOnSlap],1
+jne short @f
+mov dword ptr [bEnableMaxWorkersOnSlap],0
+push rcx
+push rdx
+xor r8,r8
+xor r9,r9
+mov edx,[iMaxWorkersOnSlap]
+call aobSetMaxWorker
+add rsp,10
+@@:
+mov rcx,[pTRSpawner]
+test rcx,rcx
+jz short @f
+mov rcx,[rcx+28]
+jz short @f
+cmp dword ptr [bEnableMaxPopulationOnSlap],1
+jne short @f
+mov dword ptr [bEnableMaxPopulationOnSlap],0
+push rcx
+push rdx
+xor r8,r8
+xor r9,r9
+mov edx,[iMaxPopulationOnSlap]
+call aobSetMaxPop
+add rsp,10
+@@:
+lblOnBeginSlapSkip:
+readmem(aobOnBeginSlap,6)
+jmp lblOnBeginSlapRet
+aobOnBeginSlap_i:
+readmem(aobOnBeginSlap,6)
+
+lblTRSGrabber:
+mov rax,[rbx+18]
+movsx r11,[iEntityOwnerOffset]
+cmp byte ptr [rax+r11],1
+jne short lblTRSGrabberSkip
+mov qword ptr [pTRSpawner],rbx
+lblTRSGrabberSkip:
+readmem(aobTRSGrabber,5)
+jmp lblTRSGrabberRet
+aobTRSGrabber_i:
+readmem(aobTRSGrabber,5)
+align 8 CC
+pTRSpawner:
+dq 0
+
+aobTRSGrabber:
+aobTRSGrabber_r:
+jmp lblTRSGrabber
+lblTRSGrabberRet:
+
+aobOnBeginSlap:
+aobOnBeginSlap_r:
+jmp lblOnBeginSlap
+nop
+lblOnBeginSlapRet:
+
+aobManaMgrGrabber:
+aobManaMgrGrabber_r:
+jmp lblManaMgrGrabber
+nop
+lblManaMgrGrabberRet:
+
+aobEvilnessMgrGrabber:
+aobEvilnessMgrGrabber_r:
+jmp lblEvilnessMgrGrabber
+nop 2
+lblEvilnessMgrGrabberRet:
+
+aobGoldMgrGrabber:
+aobGoldMgrGrabber_r:
+jmp lblGoldMgrGrabber
+nop
+lblGoldMgrGrabberRet:
+
+aobWorkerXPGainCalc:
+aobWorkerXPGainCalc_r:
+jmp lblWorkerXPGainCalc
+lblWorkerXPGainCalcRet:
+
+aobWorkSpeedupFactorCalc:
+aobWorkSpeedupFactorCalc_r:
+jmp lblWorkSpeedupFactorCalc
+lblWorkSpeedupFactorCalcRet:
+
+aobHealthUpdater:
+aobHealthUpdater_r:
+jmp lblHealthUpdater
+lblHealthUpdaterRet:
+
+[DISABLE]
+aobHealthUpdater_r:
+readmem(aobHealthUpdater_i,5)
+
+aobWorkSpeedupFactorCalc_r:
+readmem(aobWorkSpeedupFactorCalc_i,5)
+
+aobWorkerXPGainCalc_r:
+readmem(aobWorkerXPGainCalc_i,5)
+
+aobGoldMgrGrabber_r:
+readmem(aobGoldMgrGrabber_i,6)
+
+aobEvilnessMgrGrabber_r:
+readmem(aobEvilnessMgrGrabber_i,7)
+
+aobManaMgrGrabber_r:
+readmem(aobManaMgrGrabber_i,6)
+
+aobOnBeginSlap_r:
+readmem(aobOnBeginSlap_i,6)
+
+aobTRSGrabber_r:
+readmem(aobTRSGrabber_i,5)
+
+unregistersymbol(*)
+dealloc(*)
+
+</AssemblerScript>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>92</ID>
+          <Description>"Damage Controls"</Description>
+          <Color>4080FF</Color>
+          <GroupHeader>1</GroupHeader>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>90</ID>
+              <Description>"bEnablePlayerDamageMod"</Description>
+              <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0:Disabled
+1:Enabled
+</DropDownList>
+              <ShowAsSigned>0</ShowAsSigned>
+              <Color>008000</Color>
+              <VariableType>4 Bytes</VariableType>
+              <Address>bEnablePlayerDamageMod</Address>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>91</ID>
+                  <Description>"fPlayerDamageMod"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <Color>FF0000</Color>
+                  <VariableType>Float</VariableType>
+                  <Address>fPlayerDamageMod</Address>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>88</ID>
+              <Description>"bEnableFoeDamageMod"</Description>
+              <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0:Disabled
+1:Enabled
+</DropDownList>
+              <ShowAsSigned>0</ShowAsSigned>
+              <Color>008000</Color>
+              <VariableType>4 Bytes</VariableType>
+              <Address>bEnableFoeDamageMod</Address>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>89</ID>
+                  <Description>"fFoeDamageMod"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <Color>FF0000</Color>
+                  <VariableType>Float</VariableType>
+                  <Address>fFoeDamageMod</Address>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>93</ID>
+          <Description>"Worker Controls"</Description>
+          <Color>4080FF</Color>
+          <GroupHeader>1</GroupHeader>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>57</ID>
+              <Description>"bEnableWorkSpeedupFactorBonus"</Description>
+              <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0:Disabled
+1:Enabled
+</DropDownList>
+              <ShowAsSigned>0</ShowAsSigned>
+              <Color>008000</Color>
+              <VariableType>4 Bytes</VariableType>
+              <Address>bEnableWorkSpeedupFactorBonus</Address>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>58</ID>
+                  <Description>"fWorkSpeedupFactorBonus"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <Color>FF0000</Color>
+                  <VariableType>Float</VariableType>
+                  <Address>fWorkSpeedupFactorBonus</Address>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>59</ID>
+              <Description>"bEnableWorkerXPGainMod"</Description>
+              <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0:Disabled
+1:Enabled
+</DropDownList>
+              <ShowAsSigned>0</ShowAsSigned>
+              <Color>008000</Color>
+              <VariableType>4 Bytes</VariableType>
+              <Address>bEnableWorkerXPGainMod</Address>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>60</ID>
+                  <Description>"fWorkerXPGainMod"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <Color>FF0000</Color>
+                  <VariableType>Float</VariableType>
+                  <Address>fWorkerXPGainMod</Address>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>83</ID>
+          <Description>"Resource Slapper"</Description>
+          <Color>4080FF</Color>
+          <GroupHeader>1</GroupHeader>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>55</ID>
+              <Description>"bEnableAddGoldOnSlap (disables itself of use)"</Description>
+              <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0:Disabled
+1:Enabled
+</DropDownList>
+              <ShowAsSigned>0</ShowAsSigned>
+              <Color>008000</Color>
+              <VariableType>4 Bytes</VariableType>
+              <Address>bEnableAddGoldOnSlap</Address>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>56</ID>
+                  <Description>"iAddGoldOnSlap"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <Color>FF0000</Color>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>iAddGoldOnSlap</Address>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>81</ID>
+              <Description>"bEnableAddEvilnessOnSlap (disables itself of use)"</Description>
+              <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0:Disabled
+1:Enabled
+</DropDownList>
+              <ShowAsSigned>0</ShowAsSigned>
+              <Color>008000</Color>
+              <VariableType>4 Bytes</VariableType>
+              <Address>bEnableAddEvilnessOnSlap</Address>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>82</ID>
+                  <Description>"iAddEvilnessOnSlap"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <Color>FF0000</Color>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>iAddEvilnessOnSlap</Address>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>79</ID>
+              <Description>"bEnableAddManaOnSlap (disables itself of use)"</Description>
+              <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0:Disabled
+1:Enabled
+</DropDownList>
+              <ShowAsSigned>0</ShowAsSigned>
+              <Color>008000</Color>
+              <VariableType>4 Bytes</VariableType>
+              <Address>bEnableAddManaOnSlap</Address>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>80</ID>
+                  <Description>"iAddManaOnSlap"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <Color>FF0000</Color>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>iAddManaOnSlap</Address>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>98</ID>
+              <Description>"bEnableMaxWorkersOnSlap (disables itself of use)"</Description>
+              <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0:Disabled
+1:Enabled
+</DropDownList>
+              <ShowAsSigned>0</ShowAsSigned>
+              <Color>008000</Color>
+              <VariableType>4 Bytes</VariableType>
+              <Address>bEnableMaxWorkersOnSlap</Address>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>99</ID>
+                  <Description>"iMaxWorkersOnSlap"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <Color>FF0000</Color>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>iMaxWorkersOnSlap</Address>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>100</ID>
+              <Description>"bEnableMaxPopulationOnSlap (disables itself of use)"</Description>
+              <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0:Disabled
+1:Enabled
+</DropDownList>
+              <ShowAsSigned>0</ShowAsSigned>
+              <Color>008000</Color>
+              <VariableType>4 Bytes</VariableType>
+              <Address>bEnableMaxPopulationOnSlap</Address>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>101</ID>
+                  <Description>"iMaxPopulationOnSlap"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <Color>FF0000</Color>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>iMaxPopulationOnSlap</Address>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+  <LuaScript>PROCESS_NAME = 'Dungeons 4.exe'
+--------
+-------- Check for process and auto attach if need be
+--------
+local autoAttachTimer = nil          ---- Declaration for our static timer object (no destroy here!)
+local autoAttachTimerInterval = 5000 ---- Timer in milliseconds
+
+function clearUserDefinedSymbols()
+	local mv,sf = getMemoryViewForm()
+	if not mv.frmSymbolhandler then
+		local mvHidden
+		if not mv.Visible then mvHidden=true,mv.Show() end
+		mv.miuserdefinedsymbols:OnClick()
+		if mvHidden then mv.hide()end
+		sf = mv.frmSymbolhandler
+		sf.Hide()
+	else
+		sf = mv.frmSymbolhandler
+	end
+	if sf ~= nil then
+		local symbol
+		for i = sf.Listview1.Items.Count - 1, 0, -1 do
+			symbol = sf.Listview1.Items.Item[i].Caption
+			unregisterSymbol(symbol)
+		end
+	end
+end
+
+local function autoAttachTimer_tick(timer) ---- Timer callback
+	---- Check to see if we are attached to the right process
+	if getProcessIDFromProcessName(PROCESS_NAME) ~= getOpenedProcessID() then
+		---- If not the right process, check if process is running and attach if exists
+		AddressList.disableAllWithoutExecute()
+		clearUserDefinedSymbols()
+		if getProcessIDFromProcessName(PROCESS_NAME) ~= nil then
+			openProcess(PROCESS_NAME) ---- Open the process
+		end
+	end
+end
+
+autoAttachTimer = createTimer(getMainForm())       ---- Create timer with the main form as it's parent
+autoAttachTimer.Interval = autoAttachTimerInterval ---- Set timer interval
+autoAttachTimer.OnTimer = autoAttachTimer_tick     ---- Set timer tick call back
+
+
+</LuaScript>
+  <Signature>
+    <SignedHash HashSize="132">0jO8[iBPGJkdomAaf+OgW6fG;6}3RWj-*6a.U3*PIf@-2a^a=[s8}ewhWI8ByT).DH;H8zIy+W6;cH]yd@-UF*t(_W2_,=24G?5CP+Kbunf$6#:7oX_Y7^J_uU1h^Tq=sCRVA4J2M3c?t-CqhBsR?jqE,P6YJQ{7=}i-m</SignedHash>
+    <PublicKey Size="18276">4+(oFQe_gha%6KXAVYI$ZDMJR00IC-LsK/E00001t8Bl;w.Qh?hYDS0$fzdP3bJ[37=v:B[;Owkax#dHli6/=ArWm@7j_@Je8b#ByqhOEL=5{r^pgs[?RkGm5CLH/O+2LfstJrQ=zg)L1]y5@7w]d=$_3,I;sY4}aMocysyu0HrYEL3A0rl.tX}CsIFBPpaUecq$wnSM;V}ESG*4dbiBL^Q4GJ0x0000DNk}Le0000m0000m2nGNE09OL{hX4RGdU^k=bW(k:AaHVTW?(6=Aar=fWgumEX:VTbc-pO.Ymy_nZmj:v6:w.-H?O?;(F(7ge0]3^%ARhuj!d#UHPh8ol@Gd901kHmq(xrd_E}Mjzy9UJ6Pru9w$e+@[$T$$!^9INdH.F8]zP6-[D{r$ivR!Z:kEK9z;nguSC.d6^ov;M+Bfg3^CxiYb63}rI[,}I_Gn@g2l^0F^qwr@xlj!6(.95BUH]mqq/:il:fAK%m.GG*(.L*A#n[qa#o*q.K0f?{@eOTEZ{4B^PaiWc?-gxE7_Z,fzptJ9^]HT:]}K}ZwR@[r:kfQYa8LQXp!}5$pP(2u$Is+UW5RED/bQqgZ?*M/=B{2V^A2Cz-R/7/KHW%#l]8J?P)P1if8(LdrHuBr!dK/L%-@ehb-o(pxUks9nv/^PeD^IXzCQWwhrj.V[vIJ2n8FE[=.*%Z=Po34)8G$a3Hb6i*Y#+8v0/l$*gnI+-,S?*x!pc+]Nk*2(ntuHVxD+WmoN9XAO2syz8AVzuIv5NzH7yO1@G0$A/OAcUWGyY^j6!W@_dee55IZ-Vc3WTvn[Mu0mn1nOU($l]BpSLM[!ko/eoP*eBGZ5uta:z:4O1v0#Cuceeq8Xp=c3cHtaLF@AJ.+Sit8Tws#lX.Qbh/1$^Q{soq^2a)I6Xv_xx#h+V6_/G?%cW(Ee6h7XM#b8/Q7l51_c:TTxwC6]ia5k]#}YpS]HT5GGljuu.Lxs[I1YrTygdIZ99FTJ_ndhcWKp?T}g-aUB57(FW]*6BEXI?_1XEZk=Ml}-AHwbj=yVaHAQ?3O1gZTCHnKe+CKC!ccaX^VoY?wFRoy7]t^Z?c{Duhl,Q^oQK+56k@}tND-BWU+wgtG{$qk8Az8gcqD-+$j)=/gs^[1#svfn=22@6l6Ks=CF7@$N^VQEaPl1i)$cZe8_@-ZTHJ@_JH6Ur}j4R!hdHuC*54@u$,[WK9;8hcKeIf[OOf,%_MDmt=3glz^ZP4X#5Kv_K/CMb;)?(o[9Yr:QjB4.%DKZ,rtvAF.,S+(G=+@;cGbQWlUZ=uP/7LSX/_+@0U^Rb76_71R?KYcfVJ:iH{M6Mcc+2d,Hvm-g8=8h^Kq?%4n[gV7c!UBJ0!Id1Mg,)*-bQpdRY%?yzsi7UH[:L(c1}M.7Z_kfxp.@{P*op8LS+;kPZhTzJs3N0/#.@H=P%Ui2KI-a8*aj$QlCmzy{Z.BrJ@m:zx[vFCDAJU2IA:ZRq[FhO8k:B?S4vCpVjV6fO^mxE1n;3*?]H+7ZB?d-oiQueBCV!B37A0YQS*%W8wcW/^maNcL^//^[dC_@I79MJFe12?cf%?_uLSpl@OACg=H;7KapoJMw/]+15*QHVceJUi7?/0$nmeri9S$Jd]#Vp$W9]$YTAZRyms=(YScy^4^UE9)T5tJ)+3Pa?psM+OaRFLmQw++BcyrZX]pv2)+{1eV9u$zwRuHHYL^U?*/RzvmPdL46yq:-Klq]Q,@LP2_(FGQUr4ku-N,ZLY,9J*]5Mj#z+Cx]DM^g)ui$WfnMkEJ6IAxv:?E%j4W/vQ#tSrPv1*;BMqht34_X2M2h?Xy;fB!)2}UTriI_6Cc.]t#f$LJU/V+(m@s/eAaxFobisnH%4{;^!@!HvO@sKTNB]!8;vJ,adNWXK$r3}pGWde(,B@SLSqRcjGbofZbWV{Wa4sVK4XGcPwSpwYOBTFET9I*Q9wPgnRW^_CEEfDujwIi*s41(Uf;qNmx)eK1hCp./HKcvU61GA*@Y9C3b)iV(Esf2e+,2k-:W9/5:D}xCyL-)xQ_5yOOOCk=o8GJZu]:k6r/$^llQDj950@W:G4M:gC#jLuuQDlV}zv3ww)]mK{x]FHbjeS[/BfB]=,(h!fIZ^c-nhl+s/L]:efsY17aL)sWk[}wY;HO$B]J{X*r##=!_$%%7AnDOsIxMqM0zE;dIZ}se/}n4)5JN:u?dMW!y!}^];t2Be%m,%pO2.*{l;3DUUlLT6Ij4.jB:_JsOYC]$i:PcCOYxSHZ6yTpYkrW,D$h7y%FC?#n}!aLW$xB7v;#xyigb9yKe5m/J}UmlkVSz2J2FQZbOPz#-WYpCI@7dIUT-Dbteb77*InshubSO@IsI?r_M}eh.EU7!XS7vK#/PQjpyGfY{cY:2@qtPrHNMN4Ss3y?izU?n[sMo.#Gas/32]UdVVWg7!0$1[X9vDT[df4YYuh-GQ#i/8:VEbTFEK0LVee$KKY^n%JYy,*:1xSP3_?hx@=y-_r-4JX20h*I4WQJcrMXWpUq,D7ZkVFSMt)fONKyX})o=IgL./e8S[[DKj1ns@rgFRI(noSsosBknZtI5_t-E.JGz9QU(fS+Hwrw+1*qC2Pz9QAfe$jS.(Y%K#,MwN60_==t]-oZUNYBl3Bc}cJY.wB]a_%2nqa$zoz?[k*T6)x/oUVNQ5jY84WTssW6jpH^O*G1DHz*2Rp.#]m%=@YcHwdF_-LdMmRXo/^gtIOem_mCbWClD,(y$bVqVboyYYDLgmjBc%ZE}AdwVOId_b-tF^h3,G)au3^BE?3)(C+wc:KTYlej*7o=kkmmIr}rw^xb=HzIOx*1kv?ODyShwhSP.13;H-Xtse/l]2.!hbWv4GMmg]qItp24:%KaccsDD1qL?P/b-_vRS5HPKiWNL)8Ejm*khx$S?RAKTEpjh5$wbsMQZ^53M}xcZuYOBLK%*_7SnsI}uX)bG/78z8Q!erQeD35o[e5Toa%JX?%81BSR+]fGZu4=__Cfmf2)Qnm5V!bjR*F3!9FM3ocLq5W{%arzL#=bxhIIkuD(DwG#I)lnD37=QR+?MJ__%1P:dOJue)@tCj-DDg=O_o8o:2GbluZ:}f.DF1F[BuxHGa$yL*e=(9!%62w9UAAFxUCZGukjFq-e%Zu[:$S#Xo:I-=/j6kdhE0S1@jT_ySKJgAE_IZI,ix:Vzw1]e$WjNvl!zBV%^CUP(uD,nBq*,f2(-U#n5kE?AO%zR$HVbYP+TpNlIGVf=pCkc5qiQ4jLt%4dwFs],Twq1QykvJ!7:^kV$6}We_Kq?N,qpWf]]_VOqX9BoU:B2pIIzp//j,d/+NWG+J$Q@NYU=ZXX}(1$(r0(m!}JFu31Inlf/.B7MOQ_[Z(Z%Bu-aRrJ[TrP#E{PUAl2a@ZrgZi,5pWJ27C-i!Nu1BDDl:zf@Nc]K?xYThXWiPEz_=iAq@Mh(ol{tND[%ffW##_KhcSM.kP[}C0-VUOVTCX=m(kSUTAn.j5mZQ$P,_;j0v9{Fc}hpm!RAC7iS@6$i!L-ya-nApj0dyszAIMSLQ)h6*Xg^.Q):^^3crRexD5o7MzoW$f?MYmyd1NLEgt3A*6j!t]#TX*WnF%t^HW5krWU,v=TXcUJ[TTy)bunBPmQ54G-fZ,@pCh$Rfs*N_F%^dCA/yFS1{_PUB!52M7u]WJsMPTH=%k9,6B52Wj@txY6c1xVV?-H]M^Mf;(F8DlhcXBXaN$I**dL1s[*]LIK+UM:a;6O4i:sIN.%Zh@mPw9f{$8Yr.H9k7Wac45}/gMeORD(_{N8cPpcV0s8EY=OA:[g}?PpR^7{XNb+DaI9vIir$ez4n1r)HjpPh7IU:p#LLt?;xY=@[RwWjF,_wVfHl%5Q^{dY@y16-EVw%,Oh=*}h3@5m62R-gDavtPK8@7cd$i1}ID}zt?209830ZurJT9o;MH9X4kfQG#Z!nFp.3RG,zDo!X_WB[pjF,_It.v=z+!38;g!!6@[.yulbC)mxi/CVD)Y8k{e:;IIVZIR@1pT?d6L61HetJMJHM4TcMW{]F?ZG15snhRKzMSO{;JY6M0azWGDY.3fSeuXfGIzU23h3gV,4?6Iz)Z{jYzOu!DVUVv0MlR5C1PBs+:#}av?Q[MCFkJ!e5MGeXgpC[.Xno@:E_E*72OjJ5eE3O-TI5c6jt:Pq=C)$[:1,MpX[oi)yCHL=L.VdC@mM!PW-;k5k+l+tZ2}lQ2Vf)J$YRJ7t=Cg9?G=op1xVddBAn,g)BteTL4A0v6-qj*Jb_zg*(cXMBH%Js.O;C!wKIvc9NCAbm1dKUN1WkJ4j07O+V3MsOBsG}X.Rrx,%GVUhlwT;cxROiG;r%6-jeeeCJc8Td24_xod6n;0y4=/1c1JxNYtM:xT;)fNXzI0aM4U,0-9j!1C/BU#Qf85Pd2r6.bF.(]vj#9G^Y2bdNl82niu(A@Gyc.#xG#yq^#C4#UnWAAnBOf2[yDCMTI-0r#JF1agMX$qx%vcse:+(q1!}gvB_+FpzvS}[Hd9CkC]i_hZ[+?I8T3war}AAAbFvd)Fzd}2(anap!kWJ/]qp=72JfK9_yikjmOTdpj+hrt9BI-@m]G;(9fiW9I@r=,F@hgCIw/^1D^;eYv*v*usiXheq;xhHQsq1A=N{eAzac^h;4$UNB+,%0Mtn{m}%u/VskrWl2Jjn7Ji+%*uG[W;:$j:/]9,NHNIsn7CK:-D^B$gXdi^,jRY,KuaM@:,%VvJuj)#A;O}nXMKJglZW.@1(k]TopvO2]%Wt(,k=FUC/6C%}iSSG,6cWNyQs608QY%7j/gr9dnLIHGj$BCGCU3cr$TfaMI.:^E/nTov;nMJ4sFC;}aI@b3:fbgq*(NG4%crbxRX]0D?FyHuqg4LqVjTGb,):UHP*dXxI=co7g+:8Dl?LLawFo^zpDU@s[peV[HAsA+b+srf2[1k0NKiIQ^DrJ[Bq}[g*@hTWNKxpZnJ.lfUPK6coCddm+qeBTfTV$^#_dzYAjSEz;81jql0(J{frT9efq_7]MG(Re2ctkFK?-5[[zZ(KOvog)CHcv.LR87NLr$a;b[V;L$P{Oq,H=I^a*LT8)sn{;%]2EMzyi$U1bx{Nm*4S8ji3Tg?jo^+Y[sAO3o3:!C3=XZX$K.n#WBD+^2ba2x,ak8sIIKKy4T$:Z[3P)A=$%0Ud8j:fLOVB$);0B+P?k#%?Yt3fI+}(,,2n=2LbpX/mN^kL)DY/0uv@ru1+IJ#k29z1=1ue03pxxs9tJlj#h7ZT3r.1.zb1/Oc-pndfu{/JREbM[$DCe08ur[%ol]75/Dco0+:8SGrW{GX6YWZAnK=Xt$KQ[uwdjz/bwq2rxtP?h^.t+OS!91k#JKUhIFnvElHl:2k1#,jS3Dh$SjbsBXymC#RRP]rrzpFd}r+%Z0A_ZkY2WIjP514Rno/mT!9LJD{;(9*Rcy-J-a;.yc/MFpA_)4II?BeUHq(+a-5gejY-hvhkQKT.;oyDetJHMpOKPg7XJqjF(QYPXeE*yPc4goA@g}%[pq!a$ssQ1GM;UhR]@(%84}UU[e!IZJhb3ZHX%{pPecstjq5C6aS[1^O#;tKFcpva1N4Q@uDUWJbcx90hycL];bVIJ7e!DqOo(DFP]IuV/$C!*xkOc72TcX}5DE=9pCQkgHM3d+$.zxp,FcMQd^4@T,vf#q*PzTL(..q?BudaY8FUAarV6iQD!]Qt#q$yjKpVLbef}zkCHo)YzrY6:T0j_Jb,d2=wJ?4k3nW8iI;JRQBNi^#u6vx*8xRTjGK+MAp=EOqkOfjUWC0vtt,D_NrV3%{pld@Z!edyBL8j!fTDH:XT564Ftmwy=)Sqwrp20RjH-_)g6?4B0sNkJ5I6!]c%m)mpG[CK@by/yyyqh8^0q$*jgqw/0+l_FzYC?/XVgdvrLpLDIQA(;gZLoI5y[z5?2b{za^whgyxKYJ?9r[v6CSrKq]CA:LW%mG{?GMElBrsDkdU6?S!sr-C/SN2Gi!BbEgm57/g2u!nM2xHz)ar/*7YFc1w)xL*F%V-Uc4ADm;0CtNoZ2*nCT@K?DwP3-W?%tZm5j[@5V{9B-E(mI=#A$_$W.U^!_?B1ij,92Oy0KI?*-t+1Bs{:atj0lG6ourI35ynFcpGsrl2eyl2asml]sZ$0SXqRp.t^}=1$S^/)0MDN6kKUK}#IV51gW;!@Z]515z)X2PzbQ8/?3Wbm.Z!FFZl+i:xDc2tg1.qE7YK-td^LI.#px[^wf%$(Q9^8/AD2rbjl(DaROj0vQK4GJHar.T+shq5!tv0H3a:MouTfQn925dyZrI[Tb+V[4JaLhW!#TFcD({@0QC==#Mcm#z]flSKvy$mbW!?U6YRXU.O{X4W)J04F3zIh5;a_%;u=QW^dAO75_R9uvr9mkpC.fZ%Am}aYPR$v5a8{Qu344_DouOJi-GOU;_U_bkx3UM6!#/0bJMt4k)2VQb1-rDnr]!C{[OJ3xsq72+[LYV5BS=53iIG/u7VtkZINWXt}9Pun18dHOz8W7wD*E0P%}y]byTAfXG)s?lg!Vw:KHbR6l}.kDH/6qe5LE#F}=ozwJzD:6+YQS_Zl]S/1}p#r#Y5hi{XA(T.!}RMv_0-H6)xa%gx^u2?APrk?,QJ:]4/Th+0Y;N]JIo!Ls{fh!b8BrjsW5unn^DzCEg?1lMityA[}NEYIiYmz;u%G)Ly1y4{1=QvPLf$(HR1cN}jE9A?@)k9=;v8Zl18B{tYB%uP*M{k^%0,p5IXO8P]*tiP-;aq6/Z-X6unqta0M4+2g1)OvKhujGLq0,}VfTPtSwv*WkK-2(-)8#?L!}oP}ab,.p3T.kMsJ.**!o3b?X08YTLqu8$Jwph,i[.L;x4RHcb0Y#DxDxI-acB=0k!On5#8${fajLF}3abHj2b(^flzxX)qd:65Y}CBR9r8G!AAzJKXbBK(bjJv!P=EjhBrLU8[(c5y*jI,_kom6o71WpQ5]Y-Xd%y(+M?!-!xF(=K?zDe%D}G!gv]=?*kZvsVCu;ykY$BgL7E;51,j;_584Ec8co!i6c+0$jS}hx}qye#gBoZb?eL[4EyTc!M*l%GE/2De^jbq29s/#j(?XV}{f#}qA$i/5CFKL:zKU0u!T2)E5B5HbTKV]i};#.xW/^+f{S%aFJWDXJd*L-;,vegtTnEUqL.gHc9!Pdg,_E]6[d-je*6BiIah?=:2#2f(y%)6Q2zy$E%CaUgY-nVjS(4oBtCbtxRNk,lLUS8OtrwtqOoi$Bft(,#pcrpG}8?y.#N1aP-3vjVk;gYp1Z@Xegp3,.inY64F)Kd==VX-FT/8Y^:SRuu#5dWwqvD6[812XlXUTU/4Usr!7=d?6oqka=MyoiFtniKDiyaCFLK11bxV8$C+QOg6$jP7XtDnykiA-rp8y-4_!Sds6{WxfAXj^_f[IO=w:KNet!R9u=(z={=A/Qez{A]?iG2egbi@fa}f5H3.$tQ:Nb-g;}u*,4NYSq78SR46jJ7{^^H?7P6mvI=N$j?Ht@]I:gXD0(B[E;:OlbGAC{3vPahDGL:z%+)*8Q(Z5?8p-N74;SpgQ).UTC/LdTuss4IsjIRHVTVF+LQK!aN}!]6A_e{MlEAy}O%B=T3b64=aL;Doo8,FPe8+c:R;2?PgaoYtG#@RC=td8Cl:^^^5dNbu9%wewy}Z)AWO;]PDt5H.X^ReFTUIIETPa.,sy7;XAzKIhb1C)5HLyq,w9q2nN-H:YtWzZ#!s)Hl?zGN8(qI]_[W,Ibo0}6CE$IAEH5Gx33xnv7)?bL^FT.P1)kZwJj{p(/gu/Q7h?[wv*N3vNIV3(eDpo+:y9Xmt)0e.5r68F9fQ$oxD$7ibXps%LZU@%}AgvYnsB9qdAECR+L^GXZAP/[vH7k*,)Kn)Yum,dNg[n}7K*gio:OT=Tai*87L6Z3RsmO8r;VzHAu[I!,V;KpW?}TA%Ae$/{V6g@:$Z[jtb*q{;rg_33*1WCl^JmB?c{VpRGfxesW;UA]f3%_2U)s?JuO;atq/qK,G_=6=1;^E[.p+i6+wrt@JD{+NdhA4o5PCJ7sVTX?KP0:iji+3)ORovJ*SKn;:M$5zqUWBV;D7px9_:jg!O?@n?]56GJkbpHrPHP,Wo:N%,Hy-%Ntj:}W}XMe7qkEr6)Y7PW,RBD-(oiv)vIAn8qZVd-#@kjz^w:3K@{@pk_lMdJeAu)psSvfu(b*hM$B9ycx00-?D4ygjhRPGf{jwtdNO*}L#T1.*HwyycU07tDMHcIl=FcAuTmiTx?e4Il=JDdJUTXyQod7y2efmVe1jnv(fy4e0a23ol{}M;Yj9:Q3[:zFvzaZ)-%)=FYVt3uw2(P@SV1?tLmIjn4VkluQV$+?RvsN.@Uj^I2p7EDi.I0ba)whN7L1MfMy}=?u!.SspS8Jt49OyD/[/y%Ji;u)8pxQ8]eTLcfQaq?CjxFc0#814PWGfS#09=6aI6g{fKm]V?R4*66:At4qECU{n(!vg2XAR}M?Lkuk+_w9owXKSh9*B@*NUcese1x/;!i-(@MPU#+hB,[RU}brKDgKGGzNkg[%sJmiog-c05z?_Px*8{%3/7I@(:LeUG:zlkciWns0bv7;u%JPgL=I9*)io)w;W3b-[faxYY3F0Vf%y3$rcp-ow1t7)uLE,p5Co6[ljm9]//AJ[w7;:tAyG[4e%8A:MMh3f$hi[Dg%sFGzLO}C*?C7xN)Q6nG{W5sJxpsF^44g]QDLO.Ahw=NM?mLGzq2Fd,^Hdem=;N@(SE7IN[%ao8S}kxQcoJ]:iYtPId3O4/^lWD.e8o$Rym.3I*(GK)SHDrt!+-wu3ZZD2GVw35m2DVfa9?h/-,9%=T,{xl1#ns^7j9Py(85Ye[njLQ9C+2T{x;7G:Lg@gjfH$Ex.m4i1dZ1}D64FA1qNIB,5/=FyQ*]/gr%wk8lm51OR865i2fOo;Si,d4Hki{pBZP^*?t)AO_7@wTFcac4rIl%r-@*J;u$P*Fy^%#HK]*TC?!t)QDdahAxLR-f1!2dboilM3oabt%,5K=hsqdZlR$g}YA07R+$69L7cjeCBD=uq8ccZ6+vACaoHo64A,Ub;H6U(A3q]3pTMemw.lo8ovX*pi,RZD2jS]DsbAIqo!R(qoB87tXgEb?*(T6?^cb0(v){;hYR05WT7A)R6__-d9*bdJNTwypb!DsdCxpHe4@hHi9z#Asi^]$-;OuzK@LnfH+X@pI68cZyb[]Xje3Ok,DDyABoztdE#heK!XZyR.086Z3-O]4mjcABGgWyYS[qpip+}de9IOf6ZzU6rq?1Jb1)[B,Fg_TeiiiiG^m$C?vf%Y#XE%w=:c;48R#9Ca;Z1M@;LfuwR*/3)J-eDQ;S/{($)N9cxHTfY!,=SC0FA5%6cI.WL[=Fl8fww5gm:yZ(qf.*Y#;8?(D%foN^Gdb1c6l^R[Y+VBOdms%Xc6GB)_$s3t-VOhnoQfKaiH2gd{n=V7KTF2xlv3!:/#=VR#S0uNn.+3i=;%Y--t-T^IhosM%[g/*K0$2(RUS6$*3f:JKn[1p!e:SCFv{S{.$WYA9Ani=+Z4JwMGVq}#$F.L_WcSbDt4G%3t.$g:=;?my29ys0S3/*of0)wv{GgUf67$e7#PBD=ix]VS^m$p{R^#ZkhtMu$Z]lrKxKb#*^9b@XKiVg3pDJt]Xh^H)4}s*_IU8)r@ijP;h!+4pQa5N*yAob7GldoO(Rx8^R{-H3W9Yr0FLxey8EV[Xy+N6H_%kxu#cI+QX(1qM8-7=?(-nu2Po3X;dwo0,bPNk_YFwl.7^rN0d!m5RxQ#2[+(6YTS9gbc:E(pt3Byo/-jwrYrLkVy4o@8BZI*6sWc4}=]7/ZWEi!LiBv;QrHIHQO^at](-0PV8(f,)GPyu$byYD5H5z^i-;yp;_D+mF]q9)[_2txx:zVS)n@avlr,Em90[MqiBXU?+ME+K).s]YhLwjkZkqWG!7DnaRKsyLO3lo)jKwetaz:wUhG*^3Ca(S4C/+=%=s=M)HZFE/F-Hxj-nFOOHoc1i{ae0APg5F#BG?B)G1jUaxgQzgL:Z[z_*KR.gIE-Q?dW8;{73=q+A6xH.QuvK1JiRjaY-hd4$cgRZjHKr:Tgj/%mRSsqct$w-O8pt}tH+x5.7q9]cL8-iCYNzpxQ33h(wEnoJIZKxqS7)J$4W#y,C-sIjHGLYgWEsNzxAH5Ds14AMDJg8WUU!1?savyc}4TQj!miSRB67uZJfRJEhn7^h5:i/6*sk_luf-A+(Mg-{i^AYj08KLOU(Wg@5fp^F*bQMtedxN]za8luopRQIYWD$I^o5K8o{nORKKzRmhgC{z3a?QFJjsNh]WP53Smw#N_PRb24d$2*AV^R)iZ3#nfC_55[g*y#D)B(MjOLd,:cG^2bUv*VpY=M6-Gfp*:;ap3Bfog[F[0,E[,qf1;$FONm_A2m,2Yi(qGkMZmTyUJ*F;s,URs6mBXfikHK/[G#nC1}F9q*!tKZ_]I^Xfxgn1L/lqV;0YVeo}EP7AJtsDp4Q}E,qYGrxEZOqt8FFSCYSSd7$bM+r0o);UIFFX0KGfAk%7Gw]Ng^6hP.pI=V!^HK;lIHv$#.fh;GG/6?G0a#S(3MGZ-4rXUsfPDv07kBVtzA%vs}i5kurSykw#DOvJ2d35Phv/xuTRBW)veh#M]:Yyuc133%:bddjBtsSquRnZ3Ga}6+UR=(vxv::0KDv*ImLQ)yoC88B%hD$6y$}@:nu$XwAI]VbC^X^EWR,V)8dR$o_J)^^Ku[ZxzbclJLV1_VZ*}!u]@S}fKoqU?{Uf?fEK1wYkYgmJu%Udj9-MtkH9I;M0Z+BW,L;Gq(s9r3^y7Erg(z?*@o?zg;26aI,6A/D%_H(8X)dEr+06lmdJVwPA6[aE9bE{5G574Uu8O!fiQ8f{O]dHF_:s6z7KcBjb28)q_Fe^ev4IDuEQPrerH12A!7I89=inn,.)0L/TE=wA(!k/)M11R;mPgLReS]BpZK:3M1eJ.:*jB4n6J^HkC*NCQHG:G)%v%yQ8qpK5zkh5Vyb$JzJKU1*NLbi6Z3UKx4]:_:Arq*yews{PtyQ*[oFoNifE8eou8ycT$XW%kjvj(eQwb%567=EB@Hv[vqqfp2d)3-b@dNmWBRLF!b?lJy1;@6Rinkf9FKK7Hy5yPe)N[m.-#r0{X^b-RW*igxn4pmlp@#avbG(lVA3Zy)Q0z$;ma;+TSlsT_;P{eLv96NTg!K.}do.M8D@=K%Ck^}k0KhninDNGt1/dfSH)kLj6h(3J_B$qS_2Jao^cqA1fh{c,+2w?GProJ1Tpc/axyqY?:awnCO)ad}mwX}r_-4Jo*.)/rd=w_2*[MSe9iOy*#=@*bBJo6=ESZSgQO]!}{0iN_7m%MiHb#BvV=PZ7;Js^C$ZK{d8nl]ExaHV^D+/S65Ak3K=n1pet,PYm,6O),XJtn-#Pa]ZD87SQli*j7fkNarc2uZu-tsy.fR8^Fq5IaroRzo!89b6n^fwWW*iDk;*:0iIo5[g#k=Ib9vq@zU.8QKMcL/MnRF4w6}zBR})pik{He%GL)%k)2*zDe?}j:iFag3sGbg?S173y5W.jKt=es[T(pCk=6*RS+!/@!N#j3Yoj+kn?6nOK*C-pp]Yh/SQ(S]8VCiC5?pd+:n:dwvHll)e4}:w5CntRFpPSSfwaUjY?(PA9cWqx1+*OfdXJ9Zw*ORt%lFm3fnp:eH5}(OjaKvbYSf8+eLugeV}%?h8j#BjRZq/]JwX@pbrZpsCT9zO-wxGe,gt%UQ?aCXlzeoIT$f(x^M5rw;yXx;Cbi@%_H.Yt,[)(p(;KHw;Oa0c;)q]iw3N0NRWB}nv4x/+GS#FS:41E2WwyQ4TL6*2qolUsHabzLjar_tkz-RNsV-((KA6oDWeLEz.Jc*3Tur=%uNl]s}UtkkYylSAVcDFeBpExGX[nj6JHugAw%=}3D{yBFk9RFpe]tH)^eRvA2cqSGXh=N%Gxj-bF:Nz6LG.RLr:$B-{l0WjTAk=p]VPA-ipBKkQ-mtx%kL^ro98ZDg,1Z0GgWp))n[,L;o6=N:{[Fg5MvqVN^!w6rEet@[x1{QR6t*K[oSjjw@(@pg%QUx0h+C2zzgCJ+WrkSmgL-NXbKKGHo^!9l=/[4[f80.hoCYnC.7[A8T/y:v/#GR;8-4bLvXn[EiR)FloQ-B}mv6h-rF-Mr+1lbh3$-=KBjk64n(q+dsie7$=auth6(sZwb[]m*SMV@3%+LZ![}V196hmHVzeB]lHQ=s(i:6WNZKLfDEDBU{p#,(:/K4sR8vR+3qBUy01_3[3Y!q)jHtCej,l9=WC)mO/fVgpPsG.O_P(/RgRTJ#Ihy:e!Ay)2gfr)4=ra{_3suKrStSN7N}@gEYPJE!N3o@4S]7+l#G{nS=/S%duxo?9koXYBp#yMkc;?C[.b[}3!3aw^h2qS#ftLJY]kXg8@)C(0bvMddK9E.ugVOX*BszB!%f?f*TFj8+QgoT*V]]piC4];am9D3Y9CdI2O*jYSTDLK$Xhk?OlXeYwb2QxZdM[FRA-GE)q)B./Qh9t,zAf@)j(X7.]zk]tS3?];xn4ve5zYX/jl?3mLeC;z)q{:5#(;zhj4h?([+Cl*y1jdGxdn1WzkQXS?rAP(HIcA:pGfRW{COe6LlI4*F0(57M/dTl=c=oHNW;^7=Kj][-F(tvsEbMp}#34QU@we@r,aQkthk,,tIG5BXSC9Ui0KvF9zdm$@m9W:Dy?Qwf/2]YWZong5U1]j:)OpuOUc}bJi(N%JV^x2[x:E,i%J0iZC5mzz=f--fHKASY7IBXqhJB;QJPM*=06dU8OUt%=#DEAVJtR03dVVHdZ+nPd6wzpcxYv$5odqppcfXp-/9;D)q-^=FDZHnCi0]y}Rp+uXdQte1XWtB+$vn]aEluQ0g^ikx.n?xr;83iFeey]h1$w6JODuLJiYlGxgZ^6!dp2V*0-ZIYon%pukZx8c0m!fyb#x+sM5QtP:/S3aHAiqK7pwZ9:kZpR^d,T@h:@y)8KS!Ee-Yd)]pMC{?@ozS[A%3NGsUc55FCsiKaZfsy}TkAvzzTaE6zv!=k,UVyPPn{aoQ=4qH%iy(GE_3wN;X#lg@/o_O(J2i,t,zgk1bs=3eRZFjT8t?{3k*f.WeQ6BxBe2.Xo6ys,:R8@6bZvA(,alqMrkbFvr9%dc[Z)NBHox?[G,t3$azj(fUepU{NE3t@v^N[g)ZGQ6WGXg(t[6gTBs[cDzHaVTQwU:Hk^Qb8+9Lt@HcywfD%zk=L.GZosq,xPp4qLYuA+-[9p=2tJ0O]1)Zsk0gl1EzMY}1YKlh}Rq:?gXwApNnXBEL#YdEXsJhLYHY)tN!n]ndR5L@w%YO,uH.i4Zj$Pyqo?@_:0aB!cB;=NWn85,fbHLq8agL3$z$zw?f=J;@U0dKn9)k/QuNnL:4:mKjLo9!;]Kf3_sd;LK@Qyc,MgHR2jAyS4^3OIQ_e;Z}x;Kd]/x8$^^^gRO3UtM533M+?K1sOuyW2}OGBBE0JTzwdTJV35#D@i?-Y@(33vFhF.SMzQ6D.@hd6{@Tj0U0Eua;uDy(e{@Itv+rh,U5jp!QIq[Af^{*saJpZJ/34}2KlPE3[Not(5LWt!1:7z*FB.Y0j@iHk-6UC4jOgKr%BG1X_+^5=xejlto0c;pCEgUcc;#f$pwTLS(pkp9!c7eV20Z}NmQ9x^ieO%X_17(e@{b:Vtjyvj)D.85wJ^KQeoDFBtlc0rhxu)oXxyye0r-1sV)O465Dx55]2EfDzyP3z5}VF-6I}i*Tq!Y12T8tPTMm9tp.Q?9YprdD#[EufS=27t{u-[RZvogy:j@.YAeUACu$o+27^#g.eI42Z$$U83YC/s;TqC3ExkUNK{A*q2WzKY@G%pS!g^RsL2]CCUrj/LV%)T+jH:yg6Bu?zajX3{M3dAxP(pcOY.O}-zOtr{*jTjV=F13(I-N].k5WSlr-FuL;1HS@6pueN].qlTs6mxVh^?U1sUyQ{x41^!#Hk+EWGoBm)@Ow;Yp)zz/k3!VQHv,TWaIu61nW:pz_LQB5YTyan9**}RQ,nJzzGw5,w_axT1fB,eiLAha4:^?*usp8rrS+1n65,4vj%eE5ZYJ@S/WcSVBIFo7I_yKvxxX%@[ox%@4x-W?DLwlXP#aAvK4d?;h$gq1p1Jjm4L/4X,K)O9pB++T8cD^/]hY)iV%aIJQao3(?1jPk{0/Y6)F=XPpAU![!#(r:IW4p3;4M$T%xK+J_Q+gQdT;yXKIU/vzFPT6qd6B1#Ja}0xp4XvY{K/QRT4PZdRT6rY+)AwncSGymz0BcUWg,?(-}!Beki#k[Q_oYCJ?sRF;0gXl{x?mrfS4v/VpT,;f?Y5i^52$c,}g7D55yCVS6VJ=RHBs7XQXiSA/@,f)NUrdluev7/,D=xJmT$4%Q}Tea*R3vuBf,OZw9LDUX$n2,^I?#M]$f[V%vH;..;i!R*XWrt[O-MvQ5lK3Dd5g#OCRLUa)Yk*;(.gWO*igp)0MzRjIiU#OId*M%Abs.+}k5Xth0-eve+3nf#T*HfNby,iA[E%X)#5+6,_NCkRdn9nUYA20mHPp2XsGval;giKLnf^OFGgyWXB-[FO6U+.B22$tk4SU/5$1.,VRKWqEFrqf@fV_zx+qVd)Qs)VRDiXNQSs(c^QGfIxwylYQOL+-;e^A8rG=_+R.AqyKcGali13Cx[p8-Fd(P*K2m4Y:$rUMiRg?%zdXKz$4z+=;b.33i*/g%Ey$=W+zhDZpsCUl+QlnPWbM3_fAggy:LAWew8T1d{WcGQ,d2$t:?3ug.7tPavfaw3vs8PlvdP@=RJY3(Wu$qQa1wqvj@LDi#AE$2N%:h0=4ZDatZPItL1*oT2@LqX^#hfgO}g_ud35Lrm7(DP-4S5v7y!nVn*.,M8{U91[6:QTA%Y@fQkt$i$3dAIZ#r?gP2Ly/9x;Sp,5)/urpy^v4TmsxjM]z3Jfz#SfIXlLNmL02$FmQP1G[^WYz[[ZA_E8bJ*@(lPysnN4AG)3;L!vpa%JfH*dw$eE.r31=1d$fUAV#G.R%J1F_SBlO$XxdbBG,1ffQJd;}cXIl-WZd2)b+4IhWb3Z2RJ+AG-V5?yfVz$aXc[:}X9dud,7hhetyIPis.[EOE8GRDgV9tI*%f)DeR6-$UjgT%4NO-{lZPaxt%aJGMi)7ZCbkndH$R#tS_[5@YpY,/ktBO+dQD=Sb9w9cm!k16uhYB4C%@!R(geG%l*AdxU@luRu0sAErKqkm@AV!M@0k/:@NFbJyO*{X/h+0(vFOB+WLph,J^=r2F-+)@y)A$0txbpERSgAZosWeRg2B#CS}_M*#Nq4(y]7DyV%2VJQhPh!0}Iva-^kAs2yvl1k{#SnzrjV6g_?gNWuqo0O#^IKr-n@ge*ZJ+*TT42QhNtOFZZN#/*Su61awl#$w7WY*vQC1,yg%r99oA%YUb$OmDk:K6c6b-,m2XWf6KYwEwo@9K@([^[LH%cMlE9n=V^{AWUI;A?0!%Kf9K^Oi=D26oH{4QzPp%YVx2jPjDY{aBaLmXtW]x*,tYI1k#e10H%F?p)m[UPFou^uN75XprlhYrjljkli.]u})LHEoX)nynQ2RV.uaDP!t73cIWrwc879?{1p3XL+y/5/{][D*VNh#qyBM_0Yrb?!vPh@HE]NuGJ9LZ4?aDSOe)s$(gFQxTr[3douG2!RhnbtJhtdbtWm3VlMv^)eKMxb=c!IgY@$Mg8;XZAr^UE{(EYululxArEO0:ML#N_VOjyi/Ar)zEsi:^NxG=jmU=%}CZTN,LRTRD6Z1r[V82=LBg@eD*Zqr^UVKDJ(}slPa*/4h(f@=2o##0b!ZXzq%D+LSAK@T(HvSR8V+71j_BLF^t]qik)fSc=lq#B(ID*P?]u]d0B$V?1E+!u2CCRLxbGe)k6k#d#m;B9$uzq(p=pL5v_Y==aUY$]O!ezJt)j5nL{buZa%EDTzWM-;?b;YE!ywwbv{%ZA!$3aRJ(E-h}r^6q,X$iQn4-tJW_Pd:y)Vn2wYXTnQB!*yLmjT(LzCD!0:#K/:1Y#07/lydZv!oEKUphX!/p)oMy}s[d/AMMNAG^s)-7YrSPF=B59h6vU38pFD%5]lhbZ2mN=klLAFh.5%km^0nn%f*3L)mCV1Bo){@Yj=2@pynD=VFbYnfAaX0fu@To%8E*M}vGXwKym%jG=D,OtnzHR+vrpxnNq.=9G_LI7,-?YH6(e#Rqu:_=RJ0O[xqa.UvCj^4f9[FX}QKCvO*!LI1cga$rW]69P!S.?xrgtlo%j#aJ=:.%7J*D}T^8reZmhYicHhVZPB/[gBMUglqz8={-ohHpx(0f_p1Q@=U%E0BuhNYfsC*ub!REVE-NyV:qvKllLs/BweEOey0YZ[6sqnm(@;nv{SQObX9EXUs*%ktdqV)]_!Af#;2y0[DtBwJx:8Y!^k-nJ(Fy7}a](iib8wOVfgxbF*]b_6kxkzEH}+e+?QFSmnTy3MdfVBQA*Vl0PrbD#huruU#QwOO:#@Kc/??!NGo?{7B*ji[ZC]_3=cUP3?rfExCj?%}0NxT-yX=OlY^oh9l0Uf,)/vOzDMEvvgjmI3H/ymN]WesGgp)IztFoy{fBB%^lqu2pu)VT!Bt8Nzt0+oRMBYHTFcxyaD4#HQIRGtBntKB}SLz0Micsx%F@W=L2A[E43*714G7Xi%8,yH)4PsIJkL9L5D9)HYTpl![hxrq!_xc7-8i;SASSA9bYYyZ5BlcY5[fkL{.pj(-5j-^p:vm0dG1+NTbhEhcVlB3$7.9-]TKd7o(=Amp[vx9rJ/QM0lCjQ/?iQ?+F@j)=jeopBi3;a2EhG=(-.LG#sIJihj.YJwVbbvvZc=z_3k@!@16=r(J3;Gh59b@i(SI;Ja#iRa4z000JJOGiWi^^a60_De66lK:n!32.bRa^vG=BLDy^BLR4(KXw2B00)qQO,@Rf1rH1*2EY@1/p2N?J4r-ARA{D4nt6Pb*w##NXWn.alFVdZCLw!B06[%V5*cFd2]UO,TNSUx*)Xn4ww7uYF?@ylYAvqCPhD.ims)pa3PvjG6{dtpgs:rd2qA/pS.:Id%+.D.]p0C3ge0if-kv^[ndF?JJiqfi(,k0TE2NbC(_$S(*1.KKPN#FR*9F-IRbB3II8=9K3xE(.lgXsH-R?Tm27^+8;klc4ve*T!**o^LbpMdO#s3w6*oM*!vO7CFm*q[39GlG,Qdd^UxpU^R,wFs^iHL_]+sx)FBqWfSm]G$}WU1L}UN3_w(d/,3]}MCgKR,KKM7-DQeW/aqaY/!mWo%Vd6{7ds-*mDTB_-:i5*w#HPbVuYt0[J^ezT$_(nk+ipO:@SuLoeYT0]7![f0J:Ew3FqbjW/?(;;td+S8A]2qZG[MZiUS8Vm,Tj};m$i4!{cqN1KN8jVlo:jV6-%K%ud*}wFX(Zo:D%5L7hdpA8jJptRkl.Hjk0+UOMD+F7qcyCoznK5GqW5/pyHJMDy+Q^An^DT4H:jTsrYHHfLd-v_x@78Wji-!Opr9]LG5n=i-swx7_JRTff-Dn:IpAv*,1At@=WH58*%qEM*a/issdkYE+yx$wZ%9Se)LWl:yYil3bv13PUU(r*sDlQmDKS6_m^Kr:@XTliNU=ZB8+c%/Rx{7{mn{:y?YwLFa7uJb?f0*f=a(vRt85tQb8w]d:@YiluwO8Gc$b?+Hy1M$:=c28pgcm}eJ9UX}vy^^^RzCI@x7}Vcz(s^gk.$0gB1U{kETLta+mvK)gmpWKwO9a%i=gt1%@L2!@Czf@8hEZBL]O#l,qZAmS5#E_,U/5fm6w,^sI2NxX48A{baZqKY2lHPkt_z!4_mL(O7h4a(Nf]l)WA#WcDxL!IT1z([9h*izBx!_j{wo[9T4*aC3kXVS[0$KlbAn0mls{mf(KgU/Mnz2AbNUw+s*@:dcFR@@z](^.MI#IQC6;BJ-{fb8X9)P,qNyXuc]wlFMZ-qnmCbX@78ocq/A9v5JQ,mscOTJG=tW/6t0=bC6?47L{xRnZQY!zY-Pj@3y4TgBs4sNyA}}A,s0;jYs)g#N*StzF2!Q8aNxiJJRVPAKTXr9si[euDJeMz4jlMu*}s3Qh6G?;T0:TJJ74,Yi!Ubnx(2}Cm4FUG!Mb(fsW@)E@(fOqH^.b=IQ*k#/XpXgt7FZ=x9(q1,D6FCTRB%:L0z=-1a{8FT_1teesnFCu1a!J,KD%+JoTqSc76Rd[uqd%6%]fOY[?*TyId}X,uKbkDJc[,i.LfyHEWi8fC:U2:i}8sZYnD*yZK[axtJRzu(1bq.n]F8./=Q?(v*Z;d[!]245N1c9%Gn@p!vhlI)yJ.RWvu*DQW2?qP]r+mU;dsBB_=CNVhl9)b$7ouOmD;jP7m,XV0DuIC5W}sIIQ2w6yffY15]Xx[0f[C.XS4,Q)[+TUuIP,r4{D0Gjl%gg}!X?n^}rQu5yW=:x?a4B9PYX,8Qss7SOEO:RCYiEw*{:gT^gryHrMEob_ur*hF_dAHbxD6)PH3)^gj[^IE?Odl7*l)VhOTe@(0yS{8Zu5K[wK{tzcQ4yJ$nZHg-O4/n2[hTWi+Za]n!-vfmUs8UG%gV}*=^9DB=LTg0;Q(Ro$VkJWH-OoU1Bput91agBKDXhFj$!^-wHzpK/.^^N%FjD-.;9T=4kWE@FGuRS]0b[xRGe(NWPCW05fK3f8*_qw9:]eJ8=)#hdZ-[bTCLXPhK7bE2M-/]RCu%5Ou[m+axSxRO.jC![@.)]SZ)F-mMv6$v/*YqsscsmNQ^xVTf1=@hO:;h2gkGs%vo6kr:.RFn^f#pP9f,*)j^Tn?g}eV!LhP3GBbyB30eoBqN0McXU^I[4JLgiB(EzgdGche*9LIZynmsNyMJ}U*00#T@#=H}1*}*F6-(-:OsDqYk]iH1m}@;=peQ{2xM:pbj:=bIGJZBj.OLE*bc#ZdF@I.d28xS_]D%M1BO;(}g[{9lZQ^N.b9f;zk8g[%JRT2}m6fq,X:%%W$5epM(d%jkRaJwA28oG?EWTkb#-OhdiXKm02Z;jhV7Qy/Q-@W+WDB,J8eg[Mm?*Hu;c-9E/nfdI=e,hr/Uk41;kZu4QBhIcc,-t6ShR?T8y4](i[f$9WCc_nb.P^=KFgLZqpYlKh]Z.*sI06cJ3D+6*oOiG5kjQZ*zua3+_SIA+Zciy%bhomg[+-K[H-eHL;.L_ml:aP;MFt#Bk_VOvF}(z,4rr$m}{Y=FTKp0Z?q:hb]I)F$D,RBaCCF%([O.a,)ArCG/V(74]+9isjNIjeSJN5,.ImrH8oUMR{X1MLI]=#dPq%8O@At!+^n;TK7HYd6DNLLRaG@B[XW[[-p:sJIYg0wVcQ_R[R{b1)otg.qL=C)6=.+0789MC%8ExG/y2+5pXd0[-nX(ufkFy2kH(%0Qkt8aS-Nx=7K==S_NQ5amX?,+%NF^Y?=e1=KvYx_$.rtj%G9Y-=/y%NncCdkJm_(M)cZ;}A8,SqTN]s8SVqLCc4SvOc(l.Ol,tlZA!x!pR./dSsj.yaxbO*p^PDk@V0:LQw0QdTX+5maiYu/+wbx$bz4zX]r0^*+rfG}AG2+o9a:FxtZ$AHZr4u?gK_z3@qqPmQxf_z,bGVPzz%VmC=H*X%Zs(u4e1@=t@9kPP)o,:QdXMJ8;2e_h/Pcy8wr/[Z*}#FnWonm/_9k*6)9nRCa*K(@Sl-@:K4^8!-=DqSerh%$!94[/LNPR!*7s,3QQe8hsi)1C5@,T$lP5s,nKS+sOJMHo+,fS}Vhj$)cFxA{iWBVJyO(d@ssbQ/VYv@=cR6_g8jr[:!^L}zI-O2,sEJo)jik142Qi+9CN9iE[H:P/:NX#LbdePk$%btQvHkfr=pwE)o952FDC(=Hj0RpVD8S:)bIpwlm?/AGixw:PrPa;qGd1k_;?yCOl.HJx1Dg4,Ap9_s;d$KjTc{r6YFk//_NI!_PuZEbFa;kYNZ#JFi[LG8P}Yal13dfNN4R+o@oavrpEkC:?dh6uFouOPcG?(9yKFSSS,/O+Py?xsPm#CU]n?X;ZnyhFEOc:I/rBh7kM!bD6[j9wFAufxx1u8*ukXgwOOJlL7QJ6_[%bztyg.DBZ!r=t-a%dY3F0CmFr}+5X}]rZ(eA+O!ZW]$7w)l(*$8;]PSUB6ZZV?wu({kFh2zENaC#+kUoPqsSXH;_m%qXo65J/Y[a)g@kDI?_]Z}[m7Ba=P$yL_RAvGn1?aSl2Z8rXX?Hqc=dLy:TwSJH2PXyoM2db*}1[cFaLuF;w4b9wm/02,U-O8194nF(84{bmBp8}:gj6qmme1Tw-iBEU#3]DJ;+9T?ypU#7.@U*jicy*sE?^_1SlTX.Yw{?7_y+E1(?SV=^0p%D}O8JV{Y/^4#vvUB#-+0%H(9QNSWXzb$x#i{Y]SY8bz$4KCPL}Ubq.SU$-hJmC/VA99^qRGgqNCB:ZtCmn)KIap)l2y=f(3Kv9kJ,iIzmE1;@fCdwfOk;0d+Q71l]?.oH:uvGiT1QfB!xb.@T:*PC*}[fRtVeKl,H:,/AnCg(}nhDUs5rf%f*xs!yM$wzd_^t?-O00aFo3MvTbhr,43t)O=K?=%PbqR{[c=+rW;z3ObaWoIK;?.NTEetXRRujT[lpTtv)H@GKu+0Ps}_AuUbKJpAy)sEXn+*)o@_5h!N]^+.!M(c?ZNSv6rCA8dM*+;h)PS_:LJdDGL:2=,[(bUK{GZ$d*CkoC+l,,1eNn8B*5t62BsIyyVr]^]IncyaxD.$vfYBL4_27K]s{rR+n(_GPjSgpO/GT+DiG^2k+G8ws]-6aVLT]TdIDFm;wG-u0K)fW:{#Rn/+8kH:FR9UWcTtC9g{Tt!6%LI?h0noy-g;CJ*@Kqq}l9nH-:@VljvgMxVR]R7?)WC.d=p-({41_rGK5t$UMTg%1:moqWy494U{f@tIf[Bd#1Z:/21p]Vrp6W)k#W3gCDfodV8Brh+-^g,;Uxw5FJsDI)Aw=vq}I-g.oA:JFNfdlnj;@twk92rSxV-pGz1(I!UUI-?La6Q+vJD1eBXxbbO(b4.Y/8l#cHWMBkjK!;yMm@4tw}).df@2NW*fi6mWxwE_jen%DurS}(eJ^tp,8jTAJoD$zFIc.FtuLWbRrQsutgL%VN:jngZg.:f,w1l6,H0?#;I+MWHflP.bdLO$w}}}U#Ksq2qHNbL6a:ais7OwHT+x*yHj+,U33mihS0,#m1{e^:r?gTeeWQ*+hKCX-yu]VuVVIeTJlQ}WTsK!uokHO!pZGL)3GN;.VuVYl)_r]kiSzUG(kh=lY.#st*{X4ZJzL9$S2i.5[B+-zR{WHp/OpxR^SM0=xSvtkQ!q$Sg:B126!%U}B]H3Xh,zh7dyY}6aUnH--%9(eyP;:s#oj?5PCS]E8G-Wf%V[]GgounpjZeed+Jp-s.MCMql9Q9awpy*4^mLq.sy.h.@5lCfDk^vHrVa3g(p-Q_]nq}r;?C#UY)zyyv-q{K30CzOgdjEA$db!rNV9_;BlQ=H2g4U,aiF+cz2-(dyZbO3b.M6jL!_2QPD)-9?E1If%%P+^FilM?fqY@p06951JqCke-GJh+qA2xoadFS)/mB^YjlR?XcC-xJIU5qeZMXlJcwH9;E#-tMFz;1qrrkS{[@AmbPc-4K*]*iWkTxm=Gde/59TDLM!h(=DDO1oTrJz2116oQVu01s//*5-;[SGaOC-**g^*^,(^CE-*5]L%G;pvd:ATKWuqtW:)xN,l3lai7y+_yLD+Uy_zTzwJO#fLF5,C._X;4aq8h,+Enc$LZ6;-3y]Y7ds65Pr1b78d@GG8V6##Wjm:#eOD=p2H!CV2OV9QqB{MQoiP6OfC/TCQSr!.l{7on;jf-c7wt2YTp*AzuM?mS,m=lMMVcABO?1^I)5qAcj$l=]aD/^6vXJOZ:u50L(L!]lEPi2j:!9?KWSo5MHi^F7NV6NBxO,w$@SWvh!i)U#))go7R}m/$H:%chw#$vNcB8jjX?ahUB!^kPBy;uE+%{6eM4A]MkDj+($lNgCSGT=T903^Iz4OFtaBwLC2bKA5eurSs*Wbm;1Rg%-$#xdrM#,_xwqZM:-gbiZX:%P?jU,Yv.1_-2V9$-!*2p1!qVE(nY[rCKBpsO0!v=fg]GQh5@hOi]t3^TIWFj(vWT}f5AftOPjmi!OTT;-MIkpgSB?Mx@3@qK+1YkZ]UAl0BS)%L/#xM(y/@7=]Z^%A$KJcQh?#=eSiJaluAeuD+SCGlv17-5/rgCa$A:,/J8+nZftrzwZfp;EL3,KswfSAfj2:x)YcLz1e3Z)HN}HAmvwKBRm[2)oqeqW@URBkHzE[LMYPA_PO=(FZi4zZg]st@ltE.Pj/_g{QzZbWd1TQ]J4D,u[LpD3nTpkR]A:o-4xBTdrG(a?]EMW=PkkXgMAu$=[%$,,_ju_uN]AfB!F4@R;TCF.[,r6Q-wsy(]UArRt[JhBzZW9)3Mr;Rh27_#?264M-Z+T7n6$FDV[p=o0TpTlJ(a]J[WNcPdbwz%D^]YV4T=8cCZnuB3fB+i-ef#zW,CW3MSS3P:fpNXO(^rD[w4W-ov$O5d)b3nfUcLH/w@^w.?y8!e?[N0=;g)$tE-o$)s.a8O/M9l+D}4iU83=guzerOEflj9+DJh9+*23._h7J4BU?$zmX3d*K*c+fouNtgfyB4=GJ.(v8t+WW1xxBKnGWO*jlXP].1:N2jKo]$3nM?2HKAe#wN4io_Q?:JEjq6-4+RJ+J+K7ZlmpwF1Ti*8+I:]Wz.mZ2?daA0bXzVR74mF}pqR7n5BtAYKi@WnJ85y{lQIwDTvCY5jZI!-[K[E?jw4Zi(cdI(]=x$@SZIN!b8},]mC/:PLp3u-xyOeU1$z.-0Row)sf7f;,h8q6[/9U+om_dQI00000NkvXXu0mjfga7}l0EO!weiFQ+V@w6%P,NBSxIXbgzUc7};c9Y;xE,:FmmW/dc^-2.%-vgr.I:,dDL[C!+7?M9zds,r,k3xB8w3IKBYxeP*.qge*(+^xem@sU1otyYUojrXoFaPFHfF@n9qvm?IBMb$j?-dxQ^1810!_Li9aiBK:4B.RLp+?=</PublicKey>
+  </Signature>
+</CheatTable>

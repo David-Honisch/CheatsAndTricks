@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="45">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>104167</ID>
+      <Description>"Enable"</Description>
+      <Options moHideChildren="1"/>
+      <Color>0000FF</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+
+{$lua}
+OpenProcess("TheGreatCircle.exe")
+
+{$asm}
+
+[DISABLE]
+
+</AssemblerScript>
+      <Hotkeys>
+        <Hotkey>
+          <Action>Toggle Activation</Action>
+          <Keys>
+            <Key>17</Key>
+            <Key>96</Key>
+          </Keys>
+          <ID>0</ID>
+          <ActivateSound TTS="EN">Process Opened</ActivateSound>
+          <DeactivateSound TTS="EN">Process Closed</DeactivateSound>
+        </Hotkey>
+      </Hotkeys>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>109283</ID>
+          <Description>"One Hit/Easy Kill (Ctrl + Numpad 1) {Enemy needs to see you for it to work}"</Description>
+          <Color>FF00FF</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>// Game Executable   : TheGreatCircle.exe
+// Author            : ndck76
+// Executable Version: 1.0.0.0
+// Game Version      : v1.0.0
+// Script Date       : 2024-12-07
+
+
+[ENABLE]
+
+aobscanmodule(hp2,TheGreatCircle.exe,F3xxxxxxxxF3xxxxxxxxF3xxxxxxxxxxxxxxF3xxxxxxxxxxxxF3xxxxxxxxxxxxxxF3xxxxxxxxxxxxxxF3xxxxxxxxxxxxxx410Fxxxx88) // should be unique
+alloc(newmem,$1000,hp2)
+alloc(hp2bkp,5)
+registersymbol(hp2)
+registersymbol(hp2bkp)
+label(code)
+label(return)
+
+hp2bkp:
+  readmem(hp2,5)
+
+newmem:
+  mov [rax+44],(float)1
+
+code:
+  readmem(hp2,5)
+  jmp return
+
+hp2:
+  jmp newmem
+return:
+
+[DISABLE]
+
+hp2:
+  readmem(hp2bkp,5)
+
+unregistersymbol(*)
+dealloc(*)
+
+</AssemblerScript>
+          <Hotkeys>
+            <Hotkey>
+              <Action>Toggle Activation</Action>
+              <Keys>
+                <Key>17</Key>
+                <Key>97</Key>
+              </Keys>
+              <ID>0</ID>
+              <ActivateSound TTS="EN">One Hit Or Easy Kill Activated</ActivateSound>
+              <DeactivateSound TTS="EN">One Hit Or Easy Kill Deactivated</DeactivateSound>
+            </Hotkey>
+          </Hotkeys>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>16273</ID>
+      <Description>"More CHEATS AVAILABLE HERE"</Description>
+      <Color>0000FF</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>{$LUA}
+  if syntaxcheck then return end
+  [ENABLE]
+
+--Updated table! (Start)
+    --messageDialog('Enable Dark Mode?', mtInformation,mbYes,mbNo)
+    if messageDialog("Updated table with more cheats available!\r\n\r\nYou will need Mod Engine to get more cheats and the new updated table\r\n\r\nDownload Mod Engine?", mtConfirmation, mbYes, mbNo) ==mrYes then
+       shellExecute("https://modengine.net")
+    else
+    end
+--Updated table! (End)
+  [DISABLE]
+
+</AssemblerScript>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+  <LuaScript>--Updated table! (Start)
+    --messageDialog('Enable Dark Mode?', mtInformation,mbYes,mbNo)
+    if messageDialog("Updated table with more cheats available!\r\n\r\nYou will need Mod Engine to get more cheats and the new updated table\r\n\r\nDownload Mod Engine?", mtConfirmation, mbYes, mbNo) ==mrYes then
+       shellExecute("https://modengine.net")
+    else
+    end
+--Updated table! (End)
+
+</LuaScript>
+</CheatTable>

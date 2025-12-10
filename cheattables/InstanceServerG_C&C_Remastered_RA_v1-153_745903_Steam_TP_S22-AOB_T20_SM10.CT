@@ -1,0 +1,746 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="29">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>9</ID>
+      <Description>"[X] &lt;== Command and Conquer Red Alert v1.153.745903 Script v2.2 AOB"</Description>
+      <Options moHideChildren="1" moDeactivateChildrenAsWell="1"/>
+      <LastState/>
+      <Color>FF0000</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>{
+===========================================
+ Game Title    : Command &amp; Conquer Remastered Collection (Red Alert)
+ Game Version  : 1.153 (744746)
+ Game Sponsor  : TP
+ Process Name  : InstanceServerG.exe
+ Relevant Info : 32bits/RTS
+ Script Version: 2.2
+ CE Version    : 7.0
+ Release date  : 22-Sep-2020
+ Author        : Recifense
+ History:
+ 06-Jun-2020: First Release
+ 23-Jun-2020: Added Quick Prod/Const + Unlimited Ammo (s2.0)(735514)
+ 06-Aug-2020: Release for version 1.153.11 (+soviet mission 10) (s2.1)
+ 22-Sep-2020: Release for version 1.153.744746 (s2.2)
+ Features:
+ - Minimum Resource
+ - No Spent Energy
+ - God Mode
+ - Prod/Const in 1/3 of the time
+ - Unlimited Ammo (Heli)
+ - Some Pointers
+===========================================
+}
+
+//=========================================
+// Checking CE version
+{$lua}
+  if(getCEVersion() &lt; 7.0) then
+    ShowMessage('Sorry. CE version should be 7.0 or above')
+  end
+{$asm}
+
+//=========================================
+// Checking Selected Process
+{$lua}
+  if(process == nil) then
+    ShowMessage('No process was selected')
+  elseif (string.upper(process) ~= string.upper("InstanceServerG.exe")) then
+    ShowMessage('Warning. Expected Process = InstanceServerG.exe')
+  end
+{$asm}
+
+//=========================================
+{$lua}
+--  monoAA_USEMONO(process,false)
+  if waitForPDB then --this way older CE versions are unaffected (By Dark Byte)
+    waitForPDB()
+  end
+{$asm}
+
+//=========================================
+// Definitions
+define(LUDO,"InstanceServerG.exe")
+{
+define(MOHP,RedAlert.dll+000956C0) //==
+define(MOMM,RedAlert.dll+0005EFF0) //==
+define(GDMD,RedAlert.dll+0007EBC9) //==
+define(MOCP,RedAlert.dll+0004FE54) //==
+define(MOUA,RedAlert.dll+000A495F) //##
+}
+//=========================================
+// Constants used in the script (that can be changed)
+define(ctCE70,(float)7.0)
+
+//=========================================
+[ENABLE]
+//=========================================
+//LuaCall(CheckVersion())
+//=========================================
+// Check if script is compatible to this game version
+// If false the script will not be loaded
+
+AOBScanModule(MOHP,RedAlert.dll,8B 87 9C 25 00 00 A8 01 0F 84 ?? ?? 00 00 A8 02 ?? ?? 84 DB 0F 84)
+AOBScanModule(MOMM,RedAlert.dll,8B 81 B4 01 00 00 03 81 B0 01 00 00 C3 CC CC ?? ?? ?? ?? ?? ?? ??)
+AOBScanModule(GDMD,RedAlert.dll,8B 75 14 2B C8 0F BF C1 66 89 4F 2D 83 E8 00 ?? ?? 83 E8 01 ?? ??)
+AOBScanModule(MOCP,RedAlert.dll,8B 4E 0E 85 C9 0F 84 ?? ?? 00 00 FF 06 83 CB 04 A1 ?? ?? ?? ?? 89 4D FB)
+AOBScanModule(MOUA,RedAlert.dll,89 87 3C 01 00 00 8B 07 8B CF 6A 02 FF 90 ?? 00 00 00 6A 01 53 ??) //
+
+//=========================================
+alloc(MyCode,4096,$process)
+//=========================================
+// Declaration section
+label(_MonHumanPlayer)
+label(_BackMHP)
+label(_MonMinimumMoney)
+label(_BackMMM)
+label(_GodMode)
+label(_BackGMD)
+label(_MonConstProd)
+label(_BackMCP)
+label(_MonUnitAmmo)
+label(_BackMUA)
+
+label(iEnableMMM)
+label(iEnableMSE)
+label(iEnableGMD)
+label(iEnableMCP)
+label(iEnableMUA)
+label(iEnableGMA)
+
+label(iID)
+
+label(pPlayer)
+label(pMoney)
+label(pUnit)
+
+//=========================================
+// Registering Symbols
+registersymbol(MyCode)
+registersymbol(iEnableMMM)
+registersymbol(iEnableMSE)
+registersymbol(iEnableGMD)
+registersymbol(iEnableMCP)
+registersymbol(iEnableMUA)
+registersymbol(iEnableGMA)
+
+registersymbol(iID)
+
+registersymbol(pPlayer)
+registersymbol(pMoney)
+registersymbol(pUnit)
+
+registersymbol(MOHP)
+registersymbol(MOMM)
+registersymbol(GDMD)
+registersymbol(MOCP)
+registersymbol(MOUA)
+
+//=========================================
+MyCode:
+//=========================================
+// All the time
+_MonHumanPlayer:
+ lea eax,[edi+000025A0]
+ mov [pPlayer],eax
+
+ mov [pPlayer1],edi
+
+_ExitMHP:
+ mov eax,[edi+0000259C]       // Original code
+ jmp _BackMHP                 // Back to main code
+
+//=========================================
+// All the time
+_MonMinimumMoney:
+ cmp esi,[pPlayer]
+ jne _ExitMMM
+
+ mov [pMoney],ecx
+
+ mov eax,[ecx+01]
+ mov [iID],eax
+
+ cmp dword ptr [iEnableMSE],0
+ je _ExitMMM                  // Jump if feature is disabled
+
+ mov dword ptr [ecx+00000204],00
+
+_MonMM00:
+ cmp dword ptr [iEnableMMM],0
+ je _ExitMMM                  // Jump if feature is disabled
+
+ mov eax,[iMinMon]
+
+ cmp [ecx+000001B4],eax
+ jns _ExitMMM
+
+ mov [ecx+000001B4],eax
+
+_ExitMMM:
+ mov eax,[ecx+000001B4]       // Original code
+ jmp _BackMMM                 // Back to main code
+
+//========================================= mod for soviet mission 10
+// when decreasing HP
+_GodMode:
+ mov [pUnit],edi
+
+ cmp dword ptr [iEnableGMD],0
+ je _ExitGMD                  // Jump if feature is disabled
+
+ mov esi,[edi+00000107]
+ cmp esi,[iID]
+ je _GodMD00
+
+ cmp dword ptr [iEnableGMA],0
+ je _ExitGMD                 // Jump if feature is disabled
+
+ cmp esi,#9
+ je _GodMD00
+
+ cmp esi,#7
+ jne _ExitGMD
+
+_GodMD00:
+ xor eax,eax
+
+_ExitGMD:
+ mov esi,[ebp+14]             // Original code
+ sub ecx,eax                  // Original code
+ jmp _BackGMD                 // Back to main code
+
+//========================================= s2.0 (new)
+// when updating prog
+_MonConstProd:
+ cmp dword ptr [iEnableMCP],0
+ je _ExitMCP                  // Jump if feature is disabled
+
+ cmp word ptr [esi],00
+ je _ExitMCP
+
+ mov ecx,[esi+2B]
+ cmp ecx,[pMoney]
+ jne _ExitMCP
+
+ mov ecx,#36
+
+ cmp [esi],ecx
+ jns _ExitMCP
+
+ mov [esi],ecx
+
+_ExitMCP:
+ mov ecx,[esi+0E]             // Original code
+ test ecx,ecx                 // Original code
+ jmp _BackMCP                 // Back to main code
+
+//========================================= s2.0 (new)
+// when updating Ammo (Dec)
+// ECX is safe
+_MonUnitAmmo:
+ cmp dword ptr [iEnableMUA],0
+ je _ExitMUA                  // Jump if feature is disabled
+
+ mov ecx,[edi+00000107]
+ cmp ecx,[iID]
+ jne _ExitMUA
+
+ mov eax,[edi+0000013C]
+
+_ExitMUA:
+ mov [edi+0000013C],eax       // Original code
+ jmp _BackMUA                 // Back to main code
+
+//=========================================
+align 10,'='
+//=========================================
+ db '===============================&gt;'
+ db 'CE7.0 Script by Recifense 200922'
+//=========================================
+// Variables
+iEnableMMM:
+ dd 0
+iEnableMSE:
+ dd 0
+iEnableGMD:
+ dd 0
+iEnableMCP:
+ dd 0
+iEnableMUA:
+ dd 0
+iEnableGMA:
+ dd 0
+iMinMon:
+ dd #70000
+iID:
+ dd 55555555
+pPlayer:
+ dd MyCode
+pPlayer1:
+ dd 0
+pMoney:
+ dd MyCode
+pUnit:
+ dd 0
+pEBX:
+ dd 0
+
+//=========================================
+// Hacking Points
+MOHP:
+ jmp _MonHumanPlayer
+ nop
+_BackMHP:
+
+MOMM:
+ jmp _MonMinimumMoney
+ nop
+_BackMMM:
+
+GDMD:
+ jmp _GodMode
+_BackGMD:
+
+MOCP:
+ jmp _MonConstProd
+_BackMCP:
+
+MOUA:
+ jmp _MonUnitAmmo
+ nop
+_BackMUA:
+
+//=========================================
+// Script for Restoring Original Codes
+[DISABLE]
+{$LUA}
+reinitializeSymbolhandler(true)
+
+local pid = getProcessIDFromProcessName(process)
+local ok  = 0
+
+if (pid == nil) then ok = 0
+else
+--  print(pid,string.format('%X',pid))
+  local em = enumModules(pid)
+  for i,p in pairs(em) do
+    for a,b in pairs(p) do
+--      print("a=",a,"b=",b)
+      if (b == "RedAlert.dll") then ok = 1 end
+    end
+  end
+
+
+  if (ok == 0) then return ""
+  else return [[
+MOHP:
+// mov eax,[edi+0000259C]
+ db 8B 87 9C 25 00 00
+
+MOMM:
+// mov eax,[ecx+000001B4]
+ db 8B 81 B4 01 00 00
+
+GDMD:
+// mov esi,[ebp+14]
+// sub ecx,eax
+ db 8B 75 14 2B C8
+
+MOCP:
+// mov ecx,[esi+0E]
+// test ecx,ecx
+ db 8B 4E 0E 85 C9
+
+MOUA:
+// mov [edi+0000013C],eax
+ db 89 87 3C 01 00 00
+]]
+end
+end
+{$ASM}
+{
+MOHP:
+// mov eax,[edi+0000259C]
+ db 8B 87 9C 25 00 00
+
+MOMM:
+// mov eax,[ecx+000001B4]
+ db 8B 81 B4 01 00 00
+
+GDMD:
+// mov esi,[ebp+14]
+// sub ecx,eax
+ db 8B 75 14 2B C8
+
+MOCP:
+// mov ecx,[esi+0E]
+// test ecx,ecx
+ db 8B 4E 0E 85 C9
+
+MOUA:
+// mov [edi+0000013C],eax
+ db 89 87 3C 01 00 00
+}
+//=========================================
+// Unregistering Symbols
+unregistersymbol(MyCode)
+unregistersymbol(iEnableMMM)
+unregistersymbol(iEnableMSE)
+unregistersymbol(iEnableGMD)
+unregistersymbol(iEnableMCP)
+unregistersymbol(iEnableMUA)
+unregistersymbol(iEnableGMA)
+
+unregistersymbol(iID)
+
+unregistersymbol(pPlayer)
+unregistersymbol(pMoney)
+unregistersymbol(pUnit)
+
+unregistersymbol(MOHP)
+unregistersymbol(MOMM)
+unregistersymbol(GDMD)
+unregistersymbol(MOCP)
+unregistersymbol(MOUA)
+
+//=========================================
+dealloc(MyCode)
+//============= Scripts End ===============
+
+// ****************************************
+// NOTES
+// ****************************************
+{
+}
+</AssemblerScript>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>10</ID>
+          <Description>"[X] &lt;== Minimum Resource     (HK:  Ctrl+numeric 1/Ctrl+numeric 0)"</Description>
+          <LastState/>
+          <Color>C08000</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[enable]
+{$LUA}
+writeInteger("iEnableMMM",1)
+memrec.Color=0x0004000
+{$ASM}
+
+[disable]
+{$LUA}
+writeInteger("iEnableMMM",0)
+memrec.Color=0x0c08000
+{$ASM}
+</AssemblerScript>
+          <Hotkeys>
+            <Hotkey>
+              <Action>Activate</Action>
+              <Keys>
+                <Key>17</Key>
+                <Key>97</Key>
+              </Keys>
+              <ID>0</ID>
+            </Hotkey>
+            <Hotkey>
+              <Action>Deactivate</Action>
+              <Keys>
+                <Key>17</Key>
+                <Key>96</Key>
+              </Keys>
+              <ID>1</ID>
+            </Hotkey>
+          </Hotkeys>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>17</ID>
+          <Description>"[X] &lt;== No Spent Energy      (HK:  Ctrl+numeric 1/Ctrl+numeric 0)"</Description>
+          <LastState/>
+          <Color>C08000</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[enable]
+{$LUA}
+writeInteger("iEnableMSE",1)
+memrec.Color=0x0004000
+{$ASM}
+
+[disable]
+{$LUA}
+writeInteger("iEnableMSE",0)
+memrec.Color=0x0c08000
+{$ASM}
+</AssemblerScript>
+          <Hotkeys>
+            <Hotkey>
+              <Action>Activate</Action>
+              <Keys>
+                <Key>17</Key>
+                <Key>97</Key>
+              </Keys>
+              <ID>0</ID>
+            </Hotkey>
+            <Hotkey>
+              <Action>Deactivate</Action>
+              <Keys>
+                <Key>17</Key>
+                <Key>96</Key>
+              </Keys>
+              <ID>1</ID>
+            </Hotkey>
+          </Hotkeys>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>26</ID>
+          <Description>"[X] &lt;== God Mode       (HK:  Ctrl+numeric 6/Ctrl+numeric 3 or Ctrl+numeric 0)"</Description>
+          <Options moHideChildren="1" moDeactivateChildrenAsWell="1"/>
+          <LastState/>
+          <Color>C08000</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[enable]
+{$LUA}
+writeInteger("iEnableGMD",1)
+memrec.Color=0x0004000
+{$ASM}
+
+[disable]
+{$LUA}
+writeInteger("iEnableGMD",0)
+memrec.Color=0x0c08000
+{$ASM}
+</AssemblerScript>
+          <Hotkeys>
+            <Hotkey>
+              <Action>Activate</Action>
+              <Keys>
+                <Key>17</Key>
+                <Key>102</Key>
+              </Keys>
+              <ID>0</ID>
+            </Hotkey>
+            <Hotkey>
+              <Action>Deactivate</Action>
+              <Keys>
+                <Key>17</Key>
+                <Key>99</Key>
+              </Keys>
+              <ID>1</ID>
+            </Hotkey>
+            <Hotkey>
+              <Action>Deactivate</Action>
+              <Keys>
+                <Key>17</Key>
+                <Key>96</Key>
+              </Keys>
+              <ID>2</ID>
+            </Hotkey>
+          </Hotkeys>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>235</ID>
+              <Description>"[X] &lt;==Soviet Mission 10"</Description>
+              <LastState/>
+              <Color>C08000</Color>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>[enable]
+{$LUA}
+writeInteger("iEnableGMA",1)
+memrec.Color=0x0004000
+{$ASM}
+
+[disable]
+{$LUA}
+writeInteger("iEnableGMA",0)
+memrec.Color=0x0c08000
+{$ASM}
+</AssemblerScript>
+              <Hotkeys>
+                <Hotkey>
+                  <Action>Deactivate</Action>
+                  <Keys>
+                    <Key>17</Key>
+                    <Key>96</Key>
+                  </Keys>
+                  <ID>2</ID>
+                </Hotkey>
+              </Hotkeys>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>31</ID>
+          <Description>"[X] &lt;== Prod/Const in 1/3 of the time      (HK:  Ctrl+numeric 7/Ctrl+numeric 4 or Ctrl+numeric 0)"</Description>
+          <LastState/>
+          <Color>C08000</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[enable]
+{$LUA}
+writeInteger("iEnableMCP",1)
+memrec.Color=0x0004000
+{$ASM}
+
+[disable]
+{$LUA}
+writeInteger("iEnableMCP",0)
+memrec.Color=0x0c08000
+{$ASM}
+</AssemblerScript>
+          <Hotkeys>
+            <Hotkey>
+              <Action>Activate</Action>
+              <Keys>
+                <Key>17</Key>
+                <Key>103</Key>
+              </Keys>
+              <ID>0</ID>
+            </Hotkey>
+            <Hotkey>
+              <Action>Deactivate</Action>
+              <Keys>
+                <Key>17</Key>
+                <Key>100</Key>
+              </Keys>
+              <ID>1</ID>
+            </Hotkey>
+            <Hotkey>
+              <Action>Deactivate</Action>
+              <Keys>
+                <Key>17</Key>
+                <Key>96</Key>
+              </Keys>
+              <ID>2</ID>
+            </Hotkey>
+          </Hotkeys>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>33</ID>
+          <Description>"[X] &lt;== Unlimited Ammo     (HK:  Ctrl+numeric 8/Ctrl+numeric 5 or Ctrl+numeric 0)"</Description>
+          <LastState/>
+          <Color>C08000</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[enable]
+{$LUA}
+writeInteger("iEnableMUA",1)
+memrec.Color=0x0004000
+{$ASM}
+
+[disable]
+{$LUA}
+writeInteger("iEnableMUA",0)
+memrec.Color=0x0c08000
+{$ASM}
+</AssemblerScript>
+          <Hotkeys>
+            <Hotkey>
+              <Action>Activate</Action>
+              <Keys>
+                <Key>17</Key>
+                <Key>104</Key>
+              </Keys>
+              <ID>0</ID>
+            </Hotkey>
+            <Hotkey>
+              <Action>Deactivate</Action>
+              <Keys>
+                <Key>17</Key>
+                <Key>101</Key>
+              </Keys>
+              <ID>1</ID>
+            </Hotkey>
+            <Hotkey>
+              <Action>Deactivate</Action>
+              <Keys>
+                <Key>17</Key>
+                <Key>96</Key>
+              </Keys>
+              <ID>2</ID>
+            </Hotkey>
+          </Hotkeys>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>228</ID>
+      <Description>"[X] &lt;== Table/Script Information"</Description>
+      <Options moHideChildren="1"/>
+      <LastState/>
+      <Color>0000FF</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[enable]
+define(test,LUDO)
+
+{$LUA}
+getMainForm().CommentButton.doClick()
+{$ASM}
+
+[disable]
+
+</AssemblerScript>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols>
+    <SymbolEntry>
+      <Name>Recifense</Name>
+      <Address>20200922</Address>
+    </SymbolEntry>
+  </UserdefinedSymbols>
+  <Comments>===========================================
+ Game Title    : Command &amp; Conquer Remastered Collection (Red Alert)
+ Game Version  : 1.153 (745903)
+ Game Sponsor  : TP
+ Process Name  : InstanceServerG.exe
+ Relevant Info : 32bits/RTS
+ Script Version: 2.2
+ CE Version    : 7.0
+ Release date  : 22-Sep-2020
+ Author        : Recifense
+ History:
+ 06-Jun-2020: First Release
+ 23-Jun-2020: Added Quick Prod/Const + Unlimited Ammo (s2.0)(735514)
+ 06-Aug-2020: Release for version 1.153.11 (+soviet mission 10) (s2.1)
+ 22-Sep-2020: Release for version 1.153.745903 (s2.2)
+ Features:
+ - Minimum Resource    [1]
+ - No Spent Energy     [2]
+ - God Mode            [3]
+ - Prod/Const in 1/3 of the time [4] (new)(s2.0)
+ - Unlimited Ammo (Heli)         [5] (new)(s2.0)
+ - Some Pointers       [6]
+===========================================
+[1] Human player's resource will be check to a minimum (70000);
+[2] Human player's spent energy will be set to 0;
+[3] Human player's units will not die (or be destroyed);
+[4] Human player's construction and production will take 1/3 of time;
+[5] Human player's unit's ammo will not decrease;
+[6] Not used;
+===========================================
+[USAGE]
+1) Run CE70 or greater;
+2) Run Game;
+3) Load the game process "InstanceServerG.exe" in CE;
+4) Load this table;
+[Loop: Important Steps] (*)
+5) Pause the game after a mission or a skirmish has started;
+6) Go to CE and activate the main script;
+7) Now Activate the script of each cheat you want to use;
+8) When the mission or skirmish has finished, deactivate main script;
+9) Go to step 5 (Loop); 
+-------------------------------------------
+(*)The reason for the loop is that the game uses "RedAlert.dll" that is unloaded when a mission/skirmish ends. It loads the DLL at the beginning of the mission/skirmish. So, in order to CE find it again, you have to activate the main script again. 
+===========================================
+HOTKEYS:
+- See table entries;
+===========================================
+[ADVICE]
+When you can,save the game before starting using table/cheat. So you can always come back in case you don't like the result.
+===========================================
+[INFO]
+Tested on Win 10 64bits
+===========================================
+[INFO]
+Many thanks to TP for providing the game.
+===========================================
+Cheers!
+</Comments>
+</CheatTable>

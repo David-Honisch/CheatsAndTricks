@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="38">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>0</ID>
+      <Description>"Infinite Health"</Description>
+      <LastState/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+
+aobscanmodule(healthh,GTA5.exe,48 8D BE 80 02 00 00 41)
+alloc(newmem,$1000,healthh)
+label(playastruct)
+registersymbol(playastruct)
+
+label(code)
+label(return)
+
+newmem:
+mov [playastruct],rsi
+mov [rsi+00000280], (float)9999
+code:
+lea rdi,[rsi+00000280]
+jmp return
+
+playastruct:
+dq 0
+
+healthh:
+jmp newmem
+nop
+nop
+return:
+registersymbol(healthh)
+
+
+
+[DISABLE]
+
+healthh:
+db 48 8D BE 80 02 00 00
+
+unregistersymbol(healthh)
+dealloc(newmem)
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>1</ID>
+      <Description>"Infinite Stamina"</Description>
+      <LastState/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>{ Game   : GTA5.exe
+  Version:
+  Date   : 2021-10-31
+  Author : STN
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+aobscanmodule(staminaa,GTA5.exe,F3 0F 5C CE F3 0F 11 83 88 06 00 00) // should be unique
+
+staminaa:
+nop
+nop
+nop
+nop
+registersymbol(staminaa)
+
+[DISABLE]
+
+staminaa:
+  db F3 0F 5C CE F3 0F 11 83 88 06 00 00
+
+unregistersymbol(staminaa)
+
+{
+// ORIGINAL CODE - INJECTION POINT: GTA5.exe+6FCD8C
+
+GTA5.exe+6FCD59: BA 02 00 00 00           - mov edx,00000002
+GTA5.exe+6FCD5E: E8 21 1D 0C 00           - call GTA5.exe+7BEA84
+GTA5.exe+6FCD63: 84 C0                    - test al,al
+GTA5.exe+6FCD65: 0F 85 1C FF FF FF        - jne GTA5.exe+6FCC87
+GTA5.exe+6FCD6B: F3 0F 10 8B F4 0C 00 00  - movss xmm1,[rbx+00000CF4]
+GTA5.exe+6FCD73: 0F 2F CF                 - comiss xmm1,xmm7
+GTA5.exe+6FCD76: 0F 86 C4 00 00 00        - jbe GTA5.exe+6FCE40
+GTA5.exe+6FCD7C: 0F 28 C6                 - movaps xmm0,xmm6
+GTA5.exe+6FCD7F: F3 41 0F 59 F0           - mulss xmm6,xmm8
+GTA5.exe+6FCD84: F3 0F 58 83 88 06 00 00  - addss xmm0,[rbx+00000688]
+// ---------- INJECTING HERE ----------
+GTA5.exe+6FCD8C: F3 0F 5C CE              - subss xmm1,xmm6
+// ---------- DONE INJECTING  ----------
+GTA5.exe+6FCD90: F3 0F 11 83 88 06 00 00  - movss [rbx+00000688],xmm0
+GTA5.exe+6FCD98: 0F 2F CF                 - comiss xmm1,xmm7
+GTA5.exe+6FCD9B: 72 03                    - jb GTA5.exe+6FCDA0
+GTA5.exe+6FCD9D: 0F 28 F9                 - movaps xmm7,xmm1
+GTA5.exe+6FCDA0: F3 0F 11 BB F4 0C 00 00  - movss [rbx+00000CF4],xmm7
+GTA5.exe+6FCDA8: E9 DA FE FF FF           - jmp GTA5.exe+6FCC87
+GTA5.exe+6FCDAD: 84 C9                    - test cl,cl
+GTA5.exe+6FCDAF: 0F 84 D2 FE FF FF        - je GTA5.exe+6FCC87
+GTA5.exe+6FCDB5: 8B 83 F8 0C 00 00        - mov eax,[rbx+00000CF8]
+GTA5.exe+6FCDBB: 89 83 F4 0C 00 00        - mov [rbx+00000CF4],eax
+}
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>2</ID>
+      <Description>"Infinite Oxygen"</Description>
+      <LastState/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+
+aobscanmodule(oxygeenn,GTA5.exe,C1 F3 0F 58 4B 04)
+oxygeenn+01:
+nop
+nop
+nop
+nop
+nop
+
+registersymbol(oxygeenn)
+
+[DISABLE]
+
+oxygeenn+01:
+db F3 0F 58 4B 04
+
+unregistersymbol(oxygeenn)
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>3</ID>
+      <Description>"No Reload"</Description>
+      <LastState/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+
+aobscanmodule(noreload,GTA5.exe,0F BF 57 56 0F BF 47 54)
+alloc(newmem,$1000,noreload)
+
+label(code)
+label(return)
+
+newmem:
+mov word ptr [rdi+56], #99
+code:
+movsx edx,word ptr [rdi+56]
+movsx eax,word ptr [rdi+54]
+jmp return
+
+noreload:
+jmp newmem
+nop
+nop
+nop
+return:
+registersymbol(noreload)
+
+[DISABLE]
+
+noreload:
+db 0F BF 57 56 0F BF 47 54
+
+unregistersymbol(noreload)
+dealloc(newmem)
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>4</ID>
+      <Description>"Infinite Ammo"</Description>
+      <LastState/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+
+aobscanmodule(ammoy,GTA5.exe,8B 42 20 EB 02)
+alloc(newmem,$1000,ammoy)
+
+label(code)
+label(return)
+
+newmem:
+mov [rdx+20], #9999
+code:
+mov eax,[rdx+20]
+jmp ammoy+7
+
+ammoy:
+jmp newmem
+return:
+registersymbol(ammoy)
+
+[DISABLE]
+
+ammoy:
+db 8B 42 20 EB 02
+
+unregistersymbol(ammoy)
+dealloc(newmem)
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>5</ID>
+      <Description>"Infinite Special Ability"</Description>
+      <LastState/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+
+aobscanmodule(specialba,GTA5.exe,F3 0F 5C CE F3 0F 2C C9)
+specialba:
+nop
+nop
+nop
+nop
+
+registersymbol(specialba)
+
+[DISABLE]
+
+specialba:
+db F3 0F 5C CE F3 0F 2C C9
+
+unregistersymbol(specialba)
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>6</ID>
+      <Description>"Infinite Money"</Description>
+      <LastState/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>{ Game   : GTA5.exe
+  Version:
+  Date   : 2021-10-31
+  Author : STN
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+aobscanmodule(moniess,GTA5.exe,48 63 F8 48 8B 86 E8 01 00 00) // should be unique
+alloc(newmem,$1000,moniess)
+
+label(code)
+label(return)
+
+newmem:
+movsxd  rdi,eax
+mov rax,[rsp+08]
+test rax,rax
+je code
+push rcx
+mov ecx,#999999999
+xor rcx,rax
+mov [rax],ecx
+pop rcx
+code:
+  mov rax,[rsi+000001E8]
+  jmp return
+
+moniess:
+  jmp newmem
+  nop 5
+return:
+registersymbol(moniess)
+
+[DISABLE]
+
+moniess:
+  db 48 63 F8 48 8B 86 E8 01 00 00
+
+unregistersymbol(moniess)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: GTA5.exe+2EDED8
+
+GTA5.exe+2EDEAE: 48 8B F0              - mov rsi,rax
+GTA5.exe+2EDEB1: 48 85 C0              - test rax,rax
+GTA5.exe+2EDEB4: 74 39                 - je GTA5.exe+2EDEEF
+GTA5.exe+2EDEB6: 48 39 98 E8 01 00 00  - cmp [rax+000001E8],rbx
+GTA5.exe+2EDEBD: 74 30                 - je GTA5.exe+2EDEEF
+GTA5.exe+2EDEBF: 48 8D 54 24 40        - lea rdx,[rsp+40]
+GTA5.exe+2EDEC4: 48 8D 0D 8D 76 39 02  - lea rcx,[GTA5.exe+2685558]
+GTA5.exe+2EDECB: E8 D0 54 A3 00        - call GTA5.exe+D233A0
+GTA5.exe+2EDED0: 48 8B C8              - mov rcx,rax
+GTA5.exe+2EDED3: E8 5C C8 A3 00        - call GTA5.exe+D2A734
+// ---------- INJECTING HERE ----------
+GTA5.exe+2EDED8: 48 63 F8              - movsxd  rdi,eax
+// ---------- DONE INJECTING  ----------
+GTA5.exe+2EDEDB: 48 8B 86 E8 01 00 00  - mov rax,[rsi+000001E8]
+GTA5.exe+2EDEE2: 48 8B 48 20           - mov rcx,[rax+20]
+GTA5.exe+2EDEE6: 48 85 C9              - test rcx,rcx
+GTA5.exe+2EDEE9: 74 04                 - je GTA5.exe+2EDEEF
+GTA5.exe+2EDEEB: 44 8B 71 18           - mov r14d,[rcx+18]
+GTA5.exe+2EDEEF: 8B 2D 77 12 CC 01     - mov ebp,[GTA5.exe+1FAF16C]
+GTA5.exe+2EDEF5: C1 E5 18              - shl ebp,18
+GTA5.exe+2EDEF8: C1 FD 1C              - sar ebp,1C
+GTA5.exe+2EDEFB: 8D 45 FF              - lea eax,[rbp-01]
+GTA5.exe+2EDEFE: 83 F8 01              - cmp eax,01
+}
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>7</ID>
+      <Description>"Wanted Stars Modification"</Description>
+      <LastState/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+
+aobscanmodule(policia,GTA5.exe,8B 90 B8 00 00 00 83 EA 02 74 20) // should be unique
+alloc(newmem,$1000,policia)
+
+label(code)
+label(return)
+label(wantedstarss)
+registersymbol(wantedstarss)
+
+newmem:
+mov rdx, [wantedstarss]
+mov [rax+000000B8], rdx
+code:
+mov edx,[rax+000000B8]
+jmp return
+
+wantedstarss:
+dd 0
+dd 0
+
+policia:
+jmp newmem
+nop
+return:
+registersymbol(policia)
+
+[DISABLE]
+
+policia:
+  db 8B 90 B8 00 00 00
+
+unregistersymbol(policia)
+dealloc(newmem)
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>8</ID>
+      <Description>"Wanted Stars"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>wantedstarss</Address>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+  <Signature>
+    <SignedHash HashSize="132">0kU2=RE9g7EkViGX5dADIB3Va2j698kwrvlqr/Lq.%2T=LfX7sQKljRgsklPSE^6To;-xoqH^}9*Xp!M*u#b;-4]nE6X9),zEfRSdK;3^5/V@@Kh([dg@^)E2jgj0vPlZ8L4[9F7PHGekm9)wQ@Ljc/CkhCCC2_2JpLgh</SignedHash>
+    <PublicKey Size="323">CIA2cQ*y;zWn;@=c[33%PA({!W?TY:Y-MwEa%FaJY._.LZ+DGQZ+7bK0RTlqQ#C;W0005Nd,bJ2aZE/{)[g11up9}h-h:-.dX$Uuo2VIuNbG}FhM]dZ#F:19Q6J:.CY;JLUaF*Mrd8hw-g)veO^]y50Hd.{,W0_9?LWuhaP;2ppkn4$7Y!dKb/Aeyh:tak?g:=Mm-^:roKW*lYux:Bhn+^XD$QxcDlO-dP#I-fZqfjR00000]a2MWq]^#OcC8[@8@,;xC6y6sxu8!wf!iwb0L?tW$X=KGvY^9wq*=V9qQGF7nXROuac2jA,(]93D2MoSwgKx[eGGEl3E)EVab)@s3AQ;:O2*kNW8tNa^qZY@-2SQt!ezy}CNwBZU}+!+xt.pI1#uB!K63o%OXpGRw+dA</PublicKey>
+  </Signature>
+</CheatTable>

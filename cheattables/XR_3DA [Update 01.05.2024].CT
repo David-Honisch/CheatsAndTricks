@@ -1,0 +1,4046 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="45">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>421</ID>
+      <Description>"S.T.A.L.K.E.R.: Shadow of Chernobyl [Steam][v1.0006] {mul0}"</Description>
+      <Options moHideChildren="1"/>
+      <Color>0000FF</Color>
+      <GroupHeader>1</GroupHeader>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>77</ID>
+          <Description>"Created by mul0 - [https://fearlessrevolution.com/viewtopic.php?f=4&amp;t=28454]"</Description>
+          <Options moHideChildren="1"/>
+          <Color>FF0000</Color>
+          <GroupHeader>1</GroupHeader>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>78</ID>
+              <Description>"--------------------------------------------- Pointer ----------------------------------------------"</Description>
+              <Color>808000</Color>
+              <GroupHeader>1</GroupHeader>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>75</ID>
+              <Description>"[Player] -&gt; [Health]"</Description>
+              <Color>808080</Color>
+              <VariableType>Float</VariableType>
+              <Address>"xrGame.dll"+005602E8</Address>
+              <Offsets>
+                <Offset>4</Offset>
+                <Offset>220</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>76</ID>
+              <Description>"[Player] -&gt; [Max Health]"</Description>
+              <ShowAsSigned>1</ShowAsSigned>
+              <Color>808080</Color>
+              <VariableType>Float</VariableType>
+              <Address>"xrGame.dll"+005602E8</Address>
+              <Offsets>
+                <Offset>8</Offset>
+                <Offset>220</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>84</ID>
+              <Description>"[Player] -&gt; [Stamina]"</Description>
+              <ShowAsSigned>1</ShowAsSigned>
+              <Color>808080</Color>
+              <VariableType>Float</VariableType>
+              <Address>"xrGame.dll"+005602E8</Address>
+              <Offsets>
+                <Offset>58</Offset>
+                <Offset>220</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>89</ID>
+              <Description>"[Player] -&gt; [Radiation]"</Description>
+              <ShowAsSigned>1</ShowAsSigned>
+              <Color>808080</Color>
+              <VariableType>Float</VariableType>
+              <Address>"xrGame.dll"+005602E8</Address>
+              <Offsets>
+                <Offset>5C</Offset>
+                <Offset>220</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>302</ID>
+              <Description>"--------------------------------------------- Player ----------------------------------------------"</Description>
+              <Color>808000</Color>
+              <GroupHeader>1</GroupHeader>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>410</ID>
+              <Description>"[Player] Coordinate - X"</Description>
+              <Color>808080</Color>
+              <VariableType>Float</VariableType>
+              <Address>"XR_3DA.exe"+0010E58C</Address>
+              <Offsets>
+                <Offset>98</Offset>
+                <Offset>40</Offset>
+                <Offset>1C</Offset>
+                <Offset>28</Offset>
+                <Offset>1E0</Offset>
+                <Offset>C</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>411</ID>
+              <Description>"[Player] Coordinate - Y"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <Color>808080</Color>
+              <VariableType>Float</VariableType>
+              <Address>"XR_3DA.exe"+0010E58C</Address>
+              <Offsets>
+                <Offset>A0</Offset>
+                <Offset>40</Offset>
+                <Offset>1C</Offset>
+                <Offset>28</Offset>
+                <Offset>1E0</Offset>
+                <Offset>C</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>412</ID>
+              <Description>"[Player] Coordinate - Z"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <Color>808080</Color>
+              <VariableType>Float</VariableType>
+              <Address>"XR_3DA.exe"+0010E58C</Address>
+              <Offsets>
+                <Offset>9C</Offset>
+                <Offset>40</Offset>
+                <Offset>1C</Offset>
+                <Offset>28</Offset>
+                <Offset>1E0</Offset>
+                <Offset>C</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>80</ID>
+              <Description>"--------------------------------------------- -----------------------------------------------------"</Description>
+              <Color>808080</Color>
+              <GroupHeader>1</GroupHeader>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>81</ID>
+              <Description>"[Player] Infinite health"</Description>
+              <Color>408000</Color>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>//--&gt; Game    : XR_3DA.exe
+//--&gt; Version : v1.0006
+//--&gt; Date    : 23/03/2024
+//--&gt; Author  : mul0
+
+[ENABLE]
+aobscanmodule(iHealth,xrGame.dll+1CFA82,f3xxxxxxxx0f57xx0f2fxx0f86xxxxxxxxf7xxxxxxxxxxxxxxxxxxf3xxxxxxxxxx74xx8bxxe8xxxxxxxx84xx0f85xxxxxxxxf3)
+alloc(newmem,$1000)
+label(code)
+label(return)
+registersymbol(iHealth)
+
+newmem:
+  movss xmm1,[eax+04]
+  push (float)9
+  movss xmm1,[esp]
+  movss [eax+04],xmm1
+  movss [eax+08],xmm1
+  add esp,4
+	
+code:
+	jmp return
+
+iHealth:
+	jmp newmem
+
+return:
+
+[DISABLE]
+iHealth:
+	db F3 0F 10 48 04
+
+unregistersymbol(iHealth)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - iHealthION POINT: xrGame.dll+1CFA82
+
+xrGame.dll+1CF985: 68 08414109 - push 09414108
+xrGame.dll+1CF98A: 68 F8404109 - push 094140F8
+xrGame.dll+1CF98F: FF 15 CC8D3E09  - call dword ptr [093E8DCC]
+xrGame.dll+1CF995: D8 0D 58244609  - fmul dword ptr [09462458]
+xrGame.dll+1CF99B: D9 1D 181F4F09  - fstp dword ptr [094F1F18]
+xrGame.dll+1CF9A1: B8 04000000 - mov eax,00000004
+xrGame.dll+1CF9A6: 84 05 201F4F09  - test [094F1F20],al
+xrGame.dll+1CF9AC: 75 2A - jne 0915F9D8
+xrGame.dll+1CF9AE: 8B 15 D88D3E09  - mov edx,[093E8DD8]
+xrGame.dll+1CF9B4: 8B 0A  - mov ecx,[edx]
+xrGame.dll+1CF9B6: 09 05 201F4F09  - or [094F1F20],eax
+xrGame.dll+1CF9BC: 68 1C414109 - push 0941411C
+xrGame.dll+1CF9C1: 68 F8404109 - push 094140F8
+xrGame.dll+1CF9C6: FF 15 CC8D3E09  - call dword ptr [093E8DCC]
+xrGame.dll+1CF9CC: D8 0D 58244609  - fmul dword ptr [09462458]
+xrGame.dll+1CF9D2: D9 1D 141F4F09  - fstp dword ptr [094F1F14]
+xrGame.dll+1CF9D8: B8 08000000 - mov eax,00000008
+xrGame.dll+1CF9DD: 84 05 201F4F09  - test [094F1F20],al
+xrGame.dll+1CF9E3: 75 29 - jne 0915FA0E
+xrGame.dll+1CF9E5: 09 05 201F4F09  - or [094F1F20],eax
+xrGame.dll+1CF9EB: A1 D88D3E09 - mov eax,[093E8DD8]
+xrGame.dll+1CF9F0: 8B 08  - mov ecx,[eax]
+xrGame.dll+1CF9F2: 68 30414109 - push 09414130
+xrGame.dll+1CF9F7: 68 F8404109 - push 094140F8
+xrGame.dll+1CF9FC: FF 15 CC8D3E09  - call dword ptr [093E8DCC]
+xrGame.dll+1CFA02: D8 0D 58244609  - fmul dword ptr [09462458]
+xrGame.dll+1CFA08: D9 1D 101F4F09  - fstp dword ptr [094F1F10]
+xrGame.dll+1CFA0E: B8 10000000 - mov eax,00000010
+xrGame.dll+1CFA13: 84 05 201F4F09  - test [094F1F20],al
+xrGame.dll+1CFA19: 75 2A - jne 0915FA45
+xrGame.dll+1CFA1B: 8B 0D D88D3E09  - mov ecx,[093E8DD8]
+xrGame.dll+1CFA21: 8B 09  - mov ecx,[ecx]
+xrGame.dll+1CFA23: 09 05 201F4F09  - or [094F1F20],eax
+xrGame.dll+1CFA29: 68 44414109 - push 09414144
+xrGame.dll+1CFA2E: 68 F8404109 - push 094140F8
+xrGame.dll+1CFA33: FF 15 CC8D3E09  - call dword ptr [093E8DCC]
+xrGame.dll+1CFA39: D8 0D 58244609  - fmul dword ptr [09462458]
+xrGame.dll+1CFA3F: D9 1D 0C1F4F09  - fstp dword ptr [094F1F0C]
+xrGame.dll+1CFA45: B8 20000000 - mov eax,00000020
+xrGame.dll+1CFA4A: 84 05 201F4F09  - test [094F1F20],al
+xrGame.dll+1CFA50: 75 2A - jne 0915FA7C
+xrGame.dll+1CFA52: 8B 15 D88D3E09  - mov edx,[093E8DD8]
+xrGame.dll+1CFA58: 8B 0A  - mov ecx,[edx]
+xrGame.dll+1CFA5A: 09 05 201F4F09  - or [094F1F20],eax
+xrGame.dll+1CFA60: 68 54414109 - push 09414154
+xrGame.dll+1CFA65: 68 F8404109 - push 094140F8
+xrGame.dll+1CFA6A: FF 15 CC8D3E09  - call dword ptr [093E8DCC]
+xrGame.dll+1CFA70: D8 0D 58244609  - fmul dword ptr [09462458]
+xrGame.dll+1CFA76: D9 1D 081F4F09  - fstp dword ptr [094F1F08]
+xrGame.dll+1CFA7C: 8B 87 B8010000  - mov eax,[edi+000001B8]
+// ---------- iHealthING HERE ----------
+xrGame.dll+1CFA82: F3 0F10 48 04  - movss xmm1,[eax+04]
+// ---------- DONE iHealthING  ----------
+xrGame.dll+1CFA87: 0F57 C0  - xorps xmm0,xmm0
+xrGame.dll+1CFA8A: 0F2F C8  - comiss xmm1,xmm0
+xrGame.dll+1CFA8D: 0F86 21030000 - jbe 0915FDB4
+xrGame.dll+1CFA93: F7 87 98050000 00080000 - test [edi+00000598],00000800
+xrGame.dll+1CFA9D: F3 0F11 44 24 0C  - movss [esp+0C],xmm0
+xrGame.dll+1CFAA3: 74 15 - je 0915FABA
+xrGame.dll+1CFAA5: 8B F7  - mov esi,edi
+xrGame.dll+1CFAA7: E8 34030000 - call 0915FDE0
+xrGame.dll+1CFAAC: 84 C0  - test al,al
+xrGame.dll+1CFAAE: 0F85 00030000 - jne 0915FDB4
+xrGame.dll+1CFAB4: F3 0F10 44 24 0C  - movss xmm0,[esp+0C]
+xrGame.dll+1CFABA: F3 0F10 0D E4234609  - movss xmm1,[094623E4]
+xrGame.dll+1CFAC2: 8B CB  - mov ecx,ebx
+xrGame.dll+1CFAC4: 83 E1 0F - and ecx,0F
+xrGame.dll+1CFAC7: 8D 41 FC  - lea eax,[ecx-04]
+xrGame.dll+1CFACA: 83 F8 06 - cmp eax,06
+xrGame.dll+1CFACD: 77 4A - ja 0915FB19
+xrGame.dll+1CFACF: FF 24 85 BCFD1509  - jmp dword ptr [eax*4+0915FDBC]
+xrGame.dll+1CFAD6: F3 0F10 05 1C1F4F09  - movss xmm0,[094F1F1C]
+xrGame.dll+1CFADE: EB 39 - jmp 0915FB19
+xrGame.dll+1CFAE0: F3 0F10 05 101F4F09  - movss xmm0,[094F1F10]
+xrGame.dll+1CFAE8: EB 2F - jmp 0915FB19
+xrGame.dll+1CFAEA: 0F28 C1  - movaps xmm0,xmm1
+xrGame.dll+1CFAED: F3 0F5C 05 141F4F09  - subss xmm0,[094F1F14]
+xrGame.dll+1CFAF5: EB 22 - jmp 0915FB19
+xrGame.dll+1CFAF7: 0F28 C1  - movaps xmm0,xmm1
+xrGame.dll+1CFAFA: F3 0F5C 05 181F4F09  - subss xmm0,[094F1F18]
+xrGame.dll+1CFB02: EB 15 - jmp 0915FB19
+xrGame.dll+1CFB04: F3 0F10 05 0C1F4F09  - movss xmm0,[094F1F0C]
+xrGame.dll+1CFB0C: EB 0B - jmp 0915FB19
+xrGame.dll+1CFB0E: 0F28 C1  - movaps xmm0,xmm1
+xrGame.dll+1CFB11: F3 0F5C 05 081F4F09  - subss xmm0,[094F1F08]
+xrGame.dll+1CFB19: D9 44 24 54  - fld dword ptr [esp+54]
+xrGame.dll+1CFB1D: 83 EC 08 - sub esp,08
+xrGame.dll+1CFB20: D9 5C 24 04  - fstp dword ptr [esp+04]
+xrGame.dll+1CFB24: 8D B7 04050000  - lea esi,[edi+00000504]
+xrGame.dll+1CFB2A: D9 05 28A03E09  - fld dword ptr [093EA028]
+xrGame.dll+1CFB30: D9 1C 24   - fstp dword ptr [esp]
+xrGame.dll+1CFB33: E8 681EE6FF - call 08FC19A0
+xrGame.dll+1CFB38: F3 0F10 8F 00050000  - movss xmm1,[edi+00000500]
+xrGame.dll+1CFB40: F3 0F58 0E  - addss xmm1,[esi]
+xrGame.dll+1CFB44: F3 0F10 05 E4234609  - movss xmm0,[094623E4]
+xrGame.dll+1CFB4C: 83 C4 04 - add esp,04
+xrGame.dll+1CFB4F: F3 0F5C C1  - subss xmm0,xmm1
+xrGame.dll+1CFB53: 8D 74 24 14  - lea esi,[esp+14]
+xrGame.dll+1CFB57: F3 0F11 04 24   - movss [esp],xmm0
+xrGame.dll+1CFB5C: E8 1F4CEAFF - call 09004780
+xrGame.dll+1CFB61: F7 C3 00600000 - test ebx,00006000
+xrGame.dll+1CFB67: F3 0F10 87 80000000  - movss xmm0,[edi+00000080]
+xrGame.dll+1CFB6F: F3 0F10 8F 84000000  - movss xmm1,[edi+00000084]
+}
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>156</ID>
+              <Description>"[Player] Infinite armor"</Description>
+              <Color>408000</Color>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>//--&gt; Game    : XR_3DA.exe
+//--&gt; Version : v1.0006
+//--&gt; Date    : 24/03/2024
+//--&gt; Author  : mul0
+
+[ENABLE]
+aobscanmodule(iArmor,xrGame.dll+24BE10,f3xxxxxxxxxxxxxxf3xxxxxx0f28xxf3xxxxxxxxxxxxxx0f57xx0f2fxx77xxf3xxxxxxxxxxxxxx0f2fxx76xxf3xxxxxxxxxxxxxxc2xxxxxxxxxxxxxxxxxxxxxx83)
+alloc(newmem,$1000)
+label(code)
+label(return)
+registersymbol(iArmor)
+
+newmem:
+  movss xmm1,[ecx+000000A8]
+  push (float)1
+  movss xmm1,[esp]
+  movss [ecx+000000A8],xmm1
+  add esp,4
+	
+code:
+	jmp return
+
+iArmor:
+	jmp newmem
+	db 90 90 90
+
+return:
+
+[DISABLE]
+iArmor:
+	db F3 0F 10 89 A8 00 00 00
+
+unregistersymbol(iArmor)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - iArmorION POINT: xrGame.dll+24BE10
+
+xrGame.dll+24BD61: FF 15 F88D4A09  - call dword ptr [094A8DF8]
+xrGame.dll+24BD67: 50 - push eax
+xrGame.dll+24BD68: A1 B08D4A09 - mov eax,[094A8DB0]
+xrGame.dll+24BD6D: 8B 08  - mov ecx,[eax]
+xrGame.dll+24BD6F: EB 0A - jmp 0929BD7B
+xrGame.dll+24BD71: 8B 15 B08D4A09  - mov edx,[094A8DB0]
+xrGame.dll+24BD77: 8B 0A  - mov ecx,[edx]
+xrGame.dll+24BD79: 6A 00 - push 00
+xrGame.dll+24BD7B: FF D3  - call ebx
+xrGame.dll+24BD7D: 85 C0  - test eax,eax
+xrGame.dll+24BD7F: 74 03 - je 0929BD84
+xrGame.dll+24BD81: 83 00 01 - add dword ptr [eax],01
+xrGame.dll+24BD84: 8B 8E D4020000  - mov ecx,[esi+000002D4]
+xrGame.dll+24BD8A: 85 C9  - test ecx,ecx
+xrGame.dll+24BD8C: 74 18 - je 0929BDA6
+xrGame.dll+24BD8E: 83 01 FF - add dword ptr [ecx],-01
+xrGame.dll+24BD91: 8B 8E D4020000  - mov ecx,[esi+000002D4]
+xrGame.dll+24BD97: 83 39 00 - cmp dword ptr [ecx],00
+xrGame.dll+24BD9A: 75 0A - jne 0929BDA6
+xrGame.dll+24BD9C: C7 86 D4020000 00000000 - mov [esi+000002D4],00000000
+xrGame.dll+24BDA6: 8B 15 D88D4A09  - mov edx,[094A8DD8]
+xrGame.dll+24BDAC: 68 74DC4E09 - push 094EDC74
+xrGame.dll+24BDB1: 89 86 D4020000  - mov [esi+000002D4],eax
+xrGame.dll+24BDB7: 8B 0A  - mov ecx,[edx]
+xrGame.dll+24BDB9: 57 - push edi
+xrGame.dll+24BDBA: FF 15 F88D4A09  - call dword ptr [094A8DF8]
+xrGame.dll+24BDC0: 50 - push eax
+xrGame.dll+24BDC1: A1 B08D4A09 - mov eax,[094A8DB0]
+xrGame.dll+24BDC6: 8B 08  - mov ecx,[eax]
+xrGame.dll+24BDC8: FF D3  - call ebx
+xrGame.dll+24BDCA: 85 C0  - test eax,eax
+xrGame.dll+24BDCC: 74 03 - je 0929BDD1
+xrGame.dll+24BDCE: 83 00 01 - add dword ptr [eax],01
+xrGame.dll+24BDD1: 8B 8E C0020000  - mov ecx,[esi+000002C0]
+xrGame.dll+24BDD7: 85 C9  - test ecx,ecx
+xrGame.dll+24BDD9: 74 18 - je 0929BDF3
+xrGame.dll+24BDDB: 83 01 FF - add dword ptr [ecx],-01
+xrGame.dll+24BDDE: 8B 8E C0020000  - mov ecx,[esi+000002C0]
+xrGame.dll+24BDE4: 83 39 00 - cmp dword ptr [ecx],00
+xrGame.dll+24BDE7: 75 0A - jne 0929BDF3
+xrGame.dll+24BDE9: C7 86 C0020000 00000000 - mov [esi+000002C0],00000000
+xrGame.dll+24BDF3: 5F - pop edi
+xrGame.dll+24BDF4: 89 86 C0020000  - mov [esi+000002C0],eax
+xrGame.dll+24BDFA: 5E - pop esi
+xrGame.dll+24BDFB: 5B - pop ebx
+xrGame.dll+24BDFC: C2 0400 - ret 0004
+xrGame.dll+24BDFF: CC - int 3 
+xrGame.dll+24BE00: 8B 44 24 08  - mov eax,[esp+08]
+xrGame.dll+24BE04: F3 0F10 44 81 54  - movss xmm0,[ecx+eax*4+54]
+xrGame.dll+24BE0A: F3 0F59 44 24 04  - mulss xmm0,[esp+04]
+// ---------- iArmorING HERE ----------
+xrGame.dll+24BE10: F3 0F10 89 A8000000  - movss xmm1,[ecx+000000A8]
+// ---------- DONE iArmorING  ----------
+xrGame.dll+24BE18: F3 0F5C C8  - subss xmm1,xmm0
+xrGame.dll+24BE1C: 0F28 C1  - movaps xmm0,xmm1
+xrGame.dll+24BE1F: F3 0F11 89 A8000000  - movss [ecx+000000A8],xmm1
+xrGame.dll+24BE27: 0F57 C9  - xorps xmm1,xmm1
+xrGame.dll+24BE2A: 0F2F C8  - comiss xmm1,xmm0
+xrGame.dll+24BE2D: 77 0D - ja 0929BE3C
+xrGame.dll+24BE2F: F3 0F10 0D 18974A09  - movss xmm1,[094A9718]
+xrGame.dll+24BE37: 0F2F C1  - comiss xmm0,xmm1
+xrGame.dll+24BE3A: 76 08 - jna 0929BE44
+xrGame.dll+24BE3C: F3 0F11 89 A8000000  - movss [ecx+000000A8],xmm1
+xrGame.dll+24BE44: C2 0800 - ret 0008
+xrGame.dll+24BE47: CC - int 3 
+xrGame.dll+24BE48: CC - int 3 
+xrGame.dll+24BE49: CC - int 3 
+xrGame.dll+24BE4A: CC - int 3 
+xrGame.dll+24BE4B: CC - int 3 
+xrGame.dll+24BE4C: CC - int 3 
+xrGame.dll+24BE4D: CC - int 3 
+xrGame.dll+24BE4E: CC - int 3 
+xrGame.dll+24BE4F: CC - int 3 
+xrGame.dll+24BE50: 83 EC 0C - sub esp,0C
+xrGame.dll+24BE53: F3 0F10 84 88 88020000  - movss xmm0,[eax+ecx*4+00000288]
+xrGame.dll+24BE5C: F3 0F59 80 A8000000  - mulss xmm0,[eax+000000A8]
+xrGame.dll+24BE64: 53 - push ebx
+xrGame.dll+24BE65: 56 - push esi
+xrGame.dll+24BE66: 8B B0 C4020000  - mov esi,[eax+000002C4]
+xrGame.dll+24BE6C: 0FB7 D2  - movzx edx,dx
+xrGame.dll+24BE6F: 8D 4E 10  - lea ecx,[esi+10]
+xrGame.dll+24BE72: 8D 5C 24 08  - lea ebx,[esp+08]
+xrGame.dll+24BE76: 8D 44 24 0C  - lea eax,[esp+0C]
+xrGame.dll+24BE7A: F3 0F11 44 24 10  - movss [esp+10],xmm0
+xrGame.dll+24BE80: 89 54 24 08  - mov [esp+08],edx
+xrGame.dll+24BE84: E8 D7F8FFFF - call 0929B760
+xrGame.dll+24BE89: 8B 44 24 0C  - mov eax,[esp+0C]
+xrGame.dll+24BE8D: 3B 46 14  - cmp eax,[esi+14]
+xrGame.dll+24BE90: 74 07 - je 0929BE99
+xrGame.dll+24BE92: F3 0F10 48 10  - movss xmm1,[eax+10]
+xrGame.dll+24BE97: EB 05 - jmp 0929BE9E
+xrGame.dll+24BE99: F3 0F10 4E 04  - movss xmm1,[esi+04]
+xrGame.dll+24BE9E: F3 0F59 4C 24 10  - mulss xmm1,[esp+10]
+xrGame.dll+24BEA4: F3 0F10 05 18974A09  - movss xmm0,[094A9718]
+xrGame.dll+24BEAC: 5E - pop esi
+xrGame.dll+24BEAD: F3 0F5C C1  - subss xmm0,xmm1
+xrGame.dll+24BEB1: 5B - pop ebx
+xrGame.dll+24BEB2: 83 C4 0C - add esp,0C
+xrGame.dll+24BEB5: C3 - ret 
+xrGame.dll+24BEB6: CC - int 3 
+xrGame.dll+24BEB7: CC - int 3 
+xrGame.dll+24BEB8: CC - int 3 
+xrGame.dll+24BEB9: CC - int 3 
+}
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>87</ID>
+              <Description>"[Player] Infinite stamina"</Description>
+              <Color>408000</Color>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>//--&gt; Game    : XR_3DA.exe
+//--&gt; Version : v1.0006
+//--&gt; Date    : 23/03/2024
+//--&gt; Author  : mul0
+
+[ENABLE]
+aobscanmodule(iStamina,xrGame.dll+3D13A2,f3xxxxxxxxf3xxxxxxxxxxxxxx8dxxxxxxxxxxe8xxxxxxxxa1xxxxxxxx8bxxxxxxxxxx8bxxxxxxxxxx05xxxxxxxx83xxxx8b)
+alloc(newmem,$1000)
+label(code)
+label(return)
+registersymbol(iStamina)
+
+newmem:
+  movss xmm0,[edx+58]
+  push (float)1
+  movss xmm0,[esp]
+  movss [edx+58],xmm0
+  add esp,4
+	
+code:
+	jmp return
+
+iStamina:
+	jmp newmem
+
+return:
+
+[DISABLE]
+iStamina:
+	db F3 0F 10 42 58
+
+unregistersymbol(iStamina)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - iStaminaION POINT: xrGame.dll+3D13A2
+
+xrGame.dll+3D12DA: DCE9 - fsub st(1),st(0)
+xrGame.dll+3D12DC: 89 44 24 20  - mov [esp+20],eax
+xrGame.dll+3D12E0: D9 05 EC244609  - fld dword ptr [094624EC]
+xrGame.dll+3D12E6: DCCA - fmul st(2),st(0)
+xrGame.dll+3D12E8: D9 6C 24 20  - fldcw [esp+20]
+xrGame.dll+3D12EC: D9CA - fxch st(2)
+xrGame.dll+3D12EE: DF 7C 24 20  - fistp qword ptr [esp+20]
+xrGame.dll+3D12F2: 8B 4C 24 20  - mov ecx,[esp+20]
+xrGame.dll+3D12F6: D9 6C 24 16  - fldcw [esp+16]
+xrGame.dll+3D12FA: D9 7C 24 16  - fnstcw [esp+16]
+xrGame.dll+3D12FE: DEC9 - fmulp st(1),st(0)
+xrGame.dll+3D1300: 0FB7 44 24 16  - movzx eax,word ptr [esp+16]
+xrGame.dll+3D1305: 0D 000C0000 - or eax,00000C00
+xrGame.dll+3D130A: 81 F9 FF000000 - cmp ecx,000000FF
+xrGame.dll+3D1310: 89 44 24 20  - mov [esp+20],eax
+xrGame.dll+3D1314: D9 6C 24 20  - fldcw [esp+20]
+xrGame.dll+3D1318: DF 7C 24 20  - fistp qword ptr [esp+20]
+xrGame.dll+3D131C: 8B 44 24 20  - mov eax,[esp+20]
+xrGame.dll+3D1320: D9 6C 24 16  - fldcw [esp+16]
+xrGame.dll+3D1324: 76 05 - jna 0936132B
+xrGame.dll+3D1326: B9 FF000000 - mov ecx,000000FF
+xrGame.dll+3D132B: 3D FF000000 - cmp eax,000000FF
+xrGame.dll+3D1330: 76 05 - jna 09361337
+xrGame.dll+3D1332: B8 FF000000 - mov eax,000000FF
+xrGame.dll+3D1337: 0D 00FFFFFF - or eax,FFFFFF00
+xrGame.dll+3D133C: 0FB6 C9  - movzx ecx,cl
+xrGame.dll+3D133F: C1 E0 08 - shl eax,08
+xrGame.dll+3D1342: 0B C1  - or eax,ecx
+xrGame.dll+3D1344: C1 E0 08 - shl eax,08
+xrGame.dll+3D1347: 50 - push eax
+xrGame.dll+3D1348: EB 05 - jmp 0936134F
+xrGame.dll+3D134A: 68 FFFFFF00 - push 00FFFFFF
+xrGame.dll+3D134F: 8B 74 24 20  - mov esi,[esp+20]
+xrGame.dll+3D1353: 8B C6  - mov eax,esi
+xrGame.dll+3D1355: 8B FB  - mov edi,ebx
+xrGame.dll+3D1357: E8 740B0000 - call 09361ED0
+xrGame.dll+3D135C: 83 C6 01 - add esi,01
+xrGame.dll+3D135F: 83 FE 06 - cmp esi,06
+xrGame.dll+3D1362: 89 74 24 1C  - mov [esp+1C],esi
+xrGame.dll+3D1366: 0F8C 74FDFFFF - jl 093610E0
+xrGame.dll+3D136C: 8B 93 34340000  - mov edx,[ebx+00003434]
+xrGame.dll+3D1372: 8B 82 B8010000  - mov eax,[edx+000001B8]
+xrGame.dll+3D1378: F3 0F10 40 04  - movss xmm0,[eax+04]
+xrGame.dll+3D137D: F3 0F59 05 7C983E09  - mulss xmm0,[093E987C]
+xrGame.dll+3D1385: 51 - push ecx
+xrGame.dll+3D1386: 8D 8B BC050000  - lea ecx,[ebx+000005BC]
+xrGame.dll+3D138C: F3 0F11 04 24   - movss [esp],xmm0
+xrGame.dll+3D1391: E8 FA050300 - call 09391990
+xrGame.dll+3D1396: 8B 8B 34340000  - mov ecx,[ebx+00003434]
+xrGame.dll+3D139C: 8B 91 3C090000  - mov edx,[ecx+0000093C]
+// ---------- iStaminaING HERE ----------
+xrGame.dll+3D13A2: F3 0F10 42 58  - movss xmm0,[edx+58]
+// ---------- DONE iStaminaING  ----------
+xrGame.dll+3D13A7: F3 0F59 05 7C983E09  - mulss xmm0,[093E987C]
+xrGame.dll+3D13AF: 8D 83 84110000  - lea eax,[ebx+00001184]
+xrGame.dll+3D13B5: E8 06290000 - call 09363CC0
+xrGame.dll+3D13BA: A1 F8893E09 - mov eax,[093E89F8]
+xrGame.dll+3D13BF: 8B 90 0C020000  - mov edx,[eax+0000020C]
+xrGame.dll+3D13C5: 8B B3 1C250000  - mov esi,[ebx+0000251C]
+xrGame.dll+3D13CB: 05 0C020000 - add eax,0000020C
+xrGame.dll+3D13D0: 83 EC 0C - sub esp,0C
+xrGame.dll+3D13D3: 8B CC  - mov ecx,esp
+xrGame.dll+3D13D5: 89 11  - mov [ecx],edx
+xrGame.dll+3D13D7: 8B 50 04  - mov edx,[eax+04]
+xrGame.dll+3D13DA: 8B 40 08  - mov eax,[eax+08]
+xrGame.dll+3D13DD: 89 51 04  - mov [ecx+04],edx
+xrGame.dll+3D13E0: 89 41 08  - mov [ecx+08],eax
+xrGame.dll+3D13E3: E8 983A0000 - call 09364E80
+xrGame.dll+3D13E8: 8B 35 F8893E09  - mov esi,[093E89F8]
+xrGame.dll+3D13EE: D9 86 18020000  - fld dword ptr [esi+00000218]
+xrGame.dll+3D13F4: 51 - push ecx
+xrGame.dll+3D13F5: D9 54 24 1C  - fst dword ptr [esp+1C]
+xrGame.dll+3D13F9: D9 1C 24   - fstp dword ptr [esp]
+xrGame.dll+3D13FC: E8 2F02C3FF - call 08F91630
+xrGame.dll+3D1401: D9 05 34A13E09  - fld dword ptr [093EA134]
+xrGame.dll+3D1407: 83 C4 04 - add esp,04
+xrGame.dll+3D140A: DFF1 - fcomip st(0),st(1)
+xrGame.dll+3D140C: DDD8 - fstp st(0)
+xrGame.dll+3D140E: 76 26 - jna 09361436
+xrGame.dll+3D1410: D9 86 20020000  - fld dword ptr [esi+00000220]
+xrGame.dll+3D1416: 51 - push ecx
+xrGame.dll+3D1417: D9 1C 24   - fstp dword ptr [esp]
+xrGame.dll+3D141A: E8 1102C3FF - call 08F91630
+xrGame.dll+3D141F: D9 05 34A13E09  - fld dword ptr [093EA134]
+xrGame.dll+3D1425: 83 C4 04 - add esp,04
+xrGame.dll+3D1428: DFF1 - fcomip st(0),st(1)
+xrGame.dll+3D142A: DDD8 - fstp st(0)
+xrGame.dll+3D142C: 76 08 - jna 09361436
+xrGame.dll+3D142E: 0F57 C9  - xorps xmm1,xmm1
+xrGame.dll+3D1431: E9 84000000 - jmp 093614BA
+xrGame.dll+3D1436: D9 86 20020000  - fld dword ptr [esi+00000220]
+xrGame.dll+3D143C: 51 - push ecx
+xrGame.dll+3D143D: D9 54 24 24  - fst dword ptr [esp+24]
+xrGame.dll+3D1441: D9 1C 24   - fstp dword ptr [esp]
+xrGame.dll+3D1444: E8 E701C3FF - call 08F91630
+xrGame.dll+3D1449: D9 05 34A13E09  - fld dword ptr [093EA134]
+xrGame.dll+3D144F: 83 C4 04 - add esp,04
+xrGame.dll+3D1452: DFF1 - fcomip st(0),st(1)
+xrGame.dll+3D1454: DDD8 - fstp st(0)
+xrGame.dll+3D1456: 76 23 - jna 0936147B
+xrGame.dll+3D1458: F3 0F10 44 24 18  - movss xmm0,[esp+18]
+xrGame.dll+3D145E: 0F2F 05 949F3E09  - comiss xmm0,[093E9F94]
+xrGame.dll+3D1465: 76 0A - jna 09361471
+}
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>92</ID>
+              <Description>"[Player] Infinite money ("Y")"</Description>
+              <Options moAlwaysHideChildren="1"/>
+              <Color>408000</Color>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>//--&gt; Game    : XR_3DA.exe
+//--&gt; Version : v1.0006
+//--&gt; Date    : 23/03/2024
+//--&gt; Author  : mul0
+
+[ENABLE]
+aobscanmodule(iMoney,xrGame.dll+3BADFC,8bxxxxxxxxxx8bxxxx8dxxxxxxxxxx83xxxx8dxxxxxxxxffxx8bxxxx8bxxxx8bxxxx85)
+alloc(newmem,$1000)
+alloc(_iMoney,$25)
+label(code)
+label(return)
+registersymbol(_iMoney)
+registersymbol(iMoney)
+
+newmem:
+   mov eax,[esi+0000050C]
+   cmp byte ptr [_iMoney],01
+   jne code
+   add [ebp+00000028],#500
+	
+code:
+	jmp return
+
+iMoney:
+	jmp newmem
+	nop
+
+return:
+
+[DISABLE]
+iMoney:
+	db 8B 86 0C 05 00 00
+
+unregistersymbol(iMoney)
+dealloc(newmem)
+dealloc(_iMoney)
+unregistersymbol(_iMoney)
+
+{
+// ORIGINAL CODE - iMoneyION POINT: xrGame.dll+3BADFC
+
+xrGame.dll+3BAD39: F3 0F10 41 5C  - movss xmm0,[ecx+5C]
+xrGame.dll+3BAD3E: F3 0F59 05 7C983D09  - mulss xmm0,[093D987C]
+xrGame.dll+3BAD46: 8D 87 241A0000  - lea eax,[edi+00001A24]
+xrGame.dll+3BAD4C: F3 0F11 40 61  - movss [eax+61],xmm0
+xrGame.dll+3BAD51: F3 0F10 48 68  - movss xmm1,[eax+68]
+xrGame.dll+3BAD56: 0F2F C8  - comiss xmm1,xmm0
+xrGame.dll+3BAD59: 77 0A - ja 0933AD65
+xrGame.dll+3BAD5B: F3 0F10 48 6C  - movss xmm1,[eax+6C]
+xrGame.dll+3BAD60: 0F2F C1  - comiss xmm0,xmm1
+xrGame.dll+3BAD63: 76 05 - jna 0933AD6A
+xrGame.dll+3BAD65: F3 0F11 48 61  - movss [eax+61],xmm1
+xrGame.dll+3BAD6A: 8B 90 80000000  - mov edx,[eax+00000080]
+xrGame.dll+3BAD70: 8B 0D F8893D09  - mov ecx,[093D89F8]
+xrGame.dll+3BAD76: 83 C2 01 - add edx,01
+xrGame.dll+3BAD79: 3B 91 F4000000  - cmp edx,[ecx+000000F4]
+xrGame.dll+3BAD7F: 74 06 - je 0933AD87
+xrGame.dll+3BAD81: D9 40 61  - fld dword ptr [eax+61]
+xrGame.dll+3BAD84: D9 58 5D  - fstp dword ptr [eax+5D]
+xrGame.dll+3BAD87: E8 A46A0400 - call 09381830
+xrGame.dll+3BAD8C: 8B 16  - mov edx,[esi]
+xrGame.dll+3BAD8E: 8B 42 70  - mov eax,[edx+70]
+xrGame.dll+3BAD91: 8B CE  - mov ecx,esi
+xrGame.dll+3BAD93: FF D0  - call eax
+xrGame.dll+3BAD95: 8B 0D FC893D09  - mov ecx,[093D89FC]
+xrGame.dll+3BAD9B: 8B 11  - mov edx,[ecx]
+xrGame.dll+3BAD9D: 8B E8  - mov ebp,eax
+xrGame.dll+3BAD9F: 8B 82 D0450000  - mov eax,[edx+000045D0]
+xrGame.dll+3BADA5: 33 DB  - xor ebx,ebx
+xrGame.dll+3BADA7: 83 78 10 01 - cmp dword ptr [eax+10],01
+xrGame.dll+3BADAB: 74 39 - je 0933ADE6
+xrGame.dll+3BADAD: 0FB7 BE A4000000  - movzx edi,word ptr [esi+000000A4]
+xrGame.dll+3BADB4: E8 B71FEFFF - call 0922CD70
+xrGame.dll+3BADB9: 8B F0  - mov esi,eax
+xrGame.dll+3BADBB: 85 F6  - test esi,esi
+xrGame.dll+3BADBD: 74 2A - je 0933ADE9
+xrGame.dll+3BADBF: F3 0F10 46 5D  - movss xmm0,[esi+5D]
+xrGame.dll+3BADC4: F3 0F59 05 7C983D09  - mulss xmm0,[093D987C]
+xrGame.dll+3BADCC: 51 - push ecx
+xrGame.dll+3BADCD: 8B 4C 24 18  - mov ecx,[esp+18]
+xrGame.dll+3BADD1: 81 C1 801D0000 - add ecx,00001D80
+xrGame.dll+3BADD7: F3 0F11 04 24   - movss [esp],xmm0
+xrGame.dll+3BADDC: E8 AF6B0400 - call 09381990
+xrGame.dll+3BADE1: 8B 5E 51  - mov ebx,[esi+51]
+xrGame.dll+3BADE4: EB 03 - jmp 0933ADE9
+xrGame.dll+3BADE6: 8B 5D 28  - mov ebx,[ebp+28]
+xrGame.dll+3BADE9: 53 - push ebx
+xrGame.dll+3BADEA: 68 D8174409 - push 094417D8
+xrGame.dll+3BADEF: 8D 54 24 20  - lea edx,[esp+20]
+xrGame.dll+3BADF3: E8 3839CCFF - call 08FFE730
+xrGame.dll+3BADF8: 8B 74 24 1C  - mov esi,[esp+1C]
+// ---------- iMoneyING HERE ----------
+xrGame.dll+3BADFC: 8B 86 0C050000  - mov eax,[esi+0000050C]
+// ---------- DONE iMoneyING  ----------
+xrGame.dll+3BAE02: 8B 40 1C  - mov eax,[eax+1C]
+xrGame.dll+3BAE05: 8D 8E 0C050000  - lea ecx,[esi+0000050C]
+xrGame.dll+3BAE0B: 83 C4 08 - add esp,08
+xrGame.dll+3BAE0E: 8D 54 24 18  - lea edx,[esp+18]
+xrGame.dll+3BAE12: 52 - push edx
+xrGame.dll+3BAE13: FF D0  - call eax
+xrGame.dll+3BAE15: 8B 4D 24  - mov ecx,[ebp+24]
+xrGame.dll+3BAE18: 8B 51 38  - mov edx,[ecx+38]
+xrGame.dll+3BAE1B: 8B 42 64  - mov eax,[edx+64]
+xrGame.dll+3BAE1E: 85 C0  - test eax,eax
+xrGame.dll+3BAE20: 74 17 - je 0933AE39
+xrGame.dll+3BAE22: 6A 00 - push 00
+xrGame.dll+3BAE24: 68 94F04C09 - push 094CF094
+xrGame.dll+3BAE29: 68 DC8C4B09 - push 094B8CDC
+xrGame.dll+3BAE2E: 6A 00 - push 00
+xrGame.dll+3BAE30: 50 - push eax
+xrGame.dll+3BAE31: E8 165B0900 - call 093D094C
+xrGame.dll+3BAE36: 83 C4 14 - add esp,14
+xrGame.dll+3BAE39: 81 C6 84250000 - add esi,00002584
+xrGame.dll+3BAE3F: E8 7C740200 - call 093622C0
+xrGame.dll+3BAE44: 8B 7C 24 14  - mov edi,[esp+14]
+xrGame.dll+3BAE48: A1 FC893D09 - mov eax,[093D89FC]
+xrGame.dll+3BAE4D: 8B 00  - mov eax,[eax]
+xrGame.dll+3BAE4F: 8B 88 D0450000  - mov ecx,[eax+000045D0]
+xrGame.dll+3BAE55: 8B 11  - mov edx,[ecx]
+xrGame.dll+3BAE57: 8B 42 1C  - mov eax,[edx+1C]
+xrGame.dll+3BAE5A: 6A 01 - push 01
+xrGame.dll+3BAE5C: FF D0  - call eax
+xrGame.dll+3BAE5E: 52 - push edx
+xrGame.dll+3BAE5F: 50 - push eax
+xrGame.dll+3BAE60: 8D 74 24 20  - lea esi,[esp+20]
+xrGame.dll+3BAE64: E8 477B0200 - call 093629B0
+xrGame.dll+3BAE69: 8B 74 24 20  - mov esi,[esp+20]
+xrGame.dll+3BAE6D: 83 C4 0C - add esp,0C
+xrGame.dll+3BAE70: 85 F6  - test esi,esi
+xrGame.dll+3BAE72: 74 05 - je 0933AE79
+xrGame.dll+3BAE74: 8D 46 0C  - lea eax,[esi+0C]
+xrGame.dll+3BAE77: EB 02 - jmp 0933AE7B
+xrGame.dll+3BAE79: 33 C0  - xor eax,eax
+xrGame.dll+3BAE7B: 8B 97 640E0000  - mov edx,[edi+00000E64]
+xrGame.dll+3BAE81: 8D 8F 640E0000  - lea ecx,[edi+00000E64]
+xrGame.dll+3BAE87: 50 - push eax
+xrGame.dll+3BAE88: 8B 42 1C  - mov eax,[edx+1C]
+xrGame.dll+3BAE8B: FF D0  - call eax
+xrGame.dll+3BAE8D: 85 F6  - test esi,esi
+xrGame.dll+3BAE8F: 74 03 - je 0933AE94
+xrGame.dll+3BAE91: 83 06 FF - add dword ptr [esi],-01
+xrGame.dll+3BAE94: 8B CF  - mov ecx,edi
+xrGame.dll+3BAE96: E8 A5DD0300 - call 09378C40
+xrGame.dll+3BAE9B: 5F - pop edi
+}
+</AssemblerScript>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>93</ID>
+                  <Description>"Status of pressing hotkey "Y""</Description>
+                  <ShowAsSigned>1</ShowAsSigned>
+                  <Color>808000</Color>
+                  <VariableType>Byte</VariableType>
+                  <Address>_iMoney</Address>
+                  <Hotkeys>
+                    <Hotkey OnlyWhileDown="1">
+                      <Action>Set Value</Action>
+                      <Keys>
+                        <Key>89</Key>
+                      </Keys>
+                      <Value>1</Value>
+                      <ID>0</ID>
+                    </Hotkey>
+                  </Hotkeys>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>400</ID>
+              <Description>"[Player] Super speed"</Description>
+              <Color>408000</Color>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>//--&gt; Game    : XR_3DA.exe
+//--&gt; Version : v1.0006
+//--&gt; Date    : 10/04/2024
+//--&gt; Author  : mul0
+
+[ENABLE]
+aobscanmodule(iSpeed,xrGame.dll+1CF7CC,f3xxxxxxxxxxxxxxebxxa8xx74xxf3xxxxxxxxxxxxxxf3xxxxxx0f28xx8bxx83xxxx74xxf3xxxxxxxxxxxxxxf3xxxxxx0f28xxa9)
+alloc(newmem,$1000)
+label(code)
+label(return)
+registersymbol(iSpeed)
+
+newmem:
+  movss xmm1,[edi+000005A8]
+  push (float)2.35
+  movss xmm1,[esp]
+  add esp,4
+	
+code:
+	jmp return
+
+iSpeed:
+	jmp newmem
+	db 90 90 90
+
+return:
+
+[DISABLE]
+iSpeed:
+	db F3 0F 10 8F A8 05 00 00
+
+unregistersymbol(iSpeed)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: xrGame.dll+1CF7CC
+
+xrGame.dll+1CF709: E8 221FE3FF - call 07C81630
+xrGame.dll+1CF70E: D9 05 64990D08  - fld dword ptr [080D9964]
+xrGame.dll+1CF714: 83 C4 04 - add esp,04
+xrGame.dll+1CF717: DFF1 - fcomip st(0),st(1)
+xrGame.dll+1CF719: DDD8 - fstp st(0)
+xrGame.dll+1CF71B: 76 07 - jna 07E4F724
+xrGame.dll+1CF71D: 83 A7 98050000 FC - and dword ptr [edi+00000598],-04
+xrGame.dll+1CF724: D9 03  - fld dword ptr [ebx]
+xrGame.dll+1CF726: 51 - push ecx
+xrGame.dll+1CF727: D9 1C 24   - fstp dword ptr [esp]
+xrGame.dll+1CF72A: E8 011FE3FF - call 07C81630
+xrGame.dll+1CF72F: D9 05 64990D08  - fld dword ptr [080D9964]
+xrGame.dll+1CF735: 83 C4 04 - add esp,04
+xrGame.dll+1CF738: DFF1 - fcomip st(0),st(1)
+xrGame.dll+1CF73A: DDD8 - fstp st(0)
+xrGame.dll+1CF73C: 76 07 - jna 07E4F745
+xrGame.dll+1CF73E: 83 A7 98050000 F3 - and dword ptr [edi+00000598],-0D
+xrGame.dll+1CF745: F3 0F10 13  - movss xmm2,[ebx]
+xrGame.dll+1CF749: F3 0F10 43 08  - movss xmm0,[ebx+08]
+xrGame.dll+1CF74E: F3 0F10 4B 04  - movss xmm1,[ebx+04]
+xrGame.dll+1CF753: 0F28 DA  - movaps xmm3,xmm2
+xrGame.dll+1CF756: F3 0F59 DA  - mulss xmm3,xmm2
+xrGame.dll+1CF75A: F3 0F11 54 24 1C  - movss [esp+1C],xmm2
+xrGame.dll+1CF760: 0F28 D0  - movaps xmm2,xmm0
+xrGame.dll+1CF763: F3 0F59 D0  - mulss xmm2,xmm0
+xrGame.dll+1CF767: F3 0F11 44 24 0C  - movss [esp+0C],xmm0
+xrGame.dll+1CF76D: 0F28 C1  - movaps xmm0,xmm1
+xrGame.dll+1CF770: F3 0F58 DA  - addss xmm3,xmm2
+xrGame.dll+1CF774: F3 0F59 C1  - mulss xmm0,xmm1
+xrGame.dll+1CF778: 51 - push ecx
+xrGame.dll+1CF779: F3 0F58 D8  - addss xmm3,xmm0
+xrGame.dll+1CF77D: F3 0F11 4C 24 0C  - movss [esp+0C],xmm1
+xrGame.dll+1CF783: F3 0F11 1C 24   - movss [esp],xmm3
+xrGame.dll+1CF788: E8 733BE4FF - call 07C93300
+xrGame.dll+1CF78D: D9 54 24 18  - fst dword ptr [esp+18]
+xrGame.dll+1CF791: D9 05 64990D08  - fld dword ptr [080D9964]
+xrGame.dll+1CF797: 83 C4 04 - add esp,04
+xrGame.dll+1CF79A: D9C9 - fxch st(1)
+xrGame.dll+1CF79C: DFF1 - fcomip st(0),st(1)
+xrGame.dll+1CF79E: DDD8 - fstp st(0)
+xrGame.dll+1CF7A0: 0F86 D6000000 - jbe 07E4F87C
+xrGame.dll+1CF7A6: 85 F6  - test esi,esi
+xrGame.dll+1CF7A8: F3 0F10 87 A0050000  - movss xmm0,[edi+000005A0]
+xrGame.dll+1CF7B0: F3 0F5E 44 24 14  - divss xmm0,[esp+14]
+xrGame.dll+1CF7B6: 8B 87 98050000  - mov eax,[edi+00000598]
+xrGame.dll+1CF7BC: 74 18 - je 07E4F7D6
+xrGame.dll+1CF7BE: A8 02 - test al,02
+xrGame.dll+1CF7C0: 74 0A - je 07E4F7CC
+xrGame.dll+1CF7C2: F3 0F10 8F AC050000  - movss xmm1,[edi+000005AC]
+xrGame.dll+1CF7CA: EB 16 - jmp 07E4F7E2
+// ---------- INJECTING HERE ----------
+xrGame.dll+1CF7CC: F3 0F10 8F A8050000  - movss xmm1,[edi+000005A8]
+// ---------- DONE INJECTING  ----------
+xrGame.dll+1CF7D4: EB 0C - jmp 07E4F7E2
+xrGame.dll+1CF7D6: A8 02 - test al,02
+xrGame.dll+1CF7D8: 74 0F - je 07E4F7E9
+xrGame.dll+1CF7DA: F3 0F10 8F B0050000  - movss xmm1,[edi+000005B0]
+xrGame.dll+1CF7E2: F3 0F59 C8  - mulss xmm1,xmm0
+xrGame.dll+1CF7E6: 0F28 C1  - movaps xmm0,xmm1
+xrGame.dll+1CF7E9: 8B C8  - mov ecx,eax
+xrGame.dll+1CF7EB: 83 E1 10 - and ecx,10
+xrGame.dll+1CF7EE: 74 0F - je 07E4F7FF
+xrGame.dll+1CF7F0: F3 0F10 8F B4050000  - movss xmm1,[edi+000005B4]
+xrGame.dll+1CF7F8: F3 0F59 C8  - mulss xmm1,xmm0
+xrGame.dll+1CF7FC: 0F28 C1  - movaps xmm0,xmm1
+xrGame.dll+1CF7FF: A9 00080000 - test eax,00000800
+xrGame.dll+1CF804: 74 0F - je 07E4F815
+xrGame.dll+1CF806: F3 0F10 8F B8050000  - movss xmm1,[edi+000005B8]
+xrGame.dll+1CF80E: F3 0F59 C8  - mulss xmm1,xmm0
+xrGame.dll+1CF812: 0F28 C1  - movaps xmm0,xmm1
+xrGame.dll+1CF815: A9 00100000 - test eax,00001000
+xrGame.dll+1CF81A: 74 0F - je 07E4F82B
+xrGame.dll+1CF81C: F3 0F10 8F BC050000  - movss xmm1,[edi+000005BC]
+xrGame.dll+1CF824: F3 0F59 C8  - mulss xmm1,xmm0
+xrGame.dll+1CF828: 0F28 C1  - movaps xmm0,xmm1
+xrGame.dll+1CF82B: A8 0C - test al,0C
+xrGame.dll+1CF82D: 74 21 - je 07E4F850
+xrGame.dll+1CF82F: 85 C9  - test ecx,ecx
+xrGame.dll+1CF831: 75 1D - jne 07E4F850
+xrGame.dll+1CF833: 85 F6  - test esi,esi
+xrGame.dll+1CF835: 74 0A - je 07E4F841
+xrGame.dll+1CF837: F3 0F10 8F C4050000  - movss xmm1,[edi+000005C4]
+xrGame.dll+1CF83F: EB 08 - jmp 07E4F849
+xrGame.dll+1CF841: F3 0F10 8F C0050000  - movss xmm1,[edi+000005C0]
+xrGame.dll+1CF849: F3 0F59 C8  - mulss xmm1,xmm0
+xrGame.dll+1CF84D: 0F28 C1  - movaps xmm0,xmm1
+xrGame.dll+1CF850: F3 0F10 4C 24 1C  - movss xmm1,[esp+1C]
+xrGame.dll+1CF856: F3 0F59 C8  - mulss xmm1,xmm0
+xrGame.dll+1CF85A: F3 0F11 0B  - movss [ebx],xmm1
+xrGame.dll+1CF85E: F3 0F10 4C 24 08  - movss xmm1,[esp+08]
+xrGame.dll+1CF864: F3 0F59 C8  - mulss xmm1,xmm0
+xrGame.dll+1CF868: F3 0F11 4B 04  - movss [ebx+04],xmm1
+xrGame.dll+1CF86D: F3 0F10 4C 24 0C  - movss xmm1,[esp+0C]
+xrGame.dll+1CF873: F3 0F59 C8  - mulss xmm1,xmm0
+xrGame.dll+1CF877: F3 0F11 4B 08  - movss [ebx+08],xmm1
+xrGame.dll+1CF87C: D9 87 00050000  - fld dword ptr [edi+00000500]
+xrGame.dll+1CF882: 51 - push ecx
+xrGame.dll+1CF883: D9E0 - fchs 
+xrGame.dll+1CF885: D9 54 24 20  - fst dword ptr [esp+20]
+xrGame.dll+1CF889: D9 1C 24   - fstp dword ptr [esp]
+xrGame.dll+1CF88C: E8 8F9BE4FF - call 07C99420
+xrGame.dll+1CF891: D9 5C 24 18  - fstp dword ptr [esp+18]
+xrGame.dll+1CF895: D9 44 24 20  - fld dword ptr [esp+20]
+}
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>402</ID>
+              <Description>"[Player] Super sprint"</Description>
+              <Color>408000</Color>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>//--&gt; Game    : XR_3DA.exe
+//--&gt; Version : v1.0006
+//--&gt; Date    : 10/04/2024
+//--&gt; Author  : mul0
+
+[ENABLE]
+aobscanmodule(iSprint,xrGame.dll+1CF81C,f3xxxxxxxxxxxxxxf3xxxxxx0f28xxa8xx74xx85xx75xx85xx74xxf3xxxxxxxxxxxxxxebxxf3xxxxxxxxxxxxxxf3xxxxxx0f28)
+alloc(newmem,$1000)
+label(code)
+label(return)
+registersymbol(iSprint)
+
+newmem:
+  movss xmm1,[edi+000005BC]
+  push (float)2.75
+  movss xmm1,[esp]
+  add esp,4
+	
+code:
+	jmp return
+
+iSprint:
+	jmp newmem
+	db 90 90 90
+
+return:
+
+[DISABLE]
+iSprint:
+	db F3 0F 10 8F BC 05 00 00
+
+unregistersymbol(iSprint)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: xrGame.dll+1CF81C
+
+xrGame.dll+1CF760: 0F28 D0  - movaps xmm2,xmm0
+xrGame.dll+1CF763: F3 0F59 D0  - mulss xmm2,xmm0
+xrGame.dll+1CF767: F3 0F11 44 24 0C  - movss [esp+0C],xmm0
+xrGame.dll+1CF76D: 0F28 C1  - movaps xmm0,xmm1
+xrGame.dll+1CF770: F3 0F58 DA  - addss xmm3,xmm2
+xrGame.dll+1CF774: F3 0F59 C1  - mulss xmm0,xmm1
+xrGame.dll+1CF778: 51 - push ecx
+xrGame.dll+1CF779: F3 0F58 D8  - addss xmm3,xmm0
+xrGame.dll+1CF77D: F3 0F11 4C 24 0C  - movss [esp+0C],xmm1
+xrGame.dll+1CF783: F3 0F11 1C 24   - movss [esp],xmm3
+xrGame.dll+1CF788: E8 733BE4FF - call 07C93300
+xrGame.dll+1CF78D: D9 54 24 18  - fst dword ptr [esp+18]
+xrGame.dll+1CF791: D9 05 64990D08  - fld dword ptr [080D9964]
+xrGame.dll+1CF797: 83 C4 04 - add esp,04
+xrGame.dll+1CF79A: D9C9 - fxch st(1)
+xrGame.dll+1CF79C: DFF1 - fcomip st(0),st(1)
+xrGame.dll+1CF79E: DDD8 - fstp st(0)
+xrGame.dll+1CF7A0: 0F86 D6000000 - jbe 07E4F87C
+xrGame.dll+1CF7A6: 85 F6  - test esi,esi
+xrGame.dll+1CF7A8: F3 0F10 87 A0050000  - movss xmm0,[edi+000005A0]
+xrGame.dll+1CF7B0: F3 0F5E 44 24 14  - divss xmm0,[esp+14]
+xrGame.dll+1CF7B6: 8B 87 98050000  - mov eax,[edi+00000598]
+xrGame.dll+1CF7BC: 74 18 - je 07E4F7D6
+xrGame.dll+1CF7BE: A8 02 - test al,02
+xrGame.dll+1CF7C0: 74 0A - je 07E4F7CC
+xrGame.dll+1CF7C2: F3 0F10 8F AC050000  - movss xmm1,[edi+000005AC]
+xrGame.dll+1CF7CA: EB 16 - jmp 07E4F7E2
+iSpeed: E9 2F08FF55 - jmp 5DE40000
+xrGame.dll+1CF7D1: 90 - nop 
+xrGame.dll+1CF7D2: 90 - nop 
+xrGame.dll+1CF7D3: 90 - nop 
+xrGame.dll+1CF7D4: EB 0C - jmp 07E4F7E2
+xrGame.dll+1CF7D6: A8 02 - test al,02
+xrGame.dll+1CF7D8: 74 0F - je 07E4F7E9
+xrGame.dll+1CF7DA: F3 0F10 8F B0050000  - movss xmm1,[edi+000005B0]
+xrGame.dll+1CF7E2: F3 0F59 C8  - mulss xmm1,xmm0
+xrGame.dll+1CF7E6: 0F28 C1  - movaps xmm0,xmm1
+xrGame.dll+1CF7E9: 8B C8  - mov ecx,eax
+xrGame.dll+1CF7EB: 83 E1 10 - and ecx,10
+xrGame.dll+1CF7EE: 74 0F - je 07E4F7FF
+xrGame.dll+1CF7F0: F3 0F10 8F B4050000  - movss xmm1,[edi+000005B4]
+xrGame.dll+1CF7F8: F3 0F59 C8  - mulss xmm1,xmm0
+xrGame.dll+1CF7FC: 0F28 C1  - movaps xmm0,xmm1
+xrGame.dll+1CF7FF: A9 00080000 - test eax,00000800
+xrGame.dll+1CF804: 74 0F - je 07E4F815
+xrGame.dll+1CF806: F3 0F10 8F B8050000  - movss xmm1,[edi+000005B8]
+xrGame.dll+1CF80E: F3 0F59 C8  - mulss xmm1,xmm0
+xrGame.dll+1CF812: 0F28 C1  - movaps xmm0,xmm1
+xrGame.dll+1CF815: A9 00100000 - test eax,00001000
+xrGame.dll+1CF81A: 74 0F - je 07E4F82B
+// ---------- INJECTING HERE ----------
+xrGame.dll+1CF81C: F3 0F10 8F BC050000  - movss xmm1,[edi+000005BC]
+// ---------- DONE INJECTING  ----------
+xrGame.dll+1CF824: F3 0F59 C8  - mulss xmm1,xmm0
+xrGame.dll+1CF828: 0F28 C1  - movaps xmm0,xmm1
+xrGame.dll+1CF82B: A8 0C - test al,0C
+xrGame.dll+1CF82D: 74 21 - je 07E4F850
+xrGame.dll+1CF82F: 85 C9  - test ecx,ecx
+xrGame.dll+1CF831: 75 1D - jne 07E4F850
+xrGame.dll+1CF833: 85 F6  - test esi,esi
+xrGame.dll+1CF835: 74 0A - je 07E4F841
+xrGame.dll+1CF837: F3 0F10 8F C4050000  - movss xmm1,[edi+000005C4]
+xrGame.dll+1CF83F: EB 08 - jmp 07E4F849
+xrGame.dll+1CF841: F3 0F10 8F C0050000  - movss xmm1,[edi+000005C0]
+xrGame.dll+1CF849: F3 0F59 C8  - mulss xmm1,xmm0
+xrGame.dll+1CF84D: 0F28 C1  - movaps xmm0,xmm1
+xrGame.dll+1CF850: F3 0F10 4C 24 1C  - movss xmm1,[esp+1C]
+xrGame.dll+1CF856: F3 0F59 C8  - mulss xmm1,xmm0
+xrGame.dll+1CF85A: F3 0F11 0B  - movss [ebx],xmm1
+xrGame.dll+1CF85E: F3 0F10 4C 24 08  - movss xmm1,[esp+08]
+xrGame.dll+1CF864: F3 0F59 C8  - mulss xmm1,xmm0
+xrGame.dll+1CF868: F3 0F11 4B 04  - movss [ebx+04],xmm1
+xrGame.dll+1CF86D: F3 0F10 4C 24 0C  - movss xmm1,[esp+0C]
+xrGame.dll+1CF873: F3 0F59 C8  - mulss xmm1,xmm0
+xrGame.dll+1CF877: F3 0F11 4B 08  - movss [ebx+08],xmm1
+xrGame.dll+1CF87C: D9 87 00050000  - fld dword ptr [edi+00000500]
+xrGame.dll+1CF882: 51 - push ecx
+xrGame.dll+1CF883: D9E0 - fchs 
+xrGame.dll+1CF885: D9 54 24 20  - fst dword ptr [esp+20]
+xrGame.dll+1CF889: D9 1C 24   - fstp dword ptr [esp]
+xrGame.dll+1CF88C: E8 8F9BE4FF - call 07C99420
+xrGame.dll+1CF891: D9 5C 24 18  - fstp dword ptr [esp+18]
+xrGame.dll+1CF895: D9 44 24 20  - fld dword ptr [esp+20]
+xrGame.dll+1CF899: D9 1C 24   - fstp dword ptr [esp]
+xrGame.dll+1CF89C: E8 8F9BE4FF - call 07C99430
+xrGame.dll+1CF8A1: 8B 44 24 1C  - mov eax,[esp+1C]
+xrGame.dll+1CF8A5: D9 5C 24 20  - fstp dword ptr [esp+20]
+xrGame.dll+1CF8A9: F3 0F10 48 08  - movss xmm1,[eax+08]
+xrGame.dll+1CF8AE: F3 0F10 5C 24 20  - movss xmm3,[esp+20]
+xrGame.dll+1CF8B4: F3 0F10 00  - movss xmm0,[eax]
+xrGame.dll+1CF8B8: F3 0F10 2D E4231508  - movss xmm5,[081523E4]
+xrGame.dll+1CF8C0: F3 0F10 70 04  - movss xmm6,[eax+04]
+xrGame.dll+1CF8C5: F3 0F5C EB  - subss xmm5,xmm3
+xrGame.dll+1CF8C9: 0F28 F9  - movaps xmm7,xmm1
+xrGame.dll+1CF8CC: F3 0F59 FB  - mulss xmm7,xmm3
+xrGame.dll+1CF8D0: 0F28 D8  - movaps xmm3,xmm0
+xrGame.dll+1CF8D3: 0F28 D0  - movaps xmm2,xmm0
+xrGame.dll+1CF8D6: F3 0F59 54 24 18  - mulss xmm2,[esp+18]
+xrGame.dll+1CF8DC: F3 0F58 D9  - addss xmm3,xmm1
+xrGame.dll+1CF8E0: F3 0F59 4C 24 18  - mulss xmm1,[esp+18]
+xrGame.dll+1CF8E6: F3 0F59 1D 949F0D08  - mulss xmm3,[080D9F94]
+xrGame.dll+1CF8EE: 83 C4 04 - add esp,04
+xrGame.dll+1CF8F1: F3 0F59 C5  - mulss xmm0,xmm5
+}
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>148</ID>
+              <Description>"[Player] Jump levitation ("Space")"</Description>
+              <Options moAlwaysHideChildren="1"/>
+              <Color>408000</Color>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>//--&gt; Game    : XR_3DA.exe
+//--&gt; Version : v1.0006
+//--&gt; Date    : 24/03/2024
+//--&gt; Author  : mul0
+
+[ENABLE]
+aobscanmodule(gLevitation,xrGame.dll+36A544,f3xxxxxxxx8bxxxxxxxxxxf3xxxxxx83xxxx0f28xxf3xxxxxxf3xxxxxxxxf3xxxxxxxxxxf3xxxxxx0f28xxf3xxxxxxf3xxxxxxf3xxxxxxxxxxf3xxxxxxf3xxxxxxf3xxxxxxxxxxe8xxxxxxxx83xxxx8b)
+alloc(newmem,$1000)
+alloc(_gLevitation,$25)
+label(code)
+label(return)
+registersymbol(_gLevitation)
+registersymbol(gLevitation)
+
+newmem:
+	movss xmm2,[esi+08]
+    push ebx
+    mov ebx,[edi+00000120]           // Pointer to instance of CActor
+    cmp ebx,00
+    je code
+    cmp dword ptr [ebx+00000154],01
+    jne code
+    cmp dword ptr [ebx+00000524],00  //Pointer to instance of CCameraFirstEye
+    je code
+    cmp dword ptr [ebx+000003A8],00  //Pointer to instance of CCharacterPhysicsSupport
+    je code
+    cmp byte ptr [_gLevitation],01
+    jne code
+    push (float)8
+    movss xmm2,[esp]
+    movss [eax+04],xmm2
+    add esp,4
+    pop ebx
+    jmp code+1
+	
+code:
+    pop ebx
+	jmp return
+
+gLevitation:
+	jmp newmem
+
+return:
+
+[DISABLE]
+gLevitation:
+	db F3 0F 10 56 08
+
+unregistersymbol(gLevitation)
+dealloc(newmem)
+dealloc(_gLevitation)
+unregistersymbol(_gLevitation)
+
+{
+// ORIGINAL CODE - gLevitationION POINT: xrGame.dll+36A544
+
+xrGame.dll+36A47E: 50 - push eax
+xrGame.dll+36A47F: 51 - push ecx
+xrGame.dll+36A480: E8 8B6F0E00 - call 094A1410
+xrGame.dll+36A485: 8D 54 24 44  - lea edx,[esp+44]
+xrGame.dll+36A489: 52 - push edx
+xrGame.dll+36A48A: E8 2B6E0E00 - call 094A12BA
+xrGame.dll+36A48F: 8B 85 1C010000  - mov eax,[ebp+0000011C]
+xrGame.dll+36A495: 50 - push eax
+xrGame.dll+36A496: E8 036F0E00 - call 094A139E
+xrGame.dll+36A49B: 8B F0  - mov esi,eax
+xrGame.dll+36A49D: F3 0F10 16  - movss xmm2,[esi]
+xrGame.dll+36A4A1: F3 0F10 4E 04  - movss xmm1,[esi+04]
+xrGame.dll+36A4A6: F3 0F10 46 08  - movss xmm0,[esi+08]
+xrGame.dll+36A4AB: 0F28 DA  - movaps xmm3,xmm2
+xrGame.dll+36A4AE: F3 0F59 DA  - mulss xmm3,xmm2
+xrGame.dll+36A4B2: 0F28 D1  - movaps xmm2,xmm1
+xrGame.dll+36A4B5: F3 0F59 D1  - mulss xmm2,xmm1
+xrGame.dll+36A4B9: 0F28 C8  - movaps xmm1,xmm0
+xrGame.dll+36A4BC: F3 0F58 DA  - addss xmm3,xmm2
+xrGame.dll+36A4C0: F3 0F59 C8  - mulss xmm1,xmm0
+xrGame.dll+36A4C4: 83 C4 1C - add esp,1C
+xrGame.dll+36A4C7: F3 0F58 D9  - addss xmm3,xmm1
+xrGame.dll+36A4CB: F3 0F11 1C 24   - movss [esp],xmm3
+xrGame.dll+36A4D0: E8 2B8ECAFF - call 09063300
+xrGame.dll+36A4D5: D9 5C 24 14  - fstp dword ptr [esp+14]
+xrGame.dll+36A4D9: 8B 95 1C010000  - mov edx,[ebp+0000011C]
+xrGame.dll+36A4DF: 8D 4C 24 30  - lea ecx,[esp+30]
+xrGame.dll+36A4E3: 51 - push ecx
+xrGame.dll+36A4E4: 52 - push edx
+xrGame.dll+36A4E5: E8 C06E0E00 - call 094A13AA
+xrGame.dll+36A4EA: F3 0F10 4C 24 1C  - movss xmm1,[esp+1C]
+xrGame.dll+36A4F0: F3 0F59 0D A0984A09  - mulss xmm1,[094A98A0]
+xrGame.dll+36A4F8: F3 0F10 44 24 38  - movss xmm0,[esp+38]
+xrGame.dll+36A4FE: F3 0F5E 05 E0B65809  - divss xmm0,[0958B6E0]
+xrGame.dll+36A506: 83 C4 0C - add esp,0C
+xrGame.dll+36A509: 0F2F C8  - comiss xmm1,xmm0
+xrGame.dll+36A50C: F3 0F11 4C 24 10  - movss [esp+10],xmm1
+xrGame.dll+36A512: 76 06 - jna 093BA51A
+xrGame.dll+36A514: F3 0F11 44 24 10  - movss [esp+10],xmm0
+xrGame.dll+36A51A: D9 44 24 10  - fld dword ptr [esp+10]
+xrGame.dll+36A51E: 51 - push ecx
+xrGame.dll+36A51F: D9 1C 24   - fstp dword ptr [esp]
+xrGame.dll+36A522: E8 0971C9FF - call 09051630
+xrGame.dll+36A527: D9 05 34A14A09  - fld dword ptr [094AA134]
+xrGame.dll+36A52D: 83 C4 04 - add esp,04
+xrGame.dll+36A530: DFF1 - fcomip st(0),st(1)
+xrGame.dll+36A532: DDD8 - fstp st(0)
+xrGame.dll+36A534: 77 5D - ja 093BA593
+xrGame.dll+36A536: F3 0F10 4C 24 10  - movss xmm1,[esp+10]
+xrGame.dll+36A53C: F3 0F10 05 E4235209  - movss xmm0,[095223E4]
+// ---------- gLevitationING HERE ----------
+xrGame.dll+36A544: F3 0F10 56 08  - movss xmm2,[esi+08]
+// ---------- DONE gLevitationING  ----------
+xrGame.dll+36A549: 8B 85 1C010000  - mov eax,[ebp+0000011C]
+xrGame.dll+36A54F: F3 0F59 D1  - mulss xmm2,xmm1
+xrGame.dll+36A553: 83 EC 0C - sub esp,0C
+xrGame.dll+36A556: 0F28 D8  - movaps xmm3,xmm0
+xrGame.dll+36A559: F3 0F5C DA  - subss xmm3,xmm2
+xrGame.dll+36A55D: F3 0F10 56 04  - movss xmm2,[esi+04]
+xrGame.dll+36A562: F3 0F11 5C 24 08  - movss [esp+08],xmm3
+xrGame.dll+36A568: F3 0F59 D1  - mulss xmm2,xmm1
+xrGame.dll+36A56C: 0F28 D8  - movaps xmm3,xmm0
+xrGame.dll+36A56F: F3 0F5C DA  - subss xmm3,xmm2
+xrGame.dll+36A573: F3 0F10 16  - movss xmm2,[esi]
+xrGame.dll+36A577: F3 0F11 5C 24 04  - movss [esp+04],xmm3
+xrGame.dll+36A57D: F3 0F59 D1  - mulss xmm2,xmm1
+xrGame.dll+36A581: F3 0F5C C2  - subss xmm0,xmm2
+xrGame.dll+36A585: F3 0F11 04 24   - movss [esp],xmm0
+xrGame.dll+36A58A: 50 - push eax
+xrGame.dll+36A58B: E8 426D0E00 - call 094A12D2
+xrGame.dll+36A590: 83 C4 10 - add esp,10
+xrGame.dll+36A593: 8B 8D 1C010000  - mov ecx,[ebp+0000011C]
+xrGame.dll+36A599: 51 - push ecx
+xrGame.dll+36A59A: E8 236E0E00 - call 094A13C2
+xrGame.dll+36A59F: F3 0F10 00  - movss xmm0,[eax]
+xrGame.dll+36A5A3: F3 0F5C 85 18020000  - subss xmm0,[ebp+00000218]
+xrGame.dll+36A5AB: F3 0F11 85 18020000  - movss [ebp+00000218],xmm0
+xrGame.dll+36A5B3: F3 0F10 40 04  - movss xmm0,[eax+04]
+xrGame.dll+36A5B8: F3 0F5C 85 1C020000  - subss xmm0,[ebp+0000021C]
+xrGame.dll+36A5C0: F3 0F11 85 1C020000  - movss [ebp+0000021C],xmm0
+xrGame.dll+36A5C8: F3 0F10 40 08  - movss xmm0,[eax+08]
+xrGame.dll+36A5CD: F3 0F5C 85 20020000  - subss xmm0,[ebp+00000220]
+xrGame.dll+36A5D5: F3 0F11 85 20020000  - movss [ebp+00000220],xmm0
+xrGame.dll+36A5DD: F3 0F10 05 18974A09  - movss xmm0,[094A9718]
+xrGame.dll+36A5E5: F3 0F5E 05 E0B65809  - divss xmm0,[0958B6E0]
+xrGame.dll+36A5ED: F3 0F10 8D 18020000  - movss xmm1,[ebp+00000218]
+xrGame.dll+36A5F5: F3 0F59 C8  - mulss xmm1,xmm0
+xrGame.dll+36A5F9: F3 0F11 8D 18020000  - movss [ebp+00000218],xmm1
+xrGame.dll+36A601: F3 0F10 8D 1C020000  - movss xmm1,[ebp+0000021C]
+xrGame.dll+36A609: F3 0F59 C8  - mulss xmm1,xmm0
+xrGame.dll+36A60D: F3 0F11 8D 1C020000  - movss [ebp+0000021C],xmm1
+xrGame.dll+36A615: F3 0F10 8D 20020000  - movss xmm1,[ebp+00000220]
+xrGame.dll+36A61D: F3 0F59 C8  - mulss xmm1,xmm0
+xrGame.dll+36A621: F3 0F11 8D 20020000  - movss [ebp+00000220],xmm1
+xrGame.dll+36A629: 8B 95 1C010000  - mov edx,[ebp+0000011C]
+xrGame.dll+36A62F: 52 - push edx
+xrGame.dll+36A630: E8 8D6D0E00 - call 094A13C2
+xrGame.dll+36A635: F3 0F10 05 F8B65809  - movss xmm0,[0958B6F8]
+xrGame.dll+36A63D: 83 C4 08 - add esp,08
+xrGame.dll+36A640: 0F2F 40 04  - comiss xmm0,[eax+04]
+xrGame.dll+36A644: 76 1B - jna 093BA661
+xrGame.dll+36A646: 8B 85 90000000  - mov eax,[ebp+00000090]
+xrGame.dll+36A64C: 8B 48 04  - mov ecx,[eax+04]
+}
+</AssemblerScript>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>149</ID>
+                  <Description>"Status of pressing hotkey "Space""</Description>
+                  <ShowAsSigned>1</ShowAsSigned>
+                  <Color>808080</Color>
+                  <VariableType>Byte</VariableType>
+                  <Address>_gLevitation</Address>
+                  <Hotkeys>
+                    <Hotkey OnlyWhileDown="1">
+                      <Action>Set Value</Action>
+                      <Keys>
+                        <Key>32</Key>
+                      </Keys>
+                      <Value>1</Value>
+                      <ID>0</ID>
+                    </Hotkey>
+                  </Hotkeys>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>291</ID>
+              <Description>"[Player] Field of view"</Description>
+              <Color>408000</Color>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>//--&gt; Game    : XR_3DA.exe
+//--&gt; Version : v1.0006
+//--&gt; Date    : 28/03/2024
+//--&gt; Author  : mul0
+
+[ENABLE]
+aobscanmodule(iFov,xrGame.dll+1C7CA5,f3xxxxxxxxxx7dxxd8xxxxxxxxxxd8xxxxxxxxxxd9xxxxe8xxxxxxxx8bxxxxxxxxxx8bxxxxxxxxxx8bxxxxxxxxxx81)
+alloc(newmem,$1000)
+label(code)
+label(Fov)
+label(return)
+registersymbol(iFov)
+
+newmem:
+  movss [esp+04],xmm0
+  cmp dword ptr [esp+04],(float)65.5
+  je Fov
+  cmp dword ptr [esp+04],(float)67.5
+  je Fov
+  jmp code
+
+Fov:
+  push (float)80
+  movss xmm0,[esp]
+  add esp,4
+  movss [esp+04],xmm0
+
+code:
+	jmp return
+
+iFov:
+	jmp newmem
+	nop
+
+return:
+
+[DISABLE]
+iFov:
+	db F3 0F 11 44 24 04
+
+unregistersymbol(iFov)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - iFovION POINT: xrGame.dll+1C7CA5
+
+xrGame.dll+1C7BEE: E8 ED901C00 - call 07FB0CE0
+xrGame.dll+1C7BF3: 8B 97 B8010000  - mov edx,[edi+000001B8]
+xrGame.dll+1C7BF9: F3 0F10 42 04  - movss xmm0,[edx+04]
+xrGame.dll+1C7BFE: 0F2F 05 949F0708  - comiss xmm0,[08079F94]
+xrGame.dll+1C7C05: 76 09 - jna 07DE7C10
+xrGame.dll+1C7C07: 8B DF  - mov ebx,edi
+xrGame.dll+1C7C09: E8 22660000 - call 07DEE230
+xrGame.dll+1C7C0E: 33 DB  - xor ebx,ebx
+xrGame.dll+1C7C10: 57 - push edi
+xrGame.dll+1C7C11: E8 5A670000 - call 07DEE370
+xrGame.dll+1C7C16: 8B 8F 98020000  - mov ecx,[edi+00000298]
+xrGame.dll+1C7C1C: 88 9F C8050000  - mov [edi+000005C8],bl
+xrGame.dll+1C7C22: 8B 41 48  - mov eax,[ecx+48]
+xrGame.dll+1C7C25: 83 F8 FF - cmp eax,-01
+xrGame.dll+1C7C28: 74 0D - je 07DE7C37
+xrGame.dll+1C7C2A: C1 E0 04 - shl eax,04
+xrGame.dll+1C7C2D: 03 41 38  - add eax,[ecx+38]
+xrGame.dll+1C7C30: 8B 48 04  - mov ecx,[eax+04]
+xrGame.dll+1C7C33: 3B CB  - cmp ecx,ebx
+xrGame.dll+1C7C35: 75 04 - jne 07DE7C3B
+xrGame.dll+1C7C37: 33 F6  - xor esi,esi
+xrGame.dll+1C7C39: EB 0C - jmp 07DE7C47
+xrGame.dll+1C7C3B: 8B 01  - mov eax,[ecx]
+xrGame.dll+1C7C3D: 8B 90 18010000  - mov edx,[eax+00000118]
+xrGame.dll+1C7C43: FF D2  - call edx
+xrGame.dll+1C7C45: 8B F0  - mov esi,eax
+xrGame.dll+1C7C47: A1 F8890708 - mov eax,[080789F8]
+xrGame.dll+1C7C4C: 8B A8 D8010000  - mov ebp,[eax+000001D8]
+xrGame.dll+1C7C52: 8B 0D E08D0708  - mov ecx,[08078DE0]
+xrGame.dll+1C7C58: 81 C5 300C0000 - add ebp,00000C30
+xrGame.dll+1C7C5E: 39 19  - cmp [ecx],ebx
+xrGame.dll+1C7C60: 74 27 - je 07DE7C89
+xrGame.dll+1C7C62: 83 45 44 01 - add dword ptr [ebp+44],01
+xrGame.dll+1C7C66: 39 5D 18  - cmp [ebp+18],ebx
+xrGame.dll+1C7C69: 75 1E - jne 07DE7C89
+xrGame.dll+1C7C6B: FF 15 EC8D0708  - call dword ptr [08078DEC]
+xrGame.dll+1C7C71: 2B 45 10  - sub eax,[ebp+10]
+xrGame.dll+1C7C74: 89 5D 28  - mov [ebp+28],ebx
+xrGame.dll+1C7C77: 1B 55 14  - sbb edx,[ebp+14]
+xrGame.dll+1C7C7A: 89 45 00  - mov [ebp+00],eax
+xrGame.dll+1C7C7D: 89 55 04  - mov [ebp+04],edx
+xrGame.dll+1C7C80: 89 5D 2C  - mov [ebp+2C],ebx
+xrGame.dll+1C7C83: 89 5D 30  - mov [ebp+30],ebx
+xrGame.dll+1C7C86: 89 5D 34  - mov [ebp+34],ebx
+xrGame.dll+1C7C89: E8 D2FDFFFF - call 07DE7A60
+xrGame.dll+1C7C8E: 8B 15 F8890708  - mov edx,[080789F8]
+xrGame.dll+1C7C94: 8B 82 00020000  - mov eax,[edx+00000200]
+xrGame.dll+1C7C9A: DB 82 00020000  - fild dword ptr [edx+00000200]
+xrGame.dll+1C7CA0: 83 EC 08 - sub esp,08
+xrGame.dll+1C7CA3: 85 C0  - test eax,eax
+// ---------- iFovING HERE ----------
+xrGame.dll+1C7CA5: F3 0F11 44 24 04  - movss [esp+04],xmm0
+// ---------- DONE iFovING  ----------
+xrGame.dll+1C7CAB: 7D 06 - jnl 07DE7CB3
+xrGame.dll+1C7CAD: D8 05 CC230F08  - fadd dword ptr [080F23CC]
+xrGame.dll+1C7CB3: D8 0D 60A20708  - fmul dword ptr [0807A260]
+xrGame.dll+1C7CB9: D9 1C 24   - fstp dword ptr [esp]
+xrGame.dll+1C7CBC: E8 5F3D0100 - call 07DFBA20
+xrGame.dll+1C7CC1: 8B 0D F8890708  - mov ecx,[080789F8]
+xrGame.dll+1C7CC7: 8B A9 D8010000  - mov ebp,[ecx+000001D8]
+xrGame.dll+1C7CCD: 8B 15 E08D0708  - mov edx,[08078DE0]
+xrGame.dll+1C7CD3: 81 C5 300C0000 - add ebp,00000C30
+xrGame.dll+1C7CD9: 39 1A  - cmp [edx],ebx
+xrGame.dll+1C7CDB: 74 0E - je 07DE7CEB
+xrGame.dll+1C7CDD: 8B CD  - mov ecx,ebp
+xrGame.dll+1C7CDF: FF 15 E48D0708  - call dword ptr [08078DE4]
+xrGame.dll+1C7CE5: 01 45 38  - add [ebp+38],eax
+xrGame.dll+1C7CE8: 11 55 3C  - adc [ebp+3C],edx
+xrGame.dll+1C7CEB: 8B 0D FC890708  - mov ecx,[080789FC]
+xrGame.dll+1C7CF1: 8B 01  - mov eax,[ecx]
+xrGame.dll+1C7CF3: 8B 40 20  - mov eax,[eax+20]
+xrGame.dll+1C7CF6: 3B C3  - cmp eax,ebx
+xrGame.dll+1C7CF8: 74 26 - je 07DE7D20
+xrGame.dll+1C7CFA: 66 8B 97 A4000000  - mov dx,[edi+000000A4]
+xrGame.dll+1C7D01: 66 3B 90 A4000000  - cmp dx,[eax+000000A4]
+xrGame.dll+1C7D08: 75 16 - jne 07DE7D20
+xrGame.dll+1C7D0A: A1 E0860708 - mov eax,[080786E0]
+xrGame.dll+1C7D0F: 81 08 00020000 - or [eax],00000200
+xrGame.dll+1C7D15: A1 E0860708 - mov eax,[080786E0]
+xrGame.dll+1C7D1A: 81 08 00040000 - or [eax],00000400
+xrGame.dll+1C7D20: 3B F3  - cmp esi,ebx
+xrGame.dll+1C7D22: 0F84 B9010000 - je 07DE7EE1
+xrGame.dll+1C7D28: 38 9E F4030000  - cmp [esi+000003F4],bl
+xrGame.dll+1C7D2E: 0F84 CC000000 - je 07DE7E00
+xrGame.dll+1C7D34: E8 776F0500 - call 07E3ECB0
+xrGame.dll+1C7D39: D9 5C 24 14  - fstp dword ptr [esp+14]
+xrGame.dll+1C7D3D: 8B 8F 54050000  - mov ecx,[edi+00000554]
+xrGame.dll+1C7D43: 6A 05 - push 05
+xrGame.dll+1C7D45: FF 15 64880708  - call dword ptr [08078864]
+xrGame.dll+1C7D4B: 3B C3  - cmp eax,ebx
+xrGame.dll+1C7D4D: 0F84 A0000000 - je 07DE7DF3
+xrGame.dll+1C7D53: 53 - push ebx
+xrGame.dll+1C7D54: 68 C83D1708 - push 08173DC8
+xrGame.dll+1C7D59: 68 683E1608 - push 08163E68
+xrGame.dll+1C7D5E: 53 - push ebx
+xrGame.dll+1C7D5F: 50 - push eax
+xrGame.dll+1C7D60: E8 E78B2800 - call 0807094C
+xrGame.dll+1C7D65: 8B E8  - mov ebp,eax
+xrGame.dll+1C7D67: 83 C4 14 - add esp,14
+xrGame.dll+1C7D6A: 3B EB  - cmp ebp,ebx
+xrGame.dll+1C7D6C: 0F84 81000000 - je 07DE7DF3
+xrGame.dll+1C7D72: F3 0F10 45 64  - movss xmm0,[ebp+64]
+xrGame.dll+1C7D77: F3 0F10 5C 24 14  - movss xmm3,[esp+14]
+}
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>123</ID>
+              <Description>"[Player] Invisible"</Description>
+              <Color>408000</Color>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>//--&gt; Game    : XR_3DA.exe
+//--&gt; Version : v1.0006
+//--&gt; Date    : 23/03/2024
+//--&gt; Author  : mul0
+
+[ENABLE]
+aobscanmodule(iInvisible,xrGame.dll+17922,0f84xxxxxxxx80xxxxxx75xxd9xxxxxxd9xxxxxx8bxxe8xxxxxxxx84xx0f84xxxxxxxx8bxxxx0fb7xxxxxxxxxx89xxxxxx8bxxxx89)
+
+registersymbol(iInvisible)
+
+iInvisible:
+	db E9 8F 01 00 00 90
+
+[DISABLE]
+iInvisible:
+	db 0F 84 8E 01 00 00
+
+unregistersymbol(iInvisible)
+
+
+{
+// ORIGINAL CODE - iInvisibleION POINT: xrGame.dll+17922
+
+xrGame.dll+178B6: 74 07 - je 08F878BF
+xrGame.dll+178B8: 8B F5  - mov esi,ebp
+xrGame.dll+178BA: E8 11FDFFFF - call 08F875D0
+xrGame.dll+178BF: 89 47 0C  - mov [edi+0C],eax
+xrGame.dll+178C2: 8B 43 08  - mov eax,[ebx+08]
+xrGame.dll+178C5: 85 C0  - test eax,eax
+xrGame.dll+178C7: 74 14 - je 08F878DD
+xrGame.dll+178C9: 8B 88 A8050000  - mov ecx,[eax+000005A8]
+xrGame.dll+178CF: 83 B9 AC000000 00 - cmp dword ptr [ecx+000000AC],00
+xrGame.dll+178D6: 75 05 - jne 08F878DD
+xrGame.dll+178D8: 83 C3 6C - add ebx,6C
+xrGame.dll+178DB: EB 03 - jmp 08F878E0
+xrGame.dll+178DD: 83 C3 44 - add ebx,44
+xrGame.dll+178E0: F3 0F10 47 04  - movss xmm0,[edi+04]
+xrGame.dll+178E5: 0F2F 43 08  - comiss xmm0,[ebx+08]
+xrGame.dll+178E9: 72 0F - jb 08F878FA
+xrGame.dll+178EB: B8 01000000 - mov eax,00000001
+xrGame.dll+178F0: 5F - pop edi
+xrGame.dll+178F1: 5E - pop esi
+xrGame.dll+178F2: 5D - pop ebp
+xrGame.dll+178F3: 5B - pop ebx
+xrGame.dll+178F4: 83 C4 24 - add esp,24
+xrGame.dll+178F7: C2 0800 - ret 0008
+xrGame.dll+178FA: 5F - pop edi
+xrGame.dll+178FB: 5E - pop esi
+xrGame.dll+178FC: 5D - pop ebp
+xrGame.dll+178FD: 33 C0  - xor eax,eax
+xrGame.dll+178FF: 5B - pop ebx
+xrGame.dll+17900: 83 C4 24 - add esp,24
+xrGame.dll+17903: C2 0800 - ret 0008
+xrGame.dll+17906: CC - int 3 
+xrGame.dll+17907: CC - int 3 
+xrGame.dll+17908: CC - int 3 
+xrGame.dll+17909: CC - int 3 
+xrGame.dll+1790A: CC - int 3 
+xrGame.dll+1790B: CC - int 3 
+xrGame.dll+1790C: CC - int 3 
+xrGame.dll+1790D: CC - int 3 
+xrGame.dll+1790E: CC - int 3 
+xrGame.dll+1790F: CC - int 3 
+xrGame.dll+17910: 55 - push ebp
+xrGame.dll+17911: 8B EC  - mov ebp,esp
+xrGame.dll+17913: 83 E4 F8 - and esp,-08
+xrGame.dll+17916: 83 EC 4C - sub esp,4C
+xrGame.dll+17919: 53 - push ebx
+xrGame.dll+1791A: 56 - push esi
+xrGame.dll+1791B: 8B D8  - mov ebx,eax
+xrGame.dll+1791D: 85 DB  - test ebx,ebx
+xrGame.dll+1791F: 57 - push edi
+xrGame.dll+17920: 8B F9  - mov edi,ecx
+// ---------- iInvisibleING HERE ----------
+xrGame.dll+17922: 0F84 8E010000 - je 08F87AB6
+// ---------- DONE iInvisibleING  ----------
+xrGame.dll+17928: 80 7D 0C 00 - cmp byte ptr [ebp+0C],00
+xrGame.dll+1792C: 75 17 - jne 08F87945
+xrGame.dll+1792E: D9 45 08  - fld dword ptr [ebp+08]
+xrGame.dll+17931: 51 - push ecx
+xrGame.dll+17932: D9 1C 24   - fstp dword ptr [esp]
+xrGame.dll+17935: 53 - push ebx
+xrGame.dll+17936: 8B C7  - mov eax,edi
+xrGame.dll+17938: E8 E3FCFFFF - call 08F87620
+xrGame.dll+1793D: 84 C0  - test al,al
+xrGame.dll+1793F: 0F84 71010000 - je 08F87AB6
+xrGame.dll+17945: 8B 47 04  - mov eax,[edi+04]
+xrGame.dll+17948: 0FB7 8B A4000000  - movzx ecx,word ptr [ebx+000000A4]
+xrGame.dll+1794F: 89 44 24 10  - mov [esp+10],eax
+xrGame.dll+17953: 8B 47 20  - mov eax,[edi+20]
+xrGame.dll+17956: 89 4C 24 14  - mov [esp+14],ecx
+xrGame.dll+1795A: 8B 48 08  - mov ecx,[eax+08]
+xrGame.dll+1795D: 8B 40 04  - mov eax,[eax+04]
+xrGame.dll+17960: 51 - push ecx
+xrGame.dll+17961: 50 - push eax
+xrGame.dll+17962: 8D 54 24 1C  - lea edx,[esp+1C]
+xrGame.dll+17966: 8D 44 24 24  - lea eax,[esp+24]
+xrGame.dll+1796A: E8 E160FFFF - call 08F7DA50
+xrGame.dll+1796F: 8B 30  - mov esi,[eax]
+xrGame.dll+17971: 8B 57 20  - mov edx,[edi+20]
+xrGame.dll+17974: 83 C4 08 - add esp,08
+xrGame.dll+17977: 39 72 08  - cmp [edx+08],esi
+xrGame.dll+1797A: 0F85 C5000000 - jne 08F87A45
+xrGame.dll+17980: 33 C0  - xor eax,eax
+xrGame.dll+17982: 89 44 24 20  - mov [esp+20],eax
+xrGame.dll+17986: 89 44 24 24  - mov [esp+24],eax
+xrGame.dll+1798A: 89 44 24 2C  - mov [esp+2C],eax
+xrGame.dll+1798E: 89 44 24 54  - mov [esp+54],eax
+xrGame.dll+17992: 8B C7  - mov eax,edi
+xrGame.dll+17994: C6 44 24 28 01 - mov byte ptr [esp+28],01
+xrGame.dll+17999: C7 44 24 50 FFFFFFFF - mov [esp+50],FFFFFFFF
+xrGame.dll+179A1: E8 DA020000 - call 08F87C80
+xrGame.dll+179A6: 89 44 24 14  - mov [esp+14],eax
+xrGame.dll+179AA: 8B C7  - mov eax,edi
+xrGame.dll+179AC: E8 CF020000 - call 08F87C80
+xrGame.dll+179B1: 8B 54 24 10  - mov edx,[esp+10]
+xrGame.dll+179B5: 89 44 24 18  - mov [esp+18],eax
+xrGame.dll+179B9: 8D 44 24 14  - lea eax,[esp+14]
+xrGame.dll+179BD: 50 - push eax
+xrGame.dll+179BE: 8D 4C 24 1C  - lea ecx,[esp+1C]
+xrGame.dll+179C2: 51 - push ecx
+xrGame.dll+179C3: 52 - push edx
+xrGame.dll+179C4: 8B C3  - mov eax,ebx
+xrGame.dll+179C6: 8D 74 24 2C  - lea esi,[esp+2C]
+xrGame.dll+179CA: E8 C1F0FFFF - call 08F86A90
+xrGame.dll+179CF: 8B 77 20  - mov esi,[edi+20]
+}
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>318</ID>
+              <Description>"[Player] No weight"</Description>
+              <Options moAlwaysHideChildren="1" moActivateChildrenAsWell="1" moDeactivateChildrenAsWell="1"/>
+              <Color>408000</Color>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>//--&gt; Game    : XR_3DA.exe
+//--&gt; Version : v1.0006
+//--&gt; Date    : 04/04/2024
+//--&gt; Author  : mul0
+
+[ENABLE]
+aobscanmodule(iWeight_backpack,xrGame.dll+20E7F4,f3xxxxxxxx8bxx8bxxxxxxxxxxf3xxxxxxxxffxx85xx74xxf3xxxxxxxxxxxxxxf3xxxxxxxxf3xxxxxxxxd9)
+alloc(newmem,$1000)
+label(code)
+label(return)
+registersymbol(iWeight_backpack)
+
+newmem:
+  movss xmm0,[eax+68]
+  push (float)+Inf
+  movss xmm0,[esp]
+  add esp,4
+	
+code:
+	jmp return
+
+iWeight_backpack:
+	jmp newmem
+
+return:
+
+[DISABLE]
+iWeight_backpack:
+	db F3 0F 10 40 68
+
+unregistersymbol(iWeight_backpack)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: xrGame.dll+20E7F4
+
+xrGame.dll+20E788: E8 9375FFFF - call 07D65D20
+xrGame.dll+20E78D: 85 C0  - test eax,eax
+xrGame.dll+20E78F: 74 49 - je 07D6E7DA
+xrGame.dll+20E791: 6A 00 - push 00
+xrGame.dll+20E793: 8B CE  - mov ecx,esi
+xrGame.dll+20E795: E8 F662FFFF - call 07D64A90
+xrGame.dll+20E79A: 8B 44 24 10  - mov eax,[esp+10]
+xrGame.dll+20E79E: 5F - pop edi
+xrGame.dll+20E79F: 5E - pop esi
+xrGame.dll+20E7A0: 89 68 3C  - mov [eax+3C],ebp
+xrGame.dll+20E7A3: 5D - pop ebp
+xrGame.dll+20E7A4: 5B - pop ebx
+xrGame.dll+20E7A5: 59 - pop ecx
+xrGame.dll+20E7A6: C2 0400 - ret 0004
+xrGame.dll+20E7A9: 3B FD  - cmp edi,ebp
+xrGame.dll+20E7AB: 74 0D - je 07D6E7BA
+xrGame.dll+20E7AD: 8B C7  - mov eax,edi
+xrGame.dll+20E7AF: C1 E0 04 - shl eax,04
+xrGame.dll+20E7B2: 03 46 38  - add eax,[esi+38]
+xrGame.dll+20E7B5: 39 58 04  - cmp [eax+04],ebx
+xrGame.dll+20E7B8: 74 20 - je 07D6E7DA
+xrGame.dll+20E7BA: 8B 56 38  - mov edx,[esi+38]
+xrGame.dll+20E7BD: C1 E1 04 - shl ecx,04
+xrGame.dll+20E7C0: 03 CA  - add ecx,edx
+xrGame.dll+20E7C2: 39 59 04  - cmp [ecx+04],ebx
+xrGame.dll+20E7C5: 74 0A - je 07D6E7D1
+xrGame.dll+20E7C7: 8B 49 04  - mov ecx,[ecx+04]
+xrGame.dll+20E7CA: 8B 01  - mov eax,[ecx]
+xrGame.dll+20E7CC: 8B 50 60  - mov edx,[eax+60]
+xrGame.dll+20E7CF: FF D2  - call edx
+xrGame.dll+20E7D1: 89 5E 5C  - mov [esi+5C],ebx
+xrGame.dll+20E7D4: 89 7E 4C  - mov [esi+4C],edi
+xrGame.dll+20E7D7: 89 5E 5C  - mov [esi+5C],ebx
+xrGame.dll+20E7DA: 8B 44 24 10  - mov eax,[esp+10]
+xrGame.dll+20E7DE: 89 68 3C  - mov [eax+3C],ebp
+xrGame.dll+20E7E1: 5F - pop edi
+xrGame.dll+20E7E2: 5E - pop esi
+xrGame.dll+20E7E3: 5D - pop ebp
+xrGame.dll+20E7E4: 5B - pop ebx
+xrGame.dll+20E7E5: 59 - pop ecx
+xrGame.dll+20E7E6: C2 0400 - ret 0004
+xrGame.dll+20E7E9: CC - int 3 
+xrGame.dll+20E7EA: CC - int 3 
+xrGame.dll+20E7EB: CC - int 3 
+xrGame.dll+20E7EC: CC - int 3 
+xrGame.dll+20E7ED: CC - int 3 
+xrGame.dll+20E7EE: CC - int 3 
+xrGame.dll+20E7EF: CC - int 3 
+xrGame.dll+20E7F0: 51 - push ecx
+xrGame.dll+20E7F1: 8B 41 24  - mov eax,[ecx+24]
+// ---------- INJECTING HERE ----------
+xrGame.dll+20E7F4: F3 0F10 40 68  - movss xmm0,[eax+68]
+// ---------- DONE INJECTING  ----------
+xrGame.dll+20E7F9: 8B 11  - mov edx,[ecx]
+xrGame.dll+20E7FB: 8B 82 9C000000  - mov eax,[edx+0000009C]
+xrGame.dll+20E801: F3 0F11 04 24   - movss [esp],xmm0
+xrGame.dll+20E806: FF D0  - call eax
+xrGame.dll+20E808: 85 C0  - test eax,eax
+xrGame.dll+20E80A: 74 12 - je 07D6E81E
+xrGame.dll+20E80C: F3 0F10 80 D0020000  - movss xmm0,[eax+000002D0]
+xrGame.dll+20E814: F3 0F58 04 24   - addss xmm0,[esp]
+xrGame.dll+20E819: F3 0F11 04 24   - movss [esp],xmm0
+xrGame.dll+20E81E: D9 04 24   - fld dword ptr [esp]
+xrGame.dll+20E821: 59 - pop ecx
+xrGame.dll+20E822: C3 - ret 
+xrGame.dll+20E823: CC - int 3 
+xrGame.dll+20E824: CC - int 3 
+xrGame.dll+20E825: CC - int 3 
+xrGame.dll+20E826: CC - int 3 
+xrGame.dll+20E827: CC - int 3 
+xrGame.dll+20E828: CC - int 3 
+xrGame.dll+20E829: CC - int 3 
+xrGame.dll+20E82A: CC - int 3 
+xrGame.dll+20E82B: CC - int 3 
+xrGame.dll+20E82C: CC - int 3 
+xrGame.dll+20E82D: CC - int 3 
+xrGame.dll+20E82E: CC - int 3 
+xrGame.dll+20E82F: CC - int 3 
+xrGame.dll+20E830: B8 10200000 - mov eax,00002010
+xrGame.dll+20E835: E8 06322400 - call 07FB1A40
+xrGame.dll+20E83A: 56 - push esi
+xrGame.dll+20E83B: 57 - push edi
+xrGame.dll+20E83C: 8B F9  - mov edi,ecx
+xrGame.dll+20E83E: 85 FF  - test edi,edi
+xrGame.dll+20E840: 75 04 - jne 07D6E846
+xrGame.dll+20E842: 33 F6  - xor esi,esi
+xrGame.dll+20E844: EB 28 - jmp 07D6E86E
+xrGame.dll+20E846: 8B 07  - mov eax,[edi]
+xrGame.dll+20E848: 8B 10  - mov edx,[eax]
+xrGame.dll+20E84A: FF D2  - call edx
+xrGame.dll+20E84C: 8B F0  - mov esi,eax
+xrGame.dll+20E84E: 8B 07  - mov eax,[edi]
+xrGame.dll+20E850: 8B 10  - mov edx,[eax]
+xrGame.dll+20E852: 8B CF  - mov ecx,edi
+xrGame.dll+20E854: FF D2  - call edx
+xrGame.dll+20E856: 85 C0  - test eax,eax
+xrGame.dll+20E858: 74 14 - je 07D6E86E
+xrGame.dll+20E85A: 8B 10  - mov edx,[eax]
+xrGame.dll+20E85C: 8B C8  - mov ecx,eax
+xrGame.dll+20E85E: 8B 82 BC000000  - mov eax,[edx+000000BC]
+xrGame.dll+20E864: FF D0  - call eax
+xrGame.dll+20E866: 85 C0  - test eax,eax
+xrGame.dll+20E868: 0F85 1B010000 - jne 07D6E989
+}
+</AssemblerScript>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>319</ID>
+                  <Description>"[Player] No weight [global]"</Description>
+                  <Color>408000</Color>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>//--&gt; Game    : XR_3DA.exe
+//--&gt; Version : v1.0006
+//--&gt; Date    : 04/04/2024
+//--&gt; Author  : mul0
+
+[ENABLE]
+aobscanmodule(iWeight_global,xrGame.dll+1DD7A8,f3xxxxxxxxxxxxxxf3xxxxxxxxxxebxxf3xxxxxxxxxx8bxxxxxxxxxx8bxxxxxxxxxxf3xxxxxxxx0f2fxx76xx66)
+alloc(newmem,$1000)
+label(code)
+label(return)
+registersymbol(iWeight_global)
+
+newmem:
+  movss xmm0,[eax+000002CC]
+  push (float)+Inf
+  movss xmm0,[esp]
+  add esp,4
+	
+code:
+	jmp return
+
+iWeight_global:
+	jmp newmem
+	db 90 90 90
+
+return:
+
+[DISABLE]
+iWeight_global:
+	db F3 0F 10 80 CC 02 00 00
+
+unregistersymbol(iWeight_global)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: xrGame.dll+1DD7A8
+
+xrGame.dll+1DD6FE: CC - int 3 
+xrGame.dll+1DD6FF: CC - int 3 
+xrGame.dll+1DD700: F3 0F10 41 58  - movss xmm0,[ecx+58]
+xrGame.dll+1DD705: F3 0F10 89 48010000  - movss xmm1,[ecx+00000148]
+xrGame.dll+1DD70D: 0F2F C8  - comiss xmm1,xmm0
+xrGame.dll+1DD710: 76 0E - jna 07D3D720
+xrGame.dll+1DD712: C6 81 3D010000 01 - mov byte ptr [ecx+0000013D],01
+xrGame.dll+1DD719: 8A 81 3D010000  - mov al,[ecx+0000013D]
+xrGame.dll+1DD71F: C3 - ret 
+xrGame.dll+1DD720: 0F2F 81 4C010000  - comiss xmm0,[ecx+0000014C]
+xrGame.dll+1DD727: 76 07 - jna 07D3D730
+xrGame.dll+1DD729: C6 81 3D010000 00 - mov byte ptr [ecx+0000013D],00
+xrGame.dll+1DD730: 8A 81 3D010000  - mov al,[ecx+0000013D]
+xrGame.dll+1DD736: C3 - ret 
+xrGame.dll+1DD737: CC - int 3 
+xrGame.dll+1DD738: CC - int 3 
+xrGame.dll+1DD739: CC - int 3 
+xrGame.dll+1DD73A: CC - int 3 
+xrGame.dll+1DD73B: CC - int 3 
+xrGame.dll+1DD73C: CC - int 3 
+xrGame.dll+1DD73D: CC - int 3 
+xrGame.dll+1DD73E: CC - int 3 
+xrGame.dll+1DD73F: CC - int 3 
+xrGame.dll+1DD740: 51 - push ecx
+xrGame.dll+1DD741: A1 4C8AFB07 - mov eax,[07FB8A4C]
+xrGame.dll+1DD746: 56 - push esi
+xrGame.dll+1DD747: 8B F1  - mov esi,ecx
+xrGame.dll+1DD749: 8B 08  - mov ecx,[eax]
+xrGame.dll+1DD74B: 8B 81 24040000  - mov eax,[ecx+00000424]
+xrGame.dll+1DD751: 83 F8 01 - cmp eax,01
+xrGame.dll+1DD754: 74 08 - je 07D3D75E
+xrGame.dll+1DD756: 85 C0  - test eax,eax
+xrGame.dll+1DD758: 0F85 84000000 - jne 07D3D7E2
+xrGame.dll+1DD75E: 8B 15 FC89FB07  - mov edx,[07FB89FC]
+xrGame.dll+1DD764: 8B 02  - mov eax,[edx]
+xrGame.dll+1DD766: 8B 88 D0450000  - mov ecx,[eax+000045D0]
+xrGame.dll+1DD76C: 83 79 10 01 - cmp dword ptr [ecx+10],01
+xrGame.dll+1DD770: 75 0A - jne 07D3D77C
+xrGame.dll+1DD772: A1 D8020C08 - mov eax,[080C02D8]
+xrGame.dll+1DD777: 83 E0 01 - and eax,01
+xrGame.dll+1DD77A: 75 66 - jne 07D3D7E2
+xrGame.dll+1DD77C: 8B 86 F4000000  - mov eax,[esi+000000F4]
+xrGame.dll+1DD782: 8B 90 74020000  - mov edx,[eax+00000274]
+xrGame.dll+1DD788: F3 0F10 86 38010000  - movss xmm0,[esi+00000138]
+xrGame.dll+1DD790: 8D 88 74020000  - lea ecx,[eax+00000274]
+xrGame.dll+1DD796: 8B 82 9C000000  - mov eax,[edx+0000009C]
+xrGame.dll+1DD79C: F3 0F11 44 24 04  - movss [esp+04],xmm0
+xrGame.dll+1DD7A2: FF D0  - call eax
+xrGame.dll+1DD7A4: 85 C0  - test eax,eax
+xrGame.dll+1DD7A6: 74 10 - je 07D3D7B8
+// ---------- INJECTING HERE ----------
+xrGame.dll+1DD7A8: F3 0F10 80 CC020000  - movss xmm0,[eax+000002CC]
+// ---------- DONE INJECTING  ----------
+xrGame.dll+1DD7B0: F3 0F58 44 24 04  - addss xmm0,[esp+04]
+xrGame.dll+1DD7B6: EB 06 - jmp 07D3D7BE
+xrGame.dll+1DD7B8: F3 0F10 44 24 04  - movss xmm0,[esp+04]
+xrGame.dll+1DD7BE: 8B 8E F4000000  - mov ecx,[esi+000000F4]
+xrGame.dll+1DD7C4: 8B 91 98020000  - mov edx,[ecx+00000298]
+xrGame.dll+1DD7CA: F3 0F10 4A 6C  - movss xmm1,[edx+6C]
+xrGame.dll+1DD7CF: 0F2F C8  - comiss xmm1,xmm0
+xrGame.dll+1DD7D2: 76 0E - jna 07D3D7E2
+xrGame.dll+1DD7D4: 66 81 8E F0000000 8000 - or word ptr [esi+000000F0],0080
+xrGame.dll+1DD7DD: B0 01 - mov al,01
+xrGame.dll+1DD7DF: 5E - pop esi
+xrGame.dll+1DD7E0: 59 - pop ecx
+xrGame.dll+1DD7E1: C3 - ret 
+xrGame.dll+1DD7E2: 66 81 A6 F0000000 7FFF - and word ptr [esi+000000F0],FF7F
+xrGame.dll+1DD7EB: 32 C0  - xor al,al
+xrGame.dll+1DD7ED: 5E - pop esi
+xrGame.dll+1DD7EE: 59 - pop ecx
+xrGame.dll+1DD7EF: C3 - ret 
+xrGame.dll+1DD7F0: F3 0F10 41 58  - movss xmm0,[ecx+58]
+xrGame.dll+1DD7F5: F3 0F10 89 50010000  - movss xmm1,[ecx+00000150]
+xrGame.dll+1DD7FD: 0F2F C8  - comiss xmm1,xmm0
+xrGame.dll+1DD800: 76 0E - jna 07D3D810
+xrGame.dll+1DD802: C6 81 3E010000 01 - mov byte ptr [ecx+0000013E],01
+xrGame.dll+1DD809: 8A 81 3E010000  - mov al,[ecx+0000013E]
+xrGame.dll+1DD80F: C3 - ret 
+xrGame.dll+1DD810: 0F2F 81 54010000  - comiss xmm0,[ecx+00000154]
+xrGame.dll+1DD817: 76 07 - jna 07D3D820
+xrGame.dll+1DD819: C6 81 3E010000 00 - mov byte ptr [ecx+0000013E],00
+xrGame.dll+1DD820: 8A 81 3E010000  - mov al,[ecx+0000013E]
+xrGame.dll+1DD826: C3 - ret 
+xrGame.dll+1DD827: CC - int 3 
+xrGame.dll+1DD828: CC - int 3 
+xrGame.dll+1DD829: CC - int 3 
+xrGame.dll+1DD82A: CC - int 3 
+xrGame.dll+1DD82B: CC - int 3 
+xrGame.dll+1DD82C: CC - int 3 
+xrGame.dll+1DD82D: CC - int 3 
+xrGame.dll+1DD82E: CC - int 3 
+xrGame.dll+1DD82F: CC - int 3 
+xrGame.dll+1DD830: F3 0F10 49 58  - movss xmm1,[ecx+58]
+xrGame.dll+1DD835: F3 0F10 81 40010000  - movss xmm0,[ecx+00000140]
+xrGame.dll+1DD83D: 0F2F C1  - comiss xmm0,xmm1
+xrGame.dll+1DD840: 77 32 - ja 07D3D874
+xrGame.dll+1DD842: F3 0F10 41 04  - movss xmm0,[ecx+04]
+xrGame.dll+1DD847: F3 0F10 91 58010000  - movss xmm2,[ecx+00000158]
+xrGame.dll+1DD84F: 0F2F D0  - comiss xmm2,xmm0
+xrGame.dll+1DD852: 77 20 - ja 07D3D874
+xrGame.dll+1DD854: 0F2F 89 44010000  - comiss xmm1,[ecx+00000144]
+xrGame.dll+1DD85B: 76 1E - jna 07D3D87B
+xrGame.dll+1DD85D: 0F2F 81 5C010000  - comiss xmm0,[ecx+0000015C]
+}
+</AssemblerScript>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>96</ID>
+              <Description>"[Player] No bleeding"</Description>
+              <Color>408000</Color>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>//--&gt; Game    : XR_3DA.exe
+//--&gt; Version : v1.0006
+//--&gt; Date    : 23/03/2024
+//--&gt; Author  : mul0
+
+[ENABLE]
+aobscanmodule(iBleeding,xrGame.dll+1E2EC0,d9xxxxxxxxxx8bxx83xxxxd9xxxxxxd9xxxxxxd9xxxxe8xxxxxxxx8bxxf3xxxxxxxxf3xxxxxxxxf3xxxxxxxxf3xxxxxxxxf3xxxxxxxxf3xxxxxxxxf3)
+alloc(newmem,$1000)
+label(code)
+label(return)
+registersymbol(iBleeding)
+
+newmem:
+    push (float)99
+	fld dword ptr [esp]
+    add esp,4
+	
+code:
+// ---------- ORIGINAL CODE ----------
+//	fld dword ptr [edi+000000B0]
+// ---------- ORIGINAL CODE  ----------
+	jmp return
+
+iBleeding:
+	jmp newmem
+	nop
+
+return:
+
+
+[DISABLE]
+iBleeding:
+	db D9 87 B0 00 00 00
+
+unregistersymbol(iBleeding)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - iBleedingION POINT: xrGame.dll+1E2EC0
+
+xrGame.dll+1E2E06: 5B - pop ebx
+xrGame.dll+1E2E07: C2 0400 - ret 0004
+xrGame.dll+1E2E0A: CC - int 3 
+xrGame.dll+1E2E0B: CC - int 3 
+xrGame.dll+1E2E0C: CC - int 3 
+xrGame.dll+1E2E0D: CC - int 3 
+xrGame.dll+1E2E0E: CC - int 3 
+xrGame.dll+1E2E0F: CC - int 3 
+xrGame.dll+1E2E10: F3 0F10 05 18973D09  - movss xmm0,[093D9718]
+xrGame.dll+1E2E18: 0F57 C9  - xorps xmm1,xmm1
+xrGame.dll+1E2E1B: 33 C0  - xor eax,eax
+xrGame.dll+1E2E1D: 51 - push ecx
+xrGame.dll+1E2E1E: 89 81 C8000000  - mov [ecx+000000C8],eax
+xrGame.dll+1E2E24: 89 81 CC000000  - mov [ecx+000000CC],eax
+xrGame.dll+1E2E2A: 88 81 E8000000  - mov [ecx+000000E8],al
+xrGame.dll+1E2E30: F3 0F11 41 08  - movss [ecx+08],xmm0
+xrGame.dll+1E2E35: F3 0F11 41 68  - movss [ecx+68],xmm0
+xrGame.dll+1E2E3A: F3 0F11 41 6C  - movss [ecx+6C],xmm0
+xrGame.dll+1E2E3F: F3 0F11 41 70  - movss [ecx+70],xmm0
+xrGame.dll+1E2E44: F3 0F11 41 74  - movss [ecx+74],xmm0
+xrGame.dll+1E2E49: F3 0F11 41 64  - movss [ecx+64],xmm0
+xrGame.dll+1E2E4E: F3 0F11 41 04  - movss [ecx+04],xmm0
+xrGame.dll+1E2E53: F3 0F11 41 58  - movss [ecx+58],xmm0
+xrGame.dll+1E2E58: F3 0F11 49 5C  - movss [ecx+5C],xmm1
+xrGame.dll+1E2E5D: F3 0F11 41 60  - movss [ecx+60],xmm0
+xrGame.dll+1E2E62: F3 0F11 49 78  - movss [ecx+78],xmm1
+xrGame.dll+1E2E67: F3 0F11 49 7C  - movss [ecx+7C],xmm1
+xrGame.dll+1E2E6C: F3 0F11 89 80000000  - movss [ecx+00000080],xmm1
+xrGame.dll+1E2E74: F3 0F11 89 88000000  - movss [ecx+00000088],xmm1
+xrGame.dll+1E2E7C: F3 0F11 89 8C000000  - movss [ecx+0000008C],xmm1
+xrGame.dll+1E2E84: F3 0F11 89 84000000  - movss [ecx+00000084],xmm1
+xrGame.dll+1E2E8C: F3 0F11 89 C0000000  - movss [ecx+000000C0],xmm1
+xrGame.dll+1E2E94: 89 81 D4000000  - mov [ecx+000000D4],eax
+xrGame.dll+1E2E9A: 66 89 81 D8000000  - mov [ecx+000000D8],ax
+xrGame.dll+1E2EA1: E8 BAFDFFFF - call 09162C60
+xrGame.dll+1E2EA6: C3 - ret 
+xrGame.dll+1E2EA7: CC - int 3 
+xrGame.dll+1E2EA8: CC - int 3 
+xrGame.dll+1E2EA9: CC - int 3 
+xrGame.dll+1E2EAA: CC - int 3 
+xrGame.dll+1E2EAB: CC - int 3 
+xrGame.dll+1E2EAC: CC - int 3 
+xrGame.dll+1E2EAD: CC - int 3 
+xrGame.dll+1E2EAE: CC - int 3 
+xrGame.dll+1E2EAF: CC - int 3 
+xrGame.dll+1E2EB0: 56 - push esi
+xrGame.dll+1E2EB1: 8B 77 4C  - mov esi,[edi+4C]
+xrGame.dll+1E2EB4: 39 77 50  - cmp [edi+50],esi
+xrGame.dll+1E2EB7: 0F84 7E000000 - je 09162F3B
+xrGame.dll+1E2EBD: 8D 49 00  - lea ecx,[ecx+00]
+// ---------- iBleedingING HERE ----------
+xrGame.dll+1E2EC0: D9 87 B0000000  - fld dword ptr [edi+000000B0]
+// ---------- DONE iBleedingING  ----------
+xrGame.dll+1E2EC6: 8B 06  - mov eax,[esi]
+xrGame.dll+1E2EC8: 83 EC 08 - sub esp,08
+xrGame.dll+1E2ECB: D9 5C 24 04  - fstp dword ptr [esp+04]
+xrGame.dll+1E2ECF: D9 44 24 10  - fld dword ptr [esp+10]
+xrGame.dll+1E2ED3: D9 1C 24   - fstp dword ptr [esp]
+xrGame.dll+1E2ED6: E8 F5120000 - call 091641D0
+xrGame.dll+1E2EDB: 8B 0E  - mov ecx,[esi]
+xrGame.dll+1E2EDD: F3 0F10 41 10  - movss xmm0,[ecx+10]
+xrGame.dll+1E2EE2: F3 0F58 41 14  - addss xmm0,[ecx+14]
+xrGame.dll+1E2EE7: F3 0F58 41 18  - addss xmm0,[ecx+18]
+xrGame.dll+1E2EEC: F3 0F58 41 1C  - addss xmm0,[ecx+1C]
+xrGame.dll+1E2EF1: F3 0F58 41 20  - addss xmm0,[ecx+20]
+xrGame.dll+1E2EF6: F3 0F58 41 24  - addss xmm0,[ecx+24]
+xrGame.dll+1E2EFB: F3 0F58 41 28  - addss xmm0,[ecx+28]
+xrGame.dll+1E2F00: F3 0F58 41 2C  - addss xmm0,[ecx+2C]
+xrGame.dll+1E2F05: 8D 41 30  - lea eax,[ecx+30]
+xrGame.dll+1E2F08: BA 03000000 - mov edx,00000003
+xrGame.dll+1E2F0D: 8D 49 00  - lea ecx,[ecx+00]
+xrGame.dll+1E2F10: F3 0F10 08  - movss xmm1,[eax]
+xrGame.dll+1E2F14: 83 C0 04 - add eax,04
+xrGame.dll+1E2F17: 83 EA 01 - sub edx,01
+xrGame.dll+1E2F1A: F3 0F58 C8  - addss xmm1,xmm0
+xrGame.dll+1E2F1E: 0F28 C1  - movaps xmm0,xmm1
+xrGame.dll+1E2F21: 75 ED - jne 09162F10
+xrGame.dll+1E2F23: 0F57 C9  - xorps xmm1,xmm1
+xrGame.dll+1E2F26: 0F2E C8  - ucomiss xmm1,xmm0
+xrGame.dll+1E2F29: 9F - lahf 
+xrGame.dll+1E2F2A: F6 C4 44 - test ah,44
+xrGame.dll+1E2F2D: 7A 04 - jp 09162F33
+xrGame.dll+1E2F2F: C6 41 40 01 - mov byte ptr [ecx+40],01
+xrGame.dll+1E2F33: 83 C6 04 - add esi,04
+xrGame.dll+1E2F36: 39 77 50  - cmp [edi+50],esi
+xrGame.dll+1E2F39: 75 85 - jne 09162EC0
+xrGame.dll+1E2F3B: 5E - pop esi
+xrGame.dll+1E2F3C: C2 0400 - ret 0004
+xrGame.dll+1E2F3F: CC - int 3 
+xrGame.dll+1E2F40: 8B 47 4C  - mov eax,[edi+4C]
+xrGame.dll+1E2F43: 83 EC 08 - sub esp,08
+xrGame.dll+1E2F46: 53 - push ebx
+xrGame.dll+1E2F47: 56 - push esi
+xrGame.dll+1E2F48: 8B 77 50  - mov esi,[edi+50]
+xrGame.dll+1E2F4B: 56 - push esi
+xrGame.dll+1E2F4C: 50 - push eax
+xrGame.dll+1E2F4D: 8D 5C 24 14  - lea ebx,[esp+14]
+xrGame.dll+1E2F51: E8 FA0E0000 - call 09163E50
+xrGame.dll+1E2F56: 8B 00  - mov eax,[eax]
+xrGame.dll+1E2F58: 83 C4 08 - add esp,08
+xrGame.dll+1E2F5B: 3B C6  - cmp eax,esi
+xrGame.dll+1E2F5D: 75 04 - jne 09162F63
+xrGame.dll+1E2F5F: 8B D0  - mov edx,eax
+}
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>98</ID>
+              <Description>"[Player] No hunger"</Description>
+              <Color>408000</Color>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>//--&gt; Game    : XR_3DA.exe
+//--&gt; Version : v1.0006
+//--&gt; Date    : 23/03/2024
+//--&gt; Author  : mul0
+
+[ENABLE]
+aobscanmodule(iHunger,xrGame.dll+1DD44A,f3xxxxxxxxxxxxxx0f57xx0f2fxxf3xxxxxxxxxxxxxx76xxf3xxxxxxxxxxxxxxf3xxxxxxxxxxxxxxf3xxxxxx0f2fxxf3)
+alloc(newmem,$1000)
+label(code)
+label(return)
+registersymbol(iHunger)
+
+newmem:
+  movss xmm0,[esi+00000100]
+  push (float)1
+  movss xmm0,[esp]
+  movss [esi+00000100],xmm0
+  add esp,4
+	
+code:
+	jmp return
+
+iHunger:
+	jmp newmem
+	db 90 90 90
+
+return:
+
+[DISABLE]
+iHunger:
+	db F3 0F 10 86 00 01 00 00
+
+unregistersymbol(iHunger)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - iHungerION POINT: xrGame.dll+1DD44A
+
+xrGame.dll+1DD3D0: E8 6B42E2FF - call 08F81640
+xrGame.dll+1DD3D5: 83 C4 08 - add esp,08
+xrGame.dll+1DD3D8: 85 C0  - test eax,eax
+xrGame.dll+1DD3DA: 74 08 - je 0915D3E4
+xrGame.dll+1DD3DC: 0F57 C0  - xorps xmm0,xmm0
+xrGame.dll+1DD3DF: F3 0F11 43 04  - movss [ebx+04],xmm0
+xrGame.dll+1DD3E4: 8B 44 24 14  - mov eax,[esp+14]
+xrGame.dll+1DD3E8: 85 C0  - test eax,eax
+xrGame.dll+1DD3EA: 74 03 - je 0915D3EF
+xrGame.dll+1DD3EC: 83 00 FF - add dword ptr [eax],-01
+xrGame.dll+1DD3EF: 8B F3  - mov esi,ebx
+xrGame.dll+1DD3F1: E8 3A000000 - call 0915D430
+xrGame.dll+1DD3F6: 8B CB  - mov ecx,ebx
+xrGame.dll+1DD3F8: E8 C35C0000 - call 091630C0
+xrGame.dll+1DD3FD: 8B 0D 4C8A3D09  - mov ecx,[093D8A4C]
+xrGame.dll+1DD403: 8B 11  - mov edx,[ecx]
+xrGame.dll+1DD405: 8B 82 24040000  - mov eax,[edx+00000424]
+xrGame.dll+1DD40B: 83 F8 01 - cmp eax,01
+xrGame.dll+1DD40E: 74 04 - je 0915D414
+xrGame.dll+1DD410: 85 C0  - test eax,eax
+xrGame.dll+1DD412: 75 07 - jne 0915D41B
+xrGame.dll+1DD414: 8B C3  - mov eax,ebx
+xrGame.dll+1DD416: E8 B5050000 - call 0915D9D0
+xrGame.dll+1DD41B: 5F - pop edi
+xrGame.dll+1DD41C: 5E - pop esi
+xrGame.dll+1DD41D: 5B - pop ebx
+xrGame.dll+1DD41E: 8B E5  - mov esp,ebp
+xrGame.dll+1DD420: 5D - pop ebp
+xrGame.dll+1DD421: C3 - ret 
+xrGame.dll+1DD422: CC - int 3 
+xrGame.dll+1DD423: CC - int 3 
+xrGame.dll+1DD424: CC - int 3 
+xrGame.dll+1DD425: CC - int 3 
+xrGame.dll+1DD426: CC - int 3 
+xrGame.dll+1DD427: CC - int 3 
+xrGame.dll+1DD428: CC - int 3 
+xrGame.dll+1DD429: CC - int 3 
+xrGame.dll+1DD42A: CC - int 3 
+xrGame.dll+1DD42B: CC - int 3 
+xrGame.dll+1DD42C: CC - int 3 
+xrGame.dll+1DD42D: CC - int 3 
+xrGame.dll+1DD42E: CC - int 3 
+xrGame.dll+1DD42F: CC - int 3 
+xrGame.dll+1DD430: A1 4C8A3D09 - mov eax,[093D8A4C]
+xrGame.dll+1DD435: 8B 08  - mov ecx,[eax]
+xrGame.dll+1DD437: 8B 81 24040000  - mov eax,[ecx+00000424]
+xrGame.dll+1DD43D: 83 F8 01 - cmp eax,01
+xrGame.dll+1DD440: 74 08 - je 0915D44A
+xrGame.dll+1DD442: 85 C0  - test eax,eax
+xrGame.dll+1DD444: 0F85 C7000000 - jne 0915D511
+// ---------- iHungerING HERE ----------
+xrGame.dll+1DD44A: F3 0F10 86 00010000  - movss xmm0,[esi+00000100]
+// ---------- DONE iHungerING  ----------
+xrGame.dll+1DD452: 0F57 C9  - xorps xmm1,xmm1
+xrGame.dll+1DD455: 0F2F C1  - comiss xmm0,xmm1
+xrGame.dll+1DD458: F3 0F10 15 18973D09  - movss xmm2,[093D9718]
+xrGame.dll+1DD460: 76 38 - jna 0915D49A
+xrGame.dll+1DD462: F3 0F10 9E 04010000  - movss xmm3,[esi+00000104]
+xrGame.dll+1DD46A: F3 0F59 9E D0000000  - mulss xmm3,[esi+000000D0]
+xrGame.dll+1DD472: F3 0F5C C3  - subss xmm0,xmm3
+xrGame.dll+1DD476: 0F2F C8  - comiss xmm1,xmm0
+xrGame.dll+1DD479: F3 0F11 86 00010000  - movss [esi+00000100],xmm0
+xrGame.dll+1DD481: 76 0A - jna 0915D48D
+xrGame.dll+1DD483: F3 0F11 8E 00010000  - movss [esi+00000100],xmm1
+xrGame.dll+1DD48B: EB 0D - jmp 0915D49A
+xrGame.dll+1DD48D: 0F2F C2  - comiss xmm0,xmm2
+xrGame.dll+1DD490: 76 08 - jna 0915D49A
+xrGame.dll+1DD492: F3 0F11 96 00010000  - movss [esi+00000100],xmm2
+xrGame.dll+1DD49A: 80 BE B4000000 00 - cmp byte ptr [esi+000000B4],00
+xrGame.dll+1DD4A1: 75 54 - jne 0915D4F7
+xrGame.dll+1DD4A3: 56 - push esi
+xrGame.dll+1DD4A4: E8 F7F6FFFF - call 0915CBA0
+xrGame.dll+1DD4A9: 84 C0  - test al,al
+xrGame.dll+1DD4AB: 74 39 - je 0915D4E6
+xrGame.dll+1DD4AD: F3 0F10 86 00010000  - movss xmm0,[esi+00000100]
+xrGame.dll+1DD4B5: 0F2F 05 949F3D09  - comiss xmm0,[093D9F94]
+xrGame.dll+1DD4BC: 76 0A - jna 0915D4C8
+xrGame.dll+1DD4BE: F3 0F10 0D 18973D09  - movss xmm1,[093D9718]
+xrGame.dll+1DD4C6: EB 08 - jmp 0915D4D0
+xrGame.dll+1DD4C8: F3 0F10 0D D8234509  - movss xmm1,[094523D8]
+xrGame.dll+1DD4D0: F3 0F10 86 0C010000  - movss xmm0,[esi+0000010C]
+xrGame.dll+1DD4D8: F3 0F59 86 D0000000  - mulss xmm0,[esi+000000D0]
+xrGame.dll+1DD4E0: F3 0F59 C1  - mulss xmm0,xmm1
+xrGame.dll+1DD4E4: EB 03 - jmp 0915D4E9
+xrGame.dll+1DD4E6: 0F57 C0  - xorps xmm0,xmm0
+xrGame.dll+1DD4E9: F3 0F10 4E 78  - movss xmm1,[esi+78]
+xrGame.dll+1DD4EE: F3 0F58 C8  - addss xmm1,xmm0
+xrGame.dll+1DD4F2: F3 0F11 4E 78  - movss [esi+78],xmm1
+xrGame.dll+1DD4F7: F3 0F10 86 08010000  - movss xmm0,[esi+00000108]
+xrGame.dll+1DD4FF: F3 0F59 86 D0000000  - mulss xmm0,[esi+000000D0]
+xrGame.dll+1DD507: F3 0F58 46 7C  - addss xmm0,[esi+7C]
+xrGame.dll+1DD50C: F3 0F11 46 7C  - movss [esi+7C],xmm0
+xrGame.dll+1DD511: C3 - ret 
+xrGame.dll+1DD512: CC - int 3 
+xrGame.dll+1DD513: CC - int 3 
+xrGame.dll+1DD514: CC - int 3 
+xrGame.dll+1DD515: CC - int 3 
+xrGame.dll+1DD516: CC - int 3 
+xrGame.dll+1DD517: CC - int 3 
+xrGame.dll+1DD518: CC - int 3 
+xrGame.dll+1DD519: CC - int 3 
+xrGame.dll+1DD51A: CC - int 3 
+xrGame.dll+1DD51B: CC - int 3 
+}
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>99</ID>
+              <Description>"[Player] No psy"</Description>
+              <Color>408000</Color>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>//--&gt; Game    : XR_3DA.exe
+//--&gt; Version : v1.0006
+//--&gt; Date    : 23/03/2024
+//--&gt; Author  : mul0
+
+[ENABLE]
+aobscanmodule(iPSY,xrGame.dll+1DD341,f3xxxxxxxxf3xxxxxxxxxxxxxxxxf3xxxxxxxxe8xxxxxxxxd9xxxxxxxxxx83xxxxxxxxxxxx77xx85xx75xx8dxxxxxx8d)
+alloc(newmem,$1000)
+label(code)
+label(return)
+registersymbol(iPSY)
+
+newmem:
+  movss xmm0,[ebx+60]
+  push (float)1
+  movss xmm0,[esp]
+  movss [ebx+60],xmm0
+  add esp,4
+	
+code:
+	jmp return
+
+iPSY:
+	jmp newmem
+
+return:
+
+[DISABLE]
+iPSY:
+	db F3 0F 10 43 60
+
+unregistersymbol(iPSY)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - iPSYION POINT: xrGame.dll+1DD341
+
+xrGame.dll+1DD29D: 51 - push ecx
+xrGame.dll+1DD29E: 8B FE  - mov edi,esi
+xrGame.dll+1DD2A0: E8 9BD9FBFF - call 0911AC40
+xrGame.dll+1DD2A5: 83 C4 10 - add esp,10
+xrGame.dll+1DD2A8: 8B CE  - mov ecx,esi
+xrGame.dll+1DD2AA: E8 71460300 - call 09191920
+xrGame.dll+1DD2AF: EB 14 - jmp 0915D2C5
+xrGame.dll+1DD2B1: 85 C0  - test eax,eax
+xrGame.dll+1DD2B3: 74 10 - je 0915D2C5
+xrGame.dll+1DD2B5: 8B BB F4000000  - mov edi,[ebx+000000F4]
+xrGame.dll+1DD2BB: BE 34000000 - mov esi,00000034
+xrGame.dll+1DD2C0: E8 8BDDFBFF - call 0911B050
+xrGame.dll+1DD2C5: 8B 93 F4000000  - mov edx,[ebx+000000F4]
+xrGame.dll+1DD2CB: 8B 8A 54050000  - mov ecx,[edx+00000554]
+xrGame.dll+1DD2D1: 6A 38 - push 38
+xrGame.dll+1DD2D3: FF 15 78843D09  - call dword ptr [093D8478]
+xrGame.dll+1DD2D9: 8B F0  - mov esi,eax
+xrGame.dll+1DD2DB: A1 FC893D09 - mov eax,[093D89FC]
+xrGame.dll+1DD2E0: 8B 08  - mov ecx,[eax]
+xrGame.dll+1DD2E2: 8B 11  - mov edx,[ecx]
+xrGame.dll+1DD2E4: 8B 52 08  - mov edx,[edx+08]
+xrGame.dll+1DD2E7: 8D 44 24 14  - lea eax,[esp+14]
+xrGame.dll+1DD2EB: 50 - push eax
+xrGame.dll+1DD2EC: FF D2  - call edx
+xrGame.dll+1DD2EE: 8B 44 24 14  - mov eax,[esp+14]
+xrGame.dll+1DD2F2: 85 C0  - test eax,eax
+xrGame.dll+1DD2F4: 74 05 - je 0915D2FB
+xrGame.dll+1DD2F6: 83 C0 0C - add eax,0C
+xrGame.dll+1DD2F9: EB 02 - jmp 0915D2FD
+xrGame.dll+1DD2FB: 33 C0  - xor eax,eax
+xrGame.dll+1DD2FD: 50 - push eax
+xrGame.dll+1DD2FE: 68 54023E09 - push 093E0254
+xrGame.dll+1DD303: BA F0474009 - mov edx,094047F0
+xrGame.dll+1DD308: 8D 7C 24 20  - lea edi,[esp+20]
+xrGame.dll+1DD30C: B8 40000000 - mov eax,00000040
+xrGame.dll+1DD311: E8 4AA0E5FF - call 08FB7360
+xrGame.dll+1DD316: 8B 0D D88D3D09  - mov ecx,[093D8DD8]
+xrGame.dll+1DD31C: 8B 09  - mov ecx,[ecx]
+xrGame.dll+1DD31E: 83 C4 08 - add esp,08
+xrGame.dll+1DD321: 8B C7  - mov eax,edi
+xrGame.dll+1DD323: 50 - push eax
+xrGame.dll+1DD324: FF 15 0C8B3D09  - call dword ptr [093D8B0C]
+xrGame.dll+1DD32A: 85 C0  - test eax,eax
+xrGame.dll+1DD32C: 75 13 - jne 0915D341
+xrGame.dll+1DD32E: 68 F0474009 - push 094047F0
+xrGame.dll+1DD333: 8B D7  - mov edx,edi
+xrGame.dll+1DD335: 6A 40 - push 40
+xrGame.dll+1DD337: 52 - push edx
+xrGame.dll+1DD338: FF 15 90813D09  - call dword ptr [093D8190]
+xrGame.dll+1DD33E: 83 C4 0C - add esp,0C
+// ---------- iPSYING HERE ----------
+xrGame.dll+1DD341: F3 0F10 43 60  - movss xmm0,[ebx+60]
+// ---------- DONE iPSYING  ----------
+xrGame.dll+1DD346: F3 0F5C 05 18973D09  - subss xmm0,[093D9718]
+xrGame.dll+1DD34E: 51 - push ecx
+xrGame.dll+1DD34F: F3 0F11 04 24   - movss [esp],xmm0
+xrGame.dll+1DD354: E8 D742E2FF - call 08F81630
+xrGame.dll+1DD359: D9 05 D8973D09  - fld dword ptr [093D97D8]
+xrGame.dll+1DD35F: 83 C4 04 - add esp,04
+xrGame.dll+1DD362: DFF1 - fcomip st(0),st(1)
+xrGame.dll+1DD364: DDD8 - fstp st(0)
+xrGame.dll+1DD366: 77 41 - ja 0915D3A9
+xrGame.dll+1DD368: 85 F6  - test esi,esi
+xrGame.dll+1DD36A: 75 51 - jne 0915D3BD
+xrGame.dll+1DD36C: 8D 44 24 18  - lea eax,[esp+18]
+xrGame.dll+1DD370: 8D 74 24 10  - lea esi,[esp+10]
+xrGame.dll+1DD374: E8 E7CFE3FF - call 08F9A360
+xrGame.dll+1DD379: 83 EC 08 - sub esp,08
+xrGame.dll+1DD37C: 8B C4  - mov eax,esp
+xrGame.dll+1DD37E: C7 00 00000000 - mov [eax],00000000
+xrGame.dll+1DD384: C7 40 04 10CC1509 - mov [eax+04],0915CC10
+xrGame.dll+1DD38B: 89 18  - mov [eax],ebx
+xrGame.dll+1DD38D: 8B 83 F4000000  - mov eax,[ebx+000000F4]
+xrGame.dll+1DD393: 6A 38 - push 38
+xrGame.dll+1DD395: 50 - push eax
+xrGame.dll+1DD396: 8B FE  - mov edi,esi
+xrGame.dll+1DD398: E8 A3D8FBFF - call 0911AC40
+xrGame.dll+1DD39D: 83 C4 10 - add esp,10
+xrGame.dll+1DD3A0: 8B CE  - mov ecx,esi
+xrGame.dll+1DD3A2: E8 79450300 - call 09191920
+xrGame.dll+1DD3A7: EB 14 - jmp 0915D3BD
+xrGame.dll+1DD3A9: 85 F6  - test esi,esi
+xrGame.dll+1DD3AB: 74 10 - je 0915D3BD
+xrGame.dll+1DD3AD: 8B BB F4000000  - mov edi,[ebx+000000F4]
+xrGame.dll+1DD3B3: BE 38000000 - mov esi,00000038
+xrGame.dll+1DD3B8: E8 93DCFBFF - call 0911B050
+xrGame.dll+1DD3BD: D9 05 34A13D09  - fld dword ptr [093DA134]
+xrGame.dll+1DD3C3: 83 EC 08 - sub esp,08
+xrGame.dll+1DD3C6: D9 5C 24 04  - fstp dword ptr [esp+04]
+xrGame.dll+1DD3CA: D9 43 60  - fld dword ptr [ebx+60]
+xrGame.dll+1DD3CD: D9 1C 24   - fstp dword ptr [esp]
+xrGame.dll+1DD3D0: E8 6B42E2FF - call 08F81640
+xrGame.dll+1DD3D5: 83 C4 08 - add esp,08
+xrGame.dll+1DD3D8: 85 C0  - test eax,eax
+xrGame.dll+1DD3DA: 74 08 - je 0915D3E4
+xrGame.dll+1DD3DC: 0F57 C0  - xorps xmm0,xmm0
+xrGame.dll+1DD3DF: F3 0F11 43 04  - movss [ebx+04],xmm0
+xrGame.dll+1DD3E4: 8B 44 24 14  - mov eax,[esp+14]
+xrGame.dll+1DD3E8: 85 C0  - test eax,eax
+xrGame.dll+1DD3EA: 74 03 - je 0915D3EF
+xrGame.dll+1DD3EC: 83 00 FF - add dword ptr [eax],-01
+xrGame.dll+1DD3EF: 8B F3  - mov esi,ebx
+xrGame.dll+1DD3F1: E8 3A000000 - call 0915D430
+}
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>337</ID>
+              <Description>"[Player] Fly ("T")"</Description>
+              <Options moHideChildren="1" moActivateChildrenAsWell="1" moDeactivateChildrenAsWell="1"/>
+              <Color>408000</Color>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>//--&gt; Game    : XR_3DA.exe
+//--&gt; Version : 1.0
+//--&gt; Date    : 10/04/2024
+//--&gt; Author  : mul0
+
+[ENABLE]
+aobscanmodule(iCamera,xrGame.dll+36BB16,d9xxxxxxxxxxd9xxxxd9xxxxxxxxxxd9xxxxd9xxxxxxxxxxc2xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx8bxx83)
+alloc(newmem,$1000)
+alloc(_iCamera,$100)
+label(code)
+label(return)
+registersymbol(_iCamera)
+registersymbol(iCamera)
+
+newmem:
+  // ---------- ORIGINAL CODE ----------
+  fstp dword ptr [ecx+000002B0]
+  // ---------- ORIGINAL CODE  ----------
+  fld dword ptr [ecx+000002B0]
+  fstp dword ptr [_iCamera]    // Camera vector - X
+  fld dword ptr [ecx+000002B8]
+  fstp dword ptr [_iCamera+04] // Camera vector - Y
+  fld dword ptr [ecx+000002B4]
+  fstp dword ptr [_iCamera+08] // Camera vector - Z
+	
+code:
+
+	jmp return
+
+iCamera:
+	jmp newmem
+	nop
+
+return:
+
+
+[DISABLE]
+iCamera:
+	db D9 99 B0 02 00 00
+
+unregistersymbol(iCamera)
+dealloc(newmem)
+unregistersymbol(_iCamera)
+dealloc(_iCamera)
+
+{
+// ORIGINAL CODE - INJECTION POINT: xrGame.dll+36BB16
+
+xrGame.dll+36BA7F: 85 C0  - test eax,eax
+xrGame.dll+36BA81: 75 5F - jne 07E3BAE2
+xrGame.dll+36BA83: F3 0F10 44 24 10  - movss xmm0,[esp+10]
+xrGame.dll+36BA89: 0F28 C8  - movaps xmm1,xmm0
+xrGame.dll+36BA8C: F3 0F59 C8  - mulss xmm1,xmm0
+xrGame.dll+36BA90: F3 0F10 44 24 0C  - movss xmm0,[esp+0C]
+xrGame.dll+36BA96: 0F28 D0  - movaps xmm2,xmm0
+xrGame.dll+36BA99: F3 0F59 D0  - mulss xmm2,xmm0
+xrGame.dll+36BA9D: F3 0F10 44 24 08  - movss xmm0,[esp+08]
+xrGame.dll+36BAA3: F3 0F58 CA  - addss xmm1,xmm2
+xrGame.dll+36BAA7: 0F28 D0  - movaps xmm2,xmm0
+xrGame.dll+36BAAA: F3 0F59 D0  - mulss xmm2,xmm0
+xrGame.dll+36BAAE: 51 - push ecx
+xrGame.dll+36BAAF: F3 0F58 CA  - addss xmm1,xmm2
+xrGame.dll+36BAB3: F3 0F11 0C 24   - movss [esp],xmm1
+xrGame.dll+36BAB8: E8 4378CAFF - call 07AE3300
+xrGame.dll+36BABD: D9E0 - fchs 
+xrGame.dll+36BABF: D9 1C 24   - fstp dword ptr [esp]
+xrGame.dll+36BAC2: E8 695BC9FF - call 07AD1630
+xrGame.dll+36BAC7: D9 05 6499F207  - fld dword ptr [07F29964]
+xrGame.dll+36BACD: 83 C4 04 - add esp,04
+xrGame.dll+36BAD0: DFF1 - fcomip st(0),st(1)
+xrGame.dll+36BAD2: DDD8 - fstp st(0)
+xrGame.dll+36BAD4: 77 0C - ja 07E3BAE2
+xrGame.dll+36BAD6: 8B 16  - mov edx,[esi]
+xrGame.dll+36BAD8: 8B 82 8C000000  - mov eax,[edx+0000008C]
+xrGame.dll+36BADE: 8B CE  - mov ecx,esi
+xrGame.dll+36BAE0: FF D0  - call eax
+xrGame.dll+36BAE2: 8B 4C 24 08  - mov ecx,[esp+08]
+xrGame.dll+36BAE6: 8B 54 24 0C  - mov edx,[esp+0C]
+xrGame.dll+36BAEA: 8B 44 24 10  - mov eax,[esp+10]
+xrGame.dll+36BAEE: 89 8E A4020000  - mov [esi+000002A4],ecx
+xrGame.dll+36BAF4: 89 96 A8020000  - mov [esi+000002A8],edx
+xrGame.dll+36BAFA: 89 86 AC020000  - mov [esi+000002AC],eax
+xrGame.dll+36BB00: 5E - pop esi
+xrGame.dll+36BB01: C2 0C00 - ret 000C
+xrGame.dll+36BB04: CC - int 3 
+xrGame.dll+36BB05: CC - int 3 
+xrGame.dll+36BB06: CC - int 3 
+xrGame.dll+36BB07: CC - int 3 
+xrGame.dll+36BB08: CC - int 3 
+xrGame.dll+36BB09: CC - int 3 
+xrGame.dll+36BB0A: CC - int 3 
+xrGame.dll+36BB0B: CC - int 3 
+xrGame.dll+36BB0C: CC - int 3 
+xrGame.dll+36BB0D: CC - int 3 
+xrGame.dll+36BB0E: CC - int 3 
+xrGame.dll+36BB0F: CC - int 3 
+xrGame.dll+36BB10: 8B 44 24 04  - mov eax,[esp+04]
+xrGame.dll+36BB14: D9 00  - fld dword ptr [eax]
+// ---------- INJECTING HERE ----------
+xrGame.dll+36BB16: D9 99 B0020000  - fstp dword ptr [ecx+000002B0]
+// ---------- DONE INJECTING  ----------
+xrGame.dll+36BB1C: D9 40 04  - fld dword ptr [eax+04]
+xrGame.dll+36BB1F: D9 99 B4020000  - fstp dword ptr [ecx+000002B4]
+xrGame.dll+36BB25: D9 40 08  - fld dword ptr [eax+08]
+xrGame.dll+36BB28: D9 99 B8020000  - fstp dword ptr [ecx+000002B8]
+xrGame.dll+36BB2E: C2 0400 - ret 0004
+xrGame.dll+36BB31: CC - int 3 
+xrGame.dll+36BB32: CC - int 3 
+xrGame.dll+36BB33: CC - int 3 
+xrGame.dll+36BB34: CC - int 3 
+xrGame.dll+36BB35: CC - int 3 
+xrGame.dll+36BB36: CC - int 3 
+xrGame.dll+36BB37: CC - int 3 
+xrGame.dll+36BB38: CC - int 3 
+xrGame.dll+36BB39: CC - int 3 
+xrGame.dll+36BB3A: CC - int 3 
+xrGame.dll+36BB3B: CC - int 3 
+xrGame.dll+36BB3C: CC - int 3 
+xrGame.dll+36BB3D: CC - int 3 
+xrGame.dll+36BB3E: CC - int 3 
+xrGame.dll+36BB3F: CC - int 3 
+xrGame.dll+36BB40: 55 - push ebp
+xrGame.dll+36BB41: 8B EC  - mov ebp,esp
+xrGame.dll+36BB43: 83 E4 C0 - and esp,-40
+xrGame.dll+36BB46: 0F57 C0  - xorps xmm0,xmm0
+xrGame.dll+36BB49: 81 EC B4000000 - sub esp,000000B4
+xrGame.dll+36BB4F: 53 - push ebx
+xrGame.dll+36BB50: 56 - push esi
+xrGame.dll+36BB51: 57 - push edi
+xrGame.dll+36BB52: 8B 7D 08  - mov edi,[ebp+08]
+xrGame.dll+36BB55: 8D 9F 94020000  - lea ebx,[edi+00000294]
+xrGame.dll+36BB5B: 8D 44 24 78  - lea eax,[esp+78]
+xrGame.dll+36BB5F: 50 - push eax
+xrGame.dll+36BB60: F3 0F11 03  - movss [ebx],xmm0
+xrGame.dll+36BB64: F3 0F11 43 04  - movss [ebx+04],xmm0
+xrGame.dll+36BB69: F3 0F11 43 08  - movss [ebx+08],xmm0
+xrGame.dll+36BB6E: E8 47570E00 - call 07F212BA
+xrGame.dll+36BB73: 8B 97 1C010000  - mov edx,[edi+0000011C]
+xrGame.dll+36BB79: 83 C4 04 - add esp,04
+xrGame.dll+36BB7C: 8D 4C 24 78  - lea ecx,[esp+78]
+xrGame.dll+36BB80: 51 - push ecx
+xrGame.dll+36BB81: 52 - push edx
+xrGame.dll+36BB82: E8 23580E00 - call 07F213AA
+xrGame.dll+36BB87: 83 C4 08 - add esp,08
+xrGame.dll+36BB8A: 80 BF 6E030000 00 - cmp byte ptr [edi+0000036E],00
+xrGame.dll+36BB91: 74 59 - je 07E3BBEC
+xrGame.dll+36BB93: D9 87 A4020000  - fld dword ptr [edi+000002A4]
+xrGame.dll+36BB99: D9 1B  - fstp dword ptr [ebx]
+xrGame.dll+36BB9B: D9 87 A8020000  - fld dword ptr [edi+000002A8]
+xrGame.dll+36BBA1: D9 5B 04  - fstp dword ptr [ebx+04]
+xrGame.dll+36BBA4: D9 87 AC020000  - fld dword ptr [edi+000002AC]
+}
+</AssemblerScript>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>335</ID>
+                  <Description>"[Player] Coordinates"</Description>
+                  <Color>808000</Color>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>//--&gt; Game    : XR_3DA.exe
+//--&gt; Version : 1.0
+//--&gt; Date    : 10/04/2024
+//--&gt; Author  : mul0
+
+[ENABLE]
+aobscanmodule(iCoordinates,xrGame.dll+36A69B,d9xxd9xxxxxxxxxx8dxxxxxxxxxxd9xxxx83)
+alloc(newmem,$1000)
+alloc(_iCoordinates,$100)
+label(code)
+label(return)
+registersymbol(_iCoordinates)
+registersymbol(iCoordinates)
+
+newmem:
+    fld dword ptr [eax]
+    push ebx
+    mov ebx,[edi+00000120]           // Pointer to instance of CActor
+    cmp dword ptr [ebx+00000154],01
+    jne code
+    cmp dword ptr [ebx+00000524],00  //Pointer to instance of CCameraFirstEye
+    je code
+    cmp dword ptr [ebx+000003A8],00  //Pointer to instance of CCharacterPhysicsSupport
+    je code
+    fld dword ptr [eax]
+    fstp dword ptr [_iCoordinates]
+    fld dword ptr [eax+04]
+    fstp dword ptr [_iCoordinates+04]
+    fld dword ptr [eax+08]
+    fstp dword ptr [_iCoordinates+08]
+    // ------------------------------------- X
+    cmp byte ptr [_iCoordinates+100],01
+    jne code
+    fld dword ptr [eax]      // The X coordinate of the character
+    fld dword ptr [_iCamera] // &lt;-- Camera vector X
+    // Subtracts the x coordinate of the character from the x coordinate of the camera vector x
+    fadd st(1), st(0)
+    fstp st(0)
+    fstp dword ptr [eax]
+    // ------------------------------------- Y
+    fld dword ptr [eax+08]      // The Y coordinate of the character
+    fld dword ptr [_iCamera+04] // &lt;-- Camera vector Y
+    // Subtracts the x coordinate of the character from the x coordinate of the camera vector y
+    fadd st(1), st(0)
+    fstp st(0)
+    fstp dword ptr [eax+08]
+        // ------------------------------------- Z
+    fld dword ptr [eax+04]      // The Z coordinate of the character
+    fld dword ptr [_iCamera+08] // &lt;-- Camera vector Z
+    // Subtracts the x coordinate of the character from the x coordinate of the camera vector y
+    fadd st(1), st(0)
+    fstp st(0)
+    fstp dword ptr [eax+04]
+
+    pop ebx
+    jmp code+1
+
+code:
+   pop ebx
+// ---------- ORIGINAL CODE ----------
+
+	fstp dword ptr [edi+00000218]
+// ---------- ORIGINAL CODE  ----------
+	jmp return
+
+iCoordinates:
+	jmp newmem
+	db 90 90 90
+
+return:
+
+
+[DISABLE]
+iCoordinates:
+	db D9 00 D9 9F 18 02 00 00
+
+unregistersymbol(iCoordinates)
+dealloc(newmem)
+unregistersymbol(_iCoordinates)
+dealloc(_iCoordinates)
+
+{
+// ORIGINAL CODE - INJECTION POINT: xrGame.dll+36A69B
+
+xrGame.dll+36A5E5: F3 0F5E 05 E0B60008  - divss xmm0,[0800B6E0]
+xrGame.dll+36A5ED: F3 0F10 8D 18020000  - movss xmm1,[ebp+00000218]
+xrGame.dll+36A5F5: F3 0F59 C8  - mulss xmm1,xmm0
+xrGame.dll+36A5F9: F3 0F11 8D 18020000  - movss [ebp+00000218],xmm1
+xrGame.dll+36A601: F3 0F10 8D 1C020000  - movss xmm1,[ebp+0000021C]
+xrGame.dll+36A609: F3 0F59 C8  - mulss xmm1,xmm0
+xrGame.dll+36A60D: F3 0F11 8D 1C020000  - movss [ebp+0000021C],xmm1
+xrGame.dll+36A615: F3 0F10 8D 20020000  - movss xmm1,[ebp+00000220]
+xrGame.dll+36A61D: F3 0F59 C8  - mulss xmm1,xmm0
+xrGame.dll+36A621: F3 0F11 8D 20020000  - movss [ebp+00000220],xmm1
+xrGame.dll+36A629: 8B 95 1C010000  - mov edx,[ebp+0000011C]
+xrGame.dll+36A62F: 52 - push edx
+xrGame.dll+36A630: E8 8D6D0E00 - call 07F213C2
+xrGame.dll+36A635: F3 0F10 05 F8B60008  - movss xmm0,[0800B6F8]
+xrGame.dll+36A63D: 83 C4 08 - add esp,08
+xrGame.dll+36A640: 0F2F 40 04  - comiss xmm0,[eax+04]
+xrGame.dll+36A644: 76 1B - jna 07E3A661
+xrGame.dll+36A646: 8B 85 90000000  - mov eax,[ebp+00000090]
+xrGame.dll+36A64C: 8B 48 04  - mov ecx,[eax+04]
+xrGame.dll+36A64F: 8B 94 29 90000000  - mov edx,[ecx+ebp+00000090]
+xrGame.dll+36A656: 8B 02  - mov eax,[edx]
+xrGame.dll+36A658: 8D 8C 29 90000000  - lea ecx,[ecx+ebp+00000090]
+xrGame.dll+36A65F: FF D0  - call eax
+xrGame.dll+36A661: 8D B5 DC000000  - lea esi,[ebp+000000DC]
+xrGame.dll+36A667: E8 B41AFFFF - call 07E2C120
+xrGame.dll+36A66C: 5F - pop edi
+xrGame.dll+36A66D: 5E - pop esi
+xrGame.dll+36A66E: 5D - pop ebp
+xrGame.dll+36A66F: 5B - pop ebx
+xrGame.dll+36A670: 81 C4 90000000 - add esp,00000090
+xrGame.dll+36A676: C2 0400 - ret 0004
+xrGame.dll+36A679: CC - int 3 
+xrGame.dll+36A67A: CC - int 3 
+xrGame.dll+36A67B: CC - int 3 
+xrGame.dll+36A67C: CC - int 3 
+xrGame.dll+36A67D: CC - int 3 
+xrGame.dll+36A67E: CC - int 3 
+xrGame.dll+36A67F: CC - int 3 
+xrGame.dll+36A680: 55 - push ebp
+xrGame.dll+36A681: 8B EC  - mov ebp,esp
+xrGame.dll+36A683: 83 E4 C0 - and esp,-40
+xrGame.dll+36A686: 83 EC 70 - sub esp,70
+xrGame.dll+36A689: 53 - push ebx
+xrGame.dll+36A68A: 55 - push ebp
+xrGame.dll+36A68B: 56 - push esi
+xrGame.dll+36A68C: 57 - push edi
+xrGame.dll+36A68D: 8B F9  - mov edi,ecx
+xrGame.dll+36A68F: 8B 87 1C010000  - mov eax,[edi+0000011C]
+xrGame.dll+36A695: 50 - push eax
+xrGame.dll+36A696: E8 276D0E00 - call 07F213C2
+// ---------- INJECTING HERE ----------
+xrGame.dll+36A69B: D9 00  - fld dword ptr [eax]
+xrGame.dll+36A69D: D9 9F 18020000  - fstp dword ptr [edi+00000218]
+// ---------- DONE INJECTING  ----------
+xrGame.dll+36A6A3: 8D AF 7C010000  - lea ebp,[edi+0000017C]
+xrGame.dll+36A6A9: D9 40 04  - fld dword ptr [eax+04]
+xrGame.dll+36A6AC: 83 C4 04 - add esp,04
+xrGame.dll+36A6AF: D9 9F 1C020000  - fstp dword ptr [edi+0000021C]
+xrGame.dll+36A6B5: D9 40 08  - fld dword ptr [eax+08]
+xrGame.dll+36A6B8: 8B C5  - mov eax,ebp
+xrGame.dll+36A6BA: D9 9F 20020000  - fstp dword ptr [edi+00000220]
+xrGame.dll+36A6C0: E8 8BBFFFFF - call 07E36650
+xrGame.dll+36A6C5: 80 BF 58030000 00 - cmp byte ptr [edi+00000358],00
+xrGame.dll+36A6CC: 0F94 C1  - sete cl
+xrGame.dll+36A6CF: 80 BF 60030000 00 - cmp byte ptr [edi+00000360],00
+xrGame.dll+36A6D6: 88 8F 5F030000  - mov [edi+0000035F],cl
+xrGame.dll+36A6DC: 74 16 - je 07E3A6F4
+xrGame.dll+36A6DE: F3 0F10 87 D0020000  - movss xmm0,[edi+000002D0]
+xrGame.dll+36A6E6: 0F2F 05 9424FA07  - comiss xmm0,[07FA2494]
+xrGame.dll+36A6ED: C6 44 24 17 01 - mov byte ptr [esp+17],01
+xrGame.dll+36A6F2: 77 05 - ja 07E3A6F9
+xrGame.dll+36A6F4: C6 44 24 17 00 - mov byte ptr [esp+17],00
+xrGame.dll+36A6F9: 8B 87 28020000  - mov eax,[edi+00000228]
+xrGame.dll+36A6FF: 50 - push eax
+xrGame.dll+36A700: E8 A96B0E00 - call 07F212AE
+xrGame.dll+36A705: 8B F0  - mov esi,eax
+xrGame.dll+36A707: 83 C4 04 - add esp,04
+xrGame.dll+36A70A: 80 7E 10 00 - cmp byte ptr [esi+10],00
+xrGame.dll+36A70E: 75 0A - jne 07E3A71A
+xrGame.dll+36A710: 80 7E 11 00 - cmp byte ptr [esi+11],00
+xrGame.dll+36A714: 0F84 AB000000 - je 07E3A7C5
+xrGame.dll+36A71A: 80 BF 8C030000 00 - cmp byte ptr [edi+0000038C],00
+xrGame.dll+36A721: 0F85 A7000000 - jne 07E3A7CE
+xrGame.dll+36A727: 8B 97 1C010000  - mov edx,[edi+0000011C]
+xrGame.dll+36A72D: 52 - push edx
+xrGame.dll+36A72E: C6 87 8C030000 01 - mov byte ptr [edi+0000038C],01
+xrGame.dll+36A735: E8 886C0E00 - call 07F213C2
+xrGame.dll+36A73A: F3 0F10 00  - movss xmm0,[eax]
+xrGame.dll+36A73E: F3 0F11 44 24 2C  - movss [esp+2C],xmm0
+xrGame.dll+36A744: F3 0F10 40 04  - movss xmm0,[eax+04]
+xrGame.dll+36A749: F3 0F11 44 24 30  - movss [esp+30],xmm0
+xrGame.dll+36A74F: F3 0F10 40 08  - movss xmm0,[eax+08]
+xrGame.dll+36A754: 8B 87 1C010000  - mov eax,[edi+0000011C]
+xrGame.dll+36A75A: 50 - push eax
+xrGame.dll+36A75B: F3 0F11 44 24 38  - movss [esp+38],xmm0
+xrGame.dll+36A761: E8 386C0E00 - call 07F2139E
+xrGame.dll+36A766: F3 0F10 00  - movss xmm0,[eax]
+xrGame.dll+36A76A: F3 0F10 48 04  - movss xmm1,[eax+04]
+xrGame.dll+36A76F: F3 0F10 50 08  - movss xmm2,[eax+08]
+xrGame.dll+36A774: F3 0F10 1D E0B60008  - movss xmm3,[0800B6E0]
+xrGame.dll+36A77C: F3 0F59 CB  - mulss xmm1,xmm3
+xrGame.dll+36A780: F3 0F59 C3  - mulss xmm0,xmm3
+xrGame.dll+36A784: F3 0F59 D3  - mulss xmm2,xmm3
+xrGame.dll+36A788: F3 0F10 5C 24 30  - movss xmm3,[esp+30]
+}
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>420</ID>
+                  <Description>"----------------------------------------- Debug information ----------------------------------------"</Description>
+                  <Options moHideChildren="1"/>
+                  <Color>808080</Color>
+                  <GroupHeader>1</GroupHeader>
+                  <CheatEntries>
+                    <CheatEntry>
+                      <ID>376</ID>
+                      <Description>"Camera matrix - X"</Description>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <Color>808080</Color>
+                      <VariableType>Float</VariableType>
+                      <Address>_iCamera</Address>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>378</ID>
+                      <Description>"Camera matrix - Y"</Description>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <Color>808080</Color>
+                      <VariableType>Float</VariableType>
+                      <Address>_iCamera+08</Address>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>377</ID>
+                      <Description>"Camera matrix - Z"</Description>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <Color>808080</Color>
+                      <VariableType>Float</VariableType>
+                      <Address>_iCamera+04</Address>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>379</ID>
+                      <Description>"Status of key presses "T""</Description>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <Color>4F4F4F</Color>
+                      <VariableType>Byte</VariableType>
+                      <Address>_iCoordinates+100</Address>
+                      <Hotkeys>
+                        <Hotkey OnlyWhileDown="1">
+                          <Action>Set Value</Action>
+                          <Keys>
+                            <Key>84</Key>
+                          </Keys>
+                          <Value>1</Value>
+                          <ID>0</ID>
+                        </Hotkey>
+                      </Hotkeys>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>353</ID>
+                      <Description>"Player coordinates - X"</Description>
+                      <ShowAsSigned>1</ShowAsSigned>
+                      <Color>808080</Color>
+                      <VariableType>Float</VariableType>
+                      <Address>_iCoordinates</Address>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>354</ID>
+                      <Description>"Player coordinates - Y"</Description>
+                      <ShowAsSigned>1</ShowAsSigned>
+                      <Color>808080</Color>
+                      <VariableType>Float</VariableType>
+                      <Address>_iCoordinates+08</Address>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>355</ID>
+                      <Description>"Player coordinates - Z"</Description>
+                      <ShowAsSigned>1</ShowAsSigned>
+                      <Color>808080</Color>
+                      <VariableType>Float</VariableType>
+                      <Address>_iCoordinates+04</Address>
+                    </CheatEntry>
+                  </CheatEntries>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>90</ID>
+              <Description>"[Player] No radiation"</Description>
+              <Color>408000</Color>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>//--&gt; Game    : XR_3DA.exe
+//--&gt; Version : v1.0006
+//--&gt; Date    : 23/03/2024
+//--&gt; Author  : mul0
+
+[ENABLE]
+aobscanmodule(iRadiation,xrGame.dll+3D1110,f3xxxxxxxxf3xxxxxxxxxxe9xxxxxxxx8bxxxxxxxxxx8bxxxxxxxxxxe8xxxxxxxxf3xxxxxxxxxxe9xxxxxxxx8bxxxxxxxxxx85)
+alloc(newmem,$1000)
+label(code)
+label(return)
+registersymbol(iRadiation)
+
+newmem:
+  movss xmm0,[ecx+5C]
+  push (float)0
+  movss xmm0,[esp]
+  movss [ecx+5C],xmm0
+  add esp,4
+	
+code:
+	jmp return
+
+iRadiation:
+	jmp newmem
+
+return:
+
+[DISABLE]
+iRadiation:
+	db F3 0F 10 41 5C
+
+unregistersymbol(iRadiation)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - iRadiationION POINT: xrGame.dll+3D1110
+
+xrGame.dll+3D1042: 8B 8B 34340000  - mov ecx,[ebx+00003434]
+xrGame.dll+3D1048: 8B 91 98020000  - mov edx,[ecx+00000298]
+xrGame.dll+3D104E: 8B 42 38  - mov eax,[edx+38]
+xrGame.dll+3D1051: 8B 78 64  - mov edi,[eax+64]
+xrGame.dll+3D1054: 83 C0 60 - add eax,60
+xrGame.dll+3D1057: 85 FF  - test edi,edi
+xrGame.dll+3D1059: 74 47 - je 093510A2
+xrGame.dll+3D105B: 8B 83 18090000  - mov eax,[ebx+00000918]
+xrGame.dll+3D1061: 8B 50 7C  - mov edx,[eax+7C]
+xrGame.dll+3D1064: 8D B3 18090000  - lea esi,[ebx+00000918]
+xrGame.dll+3D106A: 6A 01 - push 01
+xrGame.dll+3D106C: 8B CE  - mov ecx,esi
+xrGame.dll+3D106E: FF D2  - call edx
+xrGame.dll+3D1070: 8B 83 0C030000  - mov eax,[ebx+0000030C]
+xrGame.dll+3D1076: 8B 50 7C  - mov edx,[eax+7C]
+xrGame.dll+3D1079: 8D 8B 0C030000  - lea ecx,[ebx+0000030C]
+xrGame.dll+3D107F: 6A 01 - push 01
+xrGame.dll+3D1081: FF D2  - call edx
+xrGame.dll+3D1083: F3 0F10 87 A8000000  - movss xmm0,[edi+000000A8]
+xrGame.dll+3D108B: F3 0F59 05 7C983D09  - mulss xmm0,[093D987C]
+xrGame.dll+3D1093: 51 - push ecx
+xrGame.dll+3D1094: 8B CE  - mov ecx,esi
+xrGame.dll+3D1096: F3 0F11 04 24   - movss [esp],xmm0
+xrGame.dll+3D109B: E8 F0080300 - call 09381990
+xrGame.dll+3D10A0: EB 26 - jmp 093510C8
+xrGame.dll+3D10A2: 8B 83 18090000  - mov eax,[ebx+00000918]
+xrGame.dll+3D10A8: 8B 50 7C  - mov edx,[eax+7C]
+xrGame.dll+3D10AB: 8D 8B 18090000  - lea ecx,[ebx+00000918]
+xrGame.dll+3D10B1: 6A 00 - push 00
+xrGame.dll+3D10B3: FF D2  - call edx
+xrGame.dll+3D10B5: 8B 83 0C030000  - mov eax,[ebx+0000030C]
+xrGame.dll+3D10BB: 8B 50 7C  - mov edx,[eax+7C]
+xrGame.dll+3D10BE: 8D 8B 0C030000  - lea ecx,[ebx+0000030C]
+xrGame.dll+3D10C4: 6A 00 - push 00
+xrGame.dll+3D10C6: FF D2  - call edx
+xrGame.dll+3D10C8: 8B C3  - mov eax,ebx
+xrGame.dll+3D10CA: E8 D1140000 - call 093525A0
+xrGame.dll+3D10CF: BE 01000000 - mov esi,00000001
+xrGame.dll+3D10D4: 89 74 24 1C  - mov [esp+1C],esi
+xrGame.dll+3D10D8: 8D AB 08340000  - lea ebp,[ebx+00003408]
+xrGame.dll+3D10DE: 8B FF  - mov edi,edi
+xrGame.dll+3D10E0: 0F57 C9  - xorps xmm1,xmm1
+xrGame.dll+3D10E3: F3 0F10 05 18973D09  - movss xmm0,[093D9718]
+xrGame.dll+3D10EB: 83 C6 FF - add esi,-01
+xrGame.dll+3D10EE: 83 FE 04 - cmp esi,04
+xrGame.dll+3D10F1: F3 0F11 4C 24 18  - movss [esp+18],xmm1
+xrGame.dll+3D10F7: 0F87 92000000 - ja 0935118F
+xrGame.dll+3D10FD: FF 24 B5 F8143509  - jmp dword ptr [esi*4+093514F8]
+xrGame.dll+3D1104: 8B 83 34340000  - mov eax,[ebx+00003434]
+xrGame.dll+3D110A: 8B 88 3C090000  - mov ecx,[eax+0000093C]
+// ---------- iRadiationING HERE ----------
+xrGame.dll+3D1110: F3 0F10 41 5C  - movss xmm0,[ecx+5C]
+// ---------- DONE iRadiationING  ----------
+xrGame.dll+3D1115: F3 0F11 44 24 18  - movss [esp+18],xmm0
+xrGame.dll+3D111B: E9 9D000000 - jmp 093511BD
+xrGame.dll+3D1120: 8B 93 34340000  - mov edx,[ebx+00003434]
+xrGame.dll+3D1126: 8B B2 3C090000  - mov esi,[edx+0000093C]
+xrGame.dll+3D112C: E8 FF26E1FF - call 09163830
+xrGame.dll+3D1131: F3 0F11 44 24 18  - movss [esp+18],xmm0
+xrGame.dll+3D1137: E9 81000000 - jmp 093511BD
+xrGame.dll+3D113C: 8B 8B 38340000  - mov ecx,[ebx+00003438]
+xrGame.dll+3D1142: 85 C9  - test ecx,ecx
+xrGame.dll+3D1144: 74 77 - je 093511BD
+xrGame.dll+3D1146: 8B 01  - mov eax,[ecx]
+xrGame.dll+3D1148: 8B 90 A0000000  - mov edx,[eax+000000A0]
+xrGame.dll+3D114E: FF D2  - call edx
+xrGame.dll+3D1150: D9E8 - fld1 
+xrGame.dll+3D1152: DEE1 - fsubrp st(1),st(0)
+xrGame.dll+3D1154: D9 5C 24 18  - fstp dword ptr [esp+18]
+xrGame.dll+3D1158: EB 63 - jmp 093511BD
+xrGame.dll+3D115A: 8B 83 34340000  - mov eax,[ebx+00003434]
+xrGame.dll+3D1160: 8B 88 3C090000  - mov ecx,[eax+0000093C]
+xrGame.dll+3D1166: F3 0F5C 81 00010000  - subss xmm0,[ecx+00000100]
+xrGame.dll+3D116E: F3 0F11 44 24 18  - movss [esp+18],xmm0
+xrGame.dll+3D1174: EB 47 - jmp 093511BD
+xrGame.dll+3D1176: 8B 93 34340000  - mov edx,[ebx+00003434]
+xrGame.dll+3D117C: 8B 82 3C090000  - mov eax,[edx+0000093C]
+xrGame.dll+3D1182: F3 0F5C 40 60  - subss xmm0,[eax+60]
+xrGame.dll+3D1187: F3 0F11 44 24 18  - movss [esp+18],xmm0
+xrGame.dll+3D118D: EB 2E - jmp 093511BD
+xrGame.dll+3D118F: 80 3D 21104E09 00 - cmp byte ptr [094E1021],00
+xrGame.dll+3D1196: 75 25 - jne 093511BD
+xrGame.dll+3D1198: 8B 0D 008B3D09  - mov ecx,[093D8B00]
+xrGame.dll+3D119E: 68 21104E09 - push 094E1021
+xrGame.dll+3D11A3: 68 9C454409 - push 0944459C
+xrGame.dll+3D11A8: 68 C7010000 - push 000001C7
+xrGame.dll+3D11AD: 68 B8454409 - push 094445B8
+xrGame.dll+3D11B2: 68 F8454409 - push 094445F8
+xrGame.dll+3D11B7: FF 15 D08D3D09  - call dword ptr [093D8DD0]
+xrGame.dll+3D11BD: 8D 54 24 1C  - lea edx,[esp+1C]
+xrGame.dll+3D11C1: 8B FD  - mov edi,ebp
+xrGame.dll+3D11C3: E8 C8150000 - call 09352790
+xrGame.dll+3D11C8: 8B 48 04  - mov ecx,[eax+04]
+xrGame.dll+3D11CB: 8D 54 24 1C  - lea edx,[esp+1C]
+xrGame.dll+3D11CF: 89 4C 24 3C  - mov [esp+3C],ecx
+xrGame.dll+3D11D3: E8 B8150000 - call 09352790
+xrGame.dll+3D11D8: 8B 70 08  - mov esi,[eax+08]
+xrGame.dll+3D11DB: 8B 4C 24 3C  - mov ecx,[esp+3C]
+xrGame.dll+3D11DF: 33 C0  - xor eax,eax
+xrGame.dll+3D11E1: 3B F1  - cmp esi,ecx
+xrGame.dll+3D11E3: 8B D0  - mov edx,eax
+xrGame.dll+3D11E5: 74 1E - je 09351205
+xrGame.dll+3D11E7: F3 0F10 44 24 18  - movss xmm0,[esp+18]
+}
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>100</ID>
+              <Description>"[Weapon] No reload"</Description>
+              <Color>408000</Color>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>//--&gt; Game    : XR_3DA.exe
+//--&gt; Version : v1.0006
+//--&gt; Date    : 23/03/2024
+//--&gt; Author  : mul0
+
+[ENABLE]
+aobscanmodule(iReload,xrGame.dll+21F1D6,8387xxxxxxxxFF8Bxxxxxxxxxxxx5Exxxx83C4xxC2xxxxxxxxxxC681)
+alloc(newmem,$1000)
+label(code)
+label(return)
+registersymbol(iReload)
+
+newmem:
+     push ebx
+     mov ebx,[edi+18C] // Pointer to instance of CActor
+     cmp ebx,0
+     je code
+     cmp [ebx+154],01
+     jne code
+     add dword ptr [edi+000005C0],38
+     pop ebx
+     jmp code+8
+// ---------- ORIGINAL CODE ----------
+//	add dword ptr [edi+0000057C],-01
+// ---------- ORIGINAL CODE  ----------
+	
+code:
+    pop ebx
+    add dword ptr [edi+0000057C],-01
+	jmp return
+
+iReload:
+	jmp newmem
+	nop
+	nop
+
+return:
+
+[DISABLE]
+iReload:
+	db 83 87 7C 05 00 00 FF
+
+unregistersymbol(iReload)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - iReloadION POINT: xrGame.dll+21F1D6
+
+xrGame.dll+21F139: 8D A4 24 00000000  - lea esp,[esp+00000000]
+xrGame.dll+21F140: 0FB7 8F 7C010000  - movzx ecx,word ptr [edi+0000017C]
+xrGame.dll+21F147: D9 44 24 10  - fld dword ptr [esp+10]
+xrGame.dll+21F14B: 8B 44 24 0C  - mov eax,[esp+0C]
+xrGame.dll+21F14F: 8B 16  - mov edx,[esi]
+xrGame.dll+21F151: 8B 52 0C  - mov edx,[edx+0C]
+xrGame.dll+21F154: 50 - push eax
+xrGame.dll+21F155: 8B 87 8C010000  - mov eax,[edi+0000018C]
+xrGame.dll+21F15B: 51 - push ecx
+xrGame.dll+21F15C: 0FB7 88 A4000000  - movzx ecx,word ptr [eax+000000A4]
+xrGame.dll+21F163: 8B 44 24 24  - mov eax,[esp+24]
+xrGame.dll+21F167: 51 - push ecx
+xrGame.dll+21F168: 53 - push ebx
+xrGame.dll+21F169: 51 - push ecx
+xrGame.dll+21F16A: 8B 4C 24 2C  - mov ecx,[esp+2C]
+xrGame.dll+21F16E: D9 1C 24   - fstp dword ptr [esp]
+xrGame.dll+21F171: 50 - push eax
+xrGame.dll+21F172: 51 - push ecx
+xrGame.dll+21F173: 8B CE  - mov ecx,esi
+xrGame.dll+21F175: FF D2  - call edx
+xrGame.dll+21F177: 83 C5 01 - add ebp,01
+xrGame.dll+21F17A: 3B 6B 20  - cmp ebp,[ebx+20]
+xrGame.dll+21F17D: 7C C1 - jl 0919F140
+xrGame.dll+21F17F: 8B 06  - mov eax,[esi]
+xrGame.dll+21F181: 8B 50 60  - mov edx,[eax+60]
+xrGame.dll+21F184: 8B CE  - mov ecx,esi
+xrGame.dll+21F186: FF D2  - call edx
+xrGame.dll+21F188: 80 BF 58030000 00 - cmp byte ptr [edi+00000358],00
+xrGame.dll+21F18F: 74 05 - je 0919F196
+xrGame.dll+21F191: E8 1A85FFFF - call 091976B0
+xrGame.dll+21F196: 8B 87 BC050000  - mov eax,[edi+000005BC]
+xrGame.dll+21F19C: 85 C0  - test eax,eax
+xrGame.dll+21F19E: 74 36 - je 0919F1D6
+xrGame.dll+21F1A0: 8B B7 C0050000  - mov esi,[edi+000005C0]
+xrGame.dll+21F1A6: 8B CE  - mov ecx,esi
+xrGame.dll+21F1A8: 2B C8  - sub ecx,eax
+xrGame.dll+21F1AA: B8 93244992 - mov eax,92492493
+xrGame.dll+21F1AF: F7 E9  - imul ecx
+xrGame.dll+21F1B1: 03 D1  - add edx,ecx
+xrGame.dll+21F1B3: C1 FA 05 - sar edx,05
+xrGame.dll+21F1B6: 8B C2  - mov eax,edx
+xrGame.dll+21F1B8: C1 E8 1F - shr eax,1F
+xrGame.dll+21F1BB: 03 C2  - add eax,edx
+xrGame.dll+21F1BD: 74 17 - je 0919F1D6
+xrGame.dll+21F1BF: 8B 4C 24 1C  - mov ecx,[esp+1C]
+xrGame.dll+21F1C3: 51 - push ecx
+xrGame.dll+21F1C4: 8D 46 C8  - lea eax,[esi-38]
+xrGame.dll+21F1C7: E8 B4F5FFFF - call 0919E780
+xrGame.dll+21F1CC: 83 C4 04 - add esp,04
+xrGame.dll+21F1CF: 83 87 C0050000 C8 - add dword ptr [edi+000005C0],-38
+// ---------- iReloadING HERE ----------
+xrGame.dll+21F1D6: 83 87 7C050000 FF - add dword ptr [edi+0000057C],-01
+// ---------- DONE iReloadING  ----------
+xrGame.dll+21F1DD: 8B C7  - mov eax,edi
+xrGame.dll+21F1DF: E8 6CD2FFFF - call 0919C450
+xrGame.dll+21F1E4: 5E - pop esi
+xrGame.dll+21F1E5: 5D - pop ebp
+xrGame.dll+21F1E6: 5B - pop ebx
+xrGame.dll+21F1E7: 83 C4 08 - add esp,08
+xrGame.dll+21F1EA: C2 0800 - ret 0008
+xrGame.dll+21F1ED: CC - int 3 
+xrGame.dll+21F1EE: CC - int 3 
+xrGame.dll+21F1EF: CC - int 3 
+xrGame.dll+21F1F0: C6 81 A2030000 01 - mov byte ptr [ecx+000003A2],01
+xrGame.dll+21F1F7: C3 - ret 
+xrGame.dll+21F1F8: CC - int 3 
+xrGame.dll+21F1F9: CC - int 3 
+xrGame.dll+21F1FA: CC - int 3 
+xrGame.dll+21F1FB: CC - int 3 
+xrGame.dll+21F1FC: CC - int 3 
+xrGame.dll+21F1FD: CC - int 3 
+xrGame.dll+21F1FE: CC - int 3 
+xrGame.dll+21F1FF: CC - int 3 
+xrGame.dll+21F200: 56 - push esi
+xrGame.dll+21F201: 8B F1  - mov esi,ecx
+xrGame.dll+21F203: 8B 8E 78050000  - mov ecx,[esi+00000578]
+xrGame.dll+21F209: 85 C9  - test ecx,ecx
+xrGame.dll+21F20B: 8D 86 78050000  - lea eax,[esi+00000578]
+xrGame.dll+21F211: 74 15 - je 0919F228
+xrGame.dll+21F213: 80 B9 A0000000 00 - cmp byte ptr [ecx+000000A0],00
+xrGame.dll+21F21A: 74 0C - je 0919F228
+xrGame.dll+21F21C: 50 - push eax
+xrGame.dll+21F21D: 8D 8E C8020000  - lea ecx,[esi+000002C8]
+xrGame.dll+21F223: E8 D887FFFF - call 09197A00
+xrGame.dll+21F228: C6 86 A2030000 00 - mov byte ptr [esi+000003A2],00
+xrGame.dll+21F22F: 5E - pop esi
+xrGame.dll+21F230: C3 - ret 
+xrGame.dll+21F231: CC - int 3 
+xrGame.dll+21F232: CC - int 3 
+xrGame.dll+21F233: CC - int 3 
+xrGame.dll+21F234: CC - int 3 
+xrGame.dll+21F235: CC - int 3 
+xrGame.dll+21F236: CC - int 3 
+xrGame.dll+21F237: CC - int 3 
+xrGame.dll+21F238: CC - int 3 
+xrGame.dll+21F239: CC - int 3 
+xrGame.dll+21F23A: CC - int 3 
+xrGame.dll+21F23B: CC - int 3 
+xrGame.dll+21F23C: CC - int 3 
+xrGame.dll+21F23D: CC - int 3 
+xrGame.dll+21F23E: CC - int 3 
+xrGame.dll+21F23F: CC - int 3 
+xrGame.dll+21F240: 8B 86 80030000  - mov eax,[esi+00000380]
+}
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>101</ID>
+              <Description>"[Weapon] No recoil"</Description>
+              <Color>408000</Color>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>//--&gt; Game    : XR_3DA.exe
+//--&gt; Version : v1.0006
+//--&gt; Date    : 23/03/2024
+//--&gt; Author  : mul0
+
+[ENABLE]
+aobscanmodule(iRecoil,xrGame.dll+19F174,f3xxxxxxxxf3xxxxxxxxxxf3xxxxxxxxe8xxxxxxxxd9xxxxxxxxxx83xxxxxxxxxxxx76xx8bxxe8xxxxxxxxf3xxxxxxf3xxxxxxxxxxxxxxf3)
+alloc(newmem,$1000)
+label(code)
+label(return)
+registersymbol(iRecoil)
+
+newmem:
+  movss xmm0,[esi+04]
+  push (float)0
+  movss xmm0,[esp]
+  movss [esi+04],xmm0
+  add esp,4
+	
+code:
+	jmp return
+
+iRecoil:
+	jmp newmem
+
+return:
+
+[DISABLE]
+iRecoil:
+	db F3 0F 10 46 04
+
+unregistersymbol(iRecoil)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - iRecoilION POINT: xrGame.dll+19F174
+
+xrGame.dll+19F0D6: CC - int 3 
+xrGame.dll+19F0D7: CC - int 3 
+xrGame.dll+19F0D8: CC - int 3 
+xrGame.dll+19F0D9: CC - int 3 
+xrGame.dll+19F0DA: CC - int 3 
+xrGame.dll+19F0DB: CC - int 3 
+xrGame.dll+19F0DC: CC - int 3 
+xrGame.dll+19F0DD: CC - int 3 
+xrGame.dll+19F0DE: CC - int 3 
+xrGame.dll+19F0DF: CC - int 3 
+xrGame.dll+19F0E0: 8B 44 24 04  - mov eax,[esp+04]
+xrGame.dll+19F0E4: 89 41 48  - mov [ecx+48],eax
+xrGame.dll+19F0E7: C2 0400 - ret 0004
+xrGame.dll+19F0EA: CC - int 3 
+xrGame.dll+19F0EB: CC - int 3 
+xrGame.dll+19F0EC: CC - int 3 
+xrGame.dll+19F0ED: CC - int 3 
+xrGame.dll+19F0EE: CC - int 3 
+xrGame.dll+19F0EF: CC - int 3 
+xrGame.dll+19F0F0: 83 EC 08 - sub esp,08
+xrGame.dll+19F0F3: 56 - push esi
+xrGame.dll+19F0F4: 8B F1  - mov esi,ecx
+xrGame.dll+19F0F6: F3 0F10 46 04  - movss xmm0,[esi+04]
+xrGame.dll+19F0FB: 57 - push edi
+xrGame.dll+19F0FC: F3 0F11 44 24 08  - movss [esp+08],xmm0
+xrGame.dll+19F102: F3 0F10 46 10  - movss xmm0,[esi+10]
+xrGame.dll+19F107: 8D 7E 34  - lea edi,[esi+34]
+xrGame.dll+19F10A: 8B C7  - mov eax,edi
+xrGame.dll+19F10C: F3 0F11 44 24 0C  - movss [esp+0C],xmm0
+xrGame.dll+19F112: E8 A9D1E6FF - call 08F8C2C0
+xrGame.dll+19F117: F3 0F10 15 18973D09  - movss xmm2,[093D9718]
+xrGame.dll+19F11F: F3 0F10 4E 0C  - movss xmm1,[esi+0C]
+xrGame.dll+19F124: F3 0F2A C0  - cvtsi2ss xmm0,eax
+xrGame.dll+19F128: F3 0F59 05 60264509  - mulss xmm0,[09452660]
+xrGame.dll+19F130: F3 0F5C C2  - subss xmm0,xmm2
+xrGame.dll+19F134: F3 0F5C D1  - subss xmm2,xmm1
+xrGame.dll+19F138: F3 0F59 D0  - mulss xmm2,xmm0
+xrGame.dll+19F13C: F3 0F10 05 E4234509  - movss xmm0,[094523E4]
+xrGame.dll+19F144: F3 0F5C 46 08  - subss xmm0,[esi+08]
+xrGame.dll+19F149: F3 0F58 D1  - addss xmm2,xmm1
+xrGame.dll+19F14D: F3 0F59 54 24 14  - mulss xmm2,[esp+14]
+xrGame.dll+19F153: F3 0F58 56 04  - addss xmm2,[esi+04]
+xrGame.dll+19F158: 0F28 CA  - movaps xmm1,xmm2
+xrGame.dll+19F15B: 0F2F C1  - comiss xmm0,xmm1
+xrGame.dll+19F15E: F3 0F11 56 04  - movss [esi+04],xmm2
+xrGame.dll+19F163: 77 0A - ja 0911F16F
+xrGame.dll+19F165: F3 0F10 46 08  - movss xmm0,[esi+08]
+xrGame.dll+19F16A: 0F2F C8  - comiss xmm1,xmm0
+xrGame.dll+19F16D: 76 05 - jna 0911F174
+xrGame.dll+19F16F: F3 0F11 46 04  - movss [esi+04],xmm0
+// ---------- iRecoilING HERE ----------
+xrGame.dll+19F174: F3 0F10 46 04  - movss xmm0,[esi+04]
+// ---------- DONE iRecoilING  ----------
+xrGame.dll+19F179: F3 0F5C 46 08  - subss xmm0,[esi+08]
+xrGame.dll+19F17E: 51 - push ecx
+xrGame.dll+19F17F: F3 0F11 04 24   - movss [esp],xmm0
+xrGame.dll+19F184: E8 A724E6FF - call 08F81630
+xrGame.dll+19F189: D9 05 34A13D09  - fld dword ptr [093DA134]
+xrGame.dll+19F18F: 83 C4 04 - add esp,04
+xrGame.dll+19F192: DFF1 - fcomip st(0),st(1)
+xrGame.dll+19F194: DDD8 - fstp st(0)
+xrGame.dll+19F196: 76 25 - jna 0911F1BD
+xrGame.dll+19F198: 8B C7  - mov eax,edi
+xrGame.dll+19F19A: E8 21D1E6FF - call 08F8C2C0
+xrGame.dll+19F19F: F3 0F2A C0  - cvtsi2ss xmm0,eax
+xrGame.dll+19F1A3: F3 0F59 05 8C264509  - mulss xmm0,[0945268C]
+xrGame.dll+19F1AB: F3 0F58 05 14973D09  - addss xmm0,[093D9714]
+xrGame.dll+19F1B3: F3 0F59 46 04  - mulss xmm0,[esi+04]
+xrGame.dll+19F1B8: F3 0F11 46 04  - movss [esi+04],xmm0
+xrGame.dll+19F1BD: 8B C7  - mov eax,edi
+xrGame.dll+19F1BF: E8 FCD0E6FF - call 08F8C2C0
+xrGame.dll+19F1C4: F3 0F10 4E 04  - movss xmm1,[esi+04]
+xrGame.dll+19F1C9: F3 0F5E 4E 08  - divss xmm1,[esi+08]
+xrGame.dll+19F1CE: F3 0F59 4E 18  - mulss xmm1,[esi+18]
+xrGame.dll+19F1D3: F3 0F2A C0  - cvtsi2ss xmm0,eax
+xrGame.dll+19F1D7: F3 0F59 05 60264509  - mulss xmm0,[09452660]
+xrGame.dll+19F1DF: F3 0F5C 05 18973D09  - subss xmm0,[093D9718]
+xrGame.dll+19F1E7: F3 0F59 C8  - mulss xmm1,xmm0
+xrGame.dll+19F1EB: F3 0F58 4E 10  - addss xmm1,[esi+10]
+xrGame.dll+19F1F0: F3 0F11 4E 10  - movss [esi+10],xmm1
+xrGame.dll+19F1F5: F3 0F10 0D E4234509  - movss xmm1,[094523E4]
+xrGame.dll+19F1FD: F3 0F5C 4E 14  - subss xmm1,[esi+14]
+xrGame.dll+19F202: F3 0F10 46 10  - movss xmm0,[esi+10]
+xrGame.dll+19F207: 0F2F C8  - comiss xmm1,xmm0
+xrGame.dll+19F20A: 77 0A - ja 0911F216
+xrGame.dll+19F20C: F3 0F10 4E 14  - movss xmm1,[esi+14]
+xrGame.dll+19F211: 0F2F C1  - comiss xmm0,xmm1
+xrGame.dll+19F214: 76 05 - jna 0911F21B
+xrGame.dll+19F216: F3 0F11 4E 10  - movss [esi+10],xmm1
+xrGame.dll+19F21B: F3 0F10 46 04  - movss xmm0,[esi+04]
+xrGame.dll+19F220: F3 0F5C 44 24 08  - subss xmm0,[esp+08]
+xrGame.dll+19F226: F3 0F11 46 20  - movss [esi+20],xmm0
+xrGame.dll+19F22B: F3 0F10 46 10  - movss xmm0,[esi+10]
+xrGame.dll+19F230: F3 0F5C 44 24 0C  - subss xmm0,[esp+0C]
+xrGame.dll+19F236: B8 01000000 - mov eax,00000001
+xrGame.dll+19F23B: 5F - pop edi
+xrGame.dll+19F23C: 89 46 28  - mov [esi+28],eax
+xrGame.dll+19F23F: F3 0F11 46 24  - movss [esi+24],xmm0
+xrGame.dll+19F244: 89 46 30  - mov [esi+30],eax
+xrGame.dll+19F247: 5E - pop esi
+xrGame.dll+19F248: 83 C4 08 - add esp,08
+xrGame.dll+19F24B: C2 0400 - ret 0004
+xrGame.dll+19F24E: CC - int 3 
+}
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>104</ID>
+              <Description>"[Weapon] No spread"</Description>
+              <Color>408000</Color>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>//--&gt; Game    : XR_3DA.exe
+//--&gt; Version : v1.0006
+//--&gt; Date    : 23/03/2024
+//--&gt; Author  : mul0
+
+[ENABLE]
+aobscanmodule(iSpread,xrGame.dll+1D5DE9,f3xxxxxxxxxxxxxx8bxxxxxxxxxx8dxxxxxxxxxx8dxxxxxxf3xxxxxxxxf3xxxxxxxxxxffxx85xx0f84xxxxxxxx85xx74xx8b)
+alloc(newmem,$1000)
+label(code)
+label(return)
+registersymbol(iSpread)
+
+newmem:
+  movss xmm0,[edi+00000358]
+  push (float)0
+  movss xmm0,[esp]
+  add esp,4
+	
+code:
+	jmp return
+
+iSpread:
+	jmp newmem
+	db 90 90 90
+
+return:
+
+[DISABLE]
+iSpread:
+	db F3 0F 10 87 58 03 00 00
+
+unregistersymbol(iSpread)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - iSpreadION POINT: xrGame.dll+1D5DE9
+
+xrGame.dll+1D5D5B: C2 0400 - ret 0004
+xrGame.dll+1D5D5E: CC - int 3 
+xrGame.dll+1D5D5F: CC - int 3 
+xrGame.dll+1D5D60: 8B 44 24 04  - mov eax,[esp+04]
+xrGame.dll+1D5D64: 8B 00  - mov eax,[eax]
+xrGame.dll+1D5D66: FF A0 78020000  - jmp dword ptr [eax+00000278]
+xrGame.dll+1D5D6C: CC - int 3 
+xrGame.dll+1D5D6D: CC - int 3 
+xrGame.dll+1D5D6E: CC - int 3 
+xrGame.dll+1D5D6F: CC - int 3 
+xrGame.dll+1D5D70: 83 EC 18 - sub esp,18
+xrGame.dll+1D5D73: 56 - push esi
+xrGame.dll+1D5D74: 57 - push edi
+xrGame.dll+1D5D75: 8B F9  - mov edi,ecx
+xrGame.dll+1D5D77: 8B 4F 24  - mov ecx,[edi+24]
+xrGame.dll+1D5D7A: 8B 41 48  - mov eax,[ecx+48]
+xrGame.dll+1D5D7D: 83 F8 FF - cmp eax,-01
+xrGame.dll+1D5D80: 74 0D - je 09155D8F
+xrGame.dll+1D5D82: C1 E0 04 - shl eax,04
+xrGame.dll+1D5D85: 03 41 38  - add eax,[ecx+38]
+xrGame.dll+1D5D88: 8B 48 04  - mov ecx,[eax+04]
+xrGame.dll+1D5D8B: 85 C9  - test ecx,ecx
+xrGame.dll+1D5D8D: 75 04 - jne 09155D93
+xrGame.dll+1D5D8F: 33 F6  - xor esi,esi
+xrGame.dll+1D5D91: EB 0C - jmp 09155D9F
+xrGame.dll+1D5D93: 8B 01  - mov eax,[ecx]
+xrGame.dll+1D5D95: 8B 90 18010000  - mov edx,[eax+00000118]
+xrGame.dll+1D5D9B: FF D2  - call edx
+xrGame.dll+1D5D9D: 8B F0  - mov esi,eax
+xrGame.dll+1D5D9F: 80 BF 54030000 00 - cmp byte ptr [edi+00000354],00
+xrGame.dll+1D5DA6: F3 0F10 0D 18973D09  - movss xmm1,[093D9718]
+xrGame.dll+1D5DAE: 74 19 - je 09155DC9
+xrGame.dll+1D5DB0: 85 F6  - test esi,esi
+xrGame.dll+1D5DB2: 74 2F - je 09155DE3
+xrGame.dll+1D5DB4: 0F2F 8E F8030000  - comiss xmm1,[esi+000003F8]
+xrGame.dll+1D5DBB: 77 0C - ja 09155DC9
+xrGame.dll+1D5DBD: D9 87 5C030000  - fld dword ptr [edi+0000035C]
+xrGame.dll+1D5DC3: 5F - pop edi
+xrGame.dll+1D5DC4: 5E - pop esi
+xrGame.dll+1D5DC5: 83 C4 18 - add esp,18
+xrGame.dll+1D5DC8: C3 - ret 
+xrGame.dll+1D5DC9: 85 F6  - test esi,esi
+xrGame.dll+1D5DCB: 74 16 - je 09155DE3
+xrGame.dll+1D5DCD: 8B 06  - mov eax,[esi]
+xrGame.dll+1D5DCF: 8B 90 94010000  - mov edx,[eax+00000194]
+xrGame.dll+1D5DD5: 8B CE  - mov ecx,esi
+xrGame.dll+1D5DD7: FF D2  - call edx
+xrGame.dll+1D5DD9: D9 5C 24 08  - fstp dword ptr [esp+08]
+xrGame.dll+1D5DDD: F3 0F10 4C 24 08  - movss xmm1,[esp+08]
+xrGame.dll+1D5DE3: 8B 87 8CFDFFFF  - mov eax,[edi-00000274]
+// ---------- iSpreadING HERE ----------
+xrGame.dll+1D5DE9: F3 0F10 87 58030000  - movss xmm0,[edi+00000358]
+// ---------- DONE iSpreadING  ----------
+xrGame.dll+1D5DF1: 8B 80 C8010000  - mov eax,[eax+000001C8]
+xrGame.dll+1D5DF7: 8D 8F 8CFDFFFF  - lea ecx,[edi-00000274]
+xrGame.dll+1D5DFD: 8D 54 24 14  - lea edx,[esp+14]
+xrGame.dll+1D5E01: F3 0F59 C1  - mulss xmm0,xmm1
+xrGame.dll+1D5E05: 52 - push edx
+xrGame.dll+1D5E06: F3 0F11 44 24 0C  - movss [esp+0C],xmm0
+xrGame.dll+1D5E0C: FF D0  - call eax
+xrGame.dll+1D5E0E: 85 C0  - test eax,eax
+xrGame.dll+1D5E10: 0F84 00020000 - je 09156016
+xrGame.dll+1D5E16: 85 F6  - test esi,esi
+xrGame.dll+1D5E18: 74 20 - je 09155E3A
+xrGame.dll+1D5E1A: 8B 16  - mov edx,[esi]
+xrGame.dll+1D5E1C: 8B 82 98010000  - mov eax,[edx+00000198]
+xrGame.dll+1D5E22: 8B CE  - mov ecx,esi
+xrGame.dll+1D5E24: FF D0  - call eax
+xrGame.dll+1D5E26: D9 5C 24 0C  - fstp dword ptr [esp+0C]
+xrGame.dll+1D5E2A: F3 0F10 44 24 0C  - movss xmm0,[esp+0C]
+xrGame.dll+1D5E30: F3 0F10 15 18973D09  - movss xmm2,[093D9718]
+xrGame.dll+1D5E38: EB 0B - jmp 09155E45
+xrGame.dll+1D5E3A: F3 0F10 15 18973D09  - movss xmm2,[093D9718]
+xrGame.dll+1D5E42: 0F28 C2  - movaps xmm0,xmm2
+xrGame.dll+1D5E45: F3 0F10 4C 24 1C  - movss xmm1,[esp+1C]
+xrGame.dll+1D5E4B: F3 0F59 0D B09F3D09  - mulss xmm1,[093D9FB0]
+xrGame.dll+1D5E53: F3 0F59 8F 60030000  - mulss xmm1,[edi+00000360]
+xrGame.dll+1D5E5B: A1 D8024E09 - mov eax,[094E02D8]
+xrGame.dll+1D5E60: 8B 8F 24030000  - mov ecx,[edi+00000324]
+xrGame.dll+1D5E66: 8A 97 54030000  - mov dl,[edi+00000354]
+xrGame.dll+1D5E6C: F3 0F59 C8  - mulss xmm1,xmm0
+xrGame.dll+1D5E70: F3 0F58 CA  - addss xmm1,xmm2
+xrGame.dll+1D5E74: F3 0F59 4C 24 08  - mulss xmm1,[esp+08]
+xrGame.dll+1D5E7A: C1 E8 02 - shr eax,02
+xrGame.dll+1D5E7D: F6 C1 20 - test cl,20
+xrGame.dll+1D5E80: F3 0F11 4C 24 08  - movss [esp+08],xmm1
+xrGame.dll+1D5E86: 74 02 - je 09155E8A
+xrGame.dll+1D5E88: F6 D0  - not al
+xrGame.dll+1D5E8A: 24 01 - and al,01
+xrGame.dll+1D5E8C: F7 C1 900E0000 - test ecx,00000E90
+xrGame.dll+1D5E92: 53 - push ebx
+xrGame.dll+1D5E93: 75 3C - jne 09155ED1
+xrGame.dll+1D5E95: F7 C1 00600000 - test ecx,00006000
+xrGame.dll+1D5E9B: 75 04 - jne 09155EA1
+xrGame.dll+1D5E9D: 84 D2  - test dl,dl
+xrGame.dll+1D5E9F: 74 30 - je 09155ED1
+xrGame.dll+1D5EA1: 32 DB  - xor bl,bl
+xrGame.dll+1D5EA3: 85 F6  - test esi,esi
+xrGame.dll+1D5EA5: 0F84 A2000000 - je 09155F4D
+xrGame.dll+1D5EAB: 8B 16  - mov edx,[esi]
+xrGame.dll+1D5EAD: 8B 82 98010000  - mov eax,[edx+00000198]
+xrGame.dll+1D5EB3: 8B CE  - mov ecx,esi
+xrGame.dll+1D5EB5: FF D0  - call eax
+}
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>112</ID>
+              <Description>"[Weapon] Rapid fire"</Description>
+              <Color>408000</Color>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>//--&gt; Game    : XR_3DA.exe
+//--&gt; Version : v1.0006
+//--&gt; Date    : 23/03/2024
+//--&gt; Author  : mul0
+
+[ENABLE]
+aobscanmodule(iRapidFire,xrGame.dll+226637,f3xxxxxxf3xxxxxxxxxxxxxxebxx8bxx8bxxxxxxxxxxebxx8bxx8bxxxxxxxxxxd9xxxxxxxx8bxxd9)
+alloc(newmem,$1000)
+label(code)
+label(return)
+registersymbol(iRapidFire)
+
+newmem:
+  push ebx
+  mov ebx,[esi+18C] // Pointer to instance of CActor
+  cmp ebx,0
+  je code
+  cmp dword ptr [ebx+00000154],01
+  jne code
+  cmp dword ptr [ebx+00000524],00 // Pointer to instance of CCameraFirstEye
+  je code
+  cmp dword ptr [ebx+000003A8],00 // Pointer to instance of CCharacterPhysicsSupport
+  je code
+  push (float)0.008
+  movss xmm1,[esp]
+  subss xmm0,xmm1
+  add esp,4
+  pop ebx
+  jmp code+1
+
+
+code:
+    pop ebx
+    subss xmm0,xmm1
+    movss [esi+0000030C],xmm0
+	jmp return
+
+iRapidFire:
+	jmp newmem
+	db 90 90 90 90 90 90 90
+
+return:
+
+[DISABLE]
+iRapidFire:
+	db F3 0F 5C C1 F3 0F 11 86 0C 03 00 00
+
+unregistersymbol(iRapidFire)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - iRapidFireION POINT: xrGame.dll+226637
+
+xrGame.dll+226575: 64 1A 09  - sbb cl,byte ptr fs:[ecx]
+xrGame.dll+226578: E0 64 - loopne 091A65DE
+xrGame.dll+22657A: 1A 09  - sbb cl,byte ptr [ecx]
+xrGame.dll+22657C: CC - int 3 
+xrGame.dll+22657D: CC - int 3 
+xrGame.dll+22657E: CC - int 3 
+xrGame.dll+22657F: CC - int 3 
+xrGame.dll+226580: 51 - push ecx
+xrGame.dll+226581: 56 - push esi
+xrGame.dll+226582: 8B F1  - mov esi,ecx
+xrGame.dll+226584: E8 4752FFFF - call 0919B7D0
+xrGame.dll+226589: A1 F8893D09 - mov eax,[093D89F8]
+xrGame.dll+22658E: F3 0F10 88 F8010000  - movss xmm1,[eax+000001F8]
+xrGame.dll+226596: 8B 86 8C020000  - mov eax,[esi+0000028C]
+xrGame.dll+22659C: 39 86 90020000  - cmp [esi+00000290],eax
+xrGame.dll+2265A2: F3 0F11 4C 24 04  - movss [esp+04],xmm1
+xrGame.dll+2265A8: 0F85 B5000000 - jne 091A6663
+xrGame.dll+2265AE: 83 F8 08 - cmp eax,08
+xrGame.dll+2265B1: 0F87 AC000000 - ja 091A6663
+xrGame.dll+2265B7: FF 24 85 74661A09  - jmp dword ptr [eax*4+091A6674]
+xrGame.dll+2265BE: F3 0F10 86 0C030000  - movss xmm0,[esi+0000030C]
+xrGame.dll+2265C6: F3 0F5C C1  - subss xmm0,xmm1
+xrGame.dll+2265CA: 0F57 C9  - xorps xmm1,xmm1
+xrGame.dll+2265CD: 0F2F C8  - comiss xmm1,xmm0
+xrGame.dll+2265D0: F3 0F11 86 0C030000  - movss [esi+0000030C],xmm0
+xrGame.dll+2265D8: 0F86 85000000 - jbe 091A6663
+xrGame.dll+2265DE: F3 0F11 8E 0C030000  - movss [esi+0000030C],xmm1
+xrGame.dll+2265E6: EB 7B - jmp 091A6663
+xrGame.dll+2265E8: 83 BE 7C050000 00 - cmp dword ptr [esi+0000057C],00
+xrGame.dll+2265EF: 7E 1A - jle 091A660B
+xrGame.dll+2265F1: 8B 16  - mov edx,[esi]
+xrGame.dll+2265F3: D9 44 24 04  - fld dword ptr [esp+04]
+xrGame.dll+2265F7: 8B 82 D8010000  - mov eax,[edx+000001D8]
+xrGame.dll+2265FD: 51 - push ecx
+xrGame.dll+2265FE: 8B CE  - mov ecx,esi
+xrGame.dll+226600: D9 1C 24   - fstp dword ptr [esp]
+xrGame.dll+226603: FF D0  - call eax
+xrGame.dll+226605: F3 0F10 4C 24 04  - movss xmm1,[esp+04]
+xrGame.dll+22660B: F3 0F10 86 0C030000  - movss xmm0,[esi+0000030C]
+xrGame.dll+226613: 0F57 D2  - xorps xmm2,xmm2
+xrGame.dll+226616: 0F2F D0  - comiss xmm2,xmm0
+xrGame.dll+226619: 72 1C - jb 091A6637
+xrGame.dll+22661B: 83 BE 7C050000 00 - cmp dword ptr [esi+0000057C],00
+xrGame.dll+226622: 75 0C - jne 091A6630
+xrGame.dll+226624: 8B 16  - mov edx,[esi]
+xrGame.dll+226626: 8B 82 90010000  - mov eax,[edx+00000190]
+xrGame.dll+22662C: 8B CE  - mov ecx,esi
+xrGame.dll+22662E: FF D0  - call eax
+xrGame.dll+226630: E8 0B8CFFFF - call 0919F240
+xrGame.dll+226635: EB 2C - jmp 091A6663
+// ---------- iRapidFireING HERE ----------
+xrGame.dll+226637: F3 0F5C C1  - subss xmm0,xmm1
+xrGame.dll+22663B: F3 0F11 86 0C030000  - movss [esi+0000030C],xmm0
+// ---------- DONE iRapidFireING  ----------
+xrGame.dll+226643: EB 1E - jmp 091A6663
+xrGame.dll+226645: 8B 16  - mov edx,[esi]
+xrGame.dll+226647: 8B 82 E0010000  - mov eax,[edx+000001E0]
+xrGame.dll+22664D: EB 08 - jmp 091A6657
+xrGame.dll+22664F: 8B 16  - mov edx,[esi]
+xrGame.dll+226651: 8B 82 DC010000  - mov eax,[edx+000001DC]
+xrGame.dll+226657: D9 44 24 04  - fld dword ptr [esp+04]
+xrGame.dll+22665B: 51 - push ecx
+xrGame.dll+22665C: 8B CE  - mov ecx,esi
+xrGame.dll+22665E: D9 1C 24   - fstp dword ptr [esp]
+xrGame.dll+226661: FF D0  - call eax
+xrGame.dll+226663: 8B 16  - mov edx,[esi]
+xrGame.dll+226665: 8B 82 D0010000  - mov eax,[edx+000001D0]
+xrGame.dll+22666B: 8B CE  - mov ecx,esi
+xrGame.dll+22666D: 5E - pop esi
+xrGame.dll+22666E: 83 C4 04 - add esp,04
+xrGame.dll+226671: FF E0  - jmp eax
+xrGame.dll+226673: 90 - nop 
+xrGame.dll+226674: BE 651A09E8 - mov esi,E8091A65
+xrGame.dll+226679: 65 1A 09  - sbb cl,byte ptr gs:[ecx]
+xrGame.dll+22667C: 63 66 1A  - arpl [esi+1A],sp
+xrGame.dll+22667F: 09 BE 651A09BE  - or [esi-41F6E59B],edi
+xrGame.dll+226685: 65 1A 09  - sbb cl,byte ptr gs:[ecx]
+xrGame.dll+226688: BE 651A0963 - mov esi,63091A65
+xrGame.dll+22668D: 66 1A 09  - sbb cl,byte ptr [ecx]
+xrGame.dll+226690: 45 - inc ebp
+xrGame.dll+226691: 66 1A 09  - sbb cl,byte ptr [ecx]
+xrGame.dll+226694: 4F - dec edi
+xrGame.dll+226695: 66 1A 09  - sbb cl,byte ptr [ecx]
+xrGame.dll+226698: CC - int 3 
+xrGame.dll+226699: CC - int 3 
+xrGame.dll+22669A: CC - int 3 
+xrGame.dll+22669B: CC - int 3 
+xrGame.dll+22669C: CC - int 3 
+xrGame.dll+22669D: CC - int 3 
+xrGame.dll+22669E: CC - int 3 
+xrGame.dll+22669F: CC - int 3 
+xrGame.dll+2266A0: A1 F8893D09 - mov eax,[093D89F8]
+xrGame.dll+2266A5: 8B 80 F4000000  - mov eax,[eax+000000F4]
+xrGame.dll+2266AB: 56 - push esi
+xrGame.dll+2266AC: 8B F1  - mov esi,ecx
+xrGame.dll+2266AE: 3B 86 4C070000  - cmp eax,[esi+0000074C]
+xrGame.dll+2266B4: 0F84 32040000 - je 091A6AEC
+xrGame.dll+2266BA: 57 - push edi
+xrGame.dll+2266BB: 89 86 4C070000  - mov [esi+0000074C],eax
+xrGame.dll+2266C1: 8B 86 28060000  - mov eax,[esi+00000628]
+xrGame.dll+2266C7: 33 FF  - xor edi,edi
+xrGame.dll+2266C9: 3B C7  - cmp eax,edi
+xrGame.dll+2266CB: 0F84 C9000000 - je 091A679A
+xrGame.dll+2266D1: 8B 00  - mov eax,[eax]
+}
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>164</ID>
+              <Description>"[Weapon] Super knife"</Description>
+              <Color>408000</Color>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>//--&gt; Game    : XR_3DA.exe
+//--&gt; Version : v1.0006
+//--&gt; Date    : 25/03/2024
+//--&gt; Author  : mul0
+
+[ENABLE]
+aobscanmodule(iKnife,xrGame.dll+23022E,d9xxxxxxxxxx8bxxxxxx8bxxxxxxxxxx6axxxx0fb7xxxxxxxxxx8dxxxxxxxxxx8bxxxxxxxxxxd9xxxxxx0fb7xxxxxxxxxxd9)
+alloc(newmem,$1000)
+label(code)
+label(return)
+registersymbol(iKnife)
+
+newmem:
+    push (float)99999      // fire_distance
+	fld dword ptr [esp]
+    add esp,4
+	
+code:
+// ---------- ORIGINAL CODE ----------
+//	fld dword ptr [edi+00000304]
+// ---------- ORIGINAL CODE  ----------
+	jmp return
+
+iKnife:
+	jmp newmem
+	nop
+
+return:
+
+
+[DISABLE]
+iKnife:
+	db D9 87 04 03 00 00
+
+unregistersymbol(iKnife)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - iKnifeION POINT: xrGame.dll+23022E
+
+xrGame.dll+230188: F3 0F11 44 24 38  - movss [esp+38],xmm0
+xrGame.dll+23018E: 66 89 44 24 3E  - mov [esp+3E],ax
+xrGame.dll+230193: 8D B7 B8050000  - lea esi,[edi+000005B8]
+xrGame.dll+230199: 8D A4 24 00000000  - lea esp,[esp+00000000]
+xrGame.dll+2301A0: 8B 46 04  - mov eax,[esi+04]
+xrGame.dll+2301A3: 85 C0  - test eax,eax
+xrGame.dll+2301A5: 74 1D - je 092001C4
+xrGame.dll+2301A7: 8B 4E 08  - mov ecx,[esi+08]
+xrGame.dll+2301AA: 2B C8  - sub ecx,eax
+xrGame.dll+2301AC: B8 93244992 - mov eax,92492493
+xrGame.dll+2301B1: F7 E9  - imul ecx
+xrGame.dll+2301B3: 03 D1  - add edx,ecx
+xrGame.dll+2301B5: C1 FA 05 - sar edx,05
+xrGame.dll+2301B8: 8B C2  - mov eax,edx
+xrGame.dll+2301BA: C1 E8 1F - shr eax,1F
+xrGame.dll+2301BD: 03 C2  - add eax,edx
+xrGame.dll+2301BF: 83 F8 02 - cmp eax,02
+xrGame.dll+2301C2: 73 0D - jae 092001D1
+xrGame.dll+2301C4: 8D 4C 24 10  - lea ecx,[esp+10]
+xrGame.dll+2301C8: 8B C6  - mov eax,esi
+xrGame.dll+2301CA: E8 F1DFFEFF - call 091EE1C0
+xrGame.dll+2301CF: EB CF - jmp 092001A0
+xrGame.dll+2301D1: 8B 46 04  - mov eax,[esi+04]
+xrGame.dll+2301D4: 85 C0  - test eax,eax
+xrGame.dll+2301D6: 74 18 - je 092001F0
+xrGame.dll+2301D8: 8B 76 08  - mov esi,[esi+08]
+xrGame.dll+2301DB: 2B F0  - sub esi,eax
+xrGame.dll+2301DD: B8 93244992 - mov eax,92492493
+xrGame.dll+2301E2: F7 EE  - imul esi
+xrGame.dll+2301E4: 03 D6  - add edx,esi
+xrGame.dll+2301E6: C1 FA 05 - sar edx,05
+xrGame.dll+2301E9: 8B C2  - mov eax,edx
+xrGame.dll+2301EB: C1 E8 1F - shr eax,1F
+xrGame.dll+2301EE: 03 C2  - add eax,edx
+xrGame.dll+2301F0: 8B 97 C8020000  - mov edx,[edi+000002C8]
+xrGame.dll+2301F6: 89 87 7C050000  - mov [edi+0000057C],eax
+xrGame.dll+2301FC: 8B 87 8C010000  - mov eax,[edi+0000018C]
+xrGame.dll+230202: 8D 8F C8020000  - lea ecx,[edi+000002C8]
+xrGame.dll+230208: 50 - push eax
+xrGame.dll+230209: 8B 42 08  - mov eax,[edx+08]
+xrGame.dll+23020C: FF D0  - call eax
+xrGame.dll+23020E: 8B 75 08  - mov esi,[ebp+08]
+xrGame.dll+230211: 8B 97 88020000  - mov edx,[edi+00000288]
+xrGame.dll+230217: 8B 52 10  - mov edx,[edx+10]
+xrGame.dll+23021A: 8D 8F 88020000  - lea ecx,[edi+00000288]
+xrGame.dll+230220: 88 44 24 0C  - mov [esp+0C],al
+xrGame.dll+230224: 56 - push esi
+xrGame.dll+230225: 8D 87 B4060000  - lea eax,[edi+000006B4]
+xrGame.dll+23022B: 50 - push eax
+xrGame.dll+23022C: FF D2  - call edx
+// ---------- iKnifeING HERE ----------
+xrGame.dll+23022E: D9 87 04030000        - fld dword ptr [edi+00000304]
+// ---------- DONE iKnifeING  ----------
+xrGame.dll+230234: 8B 44 24 0C  - mov eax,[esp+0C]
+xrGame.dll+230238: 8B 97 D4060000  - mov edx,[edi+000006D4]
+xrGame.dll+23023E: 6A 00 - push 00
+xrGame.dll+230240: 50 - push eax
+xrGame.dll+230241: 0FB7 87 7C010000  - movzx eax,word ptr [edi+0000017C]
+xrGame.dll+230248: 8D 4C 24 18  - lea ecx,[esp+18]
+xrGame.dll+23024C: 51 - push ecx
+xrGame.dll+23024D: 51 - push ecx
+xrGame.dll+23024E: 8B 8F 8C010000  - mov ecx,[edi+0000018C]
+xrGame.dll+230254: D9 1C 24   - fstp dword ptr [esp]
+xrGame.dll+230257: 52 - push edx
+xrGame.dll+230258: 0FB7 91 A4000000  - movzx edx,word ptr [ecx+000000A4]
+xrGame.dll+23025F: D9 87 FC020000  - fld dword ptr [edi+000002FC]
+xrGame.dll+230265: 8B 0D FC894209  - mov ecx,[094289FC]
+xrGame.dll+23026B: 50 - push eax
+xrGame.dll+23026C: 8B 45 0C  - mov eax,[ebp+0C]
+xrGame.dll+23026F: 52 - push edx
+xrGame.dll+230270: 8B 11  - mov edx,[ecx]
+xrGame.dll+230272: 83 EC 0C - sub esp,0C
+xrGame.dll+230275: D9 5C 24 08  - fstp dword ptr [esp+08]
+hit_power1: D9 87 04070000  - fld dword ptr [edi+00000704]
+xrGame.dll+23027F: D9 5C 24 04  - fstp dword ptr [esp+04]
+xrGame.dll+230283: D9 87 00030000  - fld dword ptr [edi+00000300]
+xrGame.dll+230289: D9 1C 24   - fstp dword ptr [esp]
+xrGame.dll+23028C: 50 - push eax
+xrGame.dll+23028D: 8B 82 3C460000  - mov eax,[edx+0000463C]
+xrGame.dll+230293: 56 - push esi
+xrGame.dll+230294: E8 B776F8FF - call 09187950
+xrGame.dll+230299: 8B 44 24 44  - mov eax,[esp+44]
+xrGame.dll+23029D: 85 C0  - test eax,eax
+xrGame.dll+23029F: 74 03 - je 092002A4
+xrGame.dll+2302A1: 83 00 FF - add dword ptr [eax],-01
+xrGame.dll+2302A4: 8B 44 24 10  - mov eax,[esp+10]
+xrGame.dll+2302A8: 85 C0  - test eax,eax
+xrGame.dll+2302AA: 74 03 - je 092002AF
+xrGame.dll+2302AC: 83 00 FF - add dword ptr [eax],-01
+xrGame.dll+2302AF: 5F - pop edi
+xrGame.dll+2302B0: 5E - pop esi
+xrGame.dll+2302B1: 8B E5  - mov esp,ebp
+xrGame.dll+2302B3: 5D - pop ebp
+xrGame.dll+2302B4: C2 0800 - ret 0008
+xrGame.dll+2302B7: CC - int 3 
+xrGame.dll+2302B8: CC - int 3 
+xrGame.dll+2302B9: CC - int 3 
+xrGame.dll+2302BA: CC - int 3 
+xrGame.dll+2302BB: CC - int 3 
+xrGame.dll+2302BC: CC - int 3 
+xrGame.dll+2302BD: CC - int 3 
+xrGame.dll+2302BE: CC - int 3 
+xrGame.dll+2302BF: CC - int 3 
+}
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>94</ID>
+              <Description>"[Weapon] Infinite durability"</Description>
+              <Color>408000</Color>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>//--&gt; Game    : XR_3DA.exe
+//--&gt; Version : v1.0006
+//--&gt; Date    : 23/03/2024
+//--&gt; Author  : mul0
+
+[ENABLE]
+aobscanmodule(iDurability,xrGame.dll+21C3E9,f3xxxxxxxxxxxxxx0f2fxxxxxxxxxxf3xxxxxxxxxx76xx0f57xx8bxxxxxxxxxxd8xxxxxxddxxxxxxxxxxe8xxxxxxxxd8xxxxxxxxxxd8xxxxxxxxxxd9)
+alloc(newmem,$1000)
+label(code)
+label(return)
+registersymbol(iDurability)
+
+newmem:
+  movss xmm0,[esi+000000A8]
+  push (float)1
+  movss xmm0,[esp]
+  movss [esi+000000A8],xmm0
+  add esp,4
+	
+code:
+	jmp return
+
+iDurability:
+	jmp newmem
+	db 90 90 90
+
+return:
+
+[DISABLE]
+iDurability:
+	db F3 0F 10 86 A8 00 00 00
+
+unregistersymbol(iDurability)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - iDurabilityION POINT: xrGame.dll+21C3E9
+
+xrGame.dll+21C37A: 89 44 24 14  - mov [esp+14],eax
+xrGame.dll+21C37E: 74 05 - je 0919C385
+xrGame.dll+21C380: 8D 48 0C  - lea ecx,[eax+0C]
+xrGame.dll+21C383: EB 02 - jmp 0919C387
+xrGame.dll+21C385: 33 C9  - xor ecx,ecx
+xrGame.dll+21C387: 8B 54 24 24  - mov edx,[esp+24]
+xrGame.dll+21C38B: EB 03 - jmp 0919C390
+xrGame.dll+21C38D: 8D 49 00  - lea ecx,[ecx+00]
+xrGame.dll+21C390: 8A 01  - mov al,[ecx]
+xrGame.dll+21C392: 3A 02  - cmp al,[edx]
+xrGame.dll+21C394: 75 1A - jne 0919C3B0
+xrGame.dll+21C396: 84 C0  - test al,al
+xrGame.dll+21C398: 74 12 - je 0919C3AC
+xrGame.dll+21C39A: 8A 41 01  - mov al,[ecx+01]
+xrGame.dll+21C39D: 3A 42 01  - cmp al,[edx+01]
+xrGame.dll+21C3A0: 75 0E - jne 0919C3B0
+xrGame.dll+21C3A2: 83 C1 02 - add ecx,02
+xrGame.dll+21C3A5: 83 C2 02 - add edx,02
+xrGame.dll+21C3A8: 84 C0  - test al,al
+xrGame.dll+21C3AA: 75 E4 - jne 0919C390
+xrGame.dll+21C3AC: 33 C0  - xor eax,eax
+xrGame.dll+21C3AE: EB 05 - jmp 0919C3B5
+xrGame.dll+21C3B0: 1B C0  - sbb eax,eax
+xrGame.dll+21C3B2: 83 D8 FF - sbb eax,-01
+xrGame.dll+21C3B5: 85 C0  - test eax,eax
+xrGame.dll+21C3B7: 0F85 BFFEFFFF - jne 0919C27C
+xrGame.dll+21C3BD: B0 01 - mov al,01
+xrGame.dll+21C3BF: E9 BAFEFFFF - jmp 0919C27E
+xrGame.dll+21C3C4: 5F - pop edi
+xrGame.dll+21C3C5: 8B 85 84050000  - mov eax,[ebp+00000584]
+xrGame.dll+21C3CB: 03 C6  - add eax,esi
+xrGame.dll+21C3CD: 5E - pop esi
+xrGame.dll+21C3CE: 5D - pop ebp
+xrGame.dll+21C3CF: 5B - pop ebx
+xrGame.dll+21C3D0: 83 C4 10 - add esp,10
+xrGame.dll+21C3D3: C2 0800 - ret 0008
+xrGame.dll+21C3D6: CC - int 3 
+xrGame.dll+21C3D7: CC - int 3 
+xrGame.dll+21C3D8: CC - int 3 
+xrGame.dll+21C3D9: CC - int 3 
+xrGame.dll+21C3DA: CC - int 3 
+xrGame.dll+21C3DB: CC - int 3 
+xrGame.dll+21C3DC: CC - int 3 
+xrGame.dll+21C3DD: CC - int 3 
+xrGame.dll+21C3DE: CC - int 3 
+xrGame.dll+21C3DF: CC - int 3 
+xrGame.dll+21C3E0: 55 - push ebp
+xrGame.dll+21C3E1: 8B EC  - mov ebp,esp
+xrGame.dll+21C3E3: 83 E4 F8 - and esp,-08
+xrGame.dll+21C3E6: 83 EC 08 - sub esp,08
+// ---------- iDurabilityING HERE ----------
+xrGame.dll+21C3E9: F3 0F10 86 A8000000  - movss xmm0,[esi+000000A8]
+// ---------- DONE iDurabilityING  ----------
+xrGame.dll+21C3F1: 0F2F 05 5C244509  - comiss xmm0,[0945245C]
+xrGame.dll+21C3F8: F3 0F11 44 24 04  - movss [esp+04],xmm0
+xrGame.dll+21C3FE: 76 07 - jna 0919C407
+xrGame.dll+21C400: 0F57 C0  - xorps xmm0,xmm0
+xrGame.dll+21C403: 8B E5  - mov esp,ebp
+xrGame.dll+21C405: 5D - pop ebp
+xrGame.dll+21C406: C3 - ret 
+xrGame.dll+21C407: D9E8 - fld1 
+xrGame.dll+21C409: D8 64 24 04  - fsub dword ptr [esp+04]
+xrGame.dll+21C40D: DD 05 E0244509  - fld qword ptr [094524E0]
+xrGame.dll+21C413: E8 DE552300 - call 093D19F6
+xrGame.dll+21C418: D8 8E 44050000  - fmul dword ptr [esi+00000544]
+xrGame.dll+21C41E: D8 86 40050000  - fadd dword ptr [esi+00000540]
+xrGame.dll+21C424: D9 54 24 04  - fst dword ptr [esp+04]
+xrGame.dll+21C428: D9EE - fldz 
+xrGame.dll+21C42A: DFF1 - fcomip st(0),st(1)
+xrGame.dll+21C42C: DDD8 - fstp st(0)
+xrGame.dll+21C42E: 77 D0 - ja 0919C400
+xrGame.dll+21C430: F3 0F10 44 24 04  - movss xmm0,[esp+04]
+xrGame.dll+21C436: F3 0F10 0D DC244509  - movss xmm1,[094524DC]
+xrGame.dll+21C43E: 0F2F C1  - comiss xmm0,xmm1
+xrGame.dll+21C441: 76 03 - jna 0919C446
+xrGame.dll+21C443: 0F28 C1  - movaps xmm0,xmm1
+xrGame.dll+21C446: 8B E5  - mov esp,ebp
+xrGame.dll+21C448: 5D - pop ebp
+xrGame.dll+21C449: C3 - ret 
+xrGame.dll+21C44A: CC - int 3 
+xrGame.dll+21C44B: CC - int 3 
+xrGame.dll+21C44C: CC - int 3 
+xrGame.dll+21C44D: CC - int 3 
+xrGame.dll+21C44E: CC - int 3 
+xrGame.dll+21C44F: CC - int 3 
+xrGame.dll+21C450: 51 - push ecx
+xrGame.dll+21C451: 56 - push esi
+xrGame.dll+21C452: 8B F0  - mov esi,eax
+xrGame.dll+21C454: A1 FC893D09 - mov eax,[093D89FC]
+xrGame.dll+21C459: 8B 00  - mov eax,[eax]
+xrGame.dll+21C45B: 83 B8 FC440000 00 - cmp dword ptr [eax+000044FC],00
+xrGame.dll+21C462: 75 12 - jne 0919C476
+xrGame.dll+21C464: 83 B8 94440000 00 - cmp dword ptr [eax+00004494],00
+xrGame.dll+21C46B: 74 09 - je 0919C476
+xrGame.dll+21C46D: 80 B8 BC440000 00 - cmp byte ptr [eax+000044BC],00
+xrGame.dll+21C474: EB 14 - jmp 0919C48A
+xrGame.dll+21C476: 8B 80 F4450000  - mov eax,[eax+000045F4]
+xrGame.dll+21C47C: 85 C0  - test eax,eax
+xrGame.dll+21C47E: 74 6C - je 0919C4EC
+xrGame.dll+21C480: 8B C8  - mov ecx,eax
+xrGame.dll+21C482: FF 15 B0903D09  - call dword ptr [093D90B0]
+xrGame.dll+21C488: 85 C0  - test eax,eax
+xrGame.dll+21C48A: 0F94 C0  - sete al
+}
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>290</ID>
+              <Description>"[Weapon] No aiming zoom "</Description>
+              <Color>408000</Color>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>//--&gt; Game    : XR_3DA.exe
+//--&gt; Version : v1.0006
+//--&gt; Date    : 28/03/2024
+//--&gt; Author  : mul0
+
+[ENABLE]
+aobscanmodule(iZoom,xrGame.dll+1C7A93,75xx85xx74xx80xxxxxxxxxxxx74xx8bxx8bxxxxxxxxxx8bxxffxx84xx74xx83)
+
+iZoom:
+	db 74 52
+
+registersymbol(iZoom)
+
+[DISABLE]
+
+iZoom:
+	db 75 52
+
+unregistersymbol(iZoom)
+
+{
+// ORIGINAL CODE - iZoomION POINT: xrGame.dll+1C7A93
+
+xrGame.dll+1C79E8: 66 89 4C 24 3E  - mov [esp+3E],cx
+xrGame.dll+1C79ED: 66 C7 44 24 3C 0500 - mov word ptr [esp+3C],0005
+xrGame.dll+1C79F4: 8B 02  - mov eax,[edx]
+xrGame.dll+1C79F6: 8D 88 60010000  - lea ecx,[eax+00000160]
+xrGame.dll+1C79FC: FF 15 BC8F0708  - call dword ptr [08078FBC]
+xrGame.dll+1C7A02: 89 44 24 38  - mov [esp+38],eax
+xrGame.dll+1C7A06: 8B 07  - mov eax,[edi]
+xrGame.dll+1C7A08: 8B 50 10  - mov edx,[eax+10]
+xrGame.dll+1C7A0B: 8B CF  - mov ecx,edi
+xrGame.dll+1C7A0D: FF D2  - call edx
+xrGame.dll+1C7A0F: 66 8B 80 A4000000  - mov ax,[eax+000000A4]
+xrGame.dll+1C7A16: 8B 17  - mov edx,[edi]
+xrGame.dll+1C7A18: 66 89 44 24 54  - mov [esp+54],ax
+xrGame.dll+1C7A1D: 8B 42 10  - mov eax,[edx+10]
+xrGame.dll+1C7A20: 8B CF  - mov ecx,edi
+xrGame.dll+1C7A22: FF D0  - call eax
+xrGame.dll+1C7A24: 0FB7 88 A4000000  - movzx ecx,word ptr [eax+000000A4]
+xrGame.dll+1C7A2B: 66 89 4C 24 56  - mov [esp+56],cx
+xrGame.dll+1C7A30: 8D 8C 24 80000000  - lea ecx,[esp+00000080]
+xrGame.dll+1C7A37: 8D 44 24 38  - lea eax,[esp+38]
+xrGame.dll+1C7A3B: E8 E0261E00 - call 07FCA120
+xrGame.dll+1C7A40: 8D 94 24 80000000  - lea edx,[esp+00000080]
+xrGame.dll+1C7A47: 6A 08 - push 08
+xrGame.dll+1C7A49: 52 - push edx
+xrGame.dll+1C7A4A: E8 31DB0100 - call 07E05580
+xrGame.dll+1C7A4F: 83 C4 08 - add esp,08
+xrGame.dll+1C7A52: 5F - pop edi
+xrGame.dll+1C7A53: 5D - pop ebp
+xrGame.dll+1C7A54: 5B - pop ebx
+xrGame.dll+1C7A55: 81 C4 84200000 - add esp,00002084
+xrGame.dll+1C7A5B: C2 0C00 - ret 000C
+xrGame.dll+1C7A5E: CC - int 3 
+xrGame.dll+1C7A5F: CC - int 3 
+xrGame.dll+1C7A60: 8B 8F 98020000  - mov ecx,[edi+00000298]
+xrGame.dll+1C7A66: 8B 41 48  - mov eax,[ecx+48]
+xrGame.dll+1C7A69: 83 F8 FF - cmp eax,-01
+xrGame.dll+1C7A6C: 56 - push esi
+xrGame.dll+1C7A6D: 74 0D - je 07DE7A7C
+xrGame.dll+1C7A6F: C1 E0 04 - shl eax,04
+xrGame.dll+1C7A72: 03 41 38  - add eax,[ecx+38]
+xrGame.dll+1C7A75: 8B 48 04  - mov ecx,[eax+04]
+xrGame.dll+1C7A78: 85 C9  - test ecx,ecx
+xrGame.dll+1C7A7A: 75 04 - jne 07DE7A80
+xrGame.dll+1C7A7C: 33 F6  - xor esi,esi
+xrGame.dll+1C7A7E: EB 0C - jmp 07DE7A8C
+xrGame.dll+1C7A80: 8B 01  - mov eax,[ecx]
+xrGame.dll+1C7A82: 8B 90 18010000  - mov edx,[eax+00000118]
+xrGame.dll+1C7A88: FF D2  - call edx
+xrGame.dll+1C7A8A: 8B F0  - mov esi,eax
+xrGame.dll+1C7A8C: 83 BF 30050000 00 - cmp dword ptr [edi+00000530],00
+// ---------- iZoomING HERE ----------
+xrGame.dll+1C7A93: 74 52 - je 07DE7AE7
+xrGame.dll+1C7A95: 85 F6  - test esi,esi
+xrGame.dll+1C7A97: 74 4E - je 07DE7AE7
+// ---------- DONE iZoomING  ----------
+xrGame.dll+1C7A99: 80 BE F4030000 00 - cmp byte ptr [esi+000003F4],00
+xrGame.dll+1C7AA0: 74 45 - je 07DE7AE7
+xrGame.dll+1C7AA2: 8B 06  - mov eax,[esi]
+xrGame.dll+1C7AA4: 8B 90 40010000  - mov edx,[eax+00000140]
+xrGame.dll+1C7AAA: 8B CE  - mov ecx,esi
+xrGame.dll+1C7AAC: FF D2  - call edx
+xrGame.dll+1C7AAE: 84 C0  - test al,al
+xrGame.dll+1C7AB0: 74 23 - je 07DE7AD5
+xrGame.dll+1C7AB2: 83 BE E8030000 00 - cmp dword ptr [esi+000003E8],00
+xrGame.dll+1C7AB9: 74 1A - je 07DE7AD5
+xrGame.dll+1C7ABB: F3 0F10 05 18970708  - movss xmm0,[08079718]
+xrGame.dll+1C7AC3: 0F2F 86 F8030000  - comiss xmm0,[esi+000003F8]
+xrGame.dll+1C7ACA: 77 1B - ja 07DE7AE7
+xrGame.dll+1C7ACC: E8 4F500500 - call 07E3CB20
+xrGame.dll+1C7AD1: 85 C0  - test eax,eax
+xrGame.dll+1C7AD3: 74 12 - je 07DE7AE7
+xrGame.dll+1C7AD5: F3 0F10 86 E0030000  - movss xmm0,[esi+000003E0]
+xrGame.dll+1C7ADD: F3 0F59 05 6C240F08  - mulss xmm0,[080F246C]
+xrGame.dll+1C7AE5: 5E - pop esi
+xrGame.dll+1C7AE6: C3 - ret 
+xrGame.dll+1C7AE7: F3 0F10 05 98C51508  - movss xmm0,[0815C598]
+xrGame.dll+1C7AEF: 5E - pop esi
+xrGame.dll+1C7AF0: C3 - ret 
+xrGame.dll+1C7AF1: CC - int 3 
+xrGame.dll+1C7AF2: CC - int 3 
+xrGame.dll+1C7AF3: CC - int 3 
+xrGame.dll+1C7AF4: CC - int 3 
+xrGame.dll+1C7AF5: CC - int 3 
+xrGame.dll+1C7AF6: CC - int 3 
+xrGame.dll+1C7AF7: CC - int 3 
+xrGame.dll+1C7AF8: CC - int 3 
+xrGame.dll+1C7AF9: CC - int 3 
+xrGame.dll+1C7AFA: CC - int 3 
+xrGame.dll+1C7AFB: CC - int 3 
+xrGame.dll+1C7AFC: CC - int 3 
+xrGame.dll+1C7AFD: CC - int 3 
+xrGame.dll+1C7AFE: CC - int 3 
+xrGame.dll+1C7AFF: CC - int 3 
+xrGame.dll+1C7B00: 55 - push ebp
+xrGame.dll+1C7B01: 8B EC  - mov ebp,esp
+xrGame.dll+1C7B03: 83 E4 F8 - and esp,-08
+xrGame.dll+1C7B06: 83 EC 08 - sub esp,08
+xrGame.dll+1C7B09: 53 - push ebx
+xrGame.dll+1C7B0A: 55 - push ebp
+xrGame.dll+1C7B0B: 56 - push esi
+xrGame.dll+1C7B0C: 57 - push edi
+xrGame.dll+1C7B0D: 8B F9  - mov edi,ecx
+xrGame.dll+1C7B0F: 33 DB  - xor ebx,ebx
+xrGame.dll+1C7B11: 39 9F CC040000  - cmp [edi+000004CC],ebx
+xrGame.dll+1C7B17: 76 6E - jna 07DE7B87
+}
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>416</ID>
+              <Description>"[Weapon] Mute gunshot"</Description>
+              <Color>408000</Color>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>//--&gt; Game    : XR_3DA.exe
+//--&gt; Version : 1.0
+//--&gt; Date    : 13/04/2024
+//--&gt; Author  : mul0
+
+[ENABLE]
+aobscanmodule(iMute,xrGame.dll+24E55E,0f84xxxxxxxx8bxxxx2bxxb8xxxxxxxxf7xxd1xx8bxxc1xxxx03xx0f84xxxxxxxxc7)
+
+iMute:
+	db E9 F5 00 00 00 90
+
+registersymbol(iMute)
+
+[DISABLE]
+iMute:
+	db 0F 84 F4 00 00 00
+
+unregistersymbol(iMute)
+
+{
+// ORIGINAL CODE - INJECTION POINT: xrGame.dll+24E55E
+
+xrGame.dll+24E4E2: 8B 7E 08  - mov edi,[esi+08]
+xrGame.dll+24E4E5: 3B 7E 0C  - cmp edi,[esi+0C]
+xrGame.dll+24E4E8: 74 1D - je 07E0E507
+xrGame.dll+24E4EA: 8D 9B 00000000  - lea ebx,[ebx+00000000]
+xrGame.dll+24E4F0: A1 C4900108 - mov eax,[080190C4]
+xrGame.dll+24E4F5: 8B 08  - mov ecx,[eax]
+xrGame.dll+24E4F7: 8B 11  - mov edx,[ecx]
+xrGame.dll+24E4F9: 8B 42 24  - mov eax,[edx+24]
+xrGame.dll+24E4FC: 57 - push edi
+xrGame.dll+24E4FD: FF D0  - call eax
+xrGame.dll+24E4FF: 83 C7 0C - add edi,0C
+xrGame.dll+24E502: 3B 7E 0C  - cmp edi,[esi+0C]
+xrGame.dll+24E505: 75 E9 - jne 07E0E4F0
+xrGame.dll+24E507: 8B 4E 0C  - mov ecx,[esi+0C]
+xrGame.dll+24E50A: 8B 46 08  - mov eax,[esi+08]
+xrGame.dll+24E50D: 3B C1  - cmp eax,ecx
+xrGame.dll+24E50F: 74 32 - je 07E0E543
+xrGame.dll+24E511: C6 44 24 04 00 - mov byte ptr [esp+04],00
+xrGame.dll+24E516: 8B 54 24 04  - mov edx,[esp+04]
+xrGame.dll+24E51A: 52 - push edx
+xrGame.dll+24E51B: 8B 54 24 08  - mov edx,[esp+08]
+xrGame.dll+24E51F: 52 - push edx
+xrGame.dll+24E520: 8B 54 24 0C  - mov edx,[esp+0C]
+xrGame.dll+24E524: 52 - push edx
+xrGame.dll+24E525: 51 - push ecx
+xrGame.dll+24E526: E8 55070000 - call 07E0EC80
+xrGame.dll+24E52B: 8B 4E 0C  - mov ecx,[esi+0C]
+xrGame.dll+24E52E: 8B F8  - mov edi,eax
+xrGame.dll+24E530: 8B 44 24 14  - mov eax,[esp+14]
+xrGame.dll+24E534: 50 - push eax
+xrGame.dll+24E535: 51 - push ecx
+xrGame.dll+24E536: 8B C7  - mov eax,edi
+xrGame.dll+24E538: E8 832CFDFF - call 07DE11C0
+xrGame.dll+24E53D: 83 C4 18 - add esp,18
+xrGame.dll+24E540: 89 7E 0C  - mov [esi+0C],edi
+xrGame.dll+24E543: C7 06 00000000 - mov [esi],00000000
+xrGame.dll+24E549: 5F - pop edi
+xrGame.dll+24E54A: 59 - pop ecx
+xrGame.dll+24E54B: C3 - ret 
+xrGame.dll+24E54C: CC - int 3 
+xrGame.dll+24E54D: CC - int 3 
+xrGame.dll+24E54E: CC - int 3 
+xrGame.dll+24E54F: CC - int 3 
+xrGame.dll+24E550: 83 EC 10 - sub esp,10
+xrGame.dll+24E553: 53 - push ebx
+xrGame.dll+24E554: 57 - push edi
+xrGame.dll+24E555: 8B F9  - mov edi,ecx
+xrGame.dll+24E557: 8A D8  - mov bl,al
+xrGame.dll+24E559: 8B 47 08  - mov eax,[edi+08]
+xrGame.dll+24E55C: 85 C0  - test eax,eax
+// ---------- INJECTING HERE ----------
+xrGame.dll+24E55E: 0F84 F4000000 - je 07E0E658
+// ---------- DONE INJECTING  ----------
+xrGame.dll+24E564: 8B 4F 0C  - mov ecx,[edi+0C]
+xrGame.dll+24E567: 2B C8  - sub ecx,eax
+xrGame.dll+24E569: B8 ABAAAA2A - mov eax,2AAAAAAB
+xrGame.dll+24E56E: F7 E9  - imul ecx
+xrGame.dll+24E570: D1 FA  - sar edx,1
+xrGame.dll+24E572: 8B C2  - mov eax,edx
+xrGame.dll+24E574: C1 E8 1F - shr eax,1F
+xrGame.dll+24E577: 03 C2  - add eax,edx
+xrGame.dll+24E579: 0F84 D9000000 - je 07E0E658
+xrGame.dll+24E57F: C7 07 00000000 - mov [edi],00000000
+xrGame.dll+24E585: E8 D6000000 - call 07E0E660
+xrGame.dll+24E58A: F6 DB  - neg bl
+xrGame.dll+24E58C: 1B DB  - sbb ebx,ebx
+xrGame.dll+24E58E: 83 E3 02 - and ebx,02
+xrGame.dll+24E591: 80 7C 24 24 00 - cmp byte ptr [esp+24],00
+xrGame.dll+24E596: 74 03 - je 07E0E59B
+xrGame.dll+24E598: 83 CB 01 - or ebx,01
+xrGame.dll+24E59B: 8B 47 08  - mov eax,[edi+08]
+xrGame.dll+24E59E: 85 C0  - test eax,eax
+xrGame.dll+24E5A0: 56 - push esi
+xrGame.dll+24E5A1: 75 04 - jne 07E0E5A7
+xrGame.dll+24E5A3: 33 F6  - xor esi,esi
+xrGame.dll+24E5A5: EB 15 - jmp 07E0E5BC
+xrGame.dll+24E5A7: 8B 4F 0C  - mov ecx,[edi+0C]
+xrGame.dll+24E5AA: 2B C8  - sub ecx,eax
+xrGame.dll+24E5AC: B8 ABAAAA2A - mov eax,2AAAAAAB
+xrGame.dll+24E5B1: F7 E9  - imul ecx
+xrGame.dll+24E5B3: D1 FA  - sar edx,1
+xrGame.dll+24E5B5: 8B F2  - mov esi,edx
+xrGame.dll+24E5B7: C1 EE 1F - shr esi,1F
+xrGame.dll+24E5BA: 03 F2  - add esi,edx
+xrGame.dll+24E5BC: A1 DC8D0108 - mov eax,[08018DDC]
+xrGame.dll+24E5C1: E8 FADCDBFF - call 07BCC2C0
+xrGame.dll+24E5C6: 99 - cdq 
+xrGame.dll+24E5C7: F7 FE  - idiv esi
+xrGame.dll+24E5C9: F6 C3 02 - test bl,02
+xrGame.dll+24E5CC: 8D 0C 52   - lea ecx,[edx+edx*2]
+xrGame.dll+24E5CF: 8B 57 08  - mov edx,[edi+08]
+xrGame.dll+24E5D2: 8D 04 8A   - lea eax,[edx+ecx*4]
+xrGame.dll+24E5D5: 89 07  - mov [edi],eax
+xrGame.dll+24E5D7: 74 29 - je 07E0E602
+xrGame.dll+24E5D9: 0F57 C0  - xorps xmm0,xmm0
+xrGame.dll+24E5DC: 33 C9  - xor ecx,ecx
+xrGame.dll+24E5DE: 89 4C 24 10  - mov [esp+10],ecx
+xrGame.dll+24E5E2: 89 4C 24 14  - mov [esp+14],ecx
+xrGame.dll+24E5E6: 89 4C 24 18  - mov [esp+18],ecx
+xrGame.dll+24E5EA: F3 0F11 44 24 10  - movss [esp+10],xmm0
+xrGame.dll+24E5F0: F3 0F11 44 24 14  - movss [esp+14],xmm0
+xrGame.dll+24E5F6: F3 0F11 44 24 18  - movss [esp+18],xmm0
+xrGame.dll+24E5FC: 8D 74 24 10  - lea esi,[esp+10]
+}
+</AssemblerScript>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+</CheatTable>

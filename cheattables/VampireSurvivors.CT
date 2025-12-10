@@ -1,0 +1,1416 @@
+<?xml version="1.0" encoding="utf-8"?><CheatTable CheatEngineTableVersion="45"><Forms><CETrainer Class="TTrainerForm" Encoding="Ascii85">=N-f=,e8$f+iHP@B@CXkC*iU{wCZX;LYy7PX)B;w#a]MXQ8BS6iIs@b8c#Ocp8Dr.KxnTB@}68Gm7bUn$4.]lNO0hUa;#tW-}8U2-,Rwr,W@F2?9b[IQ/(w5[6S^Co=p*H4AGS7gJ!Fbve{(Je+iruEB)CDe37MWuD?.@xe3cIkVkSx2^s)J6P)AL@EeJhh6h)HBYCUFyX*Z$/+Y).*O-tO1i6Pvfec(z?y%pmhNQ;?jPcQmL/vPG[qYk7[Rt%ChiD.gFupt$zcb+)o+%7n#]pm%?/V@?#:%(,p^4s=Xh1okH32ZWSqO84ZU1FFc0,gM50w$P#VBpMIGg203u1B3=w_^V2RZlAuqGEnvOyH3YBgB1z16:9f_i.woCGvQRBM1Xr^%2,MwXp5V/g^:uA--v@tAi)VSd{v][Yc)WD].{%]Qz#QeE.p43oh!dR,:P9U=BW9QE%JOgPU3cUT@yOYW0gj/UB%YdDI+=wKA.(=B_n:Nz!$fl[tCNbrk!#!y?BcgaSX-nqKE0?j$U@EAt6FEzUwztU[,]6](?rum$bO@=gUZ1+T!q9Wu{P)t!ld.CD5x[P#QLK?Kup.Z3}90{7NN!G.{CCqf;5T)k4dvfOEY^iu(NjeFxh=mc4Lfj!7duh6BMueeN$,,oG$eKxwa$Op;oGOi0Zw3rLj2Ky2N;qa-oT296TlcxY_6uyBN;AGM!D/3Z4o1W%V#%BX0XycxCzw.aw7tIX#!^e/,(q}R^yr%Z)5KrR,_ls.gCk.KSg?eV$%pke:TZSQgALd5C-vr7Fh1CRaJYSd^kYy(3zfa(4TH$vRdJP;?Ar}S^^TMj6Z+Dv9?5j0M@miwyl4BX,7E]huyC4i!9iMZA,Qa(kn}KrP(7cP[K3Z}$Y?Q95y^bhO8(fGmp+^^eKq.2LpVX$:=C#Q^.Q$e,13hsn}ZJgg/U?FlS*CYK4A.:#t9,i:u)6xs1fgV^m2@,!gvsjc3^),VLz;5^ppnJ^Q$Pb#e+PgNx[]yF]Q_Q8,kr0qx}l@JYg}7GPXnkNVdt_MN[!O%/_KWZB(@mU1:S.n4RS7C8Ak!^LJa1BB7b0[1V*d]W)vkaC}/9*iKL;7XSY4ov._Km)Oekfn{L)=@w!{=:9I]ATKFqyBzX8#i@O#F*y#8#wifX=!!XR/0*b}e9S#b785:;2+ejM5ZaA[7,nuU/KG41/kmp(CUqEylm99Z+Zav%Cf-[2;Vk7=HBl_*[Ka5+/KeaagOZ]XHhuy7J=.Irr#///r}R^?R#n8Z7S:WJrtYS]ysGZD@95E[KYgdWfxiF</CETrainer></Forms><CheatEntries><CheatEntry><ID>1</ID><Description>"Basic"</Description><Options moHideChildren="1" /><Color>000080</Color><GroupHeader>1</GroupHeader><CheatEntries><CheatEntry><ID>2</ID><Description>"Compact Mode"</Description><Color>000080</Color><VariableType>Auto Assembler Script</VariableType><AssemblerScript>[ENABLE]
+{$lua}
+if syntaxcheck then return end
+
+function Routine(sender,force)
+  local state = not(mi.Caption == 'Compact')
+  local mf = getMainForm()
+  if force ~= nil then state = not force end
+  mi.Caption = state and 'Compact' or 'Full View'
+  mf.Splitter1.Visible = state
+  mf.Panel4.Visible    = state
+  mf.Panel5.Visible    = state
+end
+
+function Compact()
+  if CV_Exists then return end
+  local parent = getMainForm().Menu.Items
+  mi = createMenuItem(parent); parent.add(mi)
+  mi.Caption = 'Compact'
+  mi.OnClick = Routine
+  CV_Exists = 'yes'
+end
+
+Compact()
+Routine(nil,true)
+
+[DISABLE]
+{$lua}
+if not syntaxcheck then Routine(nil,false) end
+</AssemblerScript></CheatEntry><CheatEntry><ID>3</ID><Description>"Attach to Process"</Description><Color>000080</Color><VariableType>Auto Assembler Script</VariableType><AssemblerScript>[ENABLE]
+{$lua}
+if syntaxcheck then return end
+
+function Attach_mono()
+  local PID = getOpenedProcessID()
+  local GP = "VampireSurvivors.exe"
+  local TPID = getProcessIDFromProcessName(GP)
+
+  if PID ~= TPID then
+    if TPID ~= nil then
+      openProcess(TPID)
+       mono_initialize()
+       LaunchMonoDataCollector()
+    else
+      showMessage("Failed to find process: " .. GP)
+    end
+  end
+end
+
+Attach_mono()
+{$asm}
+
+[DISABLE]
+</AssemblerScript></CheatEntry><CheatEntry><ID>4</ID><Description>"Open Game Folder"</Description><Color>000080</Color><VariableType>Auto Assembler Script</VariableType><AssemblerScript>[ENABLE]
+{$lua}
+if syntaxcheck then return end
+
+function OpenFolder(Path)                                                               -- Open the folder at fiven path in the Windows Explorer
+    local Command = "explorer \"" .. Path .. "\""
+    os.execute(Command)
+end
+
+local Process_Path = enumModules()[1].PathToFile                                        -- Get the path of first module in attached process
+
+function Get_Path(Path)                                                                 -- Extract the directory path from the given file path
+  local Temporary_Path = Path
+  if Temporary_Path == nil then return end
+  for Directory in Temporary_Path:gmatch('(.-)([^\\]-([^%.]+))$') do                    -- The pattern is used to match the directory path at the beginning of the string up to the last occurrence of a path separator
+    return Directory
+  end
+end
+
+local Default_Path = Get_Path(Process_Path) .. ''
+
+local Reaction = messageDialog("Open the game folder?", mtConfirmation, mbYes, mbNo )   -- Display message box asking the user if they want to open the game folder
+
+if Reaction == mrYes then
+  if Default_Path:find("Cheat Engine") then                                             -- Find to check if the substring Cheat Engine exists in the string
+    messageDialog("Must be attached to the target process.",mtError,mbOK)               -- If the above checks are caught, send out a warning
+  else
+    OpenFolder(Default_Path)
+  end
+end
+
+return 'nop'
+
+[DISABLE]
+</AssemblerScript></CheatEntry><CheatEntry><ID>5</ID><Description>"Disable All Hotkeys"</Description><Color>000080</Color><VariableType>Auto Assembler Script</VariableType><AssemblerScript>[ENABLE]
+{$lua}
+getHotkeyHandlerThread().State='htsDisabled'
+
+[DISABLE]
+{$lua}
+getHotkeyHandlerThread().State='htsActive'
+</AssemblerScript></CheatEntry><CheatEntry><ID>6</ID><Description>"Deactivate All Scripts"</Description><Color>000080</Color><VariableType>Auto Assembler Script</VariableType><AssemblerScript>[ENABLE]
+{$lua}
+if syntaxcheck then return end
+
+function Disable_All()
+  local al = AddressList
+    for i = 0, al.Count - 1 do
+      if al[i].Type == vtAutoAssembler then
+         al[i].Active = false
+      end
+    end
+end
+
+Disable_All()
+return 'nop'
+
+[DISABLE]
+</AssemblerScript></CheatEntry><CheatEntry><ID>7</ID><Description>"Check Path and Version"</Description><Color>000080</Color><VariableType>Auto Assembler Script</VariableType><AssemblerScript>[ENABLE]
+{$lua}
+if readInteger(process) == nil or syntaxcheck then return end
+
+local Path = enumModules()[1].PathToFile
+Version,Check = getFileVersion(Path)
+
+messageDialog('Path = '..Path..'\n\nVersion = '..Check.major..'.'..Check.minor..'.'..Check.release..'.'..Check.build)
+
+return 'nop'
+
+[DISABLE]
+{$lua}
+</AssemblerScript></CheatEntry><CheatEntry><ID>8</ID><Description>"Close All/Exclude scripts"</Description><Color>000080</Color><VariableType>Auto Assembler Script</VariableType><AssemblerScript>[ENABLE]
+{$lua}
+if syntaxcheck then return end
+
+function Close_All()
+  local al = AddressList
+    for i = 0, al.Count - 1 do
+        if al[i].Type ~= vtAutoAssembler then
+           al[i].Active = false
+           al[i].Collapsed = true
+        end
+    end
+end
+
+Close_All()
+return 'nop'
+
+[DISABLE]
+</AssemblerScript></CheatEntry><CheatEntry><ID>9</ID><Description>"Favorite script activator/See description in script"</Description><Color>000080</Color><VariableType>Auto Assembler Script</VariableType><AssemblerScript>[ENABLE]
+{$lua}
+if syntaxcheck then return end
+
+local DE = AddressList.getMemoryRecordByDescription
+
+DE("").Active = true
+DE("").Active = true
+DE("").Active = true
+DE("").Active = true
+DE("").Active = true
+DE("").Active = true
+DE("").Active = true
+DE("").Active = true
+DE("").Active = true
+DE("").Active = true
+
+--DE("Description").Active = true
+
+[DISABLE]
+{$lua}
+if syntaxcheck then return end
+
+local DE = AddressList.getMemoryRecordByDescription
+
+DE("").Active = false
+DE("").Active = false
+DE("").Active = false
+DE("").Active = false
+DE("").Active = false
+DE("").Active = false
+DE("").Active = false
+DE("").Active = false
+DE("").Active = false
+DE("").Active = false
+
+--DE("Description").Active = false
+
+--[[
+ON:true　OFF:false
+Insert Description of the script in parentheses.
+Increase what you have here if you need it, decrease it if you don't need it.
+--]]
+</AssemblerScript></CheatEntry><CheatEntry><ID>10</ID><Description>"Speed back to default　　　　Alt +Num Del"</Description><Color>000080</Color><VariableType>Auto Assembler Script</VariableType><AssemblerScript>[ENABLE]
+{$lua}
+if syntaxcheck then return end
+
+speedhack_setSpeed(1.0)
+return 'nop'
+
+[DISABLE]
+</AssemblerScript><Hotkeys><Hotkey><Action>Toggle Activation</Action><Keys><Key>18</Key><Key>46</Key></Keys><ID>11</ID><ActivateSound>Activate</ActivateSound><DeactivateSound>Deactivate</DeactivateSound></Hotkey></Hotkeys></CheatEntry><CheatEntry><ID>12</ID><Description>"Speed +0.25 with each press　 Alt +Num +"</Description><Color>000080</Color><VariableType>Auto Assembler Script</VariableType><AssemblerScript>[ENABLE]
+{$lua}
+if syntaxcheck then return end
+
+speedhack_setSpeed(speedhack_getSpeed()+0.25)
+return 'nop'
+
+[DISABLE]
+</AssemblerScript><Hotkeys><Hotkey><Action>Toggle Activation</Action><Keys><Key>18</Key><Key>107</Key></Keys><ID>13</ID><ActivateSound>Activate</ActivateSound><DeactivateSound>Deactivate</DeactivateSound></Hotkey></Hotkeys></CheatEntry><CheatEntry><ID>14</ID><Description>"Speed  -0.25 with each press　 Alt +Num -"</Description><Color>000080</Color><VariableType>Auto Assembler Script</VariableType><AssemblerScript>[ENABLE]
+{$lua}
+if syntaxcheck then return end
+
+speedhack_setSpeed(speedhack_getSpeed()-0.25)
+return 'nop'
+
+[DISABLE]
+</AssemblerScript><Hotkeys><Hotkey><Action>Toggle Activation</Action><Keys><Key>18</Key><Key>109</Key></Keys><ID>15</ID><ActivateSound>Activate</ActivateSound><DeactivateSound>Deactivate</DeactivateSound></Hotkey></Hotkeys></CheatEntry><CheatEntry><ID>16</ID><Description>"Access to My table list"</Description><Color>000080</Color><VariableType>Auto Assembler Script</VariableType><AssemblerScript>[ENABLE]
+{$lua}
+if syntaxcheck then return end
+
+ShellExecute('https://fearlessrevolution.com/search.php?sr=topics&amp;author_id=133392&amp;sf=firstpost')
+return 'nop'
+[DISABLE]
+</AssemblerScript></CheatEntry><CheatEntry><ID>17</ID><Description>"Cheat Table Options Counter"</Description><Options moHideChildren="1" /><Color>000080</Color><GroupHeader>1</GroupHeader><CheatEntries><CheatEntry><ID>18</ID><Description>"Total Counter"</Description><Color>000080</Color><VariableType>Auto Assembler Script</VariableType><AssemblerScript>[ENABLE]
+{$lua}
+if syntaxcheck then return end
+
+function TableOptionsCounter()
+  local al = AddressList
+  local _Record,_Hotkey,_Header = 0, 0, 0
+  local _Script,_Total = 0, al.count
+        for i = 0, al.Count -1 do
+            if  al[i].Type == vtAutoAssembler then
+                _Script = _Script +1
+            end
+            if  al[i].Type ~= vtAutoAssembler and
+                al[i].IsGroupHeader == false then
+			   _Record = _Record +1
+            end
+            if al[i].Type ~= vtAutoAssembler and
+               al[i].IsGroupHeader == true then
+			   _Header = _Header +1
+            end
+            if al[i].HotkeyCount &gt; 0 then
+               _Hotkey = _Hotkey +1
+            end
+        end
+        showMessage('Script      '.._Script..
+                    '\nHeader   '.._Header..
+                    '\nRecord    '.._Record..
+                    '\n\nTotal        '.._Total..
+                    '\n\nHotkey    '.._Hotkey)
+end
+
+TableOptionsCounter()
+return 'nop'
+
+[DISABLE]
+</AssemblerScript></CheatEntry><CheatEntry><ID>19</ID><Description>"Options type counter"</Description><Color>000080</Color><VariableType>Auto Assembler Script</VariableType><AssemblerScript>[ENABLE]
+{$lua}
+if syntaxcheck then return end
+
+function OptionsTypeCounter()
+  local al = AddressList
+  local _Byte,_Word,_Dword,_Qword = 			 	   0, 0, 0, 0
+  local _Single,_Double,_String,_UnicodeString =       0, 0, 0, 0
+  local _ByteArray,_Binary,_All,_Pointer = 		       0, 0, 0, 0
+  local _Custom,_Grouped,_ByteArrays,_CodePageString = 0, 0, 0, 0
+  local _AutoAssembler,_Header,_Total =                0, 0, al.count
+        for i = 0, al.Count -1 do
+            if  al[i].Type == 0x00 and al[i].IsGroupHeader == false then _Byte =  _Byte +1           end
+            if  al[i].Type == 0x01 then _Word =                                   _Word +1           end
+            if  al[i].Type == 0x02 then _Dword =                                  _Dword +1          end
+            if  al[i].Type == 0x03 then _Qword =                                  _Qword +1          end
+            if  al[i].Type == 0x04 then _Single =                                 _Single +1         end
+            if  al[i].Type == 0x05 then _Double =                                 _Double +1         end
+            if  al[i].Type == 0x06 then _String =                                 _String +1         end
+            if  al[i].Type == 0x07 then _UnicodeString =                          _UnicodeString +1  end
+            if  al[i].Type == 0x08 then _ByteArray =                              _ByteArray +1      end
+            if  al[i].Type == 0x09 then _Binary =                                 _Binary +1         end
+            if  al[i].Type == 0x0A then _All =                                    _All +1            end
+            if  al[i].Type == 0x0B then _AutoAssembler =                          _AutoAssembler +1  end
+            if  al[i].Type == 0x0C then _Pointer =                                _Pointer +1        end
+            if  al[i].Type == 0x0D then _Custom =                                 _Custom +1         end
+            if  al[i].Type == 0x0E then _Grouped =                                _Grouped +1        end
+            if  al[i].Type == 0x0F then _ByteArrays =                             _ByteArrays +1     end
+            if  al[i].Type == 0x10 then _CodePageString =                         _CodePageString +1 end
+            if  al[i].Type == 0x00 and al[i].IsGroupHeader == true then _Header = _Header +1         end
+        end
+        showMessage('Byte     　  　　  '.._Byte..'\nWord　   　　　'.._Word..'\nDword   　  　　'.._Dword..'\nQword        　　 '.._Qword..'\nSingle     　　　 '.._Single..'\nDouble    　　　'.._Double..'\nString 　　　　 '.._String..'\nUnicodeString    '.._UnicodeString..'\nByteArray　　    '.._ByteArray..'\nBinary    　　　  '.._Binary..'\nAll 　　　　　   '.._All..'\nPointer  　　　  '.._Pointer..'\nCustom   　　　 '.._Custom..'\nGrouped   　　   '.._Grouped..'\nByteArrays           '.._ByteArrays..'\nCodePageString  '.._CodePageString..'\nAutoAssembler   '.._AutoAssembler..'\nHeader     　　　'.._Header..'\nTotal    　　　　  '.._Total)
+end
+
+OptionsTypeCounter()
+return 'nop'
+
+[DISABLE]
+</AssemblerScript></CheatEntry><CheatEntry><ID>20</ID><Description>""</Description><GroupHeader>1</GroupHeader></CheatEntry><CheatEntry><ID>21</ID><Description>"Set Start and End ID/Need to attach to any process"</Description><Color>000080</Color><VariableType>Auto Assembler Script</VariableType><AssemblerScript>[ENABLE]
+{$lua}
+if readInteger(process) == nil or syntaxcheck then return end
+
+local StartID = allocateMemory(4)
+local EndID = allocateMemory(4)
+registerSymbol("Start_ID", StartID)
+registerSymbol("End_ID", EndID)
+
+local al = getAddressList()
+local Count = 0
+
+function CheckParent()
+    for i = 0, al.Count - 1 do
+        if al[i].Description == "DropdownList" then
+            ParentNum = al[i]
+        end
+    end
+end
+
+function createSERecords(Header, Address, Description, Type)
+    local mr = al.createMemoryRecord()
+    mr.appendToEntry(Header)
+    mr.Address = Address
+    mr.Description = Description
+    mr.Type = Type
+    mr.color = 0x000080
+end
+
+function SetStartEnd()
+    for i = 0, al.Count - 1 do
+        if al[i].Parent == ParentNum then
+            Count = al[i].ID
+        end
+    end
+    createSERecords(memrec, StartID, "Start ID", vtDword)
+    createSERecords(memrec, EndID, "End ID", vtDword)
+    writeInteger(StartID, Count + 0x02)
+    writeInteger(EndID, al.Count)
+end
+
+CheckParent()
+SetStartEnd()
+
+[DISABLE]
+{$lua}
+for i = memrec.count - 1, 0, -1 do memrec.Child[i].destroy() end
+</AssemblerScript></CheatEntry><CheatEntry><ID>22</ID><Description>"Execute"</Description><Color>000080</Color><VariableType>Auto Assembler Script</VariableType><AssemblerScript>[ENABLE]
+{$lua}
+if syntaxcheck then return end
+
+function TableOptionsCounter_2()
+  local al = getAddressList()
+  local StartID = readInteger("Start_ID")
+  local EndID = readInteger("End_ID")
+
+  if StartID == nil then
+    showMessage("Set IDs before executing")
+    return
+  end
+
+  local Total = EndID - StartID + 1
+  local _Record, _Hotkey, _Header, _Script = 0, 0, 0, 0
+
+  for i = 0, al.Count - 1 do
+    local Num = al[i]
+    if Num.ID &gt;= StartID and Num.ID &lt;= EndID then
+      if Num.Type == vtAutoAssembler then
+        _Script = _Script + 1
+      elseif not Num.IsGroupHeader then
+        _Record = _Record + 1
+      elseif Num.IsGroupHeader then
+        _Header = _Header + 1
+      end
+
+      if Num.HotkeyCount &gt; 0 then
+        _Hotkey = _Hotkey + 1
+      end
+    end
+  end
+
+  showMessage('Script      '.._Script..
+              '\nHeader   '.._Header..
+              '\nRecord    '.._Record..
+              '\n\nTotal        '..Total..
+              '\n\nHotkey    '.._Hotkey)
+end
+
+TableOptionsCounter_2()
+return 'nop'
+
+[DISABLE]
+</AssemblerScript></CheatEntry><CheatEntry><ID>23</ID><Description>""</Description><GroupHeader>1</GroupHeader></CheatEntry><CheatEntry><ID>24</ID><Description>"Index ID sort/If ID is wrong, run it again"</Description><Color>000080</Color><VariableType>Auto Assembler Script</VariableType><AssemblerScript>[ENABLE]
+{$lua}
+if syntaxcheck then return end
+
+function Index_ID_Sort()
+  local al = AddressList
+  local count = 0
+    for i = 0, al.Count -1 do
+        if al[i].Type ~= nil then
+           count = count +1
+           al[i].ID = count
+        end
+    end
+end
+
+Index_ID_Sort()
+return 'nop'
+
+[DISABLE]
+</AssemblerScript></CheatEntry></CheatEntries></CheatEntry><CheatEntry><ID>25</ID><Description>"Author is Raynard/FearlessRevolution"</Description><Options moAlwaysHideChildren="1" moManualExpandCollapse="1" /><Color>000080</Color><GroupHeader>1</GroupHeader><CheatEntries><CheatEntry><ID>26</ID><Description>"DropdownList"</Description><Options moHideChildren="1" /><Color>000080</Color><GroupHeader>1</GroupHeader><CheatEntries><CheatEntry><ID>27</ID><Description>"DropdownList.Sample"</Description><Color>000080</Color><GroupHeader>1</GroupHeader></CheatEntry></CheatEntries></CheatEntry><CheatEntry><ID>28</ID><Description>"If you think this is good, give me Rep as it motivate me,Thank you."</Description><Color>000080</Color><GroupHeader>1</GroupHeader></CheatEntry></CheatEntries></CheatEntry></CheatEntries></CheatEntry><CheatEntry><ID>29</ID><Description>"Data"</Description><Options moHideChildren="1" /><Color>008000</Color><GroupHeader>1</GroupHeader><CheatEntries><CheatEntry><ID>30</ID><Description>"Elapsed Time"</Description><Options moHideChildren="1" /><Color>008000</Color><VariableType>Auto Assembler Script</VariableType><AssemblerScript>{
+Author	: Raynald
+Date	: 2023-04-15
+Game	: VampireSurvivors.exe
+Version	: 2021.3.18.10726
+}
+
+[ENABLE]
+aobscanregion(VT,VampireSurvivors.Framework.GameManager.OnUpdate,VampireSurvivors.Framework.GameManager.OnUpdate+1000,F3??????????????488B??????????488B??????????83????????????75??E8????????80????????????75??488D??????????E8????????C6????????????488B??????????83????????????75??E8????????80????????????75??488D??????????E8????????C6????????????4885??0F84????????488B??????????83????????????75??E8????????80????????????75??488D??????????E8????????C6????????????488B??????????488B??????????488B??4839????74??488B??????????4885??0F84)
+alloc(al_VT,$128,VT)
+alloc(mem_VT,8)
+alloc(VT_Pointer,8)
+label(re_VT)
+registersymbol(VT mem_VT VT_Pointer)
+
+mem_VT:
+  readmem(VT,8)
+
+VT_Pointer:
+dq
+
+al_VT:
+  mov [VT_Pointer],rbx
+  readmem(VT,8)
+  jmp re_VT
+
+VT:
+  jmp al_VT
+  nop 3
+re_VT:
+
+[DISABLE]
+VT:
+  readmem(mem_VT,8)
+
+dealloc(*)
+unregistersymbol(*)
+</AssemblerScript><CheatEntries><CheatEntry><ID>31</ID><Description>"Value"</Description><ShowAsSigned>0</ShowAsSigned><Color>008000</Color><VariableType>Float</VariableType><Address>VT_Pointer</Address><Offsets><Offset>230</Offset></Offsets></CheatEntry></CheatEntries></CheatEntry><CheatEntry><ID>32</ID><Description>"Player Data/Need to start stage"</Description><Options moHideChildren="1" /><Color>008000</Color><VariableType>Auto Assembler Script</VariableType><AssemblerScript>{
+Author	: Raynald
+Date	: 2023-04-14
+Game	: VampireSurvivors.exe
+Version	: 2021.3.18.10726
+}
+
+[ENABLE]
+aobscanregion(PlayData,VampireSurvivors.UI.Player.HealthBar.Update,VampireSurvivors.UI.Player.HealthBar.Update+1000,488B??????????4885??74??F3????????0F57??0F2E??7A??74??F3??????????????F3??????4D)
+alloc(al_PlayData,$128,PlayData)
+alloc(mem_PlayData,7)
+alloc(PlayData_Pointer1,8)
+alloc(PlayData_Pointer2,8)
+label(re_PlayData)
+registersymbol(PlayData mem_PlayData PlayData_Pointer1 PlayData_Pointer2)
+
+mem_PlayData:
+  readmem(PlayData,7)
+
+PlayData_Pointer1:
+dq
+
+PlayData_Pointer2:
+dq
+
+al_PlayData:
+  readmem(PlayData,7)
+  mov [PlayData_Pointer1],rax
+  mov [PlayData_Pointer2],rdx
+  jmp re_PlayData
+
+PlayData:
+  jmp al_PlayData
+  nop 2
+re_PlayData:
+
+[DISABLE]
+PlayData:
+  readmem(mem_PlayData,7)
+
+dealloc(*)
+unregistersymbol(*)
+</AssemblerScript><CheatEntries><CheatEntry><ID>33</ID><Description>"Stats Base"</Description><Options moAlwaysHideChildren="1" moManualExpandCollapse="1" /><ShowAsSigned>0</ShowAsSigned><Color>008000</Color><GroupHeader>1</GroupHeader><Address>PlayData_Pointer1</Address><Offsets><Offset>0</Offset></Offsets><CheatEntries><CheatEntry><ID>34</ID><Description>"Power"</Description><Color>008000</Color><VariableType>Float</VariableType><Address>+10</Address></CheatEntry><CheatEntry><ID>35</ID><Description>"Area"</Description><Color>008000</Color><VariableType>Float</VariableType><Address>+14</Address></CheatEntry><CheatEntry><ID>36</ID><Description>"Attack Speed"</Description><Color>008000</Color><VariableType>Float</VariableType><Address>+18</Address></CheatEntry><CheatEntry><ID>37</ID><Description>"MoveSpeed"</Description><Color>008000</Color><VariableType>Float</VariableType><Address>+1C</Address></CheatEntry><CheatEntry><ID>38</ID><Description>"Growth"</Description><Color>008000</Color><VariableType>Float</VariableType><Address>+20</Address></CheatEntry><CheatEntry><ID>39</ID><Description>"Luck"</Description><Color>008000</Color><VariableType>Float</VariableType><Address>+24</Address></CheatEntry><CheatEntry><ID>40</ID><Description>"Duration"</Description><Color>008000</Color><VariableType>Float</VariableType><Address>+28</Address></CheatEntry><CheatEntry><ID>41</ID><Description>"Cooldown"</Description><Color>008000</Color><VariableType>Float</VariableType><Address>+2C</Address></CheatEntry><CheatEntry><ID>42</ID><Description>"Amount"</Description><Color>008000</Color><VariableType>Float</VariableType><Address>+30</Address></CheatEntry><CheatEntry><ID>43</ID><Description>"Shields"</Description><Color>008000</Color><VariableType>Float</VariableType><Address>+34</Address></CheatEntry><CheatEntry><ID>44</ID><Description>"Armor"</Description><Color>008000</Color><VariableType>Float</VariableType><Address>+38</Address></CheatEntry><CheatEntry><ID>45</ID><Description>"Greed"</Description><Color>008000</Color><VariableType>Float</VariableType><Address>+3C</Address></CheatEntry><CheatEntry><ID>46</ID><Description>"Regen"</Description><Color>008000</Color><VariableType>Float</VariableType><Address>+40</Address></CheatEntry><CheatEntry><ID>47</ID><Description>"Revivals"</Description><Color>008000</Color><VariableType>Double</VariableType><Address>+48</Address></CheatEntry><CheatEntry><ID>48</ID><Description>"Rerolls"</Description><Color>008000</Color><VariableType>Float</VariableType><Address>+50</Address></CheatEntry><CheatEntry><ID>49</ID><Description>"Skips"</Description><Color>008000</Color><VariableType>Float</VariableType><Address>+54</Address></CheatEntry><CheatEntry><ID>50</ID><Description>"MaxHP"</Description><Color>008000</Color><VariableType>Float</VariableType><Address>+58</Address></CheatEntry><CheatEntry><ID>51</ID><Description>"Magnet"</Description><Color>008000</Color><VariableType>Float</VariableType><Address>+5C</Address></CheatEntry><CheatEntry><ID>52</ID><Description>"Curse"</Description><Color>008000</Color><VariableType>Float</VariableType><Address>+60</Address></CheatEntry><CheatEntry><ID>53</ID><Description>"Banish"</Description><Color>008000</Color><VariableType>Float</VariableType><Address>+64</Address></CheatEntry><CheatEntry><ID>54</ID><Description>"Shroud"</Description><Color>008000</Color><VariableType>Float</VariableType><Address>+68</Address></CheatEntry><CheatEntry><ID>55</ID><Description>"Charm"</Description><Color>008000</Color><VariableType>4 Bytes</VariableType><Address>+6C</Address></CheatEntry><CheatEntry><ID>56</ID><Description>""</Description><GroupHeader>1</GroupHeader></CheatEntry><CheatEntry><ID>57</ID><Description>"No Cooldown"</Description><Color>008000</Color><VariableType>Auto Assembler Script</VariableType><AssemblerScript>[ENABLE]
+
+[PlayData_Pointer1]+2C://Cooldown
+dd (float)0
+
+[DISABLE]
+</AssemblerScript></CheatEntry><CheatEntry><ID>58</ID><Description>"Increase Luck"</Description><Color>008000</Color><VariableType>Auto Assembler Script</VariableType><AssemblerScript>[ENABLE]
+
+[PlayData_Pointer1]+24://Luck
+dd (float)999999
+
+[DISABLE]
+</AssemblerScript></CheatEntry><CheatEntry><ID>59</ID><Description>"Increase Power"</Description><Color>008000</Color><VariableType>Auto Assembler Script</VariableType><AssemblerScript>[ENABLE]
+
+[PlayData_Pointer1]+10://Power
+dd (float)999999
+
+[DISABLE]
+</AssemblerScript></CheatEntry><CheatEntry><ID>60</ID><Description>"Increase MaxHP"</Description><Color>008000</Color><VariableType>Auto Assembler Script</VariableType><AssemblerScript>[ENABLE]
+
+[PlayData_Pointer1]+58://MaxHP
+dd (float)999999
+
+[DISABLE]
+</AssemblerScript></CheatEntry><CheatEntry><ID>61</ID><Description>"Increase Growth"</Description><Color>008000</Color><VariableType>Auto Assembler Script</VariableType><AssemblerScript>[ENABLE]
+
+[PlayData_Pointer1]+20://Growth
+dd (float)9
+
+[DISABLE]
+</AssemblerScript></CheatEntry><CheatEntry><ID>62</ID><Description>"Increase Amount"</Description><Color>008000</Color><VariableType>Auto Assembler Script</VariableType><AssemblerScript>[ENABLE]
+
+[PlayData_Pointer1]+30://Amount
+dd (float)9
+
+[DISABLE]
+</AssemblerScript></CheatEntry><CheatEntry><ID>63</ID><Description>"Increase MoveSpeed"</Description><Color>008000</Color><VariableType>Auto Assembler Script</VariableType><AssemblerScript>[ENABLE]
+
+[PlayData_Pointer1]+1C://MoveSpeed
+dd (float)9
+
+[DISABLE]
+</AssemblerScript></CheatEntry><CheatEntry><ID>64</ID><Description>"Increase Reroll Skip Banish"</Description><Color>008000</Color><VariableType>Auto Assembler Script</VariableType><AssemblerScript>[ENABLE]
+
+[PlayData_Pointer1]+50://Rerolls
+dd (float)999
+
+[PlayData_Pointer1]+54://Skips
+dd (float)999
+
+[PlayData_Pointer1]+64://Banish
+dd (float)999
+
+[DISABLE]
+</AssemblerScript></CheatEntry><CheatEntry><ID>65</ID><Description>""</Description><GroupHeader>1</GroupHeader></CheatEntry><CheatEntry><ID>66</ID><Description>"Maximize All/Become Crazy"</Description><Color>008000</Color><VariableType>Auto Assembler Script</VariableType><AssemblerScript>[ENABLE]
+
+[PlayData_Pointer1]+10://Power
+dd (float)999999
+
+[PlayData_Pointer1]+14://Area
+dd (float)9
+
+[PlayData_Pointer1]+18://Speed
+dd (float)99
+
+[PlayData_Pointer1]+1C://MoveSpeed
+dd (float)9
+
+[PlayData_Pointer1]+20://Growth
+dd (float)9
+
+[PlayData_Pointer1]+24://Luck
+dd (float)999999
+
+[PlayData_Pointer1]+28://Duration
+dd (float)9
+
+[PlayData_Pointer1]+2C://Cooldown
+dd (float)0
+
+[PlayData_Pointer1]+30://Amount
+dd (float)9
+
+[PlayData_Pointer1]+34://Shields
+dd (float)999999
+
+[PlayData_Pointer1]+38://Armor
+dd (float)999999
+
+[PlayData_Pointer1]+3C://Greed
+dd (float)999999
+
+[PlayData_Pointer1]+40://Regen
+dd (float)999999
+
+[PlayData_Pointer1]+48://Revivals
+db 00 00 00 00 00 38 8F 40
+
+[PlayData_Pointer1]+50://Rerolls
+dd (float)999
+
+[PlayData_Pointer1]+54://Skips
+dd (float)999
+
+[PlayData_Pointer1]+58://MaxHP
+dd (float)999999
+
+[PlayData_Pointer1]+5C://Magnet
+dd (float)9999
+
+[PlayData_Pointer1]+64://Banish
+dd (float)999
+
+[PlayData_Pointer1]+68://Shroud
+dd (float)999
+
+[PlayData_Pointer1]+6C://Charm
+dd #999
+
+[DISABLE]
+</AssemblerScript></CheatEntry></CheatEntries></CheatEntry><CheatEntry><ID>67</ID><Description>"Data Base"</Description><Options moAlwaysHideChildren="1" moManualExpandCollapse="1" /><ShowAsSigned>0</ShowAsSigned><Color>008000</Color><GroupHeader>1</GroupHeader><Address>PlayData_Pointer2</Address><Offsets><Offset>0</Offset></Offsets><CheatEntries><CheatEntry><ID>68</ID><Description>"EXP"</Description><Color>008000</Color><VariableType>Float</VariableType><Address>+16C</Address></CheatEntry><CheatEntry><ID>69</ID><Description>"Level"</Description><Color>008000</Color><VariableType>4 Bytes</VariableType><Address>+15C</Address></CheatEntry><CheatEntry><ID>70</ID><Description>"Can Flip"</Description><DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0:OFF
+1:ON
+</DropDownList><Color>008000</Color><VariableType>Byte</VariableType><Address>+171</Address></CheatEntry><CheatEntry><ID>71</ID><Description>"Current HP"</Description><Color>008000</Color><VariableType>Float</VariableType><Address>+158</Address></CheatEntry><CheatEntry><ID>72</ID><Description>"Character Type"</Description><Color>008000</Color><VariableType>4 Bytes</VariableType><Address>+EC</Address></CheatEntry><CheatEntry><ID>73</ID><Description>"G Fever Multiplier"</Description><Color>008000</Color><VariableType>Float</VariableType><Address>+1AC</Address></CheatEntry><CheatEntry><ID>74</ID><Description>"Shield Invalid Time"</Description><Color>008000</Color><VariableType>Float</VariableType><Address>+174</Address></CheatEntry><CheatEntry><ID>75</ID><Description>"Starting Weapon Type"</Description><Color>008000</Color><VariableType>4 Bytes</VariableType><Address>+E8</Address></CheatEntry><CheatEntry><ID>76</ID><Description>""</Description><GroupHeader>1</GroupHeader></CheatEntry><CheatEntry><ID>77</ID><Description>"On Pause Sent"</Description><Color>008000</Color><VariableType>Byte</VariableType><Address>+18</Address></CheatEntry><CheatEntry><ID>78</ID><Description>"On Resume Sent"</Description><Color>008000</Color><VariableType>Byte</VariableType><Address>+19</Address></CheatEntry><CheatEntry><ID>79</ID><Description>"Visible"</Description><Color>008000</Color><VariableType>Byte</VariableType><Address>+30</Address></CheatEntry><CheatEntry><ID>80</ID><Description>"Ignore Destroy"</Description><Color>008000</Color><VariableType>Byte</VariableType><Address>+31</Address></CheatEntry><CheatEntry><ID>81</ID><Description>"Player ID"</Description><Color>008000</Color><VariableType>4 Bytes</VariableType><Address>+50</Address></CheatEntry><CheatEntry><ID>82</ID><Description>"Receiving Damage"</Description><Color>008000</Color><VariableType>Byte</VariableType><Address>+100</Address></CheatEntry><CheatEntry><ID>83</ID><Description>"Invincibility Timer"</Description><Color>008000</Color><VariableType>Float</VariableType><Address>+104</Address></CheatEntry><CheatEntry><ID>84</ID><Description>"Has Walking Animation"</Description><Color>008000</Color><VariableType>Byte</VariableType><Address>+108</Address></CheatEntry><CheatEntry><ID>85</ID><Description>"Current Direction"</Description><Color>008000</Color><VariableType>4 Bytes</VariableType><Address>+118</Address></CheatEntry><CheatEntry><ID>86</ID><Description>"Current Direction Raw"</Description><Color>008000</Color><VariableType>4 Bytes</VariableType><Address>+120</Address></CheatEntry><CheatEntry><ID>87</ID><Description>"Last Movement Direction"</Description><Color>008000</Color><VariableType>4 Bytes</VariableType><Address>+128</Address></CheatEntry><CheatEntry><ID>88</ID><Description>"Is Slow"</Description><Color>008000</Color><VariableType>Byte</VariableType><Address>+154</Address></CheatEntry><CheatEntry><ID>89</ID><Description>"Walked"</Description><Color>008000</Color><VariableType>Float</VariableType><Address>+160</Address></CheatEntry><CheatEntry><ID>90</ID><Description>"Last Facing Direction"</Description><Color>008000</Color><VariableType>4 Bytes</VariableType><Address>+164</Address></CheatEntry><CheatEntry><ID>91</ID><Description>"Is Anim Forced"</Description><Color>008000</Color><VariableType>Byte</VariableType><Address>+170</Address></CheatEntry><CheatEntry><ID>92</ID><Description>"Is Flipped"</Description><Color>008000</Color><VariableType>Byte</VariableType><Address>+172</Address></CheatEntry><CheatEntry><ID>93</ID><Description>"Slow Time"</Description><Color>008000</Color><VariableType>Float</VariableType><Address>+1A8</Address></CheatEntry><CheatEntry><ID>94</ID><Description>"Is in Final Stage"</Description><Color>008000</Color><VariableType>Byte</VariableType><Address>+1B8</Address></CheatEntry><CheatEntry><ID>95</ID><Description>"Is Dead"</Description><Color>008000</Color><VariableType>Byte</VariableType><Address>+1B9</Address></CheatEntry><CheatEntry><ID>96</ID><Description>"Is Invul"</Description><Color>008000</Color><VariableType>Byte</VariableType><Address>+1BA</Address></CheatEntry><CheatEntry><ID>97</ID><Description>"Is last Breath Enabled"</Description><Color>008000</Color><VariableType>Byte</VariableType><Address>+1BB</Address></CheatEntry><CheatEntry><ID>98</ID><Description>"Has last Breath"</Description><Color>008000</Color><VariableType>Byte</VariableType><Address>+1BC</Address></CheatEntry><CheatEntry><ID>99</ID><Description>""</Description><GroupHeader>1</GroupHeader></CheatEntry><CheatEntry><ID>100</ID><Description>"Initialize Level"</Description><Color>008000</Color><VariableType>Auto Assembler Script</VariableType><AssemblerScript>[ENABLE]
+
+[PlayData_Pointer2]+15C:
+dd 1
+
+[DISABLE]
+</AssemblerScript></CheatEntry></CheatEntries></CheatEntry></CheatEntries></CheatEntry><CheatEntry><ID>101</ID><Description>"Version Data/Open and Close Powerup"</Description><Options moHideChildren="1" /><Color>008000</Color><VariableType>Auto Assembler Script</VariableType><AssemblerScript>{
+Author	: Raynald
+Date	: 2023-04-14
+Game	: VampireSurvivors.exe
+Version	: 2021.3.18.10726
+}
+
+[ENABLE]
+aobscanregion(Version,VampireSurvivors.Framework.Saves.SaveSerializer.Version,VampireSurvivors.Framework.Saves.SaveSerializer.Version+1000,8B????498B??4C????????????4883????48FF??????????E8??????????????????????????????4883????80????????????75??488D??????????E8????????C6????????????488B??????????83????????????75??488B??E8????????488B??????????488B??????????488B????4885??74??F3????????33??4883????E9????????E8????????????????????????????????4883????80????????????75??488D??????????E8????????C6????????????488B??????????83????????????75??488B??E8????????488B??????????488B??????????488B????4885??74??F3????????33)
+alloc(al_Version,$128,Version)
+alloc(mem_Version,6)
+alloc(Version_Pointer,8)
+label(re_Version)
+registersymbol(Version mem_Version Version_Pointer)
+
+mem_Version:
+  readmem(Version,6)
+
+Version_Pointer:
+dq
+
+al_Version:
+  mov [Version_Pointer],rcx
+  readmem(Version,6)
+  jmp re_Version
+
+Version:
+  jmp al_Version
+  nop
+re_Version:
+
+[DISABLE]
+Version:
+  readmem(mem_Version,6)
+
+dealloc(*)
+unregistersymbol(*)
+</AssemblerScript><CheatEntries><CheatEntry><ID>102</ID><Description>"Base"</Description><Options moAlwaysHideChildren="1" moManualExpandCollapse="1" /><ShowAsSigned>0</ShowAsSigned><Color>008000</Color><GroupHeader>1</GroupHeader><Address>Version_Pointer</Address><Offsets><Offset>0</Offset></Offsets><CheatEntries><CheatEntry><ID>103</ID><Description>"Version"</Description><Color>008000</Color><VariableType>4 Bytes</VariableType><Address>+5C</Address></CheatEntry><CheatEntry><ID>104</ID><Description>"Coins"</Description><Color>008000</Color><VariableType>Float</VariableType><Address>+60</Address></CheatEntry><CheatEntry><ID>105</ID><Description>"Lifetime Coins"</Description><Color>008000</Color><VariableType>Float</VariableType><Address>+7C</Address></CheatEntry><CheatEntry><ID>106</ID><Description>"Total Coins"</Description><Color>008000</Color><VariableType>Float</VariableType><Address>+80</Address></CheatEntry><CheatEntry><ID>107</ID><Description>"Beginners Luck"</Description><Color>008000</Color><VariableType>4 Bytes</VariableType><Address>+84</Address></CheatEntry><CheatEntry><ID>108</ID><Description>"Run Fever"</Description><Color>008000</Color><VariableType>Float</VariableType><Address>+88</Address></CheatEntry><CheatEntry><ID>109</ID><Description>"Run Hunger"</Description><Color>008000</Color><VariableType>4 Bytes</VariableType><Address>+8C</Address></CheatEntry><CheatEntry><ID>110</ID><Description>"Lifetime Survived"</Description><Color>008000</Color><VariableType>Float</VariableType><Address>+90</Address></CheatEntry><CheatEntry><ID>111</ID><Description>"Lifetime Heal"</Description><Color>008000</Color><VariableType>Float</VariableType><Address>+94</Address></CheatEntry><CheatEntry><ID>112</ID><Description>"Completed Hurries"</Description><Color>008000</Color><VariableType>4 Bytes</VariableType><Address>+9C</Address></CheatEntry><CheatEntry><ID>113</ID><Description>"Total Egg Count"</Description><Color>008000</Color><VariableType>Float</VariableType><Address>+1C0</Address></CheatEntry><CheatEntry><ID>114</ID><Description>"Sounds Volume"</Description><Color>008000</Color><VariableType>Float</VariableType><Address>+A8</Address></CheatEntry><CheatEntry><ID>115</ID><Description>"Music Volume"</Description><Color>008000</Color><VariableType>Float</VariableType><Address>+AC</Address></CheatEntry><CheatEntry><ID>116</ID><Description>"Sounds Enabled"</Description><DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0:OFF
+1:ON
+</DropDownList><Color>008000</Color><VariableType>Byte</VariableType><Address>+A4</Address></CheatEntry><CheatEntry><ID>117</ID><Description>"Music Enabled"</Description><DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0:OFF
+1:ON
+</DropDownList><Color>008000</Color><VariableType>Byte</VariableType><Address>+A5</Address></CheatEntry><CheatEntry><ID>118</ID><Description>"Flashing VFX Enabled"</Description><DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0:OFF
+1:ON
+</DropDownList><Color>008000</Color><VariableType>Byte</VariableType><Address>+B0</Address></CheatEntry><CheatEntry><ID>119</ID><Description>"Joystick Visible"</Description><DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0:OFF
+1:ON
+</DropDownList><Color>008000</Color><VariableType>Byte</VariableType><Address>+B1</Address></CheatEntry><CheatEntry><ID>120</ID><Description>"Damage Numbers Enabled"</Description><DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0:OFF
+1:ON
+</DropDownList><Color>008000</Color><VariableType>Byte</VariableType><Address>+B9</Address></CheatEntry><CheatEntry><ID>121</ID><Description>"Stream Safe Enabled"</Description><DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0:OFF
+1:ON
+</DropDownList><Color>008000</Color><VariableType>Byte</VariableType><Address>+BA</Address></CheatEntry><CheatEntry><ID>122</ID><Description>"Hide XP Bar"</Description><DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0:OFF
+1:ON
+</DropDownList><Color>008000</Color><VariableType>Byte</VariableType><Address>+BB</Address></CheatEntry></CheatEntries></CheatEntry></CheatEntries></CheatEntry><CheatEntry><ID>123</ID><Description>"Powerup Data/Select Start/reference only"</Description><Options moHideChildren="1" /><Color>008000</Color><VariableType>Auto Assembler Script</VariableType><AssemblerScript>{
+Author	: Raynard
+Date	: 2023-04-21
+Game	: VampireSurvivors.exe
+Version	: 2021.3.18.10726
+}
+
+[ENABLE]
+aobscanregion(Powerup,VampireSurvivors.UI.StatsPanelUI.GetPowerUpStatValue,VampireSurvivors.UI.StatsPanelUI.GetPowerUpStatValue+1000,4863????83????0F87????????418B????????????4903??FF??F3????????E9)
+alloc(al_Powerup,$128,Powerup)
+alloc(mem_Powerup,7)
+alloc(Powerup_Pointer,8)
+label(re_Powerup)
+registersymbol(Powerup mem_Powerup Powerup_Pointer)
+
+mem_Powerup:
+  readmem(Powerup,7)
+
+Powerup_Pointer:
+dq
+
+al_Powerup:
+  mov [Powerup_Pointer],rax
+  readmem(Powerup,7)
+  jmp re_Powerup
+
+Powerup:
+  jmp al_Powerup
+  nop 2
+re_Powerup:
+
+[DISABLE]
+Powerup:
+  readmem(mem_Powerup,7)
+
+dealloc(*)
+unregistersymbol(*)
+</AssemblerScript><CheatEntries><CheatEntry><ID>124</ID><Description>"Base"</Description><Options moAlwaysHideChildren="1" moManualExpandCollapse="1" /><ShowAsSigned>0</ShowAsSigned><Color>008000</Color><GroupHeader>1</GroupHeader><Address>Powerup_Pointer</Address><Offsets><Offset>0</Offset></Offsets><CheatEntries><CheatEntry><ID>125</ID><Description>"Power"</Description><Color>008000</Color><VariableType>Float</VariableType><Address>+10</Address></CheatEntry><CheatEntry><ID>126</ID><Description>"Area"</Description><Color>008000</Color><VariableType>Float</VariableType><Address>+14</Address></CheatEntry><CheatEntry><ID>127</ID><Description>"Attack Speed"</Description><Color>008000</Color><VariableType>Float</VariableType><Address>+18</Address></CheatEntry><CheatEntry><ID>128</ID><Description>"MoveSpeed"</Description><Color>008000</Color><VariableType>Float</VariableType><Address>+1C</Address></CheatEntry><CheatEntry><ID>129</ID><Description>"Growth"</Description><Color>008000</Color><VariableType>Float</VariableType><Address>+20</Address></CheatEntry><CheatEntry><ID>130</ID><Description>"Luck"</Description><Color>008000</Color><VariableType>Float</VariableType><Address>+24</Address></CheatEntry><CheatEntry><ID>131</ID><Description>"Duration"</Description><Color>008000</Color><VariableType>Float</VariableType><Address>+28</Address></CheatEntry><CheatEntry><ID>132</ID><Description>"Cooldown"</Description><Color>008000</Color><VariableType>Float</VariableType><Address>+2C</Address></CheatEntry><CheatEntry><ID>133</ID><Description>"Amount"</Description><Color>008000</Color><VariableType>Float</VariableType><Address>+30</Address></CheatEntry><CheatEntry><ID>134</ID><Description>"Shields"</Description><Color>008000</Color><VariableType>Float</VariableType><Address>+34</Address></CheatEntry><CheatEntry><ID>135</ID><Description>"Armor"</Description><Color>008000</Color><VariableType>Float</VariableType><Address>+38</Address></CheatEntry><CheatEntry><ID>136</ID><Description>"Greed"</Description><Color>008000</Color><VariableType>Float</VariableType><Address>+3C</Address></CheatEntry><CheatEntry><ID>137</ID><Description>"Regen"</Description><Color>008000</Color><VariableType>Float</VariableType><Address>+40</Address></CheatEntry><CheatEntry><ID>138</ID><Description>"Revivals"</Description><Color>008000</Color><VariableType>Double</VariableType><Address>+48</Address></CheatEntry><CheatEntry><ID>139</ID><Description>"Rerolls"</Description><Color>008000</Color><VariableType>Float</VariableType><Address>+50</Address></CheatEntry><CheatEntry><ID>140</ID><Description>"Skips"</Description><Color>008000</Color><VariableType>Float</VariableType><Address>+54</Address></CheatEntry><CheatEntry><ID>141</ID><Description>"MaxHP"</Description><Color>008000</Color><VariableType>Float</VariableType><Address>+58</Address></CheatEntry><CheatEntry><ID>142</ID><Description>"Magnet"</Description><Color>008000</Color><VariableType>Float</VariableType><Address>+5C</Address></CheatEntry><CheatEntry><ID>143</ID><Description>"Curse"</Description><Color>008000</Color><VariableType>Float</VariableType><Address>+60</Address></CheatEntry><CheatEntry><ID>144</ID><Description>"Banish"</Description><Color>008000</Color><VariableType>Float</VariableType><Address>+64</Address></CheatEntry><CheatEntry><ID>145</ID><Description>"Shroud"</Description><Color>008000</Color><VariableType>Float</VariableType><Address>+68</Address></CheatEntry><CheatEntry><ID>146</ID><Description>"Charm"</Description><Color>008000</Color><VariableType>4 Bytes</VariableType><Address>+6C</Address></CheatEntry></CheatEntries></CheatEntry></CheatEntries></CheatEntry></CheatEntries></CheatEntry><CheatEntry><ID>147</ID><Description>"Scripts"</Description><Options moHideChildren="1" /><Color>FF8000</Color><GroupHeader>1</GroupHeader><CheatEntries><CheatEntry><ID>148</ID><Description>"Infinite HP"</Description><Color>FF8000</Color><VariableType>Auto Assembler Script</VariableType><AssemblerScript>{
+Author	: Raynald
+Date	: 2023-04-14
+Game	: VampireSurvivors.exe
+Version	: 2021.3.18.10726
+}
+
+[ENABLE]
+aobscanregion(IHP,VampireSurvivors.Objects.Characters.CharacterController.GetDamaged,VampireSurvivors.Objects.Characters.CharacterController.GetDamaged+1000,F3??????0F2F??F3??????????????73??4C)
+alloc(mem_IHP,4)
+registersymbol(IHP mem_IHP)
+
+mem_IHP:
+  readmem(IHP,4)
+
+IHP+02:
+  db 58
+
+[DISABLE]
+IHP:
+  readmem(mem_IHP,4)
+
+dealloc(*)
+unregistersymbol(*)
+</AssemblerScript></CheatEntry><CheatEntry><ID>149</ID><Description>"EXP Multiplier"</Description><Options moHideChildren="1" /><Color>FF8000</Color><VariableType>Auto Assembler Script</VariableType><AssemblerScript>{
+Author	: Raynald
+Date	: 2023-04-14
+Game	: VampireSurvivors.exe
+Version	: 2021.3.18.10726
+}
+
+[ENABLE]
+aobscanregion(EXP,VampireSurvivors.Objects.Characters.CharacterController.AddXp,VampireSurvivors.Objects.Characters.CharacterController.AddXp+1000,F3??????????????F3??????0F28??????F3??????????????0F28??????4883????5BC3E8)
+alloc(al_EXP,$128,EXP)
+alloc(mem_EXP,8)
+alloc(EXP_Multiplier,4)
+label(re_EXP)
+registersymbol(EXP mem_EXP EXP_Multiplier)
+
+mem_EXP:
+  readmem(EXP,8)
+
+EXP_Multiplier:
+dd (float)3.0
+
+al_EXP:
+  readmem(EXP,8)
+  mulss xmm6,[EXP_Multiplier]
+  jmp re_EXP
+
+EXP:
+  jmp al_EXP
+  nop 3
+re_EXP:
+
+[DISABLE]
+EXP:
+  readmem(mem_EXP,8)
+
+dealloc(*)
+unregistersymbol(*)
+</AssemblerScript><CheatEntries><CheatEntry><ID>150</ID><Description>"Times"</Description><ShowAsSigned>0</ShowAsSigned><Color>FF8000</Color><VariableType>Float</VariableType><Address>EXP_Multiplier</Address></CheatEntry></CheatEntries></CheatEntry><CheatEntry><ID>151</ID><Description>"Area Multiplier"</Description><Options moHideChildren="1" /><Color>FF8000</Color><VariableType>Auto Assembler Script</VariableType><AssemblerScript>{
+Author	: Raynard
+Date	: 2023-04-21
+Game	: VampireSurvivors.exe
+Version	: 2021.3.18.10726
+}
+
+[ENABLE]
+aobscanregion(Area,VampireSurvivors.Objects.Weapons.Weapon.PArea,VampireSurvivors.Objects.Weapons.Weapon.PArea+1000,F3????????488B??????F3??????????????4883)
+alloc(al_Area,$128,Area)
+alloc(mem_Area,5)
+alloc(Area_Multiplier,4)
+label(re_Area)
+registersymbol(Area mem_Area Area_Multiplier)
+
+mem_Area:
+  readmem(Area,5)
+
+Area_Multiplier:
+dd (float)5.0
+
+al_Area:
+  readmem(Area,5)
+  mulss xmm0,[Area_Multiplier]
+  jmp re_Area
+
+Area:
+  jmp al_Area
+re_Area:
+
+[DISABLE]
+Area:
+  readmem(mem_Area,5)
+
+dealloc(*)
+unregistersymbol(*)
+</AssemblerScript><CheatEntries><CheatEntry><ID>152</ID><Description>"Times"</Description><ShowAsSigned>0</ShowAsSigned><Color>FF8000</Color><VariableType>Float</VariableType><Address>Area_Multiplier</Address></CheatEntry></CheatEntries></CheatEntry><CheatEntry><ID>153</ID><Description>"Gold Multiplier"</Description><Options moHideChildren="1" /><Color>FF8000</Color><VariableType>Auto Assembler Script</VariableType><AssemblerScript>{
+Author	: Raynald
+Date	: 2023-04-14
+Game	: VampireSurvivors.exe
+Version	: 2021.3.18.10726
+}
+
+[ENABLE]
+aobscanregion(Gold,VampireSurvivors.Objects.PlayerOptions.AddCoins,VampireSurvivors.Objects.PlayerOptions.AddCoins+1000,F3????????488B????4885??0F84????????0F28??0F28??F3????????F3??????F3????????488B????4885??74)
+alloc(al_Gold,$128,Gold)
+alloc(mem_Gold,5)
+alloc(Gold_Multiplier,4)
+label(re_Gold)
+registersymbol(Gold mem_Gold Gold_Multiplier)
+
+mem_Gold:
+  readmem(Gold,5)
+
+Gold_Multiplier:
+dd (float)5.0
+
+al_Gold:
+  subss xmm0,xmm6
+  mulss xmm6,[Gold_Multiplier]
+  addss xmm0,xmm6
+  readmem(Gold,5)
+  jmp re_Gold
+
+Gold:
+  jmp al_Gold
+re_Gold:
+
+[DISABLE]
+Gold:
+  readmem(mem_Gold,5)
+
+dealloc(*)
+unregistersymbol(*)
+</AssemblerScript><CheatEntries><CheatEntry><ID>154</ID><Description>"Times"</Description><ShowAsSigned>0</ShowAsSigned><Color>FF8000</Color><VariableType>Float</VariableType><Address>Gold_Multiplier</Address></CheatEntry></CheatEntries></CheatEntry><CheatEntry><ID>155</ID><Description>"Curse Multiplier"</Description><Options moHideChildren="1" /><Color>FF8000</Color><VariableType>Auto Assembler Script</VariableType><AssemblerScript>{
+Author	: Raynard
+Date	: 2023-04-21
+Game	: VampireSurvivors.exe
+Version	: 2021.3.18.10726
+}
+
+[ENABLE]
+aobscanregion(Curse,VampireSurvivors.Objects.Characters.CharacterController.PCurse,VampireSurvivors.Objects.Characters.CharacterController.PCurse+1000,F3????????4883????5BC3E8??????????????????????????????????????40534883????80????????????488B??75??488D??????????E8????????C6????????????488B??????????4885??74??488B??????????488B??????????488B??4885??74??488B??????????4885??74??488B????4885??74??F3????????F3????????4883????5BC3E8??????????????????????????????????????4053)
+alloc(al_Curse,$128,Curse)
+alloc(mem_Curse,5)
+alloc(Curse_Multiplier,4)
+label(re_Curse)
+registersymbol(Curse mem_Curse Curse_Multiplier)
+
+mem_Curse:
+  readmem(Curse,5)
+
+Curse_Multiplier:
+dd (float)1.5
+
+al_Curse:
+  readmem(Curse,5)
+  mulss xmm0,[Curse_Multiplier]
+  jmp re_Curse
+
+Curse:
+  jmp al_Curse
+re_Curse:
+
+[DISABLE]
+Curse:
+  readmem(mem_Curse,5)
+
+dealloc(*)
+unregistersymbol(*)
+</AssemblerScript><CheatEntries><CheatEntry><ID>156</ID><Description>"Times"</Description><ShowAsSigned>0</ShowAsSigned><Color>FF8000</Color><VariableType>Float</VariableType><Address>Curse_Multiplier</Address></CheatEntry></CheatEntries></CheatEntry><CheatEntry><ID>157</ID><Description>"Movement Multiplier"</Description><Options moHideChildren="1" /><Color>FF8000</Color><VariableType>Auto Assembler Script</VariableType><AssemblerScript>{
+Author	: Raynard
+Date	: 2023-04-21
+Game	: VampireSurvivors.exe
+Version	: 2021.3.18.10726
+}
+
+[ENABLE]
+aobscanregion(Movement,VampireSurvivors.Objects.Characters.CharacterController.get_ScaledVelocity,VampireSurvivors.Objects.Characters.CharacterController.get_ScaledVelocity+1000,F3????????F3??????????????F3??????F3??????0F28??0F14??66)
+alloc(al_Movement,$128,Movement)
+alloc(mem_Movement,6)
+alloc(Movement_Multiplier,4)
+label(re_Movement)
+registersymbol(Movement mem_Movement Movement_Multiplier)
+
+mem_Movement:
+  readmem(Movement,6)
+
+Movement_Multiplier:
+dd (float)2.5
+
+al_Movement:
+  readmem(Movement,6)
+  mulss xmm0,[Movement_Multiplier]
+  jmp re_Movement
+
+Movement:
+  jmp al_Movement
+  nop
+re_Movement:
+
+[DISABLE]
+Movement:
+  readmem(mem_Movement,6)
+
+dealloc(*)
+unregistersymbol(*)
+</AssemblerScript><CheatEntries><CheatEntry><ID>158</ID><Description>"Times"</Description><ShowAsSigned>0</ShowAsSigned><Color>FF8000</Color><VariableType>Float</VariableType><Address>Movement_Multiplier</Address></CheatEntry></CheatEntries></CheatEntry><CheatEntry><ID>159</ID><Description>"OHK/Damage Multiplier"</Description><Options moHideChildren="1" /><Color>FF8000</Color><VariableType>Auto Assembler Script</VariableType><AssemblerScript>{
+Author	: Raynard
+Date	: 2023-04-21
+Game	: VampireSurvivors.exe
+Version	: 2021.3.18.10726
+}
+
+[ENABLE]
+aobscanregion(Damage,VampireSurvivors.Objects.Characters.EnemyController.GetDamaged,VampireSurvivors.Objects.Characters.EnemyController.GetDamaged+1000,F3??????0F2F??F3??????????????72??488B??488B??488B)
+alloc(al_Damage,$128,Damage)
+alloc(mem_Damage,7)
+alloc(Damage_Multiplier,4)
+label(re_Damage Damage_Enabler OHK Multi_Damage)
+registersymbol(Damage mem_Damage Damage_Enabler Damage_Multiplier)
+
+mem_Damage:
+  readmem(Damage,7)
+
+Damage_Multiplier:
+dd (float)2.5
+
+al_Damage:
+  cmp [Damage_Enabler],1
+  je OHK
+  cmp [Damage_Enabler],2
+  je Multi_Damage
+  readmem(Damage,7)
+  jmp re_Damage
+
+OHK:
+  xorps xmm0,xmm0
+  readmem(Damage+04,3)
+  jmp re_Damage
+
+Multi_Damage:
+  mulss xmm6,[Damage_Multiplier]
+  readmem(Damage,7)
+  jmp re_Damage
+
+Damage_Enabler:
+dd 1
+
+Damage:
+  jmp al_Damage
+  nop 2
+re_Damage:
+
+[DISABLE]
+Damage:
+  readmem(mem_Damage,7)
+
+dealloc(*)
+unregistersymbol(*)
+</AssemblerScript><CheatEntries><CheatEntry><ID>160</ID><Description>"Select Type"</Description><DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">1:OHK
+2:Damage Multiplier
+</DropDownList><ShowAsSigned>0</ShowAsSigned><Color>FF8000</Color><VariableType>4 Bytes</VariableType><Address>Damage_Enabler</Address></CheatEntry><CheatEntry><ID>161</ID><Description>"Damage Multiplier"</Description><ShowAsSigned>0</ShowAsSigned><Color>FF8000</Color><VariableType>Float</VariableType><Address>Damage_Multiplier</Address></CheatEntry><CheatEntry><ID>162</ID><Description>"Damage Multiplier is only available when selected"</Description><Color>FF8000</Color><GroupHeader>1</GroupHeader></CheatEntry></CheatEntries></CheatEntry><CheatEntry><ID>163</ID><Description>""</Description><GroupHeader>1</GroupHeader></CheatEntry><CheatEntry><ID>164</ID><Description>"Set Defeat Times"</Description><Options moHideChildren="1" /><Color>FF8000</Color><VariableType>Auto Assembler Script</VariableType><AssemblerScript>{
+Author	: Raynald
+Date	: 2023-04-15
+Game	: VampireSurvivors.exe
+Version	: 2021.3.18.10726
+}
+
+[ENABLE]
+aobscanregion(Defeat,VampireSurvivors.Objects.Characters.EnemyController.Die,VampireSurvivors.Objects.Characters.EnemyController.Die+1000,74??FF????488B??????????488B??????????488B??4885)
+alloc(al_Defeat,$128,Defeat)
+alloc(mem_Defeat,5)
+alloc(Set_Defeat,4)
+label(re_Defeat)
+registersymbol(Defeat mem_Defeat Set_Defeat)
+
+mem_Defeat:
+  readmem(Defeat,5)
+
+Set_Defeat:
+dd #99999999
+
+al_Defeat:
+  reassemble(Defeat)
+  pushfq
+  push ebx
+  mov ebx,[Set_Defeat]
+  mov [rcx+68],ebx
+  pop ebx
+  popfq
+  jmp re_Defeat
+
+Defeat:
+  jmp al_Defeat
+re_Defeat:
+
+[DISABLE]
+Defeat:
+  readmem(mem_Defeat,5)
+
+dealloc(*)
+unregistersymbol(*)
+</AssemblerScript><CheatEntries><CheatEntry><ID>165</ID><Description>"Value"</Description><ShowAsSigned>0</ShowAsSigned><Color>FF8000</Color><VariableType>4 Bytes</VariableType><Address>Set_Defeat</Address></CheatEntry></CheatEntries></CheatEntry><CheatEntry><ID>166</ID><Description>"Ignore CheckSum"</Description><Color>FF8000</Color><VariableType>Auto Assembler Script</VariableType><AssemblerScript>{
+Author	: Raynald
+Date	: 2023-04-14
+Game	: VampireSurvivors.exe
+Version	: 2021.3.18.10726
+}
+
+[ENABLE]
+define(CheckSum,VampireSurvivors.Framework.Saves.SaveParser.checksum)
+
+CheckSum:
+  ret
+  nop
+
+[DISABLE]
+CheckSum:
+  db 40 53
+
+unregistersymbol(*)
+</AssemblerScript></CheatEntry><CheatEntry><ID>167</ID><Description>"No price increase"</Description><Color>FF8000</Color><VariableType>Auto Assembler Script</VariableType><AssemblerScript>{
+Author	: Raynald
+Date	: 2023-04-14
+Game	: VampireSurvivors.exe
+Version	: 2021.3.18.10726
+}
+
+[ENABLE]
+aobscanregion(Price,VampireSurvivors.PlayerStats.GetPrice,VampireSurvivors.PlayerStats.GetPrice+1000,74??8B????488B????4885??0F84????????83??????0F86????????488B????4885??0F84????????83)
+alloc(mem_Price,2)
+registersymbol(Price mem_Price)
+
+mem_Price:
+  readmem(Price,2)
+
+Price:
+  db EB
+  readmem(Price+01,1)
+
+[DISABLE]
+Price:
+  readmem(mem_Price,2)
+
+dealloc(*)
+unregistersymbol(*)
+</AssemblerScript></CheatEntry><CheatEntry><ID>168</ID><Description>"Set the luck at level up"</Description><Options moHideChildren="1" /><Color>FF8000</Color><VariableType>Auto Assembler Script</VariableType><AssemblerScript>{
+Author	: Raynald
+Date	: 2023-04-14
+Game	: VampireSurvivors.exe
+Version	: 2021.3.18.10726
+}
+
+[ENABLE]
+aobscanregion(LL,VampireSurvivors.UI.StatsPanelUI.GetCharacterValueFromPowerUpType,VampireSurvivors.UI.StatsPanelUI.GetCharacterValueFromPowerUpType+1000,F3????????488B??????488B??????4883????5FC3498B??????????488B??4885??0F84????????488B??????????4885??0F84????????488B????4885??0F84????????488B??????????4885??0F84????????F3????????488B??????488B??????4883????5FC3498B??????????488B??4885??0F84????????488B??????????4885??0F84????????488B????4885??0F84????????488B??????????4885??0F84????????F3????????488B??????488B??????4883????5FC3498B??????????488B??4885??0F84????????488B??????????4885??0F84????????488B????4885??0F84????????488B??????????4885??0F84????????F3????????488B??????488B??????4883????5FC3498B??????????488B??4885??0F84????????488B??????????4885??0F84????????488B????4885??0F84????????488B??????????4885??0F84????????F3????????488B??????488B??????4883????5FC3498B??????????488B??4885??0F84????????488B??????????4885??0F84????????488B????4885??0F84????????488B??????????4885??0F84????????F2)
+alloc(al_LL,$128,LL)
+alloc(mem_LL,5)
+alloc(Set_LL,4)
+label(re_LL)
+registersymbol(LL mem_LL Set_LL)
+
+mem_LL:
+  readmem(LL,5)
+
+Set_LL:
+dd (float)9999999
+
+al_LL:
+  push edx
+  mov edx,[Set_LL]
+  movd xmm0,edx
+  pop edx
+  readmem(LL,5)
+  jmp re_LL
+
+LL:
+  jmp al_LL
+re_LL:
+
+[DISABLE]
+LL:
+  readmem(mem_LL,5)
+
+dealloc(*)
+unregistersymbol(*)
+</AssemblerScript><CheatEntries><CheatEntry><ID>169</ID><Description>"Value"</Description><ShowAsSigned>0</ShowAsSigned><Color>FF8000</Color><VariableType>Float</VariableType><Address>Set_LL</Address></CheatEntry></CheatEntries></CheatEntry><CheatEntry><ID>170</ID><Description>"Set Option Level in Battle"</Description><Options moHideChildren="1" /><Color>FF8000</Color><VariableType>Auto Assembler Script</VariableType><AssemblerScript>{
+Author	: Raynald
+Date	: 2023-04-15
+Game	: VampireSurvivors.exe
+Version	: 2021.3.18.10726
+}
+
+[ENABLE]
+aobscanregion(OL,VampireSurvivors.UI.PauseEquipmentPanel.Populate,VampireSurvivors.UI.PauseEquipmentPanel.Populate+1000,448B????498B??488B??E8????????E9????????EB)
+alloc(al_OL,$128,OL)
+alloc(mem_OL,7)
+alloc(Set_OL,4)
+label(re_OL)
+registersymbol(OL mem_OL Set_OL)
+
+mem_OL:
+  readmem(OL,7)
+
+Set_OL:
+dd 1
+
+al_OL:
+  mov r8d,[Set_OL]
+  mov [rbx+44],r8d
+  readmem(OL,7)
+  jmp re_OL
+
+OL:
+  jmp al_OL
+  nop 2
+re_OL:
+
+[DISABLE]
+OL:
+  readmem(mem_OL,7)
+
+dealloc(*)
+unregistersymbol(*)
+</AssemblerScript><CheatEntries><CheatEntry><ID>171</ID><Description>"Value"</Description><ShowAsSigned>0</ShowAsSigned><Color>FF8000</Color><VariableType>4 Bytes</VariableType><Address>Set_OL</Address></CheatEntry><CheatEntry><ID>172</ID><Description>"Change level only"</Description><Color>FF8000</Color><GroupHeader>1</GroupHeader></CheatEntry></CheatEntries></CheatEntry><CheatEntry><ID>173</ID><Description>"Set Money/Refund Powerups"</Description><Options moHideChildren="1" /><Color>FF8000</Color><VariableType>Auto Assembler Script</VariableType><AssemblerScript>{
+Author	: Raynald
+Date	: 2023-04-14
+Game	: VampireSurvivors.exe
+Version	: 2021.3.18.10726
+}
+
+[ENABLE]
+aobscanregion(Money,VampireSurvivors.Objects.PlayerOptions.RefundPowerups,VampireSurvivors.Objects.PlayerOptions.RefundPowerups+1000,488B??8B????89????488B????4885??0F84????????488B)
+alloc(al_Money,$128,Money)
+alloc(mem_Money,6)
+alloc(Set_Money,4)
+label(re_Money)
+registersymbol(Money mem_Money Set_Money)
+
+mem_Money:
+  readmem(Money,6)
+
+Set_Money:
+dd (float)9999999
+
+al_Money:
+  readmem(Money,3)
+  pushfq
+  push edx
+  mov edx,[Set_Money]
+  mov [rax+7C],edx
+  pop edx
+  popfq
+  readmem(Money+03,3)
+  jmp re_Money
+
+Money:
+  jmp al_Money
+  nop
+re_Money:
+
+[DISABLE]
+Money:
+  readmem(mem_Money,6)
+
+dealloc(*)
+unregistersymbol(*)
+</AssemblerScript><CheatEntries><CheatEntry><ID>174</ID><Description>"Value"</Description><ShowAsSigned>0</ShowAsSigned><Color>FF8000</Color><VariableType>Float</VariableType><Address>Set_Money</Address></CheatEntry></CheatEntries></CheatEntry><CheatEntry><ID>175</ID><Description>"Increase recovery option at Levelup"</Description><Options moHideChildren="1" /><Color>FF8000</Color><VariableType>Auto Assembler Script</VariableType><AssemblerScript>{
+Author	: Raynald
+Date	: 2023-04-15
+Game	: VampireSurvivors.exe
+Version	: 2021.3.18.10726
+}
+
+[ENABLE]
+define(GR,VampireSurvivors.Objects.ModifierStats.get_Regen)
+alloc(al_GR,$128,GR)
+alloc(mem_GR,5)
+alloc(Set_GR,4)
+label(re_GR)
+registersymbol(GR mem_GR Set_GR)
+
+mem_GR:
+  readmem(GR,5)
+
+Set_GR:
+dd (float)9999
+
+al_GR:
+  push edx
+  mov edx,[Set_GR]
+  mov [rcx+40],edx
+  pop edx
+  readmem(GR,5)
+  jmp re_GR
+
+GR:
+  jmp al_GR
+re_GR:
+
+[DISABLE]
+GR:
+  readmem(mem_GR,5)
+
+dealloc(*)
+unregistersymbol(*)
+</AssemblerScript><CheatEntries><CheatEntry><ID>176</ID><Description>"Value"</Description><ShowAsSigned>0</ShowAsSigned><Color>FF8000</Color><VariableType>Float</VariableType><Address>Set_GR</Address></CheatEntry></CheatEntries></CheatEntry><CheatEntry><ID>177</ID><Description>"Unlock All Arcanas/quit stage once"</Description><Color>FF8000</Color><VariableType>Auto Assembler Script</VariableType><AssemblerScript>{
+Author	: Raynard
+Date	: 2023-04-21
+Game	: VampireSurvivors.exe
+Version	: 2021.3.18.10726
+}
+
+[ENABLE]
+define(Arcana,VampireSurvivors.Data.ArcanaData.get_unlocked)
+alloc(al_Arcana,$128,Arcana)
+alloc(mem_Arcana,5)
+registersymbol(Arcana mem_Arcana)
+
+mem_Arcana:
+  readmem(Arcana,5)
+
+al_Arcana:
+  mov al,1
+  mov [rcx+49],al
+  readmem(Arcana,5)
+
+Arcana:
+  jmp al_Arcana
+
+[DISABLE]
+Arcana:
+  readmem(mem_Arcana,5)
+
+dealloc(*)
+unregistersymbol(*)
+</AssemblerScript></CheatEntry><CheatEntry><ID>178</ID><Description>"Buy once then get maximum value in range"</Description><Color>FF8000</Color><VariableType>Auto Assembler Script</VariableType><AssemblerScript>{
+Author	: Raynald
+Date	: 2023-04-14
+Game	: VampireSurvivors.exe
+Version	: 2021.3.18.10726
+}
+
+[ENABLE]
+aobscanregion(Skill_Level,VampireSurvivors.PlayerStats.Refresh,VampireSurvivors.PlayerStats.Refresh+1000,89????8B????01????EB??EB)
+alloc(al_Skill_Level,$128,Skill_Level)
+alloc(mem_Skill_Level,6)
+alloc(Set_Skill_Level,4)
+label(re_Skill_Level)
+registersymbol(Skill_Level mem_Skill_Level Set_Skill_Level)
+
+mem_Skill_Level:
+  readmem(Skill_Level,6)
+
+Set_Skill_Level:
+dd 5
+
+al_Skill_Level:
+  mov ecx,[Set_Skill_Level]
+  readmem(Skill_Level,6)
+  jmp re_Skill_Level
+
+Skill_Level:
+  jmp al_Skill_Level
+  nop
+re_Skill_Level:
+
+[DISABLE]
+Skill_Level:
+  readmem(mem_Skill_Level,6)
+
+dealloc(*)
+unregistersymbol(*)
+</AssemblerScript></CheatEntry><CheatEntry><ID>179</ID><Description>"Ignore Max weapons limit in Character Selection"</Description><Color>FF8000</Color><VariableType>Auto Assembler Script</VariableType><AssemblerScript>{
+Author	: Raynald
+Date	: 2023-04-14
+Game	: VampireSurvivors.exe
+Version	: 2021.3.18.10726
+}
+
+[ENABLE]
+aobscanregion(Mweapon,VampireSurvivors.UI.CharacterSelectionPage.IncreaseMaxWeapons,VampireSurvivors.UI.CharacterSelectionPage.IncreaseMaxWeapons+1000,83??????7E??488B??????????488B????C7)
+alloc(mem_Mweapon,4)
+registersymbol(Mweapon mem_Mweapon)
+
+mem_Mweapon:
+  readmem(Mweapon,4)
+
+Mweapon+03:
+  db 63
+
+[DISABLE]
+Mweapon:
+  readmem(mem_Mweapon,4)
+
+dealloc(*)
+unregistersymbol(*)
+</AssemblerScript></CheatEntry><CheatEntry><ID>180</ID><Description>"Maximize Weapon Level/Open Menu/Level 1 is exception"</Description><Options moHideChildren="1" /><Color>FF8000</Color><VariableType>Auto Assembler Script</VariableType><AssemblerScript>{
+Author	: Raynald
+Date	: 2023-04-15
+Game	: VampireSurvivors.exe
+Version	: 2021.3.18.10726
+}
+
+[ENABLE]
+aobscanregion(WL,VampireSurvivors.UI.PauseEquipmentPanel.Populate,VampireSurvivors.UI.PauseEquipmentPanel.Populate+1000,448B????498B??488B??E8????????4C????4C)
+alloc(al_WL,$128,WL)
+alloc(mem_WL,7)
+label(re_WL)
+registersymbol(WL mem_WL)
+
+mem_WL:
+  readmem(WL,7)
+
+al_WL:
+  cmp [rbx+44],2
+  jae @f
+  readmem(WL,7)
+  jmp re_WL
+
+@@:
+  mov [rbx+44],8
+  readmem(WL,7)
+  jmp re_WL
+
+WL:
+  jmp al_WL
+  nop 2
+re_WL:
+
+[DISABLE]
+WL:
+  readmem(mem_WL,7)
+
+dealloc(*)
+unregistersymbol(*)
+</AssemblerScript><CheatEntries><CheatEntry><ID>181</ID><Description>"Change level only"</Description><Color>FF8000</Color><GroupHeader>1</GroupHeader></CheatEntry></CheatEntries></CheatEntry><CheatEntry><ID>182</ID><Description>""</Description><GroupHeader>1</GroupHeader></CheatEntry><CheatEntry><ID>183</ID><Description>"Read before using this cheat table"</Description><Color>FF8000</Color><VariableType>Auto Assembler Script</VariableType><AssemblerScript>[ENABLE]
+{$lua}
+if syntaxcheck then return end
+
+local Message = [[
+0. This cheat table assumes the following operations
+
+1. Open Vampire Survivors properties on Steam
+
+2. Open the Beta section and select Public Beta
+
+3. Enter newenginepls in the beta access code
+
+4. If you see new-engine - New Engine, you are done
+
+5. This allows Vampire Survivors to be activated in Unity
+]]
+
+showMessage(Message);return 'nop'
+
+[DISABLE]
+</AssemblerScript></CheatEntry></CheatEntries></CheatEntry></CheatEntries><UserdefinedSymbols /><LuaScript>function Open()
+         local al = AddressList
+         for i = 0, al.count -1 do
+             if al[i].Type == 0 and
+                al[i].Parent == nil and
+                al[i].Description ~= "Basic" and
+                al[i].isAddressGroupHeader == false then
+                al[i].Active = true
+             end
+         end
+end
+
+function Check()
+  if(getCEVersion() &lt; 7.4) then
+    ShowMessage('Cheat Engine 7.4 or above is recommended.')
+  end
+end
+
+function Compact()
+  if CV_Exists then return end
+  local parent = getMainForm().Menu.Items
+  mi = createMenuItem(parent); parent.add(mi)
+  mi.Caption = 'Compact'
+  mi.OnClick = Routine
+  CV_Exists = 'yes'
+end
+
+function Routine(sender,force)
+  local state = not(mi.Caption == 'Compact')
+  local mf = getMainForm()
+  if force ~= nil then state = not force end
+  mi.Caption = state and 'Compact' or 'Full View'
+  mf.Splitter1.Visible = state
+  mf.Panel4.Visible    = state
+  mf.Panel5.Visible    = state
+end
+
+PROCESS_NAME = 'VampireSurvivors.exe'
+local Attach = nil
+local Interval = 100
+local MinCount = 0
+local MaxCount = 1000
+
+local function AutoAttach(Timer)
+    if getProcessIDFromProcessName(PROCESS_NAME) == nil then return end
+        Timer.destroy()
+        openProcess(PROCESS_NAME)
+        mono_initialize()
+        LaunchMonoDataCollector()
+        Routine(nil,true)
+        if MaxCount &gt; 0 and MinCount &gt;= MaxCount then
+        Timer.destroy()
+    end
+    MinCount = MinCount + 1
+end
+
+Open()
+Check()
+Compact()
+Attach = createTimer(MainForm)
+Attach.Interval = Interval
+Attach.OnTimer = AutoAttach
+</LuaScript></CheatTable>

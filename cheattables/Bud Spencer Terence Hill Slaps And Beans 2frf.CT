@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="45">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>244</ID>
+      <Description>"Enable"</Description>
+      <Options moHideChildren="1"/>
+      <Color>0000FF</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+
+{$lua}
+
+LaunchMonoDataCollector()
+
+
+
+{$asm}
+
+
+[DISABLE]
+
+{$lua}
+
+{$asm}
+
+
+
+
+
+
+
+</AssemblerScript>
+      <Hotkeys>
+        <Hotkey>
+          <Action>Toggle Activation</Action>
+          <Keys>
+            <Key>17</Key>
+            <Key>96</Key>
+          </Keys>
+          <ID>0</ID>
+          <ActivateSound TTS="EN">Process Opened and Mono With Compacted View Activated</ActivateSound>
+          <DeactivateSound TTS="EN">Process Opened and Mono With Compacted View Deactivated</DeactivateSound>
+        </Hotkey>
+      </Hotkeys>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>109136</ID>
+          <Description>"Infinite Captured Health (Ctrl + Numpad 3) {Only if characters are captured while being attacked}"</Description>
+          <Color>FF0000</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>// Game Executable   : SnB2.exe
+// Author            : ndck76
+// Executable Version: 2021.3.21.5473
+// Game Version      : v1.00
+// Script Date       : 2023-09-25
+
+
+define(address,CharacterState_BLOCKED_TERENCE:ProcessAttacked+6a1)
+define(bytes,F3 0F 10 40 58)
+
+[ENABLE]
+
+assert(address,bytes)
+alloc(newmem,$1000,CharacterState_BLOCKED_TERENCE:ProcessAttacked+6a1)
+
+label(code)
+label(return)
+
+newmem:
+  mov [rax+58],(float)999
+
+code:
+  movss xmm0,[rax+58]
+  jmp return
+
+address:
+  jmp newmem
+return:
+
+[DISABLE]
+
+address:
+  db bytes
+  // movss xmm0,[rax+58]
+
+dealloc(newmem)
+
+</AssemblerScript>
+          <Hotkeys>
+            <Hotkey>
+              <Action>Toggle Activation</Action>
+              <Keys>
+                <Key>17</Key>
+                <Key>99</Key>
+              </Keys>
+              <ID>0</ID>
+              <ActivateSound TTS="EN">Infinite Captured Health Activated</ActivateSound>
+              <DeactivateSound TTS="EN">Infinite Captured Health Deactivated</DeactivateSound>
+            </Hotkey>
+          </Hotkeys>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>16273</ID>
+      <Description>"More CHEATS AVAILABLE HERE"</Description>
+      <Color>0000FF</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>{$LUA}
+  if syntaxcheck then return end
+  [ENABLE]
+
+--Updated table! (Start)
+    --messageDialog('Enable Dark Mode?', mtInformation,mbYes,mbNo)
+    if messageDialog("Updated table with more cheats available!\r\n\r\nYou will need Mod Engine to get more cheats and the new updated table\r\n\r\nDownload Mod Engine?", mtConfirmation, mbYes, mbNo) ==mrYes then
+       shellExecute("https://modengine.net")
+    else
+    end
+--Updated table! (End)
+  [DISABLE]
+
+</AssemblerScript>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+  <LuaScript>--Updated table! (Start)
+    --messageDialog('Enable Dark Mode?', mtInformation,mbYes,mbNo)
+    if messageDialog("Updated table with more cheats available!\r\n\r\nYou will need Mod Engine to get more cheats and the new updated table\r\n\r\nDownload Mod Engine?", mtConfirmation, mbYes, mbNo) ==mrYes then
+       shellExecute("https://modengine.net")
+    else
+    end
+--Updated table! (End)
+
+
+
+
+
+
+</LuaScript>
+</CheatTable>
